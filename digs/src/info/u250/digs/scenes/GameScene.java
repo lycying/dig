@@ -106,4 +106,15 @@ public class GameScene extends SceneStage {
 		meshBackground.render(Engine.getDeltaTime());
 		super.draw();
 	}
+	
+	@Override
+	public void show() {
+		Engine.getMusicManager().playMusic("MusicBattle", true);
+		super.show();
+	}
+	@Override
+	public void hide() {
+		Engine.getMusicManager().stopMusic("MusicBattle");
+		super.hide();
+	}
 }

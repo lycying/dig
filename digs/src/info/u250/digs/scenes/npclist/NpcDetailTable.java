@@ -1,7 +1,6 @@
 package info.u250.digs.scenes.npclist;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.scenes.game.entity.BaseEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,7 +21,7 @@ public class NpcDetailTable extends Table{
 	Label healRange;
 	Label defense;
 	
-	BaseEntity npc;
+	NpcWrapper npc;
 	
 	Group npcSolt;
 	public NpcDetailTable(){
@@ -95,27 +94,27 @@ public class NpcDetailTable extends Table{
 		
 	}
 	
-	public void fill(BaseEntity e){
-		this.npc = e;
-		e.setScale(8);
+	public void fill(NpcWrapper eWrapper){
+		this.npc = eWrapper;
+		eWrapper.e.setScale(8);
 		npcSolt.clear();
-		npcSolt.addActor(e);
-		speed.setText((int)e.speed+"");
-		hp.setText(e.hp+"");
-		hp.setColor(e.hp>0?Color.WHITE:Color.YELLOW);
-		gold.setText(e.goldHold+"");
-		gold.setColor(e.goldHold>0?Color.WHITE:Color.YELLOW);
-		attack.setText(e.attack+"");
-		attack.setColor(e.attack>0?Color.WHITE:Color.YELLOW);
-		attackRange.setText(e.attackRange+"");
-		heal.setText(e.heal+"");
-		heal.setColor(e.heal>0?Color.WHITE:Color.YELLOW);
-		healRange.setText(e.healRange+"");
-		defense.setText(e.defense?"Yes":"No");
-		defense.setColor(e.defense?Color.GREEN:Color.RED);
+		npcSolt.addActor(eWrapper.e);
+		speed.setText((int)eWrapper.e.speed+"");
+		hp.setText(eWrapper.e.hp+"");
+		hp.setColor(eWrapper.e.hp>0?Color.WHITE:Color.YELLOW);
+		gold.setText(eWrapper.e.goldHold+"");
+		gold.setColor(eWrapper.e.goldHold>0?Color.WHITE:Color.YELLOW);
+		attack.setText(eWrapper.e.attack+"");
+		attack.setColor(eWrapper.e.attack>0?Color.WHITE:Color.YELLOW);
+		attackRange.setText(eWrapper.e.attackRange+"");
+		heal.setText(eWrapper.e.heal+"");
+		heal.setColor(eWrapper.e.heal>0?Color.WHITE:Color.YELLOW);
+		healRange.setText(eWrapper.e.healRange+"");
+		defense.setText(eWrapper.e.defense?"Yes":"No");
+		defense.setColor(eWrapper.e.defense?Color.GREEN:Color.RED);
 	}
 
-	public BaseEntity getNpc() {
+	public NpcWrapper getNpc() {
 		return npc;
 	}
 	

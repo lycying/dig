@@ -5,21 +5,21 @@ filter: Nearest,Nearest
 repeat: none
 bad1
   rotate: false
-  xy: 477, 468
+  xy: 1, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bad2
   rotate: false
-  xy: 67, 49
+  xy: 359, 340
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bad3
   rotate: false
-  xy: 965, 959
+  xy: 249, 215
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -33,7 +33,7 @@ bombman
   index: -1
 btn-add-1
   rotate: false
-  xy: 259, 473
+  xy: 259, 466
   size: 107, 106
   orig: 107, 106
   offset: 0, 0
@@ -47,30 +47,30 @@ btn-add-2
   index: -1
 btn-ok-1
   rotate: false
-  xy: 585, 618
+  xy: 522, 571
   size: 146, 43
   orig: 146, 43
   offset: 0, 0
   index: -1
 btn-ok-2
   rotate: false
-  xy: 396, 573
+  xy: 803, 675
   size: 146, 43
   orig: 146, 43
   offset: 0, 0
   index: -1
 btn-start-1
   rotate: false
-  xy: 396, 663
-  size: 187, 43
-  orig: 187, 43
+  xy: 803, 720
+  size: 146, 49
+  orig: 146, 49
   offset: 0, 0
   index: -1
 btn-start-2
   rotate: false
-  xy: 396, 618
-  size: 187, 43
-  orig: 187, 43
+  xy: 1, 19
+  size: 146, 49
+  orig: 146, 49
   offset: 0, 0
   index: -1
 btn-sub-1
@@ -82,7 +82,7 @@ btn-sub-1
   index: -1
 btn-sub-2
   rotate: false
-  xy: 368, 465
+  xy: 272, 358
   size: 107, 106
   orig: 107, 106
   offset: 0, 0
@@ -124,7 +124,7 @@ control-1
   index: -1
 default-rect-pad
   rotate: false
-  xy: 131, 164
+  xy: 138, 164
   size: 18, 31
   split: 8, 9, 4, 26
   pad: 4, 4, 3, 3
@@ -133,7 +133,7 @@ default-rect-pad
   index: -1
 default-slider
   rotate: false
-  xy: 759, 675
+  xy: 368, 541
   size: 18, 31
   split: 9, 8, 4, 26
   pad: 4, 4, 3, 3
@@ -142,7 +142,7 @@ default-slider
   index: -1
 detail
   rotate: false
-  xy: 259, 581
+  xy: 1, 70
   size: 135, 125
   split: 14, 15, 14, 14
   orig: 135, 125
@@ -150,35 +150,63 @@ detail
   index: -1
 dock
   rotate: false
-  xy: 585, 663
+  xy: 522, 663
   size: 172, 43
   orig: 172, 43
   offset: 0, 0
   index: -1
 flag
   rotate: false
-  xy: 163, 207
+  xy: 965, 951
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
+flag-gold
+  rotate: false
+  xy: 272, 240
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+flag-gold-many
+  rotate: false
+  xy: 138, 146
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+flag-jewel
+  rotate: false
+  xy: 762, 676
+  size: 38, 30
+  orig: 38, 30
+  offset: 0, 0
+  index: -1
+flag-white-gold
+  rotate: false
+  xy: 314, 240
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
 gold
   rotate: false
-  xy: 286, 455
+  xy: 368, 523
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 good
   rotate: false
-  xy: 131, 146
+  xy: 965, 885
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 label
   rotate: false
-  xy: 368, 573
+  xy: 259, 458
   size: 1, 6
   split: 0, 0, 2, 3
   pad: 0, 0, 0, 2
@@ -187,7 +215,7 @@ label
   index: -1
 label2
   rotate: false
-  xy: 803, 720
+  xy: 392, 574
   size: 5, 2
   split: 0, 0, 0, 0
   orig: 5, 2
@@ -195,56 +223,63 @@ label2
   index: -1
 level
   rotate: false
-  xy: 733, 637
+  xy: 762, 650
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 npc1
   rotate: false
-  xy: 759, 657
+  xy: 19, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 npc2
   rotate: false
-  xy: 779, 690
+  xy: 359, 322
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 npc3
   rotate: false
-  xy: 189, 215
+  xy: 138, 128
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 npc4
   rotate: false
-  xy: 733, 619
+  xy: 368, 505
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 1, 1
+  xy: 696, 642
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 play
   rotate: false
-  xy: 1, 67
+  xy: 392, 578
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+shop
+  rotate: false
+  xy: 163, 198
+  size: 84, 33
+  orig: 84, 33
+  offset: 0, 0
+  index: -1
 topbar
   rotate: false
-  xy: 259, 449
+  xy: 965, 927
   size: 25, 22
   split: 12, 12, 10, 11
   pad: 11, 12, 10, 11
@@ -253,7 +288,7 @@ topbar
   index: -1
 troop-bg
   rotate: false
-  xy: 477, 486
+  xy: 272, 271
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
@@ -274,9 +309,17 @@ ui-board
   orig: 256, 257
   offset: 0, 0
   index: -1
+ui-label-bg
+  rotate: false
+  xy: 951, 761
+  size: 1, 8
+  split: 0, 0, 0, 0
+  orig: 1, 8
+  offset: 0, 0
+  index: -1
 ui-npc-item
   rotate: false
-  xy: 544, 594
+  xy: 965, 903
   size: 25, 22
   split: 12, 12, 10, 11
   pad: 11, 12, 10, 11
@@ -285,10 +328,17 @@ ui-npc-item
   index: -1
 ui-topinfo
   rotate: false
-  xy: 803, 724
+  xy: 522, 616
   size: 161, 45
   split: 42, 49, 8, 6
   pad: 36, 40, 8, 6
   orig: 161, 45
+  offset: 0, 0
+  index: -1
+wheel
+  rotate: false
+  xy: 259, 574
+  size: 131, 132
+  orig: 131, 132
   offset: 0, 0
   index: -1

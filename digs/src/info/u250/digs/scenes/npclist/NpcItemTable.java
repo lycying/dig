@@ -23,20 +23,21 @@ public class NpcItemTable extends  Table{
 	final NpcListScene container;
 	@SuppressWarnings("rawtypes")
 	final Class flag;
-	public NpcItemTable(final BaseEntity e,final NpcListScene npcListScene){
+	public NpcItemTable(final NpcWrapper eWrapper,final NpcListScene npcListScene){
 		container = npcListScene;
-		flag = e.getClass();
+		flag = eWrapper.e.getClass();
 		TextureAtlas atlas = Engine.resource("All");
 		
 		this.setBackground(new NinePatchDrawable(atlas.createPatch("ui-npc-item")));
 		try {
-			this.add(new Image(((BaseEntity)Class.forName(e.getClass().getName()).newInstance()).getWalkAnimationLeft().getKeyFrame(0)));
+			//TODO
+			this.add(new Image(((BaseEntity)Class.forName(eWrapper.e.getClass().getName()).newInstance()).getWalkAnimationLeft().getKeyFrame(0)));
 		} catch (Exception e1) {
 			this.add();
 		}
 		
-		Label title = new Label(e.title,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.YELLOW));
-		Label desc = new Label(e.desc,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.BLACK));
+		Label title = new Label(eWrapper.title,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.YELLOW));
+		Label desc = new Label(eWrapper.desc,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.BLACK));
 		Label clickTo = new Label("click to see it's attributes ",new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.GRAY));
 		desc.setWrap(true);
 		this.add(title).align(BaseTableLayout.LEFT);
@@ -50,7 +51,7 @@ public class NpcItemTable extends  Table{
 		this.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				npcListScene.detailTable.fill(e);
+				npcListScene.detailTable.fill(eWrapper);
 				super.clicked(event, x, y);
 			}
 		});
@@ -58,7 +59,7 @@ public class NpcItemTable extends  Table{
 	Vector2 tmp = new Vector2();
 	@Override
 	public void act(float delta) {
-		if(container.detailTable.getNpc().getClass() == flag){
+		if(container.detailTable.getNpc().e.getClass() == flag){
 			this.setColor(Color.YELLOW);
 			
 			container.followImage.setOrigin(0, 2);

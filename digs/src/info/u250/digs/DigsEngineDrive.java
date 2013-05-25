@@ -36,8 +36,11 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("All", "data/all.atlas");
-	
 		reg.font("Font", "data/fnt/foot.fnt");
+		
+		reg.music("MusicBackground", "data/music/bg.mp3");
+		reg.music("MusicBattle", "data/music/battle.mp3");
+		reg.sound("SoundClick", "data/sounds/click.ogg");
 	}
 
 }

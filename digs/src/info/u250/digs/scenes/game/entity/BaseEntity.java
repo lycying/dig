@@ -44,9 +44,6 @@ public abstract class BaseEntity extends Actor {
 	
 	protected Animation animation ;
 	
-	public String title;
-	public String desc;
-	
 	public boolean self = true;
 	public float speed = 40;
 	public int attack = 0;

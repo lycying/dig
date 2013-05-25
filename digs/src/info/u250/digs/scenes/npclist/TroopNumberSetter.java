@@ -78,6 +78,7 @@ public class TroopNumberSetter extends Group {
 			public void clicked(InputEvent event, float x, float y) {
 				aim.setTroopNumber(number);
 				close();
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
 		});
@@ -90,6 +91,7 @@ public class TroopNumberSetter extends Group {
 				}
 				lblNumber.setText(number+"");
 				aim.setTroopNumber(number);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
 		});
@@ -102,6 +104,7 @@ public class TroopNumberSetter extends Group {
 				}
 				lblNumber.setText(number+"");
 				aim.setTroopNumber(number);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
 		});

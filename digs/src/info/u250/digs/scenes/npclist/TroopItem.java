@@ -3,48 +3,64 @@ package info.u250.digs.scenes.npclist;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.NpcListScene;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 
 public class TroopItem extends Group {
-//	Path<Vector2> path;
-//	Sprite dot;
-//	float t;
-//	float speed = 1.3f;
-//	final Vector2 tmpV = new Vector2();
 	
 	final NpcListScene container;
 	int number = 0;
 	final Label lblNumber ;
+	final Image lock;
+	final Image icon;
 	
-	public TroopItem(final NpcListScene npcListScene){
+	ParticleEffectActor p ;
+	
+	public TroopItem(final NpcWrapper eWrapper,final NpcListScene npcListScene){
+		ParticleEffect e = new ParticleEffect();
+		e.load(Gdx.files.internal("data/e.p"), Gdx.files.internal("data/"));
+		p = new ParticleEffectActor(e);
+		p.setX(30);
+		p.setY(30);
 		this.container = npcListScene;
 		int w = 85;
 		int h = 85;
 		this.setSize(w,h);
 		TextureAtlas atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
-		this.addActor(new Image(atlas.findRegion("troop-bg")));
+		Image backgroundImage = new Image(atlas.findRegion("troop-bg"));
+//		backgroundImage.addAction(Actions.forever(Actions.sequence(
+//				Actions.rotateBy(360,0.5f),
+//				Actions.rotateBy(-360,1f)
+//				)));
+		this.addActor(backgroundImage);
 		lblNumber = new Label("0",new LabelStyle(font,Color.BLACK));
-		Image lock = new Image(atlas.findRegion("troop-lock"));
-		this.addActor(lblNumber);
+		lblNumber.setAlignment(Align.center);
+		lblNumber.setWidth(w);
+		lblNumber.getStyle().background = new NinePatchDrawable(atlas.createPatch("ui-label-bg"));
+		
+		lock = new Image(atlas.findRegion("troop-lock"));
 		lock.setPosition(35, 10);
-		this.addActor(lock);
-//		dot = new Sprite(atlas.findRegion("color"));
-//		
-//		Vector2 cp[] = new Vector2[]{
-//				new Vector2(0, 0), new Vector2(w * 0.25f, h * 0.5f), new Vector2(0, h), new Vector2(w*0.5f, h*0.75f),
-//				new Vector2(w, h), new Vector2(w * 0.75f, h * 0.5f), new Vector2(w, 0), new Vector2(w*0.5f, h*0.25f)
-//			};
-//		path = new BSpline<Vector2>(cp, 3, true);
+		
+		if(null!= eWrapper){
+			icon = new Image(atlas.findRegion(eWrapper.troopIcon));
+		}else{
+			icon = new Image();
+		}
+		icon.setSize(w, h);
 		
 		
 		this.addListener(new ClickListener(){
@@ -52,21 +68,28 @@ public class TroopItem extends Group {
 			public void clicked(InputEvent event, float x, float y) {
 				container.addActor(container.troopNumberSetter);
 				container.troopNumberSetter.show(TroopItem.this);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
 		});
+		
+		reShow(eWrapper);
 	}
-//	@Override
-//	public void draw(SpriteBatch batch, float parentAlpha) {
-//		super.draw(batch, parentAlpha);
-//		t += speed * Gdx.graphics.getDeltaTime();
-//		while (t >= 1f) {
-//			t -= 1f;
-//		}
-//		path.valueAt(tmpV, t);
-//		dot.setPosition(getX()+tmpV.x, getY()+tmpV.y);
-//		dot.draw(batch);
-//	}
+	public void reShow(final NpcWrapper eWrapper){
+		lock.remove();
+		icon.remove();
+		lblNumber.remove();
+		//lblNumber.setColor(new Color(0,125f/255f,110f/255f,0.8f));
+		if(null == eWrapper || eWrapper.lock){
+			this.addActor(lock);
+			this.setTouchable(Touchable.disabled);
+		}else{
+			this.addActor(p);
+			this.addActor(icon);
+			this.addActor(lblNumber);
+			this.setTouchable(Touchable.enabled);
+		}
+	}
 	
 	public void setTroopNumber(int number){
 		this.number = number;
