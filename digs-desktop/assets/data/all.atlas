@@ -3,30 +3,16 @@ all.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bad1
+bombman
   rotate: false
   xy: 1, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-bad2
+bombman2
   rotate: false
   xy: 359, 340
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bad3
-  rotate: false
-  xy: 249, 215
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-bombman
-  rotate: false
-  xy: 1001, 981
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -171,7 +157,7 @@ flag-gold
   index: -1
 flag-gold-many
   rotate: false
-  xy: 138, 146
+  xy: 249, 215
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -192,14 +178,7 @@ flag-white-gold
   index: -1
 gold
   rotate: false
-  xy: 368, 523
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-good
-  rotate: false
-  xy: 965, 885
+  xy: 1001, 981
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -228,14 +207,42 @@ level
   orig: 24, 24
   offset: 0, 0
   index: -1
-npc1
+npc1-walk-right-1
+  rotate: false
+  xy: 138, 146
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc1-walk-right-2
+  rotate: false
+  xy: 368, 523
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc2-attack-right-1
+  rotate: false
+  xy: 965, 885
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc2-attack-right-2
+  rotate: false
+  xy: 965, 885
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc2-walk-right-1
   rotate: false
   xy: 19, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc2
+npc2-walk-right-2
   rotate: false
   xy: 359, 322
   size: 16, 16
@@ -244,14 +251,42 @@ npc2
   index: -1
 npc3
   rotate: false
+  xy: 359, 304
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-heal-right-1
+  rotate: false
   xy: 138, 128
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-heal-right-2
+  rotate: false
+  xy: 368, 505
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-walk-right-1
+  rotate: false
+  xy: 965, 867
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-walk-right-2
+  rotate: false
+  xy: 37, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 npc4
   rotate: false
-  xy: 368, 505
+  xy: 138, 110
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

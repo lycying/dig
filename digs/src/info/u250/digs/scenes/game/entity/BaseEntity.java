@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public abstract class BaseEntity extends Actor {
+	enum NpcStatus{
+		Walk,
+		GoldWalk,
+		Attack,
+		Heal
+	}
 	public BaseEntity(){
 		this.setSize(16, 16);
 		this.drawable.setSize(16, 16);
@@ -42,6 +49,7 @@ public abstract class BaseEntity extends Actor {
 	private BaseEntity healAim ;
 	private Vector2 tmp = new Vector2();
 	
+	protected NpcStatus status = NpcStatus.Walk;
 	protected Animation animation ;
 	
 	public boolean self = true;
@@ -53,6 +61,7 @@ public abstract class BaseEntity extends Actor {
 	public int hp     = 0;
 	public int goldHold = 1;
 	public boolean defense = false;
+	public int cost = 50;
 	
 	//the main terrain
 	protected Terrain terrain;
@@ -80,13 +89,26 @@ public abstract class BaseEntity extends Actor {
 	}
 	@Override
 	public void act(float delta) {
+		switch (status) {
+		case Walk:
+			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
+			break;
+		case Attack:
+			animation = this.getX()>this.attackAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
+			break;
+		case Heal:
+			animation = this.getX()>this.healAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
+			break;
+		default:
+			break;
+		}
 		/*============Put Down Gold ================================*/
 		if(isHoldGold){
 			for(Dock dock:terrain.docks){
 				if(this.drawable.getBoundingRectangle().overlaps(dock.actor.getBoundingRectangle())){
 					isHoldGold = false;
 					this.speedX = - this.speedX;
-					animation = getWalkAnimationLeft();
+					status = NpcStatus.Walk;
 					dock.number++;
 				}
 			}
@@ -110,6 +132,7 @@ public abstract class BaseEntity extends Actor {
 		//reset it~~
 		isActtacking = false;
 		isHealing = false;
+		status = NpcStatus.Walk;
 		
 		for(Actor actor:terrain.getChildren()){
 			if(actor == this)continue;
@@ -119,10 +142,12 @@ public abstract class BaseEntity extends Actor {
 				
 				//if the enemy is not defensed and is not our patterns , then i will try attack it
 				//i should have attack that bigger than zero and have not in attacking
-				if(e.currentHP>0 && !e.defense && !self && attack>0 && !isActtacking){
+				if(e.currentHP>0 && !e.defense && !self && attack>0){
 					if(dst<attackRange){
 						isActtacking = true;
 						attackAim = e;
+						status = NpcStatus.Attack;
+						followNpc(e);
 					}
 				}
 				//heal
@@ -130,6 +155,8 @@ public abstract class BaseEntity extends Actor {
 					if(dst<healRange){
 						isHealing = true;
 						healAim = e;
+						status = NpcStatus.Heal;
+						followNpc(e);
 					}
 				}
 			}
@@ -230,7 +257,7 @@ public abstract class BaseEntity extends Actor {
 		terrain.dig(r, x, y);
 		
 		isHoldGold = true;
-		animation = getGoldAnimationLeft();
+		status = NpcStatus.GoldWalk;
 	}
 	
 	private float getRandomSpeedX(){
@@ -291,8 +318,43 @@ public abstract class BaseEntity extends Actor {
 	public final void setAnimation(Animation animation){
 		this.animation = animation;
 	}
+	
+	public void followNpc(BaseEntity e){
+		if(e.speedX*this.speedX>0){
+			if(this.speedX>0){
+				if(this.getX()-90>e.getX()){
+					if(Math.abs(this.speedX)>Math.abs(e.speedX)){
+						this.speedX = -speedX;
+					}
+				}
+			}else{
+				if(this.getX()<e.getX()-90){
+					if(Math.abs(this.speedX)>Math.abs(e.speedX)){
+						this.speedX = -speedX;
+					}
+				}
+			}
+		}else{
+			if(this.speedX>0){
+				if(this.getX() - 90>e.getX()){
+					this.speedX = -speedX;
+				}
+			}else{
+				if(this.getX()<e.getX() - 90){
+					this.speedX = -speedX;
+				}
+			}
+		}
+	}
+	
 	public abstract Animation getWalkAnimationLeft();
 	public abstract Animation getWalkAnimationRight();
 	public abstract Animation getGoldAnimationLeft();
 	public abstract Animation getGoldAnimationRight();
+	public abstract Animation getSkillAnimationLeft();
+	public abstract Animation getSkillAnimationRight();
+	protected TextureRegion flipRegion(TextureRegion region){
+		region.flip(true, false);
+		return region;
+	}
 }

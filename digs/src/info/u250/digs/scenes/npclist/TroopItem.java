@@ -26,10 +26,12 @@ public class TroopItem extends Group {
 	final Label lblNumber ;
 	final Image lock;
 	final Image icon;
+	final NpcWrapper eWrapper;
 	
 	ParticleEffectActor p ;
 	
 	public TroopItem(final NpcWrapper eWrapper,final NpcListScene npcListScene){
+		this.eWrapper = eWrapper;
 		ParticleEffect e = new ParticleEffect();
 		e.load(Gdx.files.internal("data/e.p"), Gdx.files.internal("data/"));
 		p = new ParticleEffectActor(e);
@@ -97,5 +99,9 @@ public class TroopItem extends Group {
 	}
 	public int getTroopNumber(){
 		return this.number;
+	}
+	public int getTroopCost(){
+		if(null == eWrapper) return 0;
+		return number * eWrapper.e.cost;
 	}
 }

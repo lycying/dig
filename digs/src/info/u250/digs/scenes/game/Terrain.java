@@ -3,7 +3,7 @@ package info.u250.digs.scenes.game;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.pixmap.PixmapHelper;
 import info.u250.digs.scenes.game.entity.HealBoy;
-import info.u250.digs.scenes.game.entity.NPC;
+import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.Watchmen;
 
 import java.util.Random;
@@ -93,15 +93,15 @@ public class Terrain extends Group{
 		this.addActor(dock2);
 		
 		for(int i=0;i<50;i++){
-			NPC e = new NPC();
+			GreenHat e = new GreenHat();
 			e.init(this);
-			e.setPosition(10+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*500);
 			this.addActor(e);
 		}
 		for(int i=0;i<5;i++){
 			Watchmen e = new Watchmen();
 			e.init(this);
-			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*500);
 			this.addActor(e);
 		}
 		for(int i=0;i<6;i++){

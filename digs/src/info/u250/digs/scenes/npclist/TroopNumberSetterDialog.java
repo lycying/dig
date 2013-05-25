@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.npclist;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.scenes.NpcListScene;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class TroopNumberSetter extends Group {
+public class TroopNumberSetterDialog extends Group {
 	
 	Label lblNumber ;
 	Label lblGoldNumber ;
@@ -29,9 +30,11 @@ public class TroopNumberSetter extends Group {
 	Button btnOk ;
 	Group mainGroup ;
 	TroopItem aim;
-	
 	int number;
-	public TroopNumberSetter(){
+	final NpcListScene container;
+	public TroopNumberSetterDialog(NpcListScene npcListScene){
+		this.container = npcListScene;
+		
 		TextureAtlas atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
 		this.setSize(Engine.getWidth(), Engine.getHeight());
@@ -112,10 +115,11 @@ public class TroopNumberSetter extends Group {
 		mainGroup.setY(mainGroup.getY()+800);
 	}
 	public void close(){
+		this.container.countTroopsCost();
 		mainGroup.addAction(Actions.sequence(Actions.moveBy(0,800,0.2f,Interpolation.swingIn),Actions.run(new Runnable() {	
 			@Override
 			public void run() {
-				TroopNumberSetter.this.remove();
+				TroopNumberSetterDialog.this.remove();
 			}
 		})));
 	}

@@ -6,6 +6,10 @@ import info.u250.c2d.engine.resources.AliasResourceManager;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.StartUpScene;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.utils.Array;
+
 public class DigsEngineDrive implements EngineDrive {
 
 	@Override
@@ -41,6 +45,21 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.music("MusicBackground", "data/music/bg.mp3");
 		reg.music("MusicBattle", "data/music/battle.mp3");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
+		
+		TextureAtlas atlas = Engine.resource("All");
+		Array<AtlasRegion> appendErArray = new Array<TextureAtlas.AtlasRegion>();
+		for(AtlasRegion region:atlas.getRegions()){
+			if(region.name.contains("right")){
+				AtlasRegion newItem = new AtlasRegion(region);
+				newItem.name = region.name.replace("right", "left");
+				newItem.flip(true, false);
+				appendErArray.add(newItem);
+			}
+		}
+		for(AtlasRegion region:appendErArray){
+			atlas.getRegions().add(region);
+			System.out.println(region.name);
+		}
 	}
 
 }

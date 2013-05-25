@@ -21,28 +21,39 @@ public  class Watchmen extends BaseEntity{
 		
 		
 		
-		walkAnimation = new Animation(0.205f, 
-				atlas.findRegion("bad1"),
-				atlas.findRegion("bad2"),
-				atlas.findRegion("bad3"));
+		walkRightAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-walk-right-1"),
+				atlas.findRegion("npc2-walk-right-2"));
+		walkLeftAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-walk-left-1"),
+				atlas.findRegion("npc2-walk-left-2"));
+		attackRightAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-attack-right-1"),
+				atlas.findRegion("npc2-attack-right-2"));
+		attackLeftAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-attack-left-1"),
+				atlas.findRegion("npc2-attack-left-2"));
 		goldWalkAnimation = new Animation(0.205f, atlas.findRegion("npc3"),atlas.findRegion("npc4"));
-		animation = walkAnimation;
+		animation = walkLeftAnimation;
 	}
 	
 
-	Animation walkAnimation ;
+	Animation walkRightAnimation ;
+	Animation walkLeftAnimation ;
+	Animation attackRightAnimation ;
+	Animation attackLeftAnimation ;
 	Animation goldWalkAnimation ;
 
 	
 
 	@Override
 	public Animation getWalkAnimationLeft() {
-		return walkAnimation;
+		return walkLeftAnimation;
 	}
 
 	@Override
 	public Animation getWalkAnimationRight() {
-		return walkAnimation;
+		return walkRightAnimation;
 	}
 
 	@Override
@@ -55,5 +66,14 @@ public  class Watchmen extends BaseEntity{
 		return goldWalkAnimation;
 	}
 
+	@Override
+	public Animation getSkillAnimationLeft() {
+		return attackLeftAnimation;
+	}
+
+	@Override
+	public Animation getSkillAnimationRight() {
+		return attackRightAnimation;
+	}
 	
 }

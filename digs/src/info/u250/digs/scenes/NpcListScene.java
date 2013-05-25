@@ -5,7 +5,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.scenes.game.entity.BombMan;
 import info.u250.digs.scenes.game.entity.HealBoy;
-import info.u250.digs.scenes.game.entity.NPC;
+import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.Watchmen;
 import info.u250.digs.scenes.npclist.NpcDetailTable;
 import info.u250.digs.scenes.npclist.NpcItemTable;
@@ -13,7 +13,7 @@ import info.u250.digs.scenes.npclist.NpcWrapper;
 import info.u250.digs.scenes.npclist.ShopWheel;
 import info.u250.digs.scenes.npclist.TopPartTable;
 import info.u250.digs.scenes.npclist.TroopItem;
-import info.u250.digs.scenes.npclist.TroopNumberSetter;
+import info.u250.digs.scenes.npclist.TroopNumberSetterDialog;
 import info.u250.digs.scenes.npclist.TroopsCost;
 
 import com.badlogic.gdx.Gdx;
@@ -39,8 +39,17 @@ public class NpcListScene extends SceneStage {
 	final NpcWrapper npc3;
 	final NpcWrapper npc4;
 	
+	final TroopItem troop1;
+	final TroopItem troop2;
+	final TroopItem troop3;
+	final TroopItem troop4;
+	final TroopItem troop5;//Nil
+	final TroopItem troop6;//Nil
+	
+	final TroopsCost troopsCost ;
+	
 	public final Image followImage ;
-	public final TroopNumberSetter troopNumberSetter;
+	public final TroopNumberSetterDialog troopNumberSetter;
 	public NpcListScene(){
 		atlas = Engine.resource("All");
 		
@@ -55,25 +64,25 @@ public class NpcListScene extends SceneStage {
 		followImage = new Image(atlas.findRegion("color"));
 		followImage.setColor(new Color(116f/255f, 88f/255f, 133f/255f, 0.5f));
 		
-		troopNumberSetter = new TroopNumberSetter();
+		troopNumberSetter = new TroopNumberSetterDialog(this);
 		
-		npc1 = new NpcWrapper(new NPC());
+		npc1 = new NpcWrapper(new GreenHat());
 		npc2 = new NpcWrapper(new Watchmen());
 		npc3 = new NpcWrapper(new HealBoy());
 		npc4 = new NpcWrapper(new BombMan());
 		npc1.title = "The most common npc in the world";
 		npc1.desc = "Right now, take part in a battle events and aim to get special rare prizes! And the game will feature more and more events as time goes on, including Raid Battles against unique, limited-time-only characters!Steve Jobs: The Man Who Thought Different,Thank you to all ZOOKEEPER BATTLE fans for 4.5 million total Downloads!";
-		npc1.troopIcon = "npc1";
+		npc1.troopIcon = "npc1-walk-right-1";
 		npc1.lock = false;
 		
 		npc2.title = "The most common npc in the world";
 		npc2.desc = "Invite friends to the game and get one Power Bottle per friend! (Max. 10 invites)And players who invite 10 friends will get the rare  deco-item!";
-		npc2.troopIcon = "bad1";
+		npc2.troopIcon = "npc2-walk-right-1";
 		npc2.lock = false;
 		
 		npc3.title = "The most common npc in the world";
 		npc3.desc = "This npc has very fast speed , with thire heal skill . Most people choose this to heal thire troops . Do you want have some?";
-		npc3.troopIcon = "good";
+		npc3.troopIcon = "npc3-walk-right-1";
 		npc3.lock = false;
 		
 		npc4.title = "The most common npc in the world";
@@ -81,8 +90,18 @@ public class NpcListScene extends SceneStage {
 		npc4.troopIcon = "bombman";
 		npc4.lock = false;
 		
+		troop1 = new TroopItem(npc1,this);
+		troop2 = new TroopItem(npc2,this);
+		troop3 = new TroopItem(npc3,this);
+		troop4 = new TroopItem(npc4,this);
+		troop5 = new TroopItem(null,this);
+		troop6 = new TroopItem(null,this);
+		
 		detailTable = new NpcDetailTable();
 		detailTable.fill(npc1);
+		
+		troopsCost = new TroopsCost();
+		troopsCost.setPosition(80, 40);
 		
 		//right scroll pane
 		final Table npcListTable = new Table();
@@ -114,12 +133,6 @@ public class NpcListScene extends SceneStage {
 		
 		Table troopsTable = new Table();
 		troopsTable.padTop(5).padBottom(5);
-		TroopItem troop1 = new TroopItem(npc1,this);
-		TroopItem troop2 = new TroopItem(npc2,this);
-		TroopItem troop3 = new TroopItem(npc3,this);
-		TroopItem troop4 = new TroopItem(npc4,this);
-		TroopItem troop5 = new TroopItem(null,this);
-		TroopItem troop6 = new TroopItem(null,this);
 		troopsTable.add(troop1).spaceRight(25).spaceBottom(10);
 		troopsTable.add(troop2).spaceRight(25).spaceBottom(10);
 		troopsTable.add(troop3).spaceRight(25).spaceBottom(10);
@@ -141,9 +154,6 @@ public class NpcListScene extends SceneStage {
 			}
 		});
 		btnStart.setPosition(295, 30);
-		
-		TroopsCost troopsCost = new TroopsCost();
-		troopsCost.setPosition(80, 40);
 		
 		this.addActor(troopsTable);
 		this.addActor(troopsCost);
@@ -178,6 +188,16 @@ public class NpcListScene extends SceneStage {
 		shopImage.setPosition(860,500);
 		shopImage.addAction(Actions.forever(Actions.sequence(Actions.scaleTo(0.8f,0.8f,0.1f),Actions.scaleTo(1f,1f,0.1f))));
 		this.addActor(shopImage);
+	}
+	public void countTroopsCost(){
+		int cost = 0;
+		cost += troop1.getTroopCost();
+		cost += troop2.getTroopCost();
+		cost += troop3.getTroopCost();
+		cost += troop4.getTroopCost();
+		cost += troop5.getTroopCost();
+		cost += troop6.getTroopCost();
+		troopsCost.setTroopCost(cost);
 	}
 	@Override
 	public void draw() {
