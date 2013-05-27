@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 import info.u250.digs.scenes.GameScene;
+import info.u250.digs.scenes.NpcListScene;
 import info.u250.digs.scenes.StartUpScene;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -23,11 +24,15 @@ public class DigsEngineDrive implements EngineDrive {
 	}
 
 	StartUpScene startUpScene = null;
+	NpcListScene npcListScene = null;
 	GameScene gameScene = null;
+	
+	
 	@Override
 	public void onLoadedResourcesCompleted() {
-		startUpScene = new StartUpScene();
-		//gameScene = new GameScene();
+		startUpScene = new StartUpScene(this);
+		npcListScene = new NpcListScene(this);
+		gameScene = new GameScene(this);
 		
 		Engine.setMainScene(startUpScene);
 	}
@@ -62,4 +67,17 @@ public class DigsEngineDrive implements EngineDrive {
 		}
 	}
 
+	public StartUpScene getStartUpScene() {
+		return startUpScene;
+	}
+
+	public NpcListScene getNpcListScene() {
+		return npcListScene;
+	}
+
+	public GameScene getGameScene() {
+		return gameScene;
+	}
+
+	
 }

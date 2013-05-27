@@ -23,13 +23,11 @@ public  class BombMan extends BaseEntity{
 		
 		
 		walkAnimation = new Animation(0.205f,atlas.findRegion("bombman"),atlas.findRegion("bombman2"));
-		goldWalkAnimation = new Animation(0.205f, atlas.findRegion("bombman"),atlas.findRegion("bombman"));
 		animation = walkAnimation;
 	}
 	
 
 	Animation walkAnimation ;
-	Animation goldWalkAnimation ;
 
 	
 
@@ -45,23 +43,21 @@ public  class BombMan extends BaseEntity{
 
 	@Override
 	public Animation getGoldAnimationLeft() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override
 	public Animation getGoldAnimationRight() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override
 	public Animation getSkillAnimationLeft() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Animation getSkillAnimationRight() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

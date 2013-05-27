@@ -11,5 +11,4 @@ public class Digs extends Engine {
 		return new DigsEngineDrive();
 	}
 
-	
 }

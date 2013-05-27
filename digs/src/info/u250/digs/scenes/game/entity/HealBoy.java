@@ -34,14 +34,12 @@ public  class HealBoy extends BaseEntity{
 		healLeftAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc3-heal-left-1"),
 				atlas.findRegion("npc3-heal-left-2"));
-		goldWalkAnimation = new Animation(0.205f, atlas.findRegion("good"),atlas.findRegion("good"));
 		animation = walkLeftAnimation;
 	}
 	
 
 	Animation walkRightAnimation ;
 	Animation walkLeftAnimation ;
-	Animation goldWalkAnimation ;
 	Animation healRightAnimation ;
 	Animation healLeftAnimation ;
 	
@@ -58,12 +56,12 @@ public  class HealBoy extends BaseEntity{
 
 	@Override
 	public Animation getGoldAnimationLeft() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override
 	public Animation getGoldAnimationRight() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override

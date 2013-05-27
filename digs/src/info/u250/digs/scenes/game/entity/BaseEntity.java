@@ -89,19 +89,6 @@ public abstract class BaseEntity extends Actor {
 	}
 	@Override
 	public void act(float delta) {
-		switch (status) {
-		case Walk:
-			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
-			break;
-		case Attack:
-			animation = this.getX()>this.attackAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
-			break;
-		case Heal:
-			animation = this.getX()>this.healAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
-			break;
-		default:
-			break;
-		}
 		/*============Put Down Gold ================================*/
 		if(isHoldGold){
 			for(Dock dock:terrain.docks){
@@ -169,6 +156,10 @@ public abstract class BaseEntity extends Actor {
 			}
 			if(isHealing){
 				this.doAHeal();
+			}
+		}else if(tick>0.5f){
+			if(random.nextFloat()>0.6f){
+				status = NpcStatus.Walk;
 			}
 		}
 		
@@ -243,8 +234,22 @@ public abstract class BaseEntity extends Actor {
 			return;
 		}
 		
-		this.translate((isActtacking||isHealing)?0:delta*speedX, delta*speedY);
+		this.translate(status!=NpcStatus.Walk?0:delta*speedX,status!=NpcStatus.Walk && speedY>0 ? 0: delta*speedY);
 		super.act(delta);
+		
+		switch (status) {
+		case Walk:
+			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
+			break;
+		case Attack:
+			animation = this.getX()>this.attackAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
+			break;
+		case Heal:
+			animation = this.getX()>this.healAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
+			break;
+		default:
+			break;
+		}
 		
 	}
 	protected void gravityDrop(float delta){
@@ -356,5 +361,30 @@ public abstract class BaseEntity extends Actor {
 	protected TextureRegion flipRegion(TextureRegion region){
 		region.flip(true, false);
 		return region;
+	}
+	private int nextAnimationIndex = 0;
+	public void setNextAnimationForShow(){
+		if(nextAnimationIndex>=3)nextAnimationIndex = 0;
+		if(0==nextAnimationIndex){
+			nextAnimationIndex++;
+			if(null != getGoldAnimationRight()){
+				this.animation = getGoldAnimationRight();
+				return;
+			}
+		}
+		if(1==nextAnimationIndex){
+			nextAnimationIndex++;
+			if(null != getSkillAnimationRight()){
+				this.animation = getSkillAnimationRight();
+				return;
+			}
+		}
+		if(2==nextAnimationIndex){
+			nextAnimationIndex++;
+			if(null != getWalkAnimationRight()){
+				this.animation = getWalkAnimationRight();
+				return;
+			}
+		}
 	}
 }

@@ -3,6 +3,7 @@ package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
+import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.entity.BombMan;
 import info.u250.digs.scenes.game.entity.HealBoy;
 import info.u250.digs.scenes.game.entity.GreenHat;
@@ -31,6 +32,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class NpcListScene extends SceneStage {
+	DigsEngineDrive drive;
 	final TextureAtlas atlas;
 	public final NpcDetailTable detailTable;
 	
@@ -50,7 +52,9 @@ public class NpcListScene extends SceneStage {
 	
 	public final Image followImage ;
 	public final TroopNumberSetterDialog troopNumberSetter;
-	public NpcListScene(){
+	public NpcListScene(DigsEngineDrive drive){
+		this.drive = drive;
+		
 		atlas = Engine.resource("All");
 		
 		
@@ -149,7 +153,8 @@ public class NpcListScene extends SceneStage {
 		btnStart.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Engine.setMainScene(new GameScene());
+				NpcListScene.this.drive.getGameScene().configGame(null);
+				Engine.setMainScene(NpcListScene.this.drive.getGameScene());
 				super.clicked(event, x, y);
 			}
 		});

@@ -14,7 +14,7 @@ public  class Watchmen extends BaseEntity{
 		this.defense = true;
 		this.self = false;
 		
-		this.speed = 45;
+		this.speed = 20;
 		
 		
 		TextureAtlas atlas = Engine.resource("All");
@@ -33,7 +33,6 @@ public  class Watchmen extends BaseEntity{
 		attackLeftAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc2-attack-left-1"),
 				atlas.findRegion("npc2-attack-left-2"));
-		goldWalkAnimation = new Animation(0.205f, atlas.findRegion("npc3"),atlas.findRegion("npc4"));
 		animation = walkLeftAnimation;
 	}
 	
@@ -42,7 +41,6 @@ public  class Watchmen extends BaseEntity{
 	Animation walkLeftAnimation ;
 	Animation attackRightAnimation ;
 	Animation attackLeftAnimation ;
-	Animation goldWalkAnimation ;
 
 	
 
@@ -58,12 +56,12 @@ public  class Watchmen extends BaseEntity{
 
 	@Override
 	public Animation getGoldAnimationLeft() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override
 	public Animation getGoldAnimationRight() {
-		return goldWalkAnimation;
+		return null;
 	}
 
 	@Override

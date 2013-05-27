@@ -18,7 +18,8 @@ public  class GreenHat extends BaseEntity{
 				atlas.findRegion("npc1-walk-left-1"),
 				atlas.findRegion("npc1-walk-left-2"));
 		
-		goldWalkAnimation = new Animation(0.205f, atlas.findRegion("npc3"),atlas.findRegion("npc4"));
+		goldWalkRightAnimation = new Animation(0.205f, atlas.findRegion("npc1-gold-right-1"),atlas.findRegion("npc1-gold-right-2"));
+		goldWalkLeftAnimation = new Animation(0.205f, atlas.findRegion("npc1-gold-left-1"),atlas.findRegion("npc1-gold-left-2"));
 		
 		animation = walkLeftAnimation;
 	}
@@ -26,7 +27,8 @@ public  class GreenHat extends BaseEntity{
 
 	Animation walkRightAnimation ;
 	Animation walkLeftAnimation ;
-	Animation goldWalkAnimation ;
+	Animation goldWalkLeftAnimation ;
+	Animation goldWalkRightAnimation ;
 
 	@Override
 	public Animation getWalkAnimationLeft() {
@@ -40,23 +42,21 @@ public  class GreenHat extends BaseEntity{
 
 	@Override
 	public Animation getGoldAnimationLeft() {
-		return goldWalkAnimation;
+		return goldWalkLeftAnimation;
 	}
 
 	@Override
 	public Animation getGoldAnimationRight() {
-		return goldWalkAnimation;
+		return goldWalkRightAnimation;
 	}
 
 	@Override
 	public Animation getSkillAnimationLeft() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Animation getSkillAnimationRight() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

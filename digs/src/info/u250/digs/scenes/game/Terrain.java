@@ -125,6 +125,10 @@ public class Terrain extends Group{
 		super.act(delta);
 		
 	}
+	public void reload(){
+		this.terrain.reload();
+		this.goldTerrain.reload();
+	}
 	public void dig(final float radius,float x,float y){
 		//Change the offset==========================
 		x += this.getX();
@@ -210,6 +214,11 @@ public class Terrain extends Group{
 	}
 	public void setFillMode(boolean fillMode) {
 		this.fillMode = fillMode;
+	}
+	
+	public void dispose(){
+		this.goldTerrain.dispose();
+		this.terrain.dispose();
 	}
 	
 }

@@ -1,46 +1,45 @@
 package info.u250.digs.scenes;
 
+import info.u250.c2d.engine.CoreProvider.CoreEvents;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
+import info.u250.c2d.engine.events.Event;
+import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
+import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.scenes.game.GameInformationPane;
+import info.u250.digs.scenes.game.PauseDialog;
 import info.u250.digs.scenes.game.Terrain;
 import info.u250.digs.scenes.game.TerrainConfig;
-import info.u250.digs.scenes.ui.CountDownTimer;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class GameScene extends SceneStage {
+	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
 	Terrain terrain = null;
-	public GameScene(){
+	GameInformationPane gameInformationPane ;
+	PauseDialog pauseDialog;
+	final ScrollPane scroll;
+	public GameScene(DigsEngineDrive drive){
+		this.drive = drive;
 		TextureAtlas atlas = Engine.resource("All");
-		BitmapFont font = Engine.resource("Font");
 		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
 		
-	
-		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "data/DSRT.png";
-//		config.surfaceFile = "data/DSRT.png";
-		config.runnerNumber = 20;
-		terrain = new Terrain(config);
+		pauseDialog = new PauseDialog(this);
 		
-		
-		final ScrollPane scroll = new ScrollPane(terrain);
+		scroll = new ScrollPane(null);
 		scroll.setStyle(new ScrollPaneStyle(null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider")),null, null));
 		scroll.setFillParent(false);
 		scroll.setScrollingDisabled(false, true);
@@ -72,33 +71,64 @@ public class GameScene extends SceneStage {
 				super.clicked(event, x, y);
 			}
 		});
-		Table infoTable = new Table();
-		infoTable.setBackground(new NinePatchDrawable(atlas.createPatch("topbar")));
-		infoTable.add(new Image(atlas.findRegion("level")));
-		infoTable.add(new Label("100", new LabelStyle(font, Color.BLACK))).spaceRight(50);
-		infoTable.add(new Image(atlas.findRegion("gold")));
-		infoTable.add(new Label("Gold:3232", new LabelStyle(font, Color.BLACK))).spaceRight(50);
-		infoTable.add(new Image(atlas.findRegion("flag")));
-		infoTable.add(new Label("Lv.32", new LabelStyle(font, Color.BLACK))).spaceRight(50);
-		infoTable.add(new Image(atlas.findRegion("clock")));
-		Label countDownLabel = new Label("00:00", new LabelStyle(font, Color.BLACK));
-		CountDownTimer countDownTimer = new CountDownTimer(countDownLabel);
-		countDownTimer.start();
-		infoTable.add(countDownLabel);
-		infoTable.padLeft(10).padRight(20).padTop(0).padBottom(0);
-		infoTable.pack();
-//		infoTable.setWidth(Engine.getWidth());
-		infoTable.setY(Engine.getHeight()-infoTable.getHeight() - 5);
-		
-		Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
+		gameInformationPane = new GameInformationPane();
+		final Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pause.setPosition(Engine.getWidth()-pause.getWidth(), Engine.getHeight()- 55);
+		pause.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				pauseGame();
+				super.clicked(event, x, y);
+			}
+		});
 		
 		this.addActor(pbg);
 		this.addActor(scroll);
 		this.addActor(controlButton);
-		this.addActor(infoTable);
+		this.addActor(gameInformationPane);
 		this.addActor(pause);
 		
+		setupPauseResume();
+		
+	}
+	
+	public void configGame(TerrainConfig configx){
+		pauseDialog.remove();
+		if(null!=terrain){
+			terrain.dispose();
+		}
+		
+		TerrainConfig config = new TerrainConfig();
+		config.surfaceFile = "data/DSRT.png";
+//		config.surfaceFile = "data/DSRT.png";
+		config.runnerNumber = 20;
+		terrain = new Terrain(config);
+		scroll.setWidget(terrain);
+	}
+	public void setupPauseResume(){
+		Engine.getEventManager().register(CoreEvents.SystemPause, new EventListener(){
+			@Override
+			public void onEvent(Event event) {
+				//call the pause dialog 
+				if(Engine.getMainScene()==GameScene.this){
+					pauseGame();
+				}
+			}
+		});
+		Engine.getEventManager().register(CoreEvents.SystemResume, new EventListener(){
+			@Override
+			public void onEvent(Event event) {
+				if(Engine.getMainScene()==GameScene.this){
+					Engine.doPause();
+					if(null!=terrain)terrain.reload();
+				}
+			}
+		});
+
+	}
+	void pauseGame(){
+		addActor(pauseDialog);
+		Engine.doPause();
 	}
 	
 	@Override
