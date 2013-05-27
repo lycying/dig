@@ -18,6 +18,8 @@ import info.u250.digs.scenes.npclist.TroopNumberSetterDialog;
 import info.u250.digs.scenes.npclist.TroopsCost;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -218,5 +220,19 @@ public class NpcListScene extends SceneStage {
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBackground");
 		super.hide();
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		if (Gdx.app.getType() == ApplicationType.Android) {
+			if (keycode == Keys.BACK) {
+				Engine.setMainScene(drive.getStartUpScene());
+			}
+		} else {
+			if (keycode == Keys.DEL) {
+				Engine.setMainScene(drive.getStartUpScene());
+			}
+		}
+		return super.keyDown(keycode);
 	}
 }

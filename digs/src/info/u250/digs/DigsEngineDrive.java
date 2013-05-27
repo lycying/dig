@@ -63,7 +63,7 @@ public class DigsEngineDrive implements EngineDrive {
 		}
 		for(AtlasRegion region:appendErArray){
 			atlas.getRegions().add(region);
-			System.out.println(region.name);
+			System.out.println("create left region :"+region.name);
 		}
 	}
 

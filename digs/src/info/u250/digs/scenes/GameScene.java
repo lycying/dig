@@ -14,6 +14,9 @@ import info.u250.digs.scenes.game.PauseDialog;
 import info.u250.digs.scenes.game.Terrain;
 import info.u250.digs.scenes.game.TerrainConfig;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -146,5 +149,24 @@ public class GameScene extends SceneStage {
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		super.hide();
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		if (Gdx.app.getType() == ApplicationType.Android) {
+			if (keycode == Keys.BACK) {
+				pauseGame();
+			}
+		} else {
+			if (keycode == Keys.DEL) {
+				if(Engine.isPause()){
+					Engine.doResume();
+					pauseDialog.close();
+				}else{
+					pauseGame();
+				}
+			}
+		}
+		return super.keyDown(keycode);
 	}
 }
