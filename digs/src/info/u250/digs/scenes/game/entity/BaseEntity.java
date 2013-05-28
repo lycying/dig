@@ -158,9 +158,12 @@ public abstract class BaseEntity extends Actor {
 				this.doAHeal();
 			}
 		}else if(tick>0.5f){
-			if(random.nextFloat()>0.6f){
-				status = NpcStatus.Walk;
+			if(isActtacking || isHealing){
+				if(random.nextFloat()>0.6f){
+					status = NpcStatus.Walk;
+				}
 			}
+			
 		}
 		
 		
@@ -233,13 +236,23 @@ public abstract class BaseEntity extends Actor {
 		if(terrain.isBlocked()){
 			return;
 		}
-		
-		this.translate(status!=NpcStatus.Walk?0:delta*speedX,status!=NpcStatus.Walk && speedY>0 ? 0: delta*speedY);
+		if(isHoldGold)status = NpcStatus.GoldWalk;
+		if(status == NpcStatus.Walk || status==NpcStatus.GoldWalk){
+			tmp.x = delta*speedX;
+			tmp.y = delta*speedY;
+		}else{
+			tmp.x = 0;
+			tmp.y = 0;
+		}
+		this.translate(tmp.x,tmp.y);
 		super.act(delta);
 		
 		switch (status) {
 		case Walk:
 			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
+			break;
+		case GoldWalk:
+			animation = this.speedX>0?getGoldAnimationRight():getGoldAnimationLeft();
 			break;
 		case Attack:
 			animation = this.getX()>this.attackAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
