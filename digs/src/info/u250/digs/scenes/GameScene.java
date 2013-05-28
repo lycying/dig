@@ -102,12 +102,12 @@ public class GameScene extends SceneStage {
 		}
 		
 		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "data/DSRT.png";
+		config.surfaceFile = "texs/DSRT.png";
 //		config.surfaceFile = "data/DSRT.png";
 		config.runnerNumber = 20;
 		terrain = new Terrain(config);
 		scroll.setWidget(terrain);
-	}
+	} 
 	public void setupPauseResume(){
 		Engine.getEventManager().register(CoreEvents.SystemPause, new EventListener(){
 			@Override
