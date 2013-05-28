@@ -68,8 +68,10 @@ public class TroopItem extends Group {
 		this.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				setTroopNumber(++number);
-				container.countTroopsCost();
+				container.troopSetter.show(TroopItem.this);
+//				setTroopNumber(++number);
+//				container.countTroopsCost();
+				container.troopSetterContainer.addActor(container.troopSetter);
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
@@ -96,6 +98,7 @@ public class TroopItem extends Group {
 	public void setTroopNumber(int number){
 		this.number = number;
 		this.lblNumber.setText(number+"");
+		this.container.countTroopsCost();
 	}
 	public int getTroopNumber(){
 		return this.number;

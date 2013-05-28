@@ -23,6 +23,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -39,6 +40,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class NpcListScene extends SceneStage {
 	DigsEngineDrive drive;
 	final TextureAtlas atlas;
+	public final TroopSetter troopSetter;
+	public final Group troopSetterContainer;
 	public final NpcDetailTable detailTable;
 	
 	final NpcWrapper npc1;
@@ -176,8 +179,10 @@ public class NpcListScene extends SceneStage {
 		TopPartTable topInfo  = new TopPartTable();
 		
 		this.addActor(topInfo);
-		TroopSetter troopSetter = new TroopSetter();
-		this.addActor(troopSetter);
+		troopSetterContainer = new Group();
+		troopSetter = new TroopSetter();
+		
+		this.addActor(troopSetterContainer);
 		
 		ShopWheel shopWheel = new ShopWheel(){
 			@Override

@@ -5,13 +5,17 @@ import info.u250.c2d.engine.Engine;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class TroopSetter extends Group {
+	TroopItem target;
+	
 	public TroopSetter(){
 		//BitmapFont font = Engine.resource("Font");
 		TextureAtlas atlas = Engine.resource("All");
@@ -61,5 +65,76 @@ public class TroopSetter extends Group {
 		this.addActor(btnTable);
 		this.addActor(btn_close);
 		this.setPosition(445,25);
+		
+		btn_sub_1.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(-1);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_add_1.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(1);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_sub_2.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(-2);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_add_2.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(2);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_sub_5.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(-5);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_add_5.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(5);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_sub_10.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(-10);
+				super.clicked(event, x, y);
+			}
+		});
+		btn_add_10.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				addTroops(10);
+				super.clicked(event, x, y);
+			}
+		});
+		
+		btn_close.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				TroopSetter.this.remove();
+				super.clicked(event, x, y);
+			}
+		});
+	}
+	public void show(TroopItem target){
+		this.target = target;
+	}
+	void addTroops(int number){
+		this.target.setTroopNumber(this.target.getTroopNumber()+number);
 	}
 }
