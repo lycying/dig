@@ -13,13 +13,21 @@ public  class GreenHat extends BaseEntity{
 		
 		walkRightAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc1-walk-right-1"),
-				atlas.findRegion("npc1-walk-right-2"));
+				atlas.findRegion("npc1-walk-right-2"),
+				atlas.findRegion("npc1-walk-right-3"));
 		walkLeftAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc1-walk-left-1"),
-				atlas.findRegion("npc1-walk-left-2"));
+				atlas.findRegion("npc1-walk-left-2"),
+				atlas.findRegion("npc1-walk-left-3"));
 		
-		goldWalkRightAnimation = new Animation(0.205f, atlas.findRegion("npc1-gold-right-1"),atlas.findRegion("npc1-gold-right-2"));
-		goldWalkLeftAnimation = new Animation(0.205f, atlas.findRegion("npc1-gold-left-1"),atlas.findRegion("npc1-gold-left-2"));
+		goldWalkRightAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc1-gold-right-1"),
+				atlas.findRegion("npc1-gold-right-2"),
+				atlas.findRegion("npc1-gold-right-3"));
+		goldWalkLeftAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc1-gold-left-1"),
+				atlas.findRegion("npc1-gold-left-2"),
+				atlas.findRegion("npc1-gold-left-3"));
 		
 		animation = walkLeftAnimation;
 	}

@@ -326,72 +326,86 @@ npc1-gold-right-2
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc1-walk-right-1
+npc1-gold-right-3
   rotate: false
   xy: 999, 1003
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc1-walk-right-2
+npc1-walk-right-1
   rotate: false
   xy: 965, 786
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc2-attack-right-1
+npc1-walk-right-2
   rotate: false
   xy: 945, 671
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc2-attack-right-2
-  rotate: false
-  xy: 945, 671
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-npc2-walk-right-1
+npc1-walk-right-3
   rotate: false
   xy: 513, 168
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc2-walk-right-2
+npc2-attack-right-1
   rotate: false
   xy: 901, 572
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc3-heal-right-1
+npc2-attack-right-2
+  rotate: false
+  xy: 901, 572
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc2-walk-right-1
   rotate: false
   xy: 927, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc3-heal-right-2
+npc2-walk-right-2
   rotate: false
   xy: 759, 625
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc3-walk-right-1
+npc3-heal-right-1
   rotate: false
   xy: 203, 157
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-npc3-walk-right-2
+npc3-heal-right-2
   rotate: false
   xy: 174, 106
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-walk-right-1
+  rotate: false
+  xy: 999, 985
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+npc3-walk-right-2
+  rotate: false
+  xy: 983, 786
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
