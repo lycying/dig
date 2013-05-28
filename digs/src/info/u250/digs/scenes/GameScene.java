@@ -155,7 +155,12 @@ public class GameScene extends SceneStage {
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				pauseGame();
+				if(Engine.isPause()){
+					Engine.doResume();
+					pauseDialog.close();
+				}else{
+					pauseGame();
+				}
 			}
 		} else {
 			if (keycode == Keys.DEL) {

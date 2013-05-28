@@ -57,10 +57,11 @@ public class NpcItemTable extends  Table{
 		});
 	} 
 	Vector2 tmp = new Vector2();
+	static Color selectColor = new Color(1,194f/255,203f/255f,1);
 	@Override
 	public void act(float delta) {
 		if(container.detailTable.getNpc().e.getClass() == flag){
-			this.setColor(Color.YELLOW);
+			this.setColor(selectColor);
 			
 			container.followImage.setOrigin(0, 2);
 			container.followImage.setPosition(380, 350);

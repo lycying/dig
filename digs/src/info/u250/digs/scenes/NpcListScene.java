@@ -5,8 +5,8 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.entity.BombMan;
-import info.u250.digs.scenes.game.entity.HealBoy;
 import info.u250.digs.scenes.game.entity.GreenHat;
+import info.u250.digs.scenes.game.entity.HealBoy;
 import info.u250.digs.scenes.game.entity.Watchmen;
 import info.u250.digs.scenes.npclist.NpcDetailTable;
 import info.u250.digs.scenes.npclist.NpcItemTable;
@@ -14,18 +14,21 @@ import info.u250.digs.scenes.npclist.NpcWrapper;
 import info.u250.digs.scenes.npclist.ShopWheel;
 import info.u250.digs.scenes.npclist.TopPartTable;
 import info.u250.digs.scenes.npclist.TroopItem;
-import info.u250.digs.scenes.npclist.TroopNumberSetterDialog;
+import info.u250.digs.scenes.npclist.TroopSetter;
 import info.u250.digs.scenes.npclist.TroopsCost;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -53,12 +56,11 @@ public class NpcListScene extends SceneStage {
 	final TroopsCost troopsCost ;
 	
 	public final Image followImage ;
-	public final TroopNumberSetterDialog troopNumberSetter;
 	public NpcListScene(DigsEngineDrive drive){
 		this.drive = drive;
 		
 		atlas = Engine.resource("All");
-		
+		BitmapFont font = Engine.resource("Font");
 		
 		Table backgroundFromNinePatch = new Table();
 		backgroundFromNinePatch.setBackground(new NinePatchDrawable(atlas.createPatch("ui-board")));
@@ -69,9 +71,7 @@ public class NpcListScene extends SceneStage {
 		
 		followImage = new Image(atlas.findRegion("color"));
 		followImage.setColor(new Color(116f/255f, 88f/255f, 133f/255f, 0.5f));
-		
-		troopNumberSetter = new TroopNumberSetterDialog(this);
-		
+				
 		npc1 = new NpcWrapper(new GreenHat());
 		npc2 = new NpcWrapper(new Watchmen());
 		npc3 = new NpcWrapper(new HealBoy());
@@ -106,8 +106,7 @@ public class NpcListScene extends SceneStage {
 		detailTable = new NpcDetailTable();
 		detailTable.fill(npc1);
 		
-		troopsCost = new TroopsCost();
-		troopsCost.setPosition(80, 40);
+		
 		
 		//right scroll pane
 		final Table npcListTable = new Table();
@@ -147,7 +146,7 @@ public class NpcListScene extends SceneStage {
 		troopsTable.add(troop5).spaceRight(25).spaceBottom(10);
 		troopsTable.add(troop6).spaceRight(25).spaceBottom(10);
 		troopsTable.pack();
-		troopsTable.setPosition(80, 90);
+		troopsTable.setPosition(80, 80);
 		troopsTable.setBackground(new NinePatchDrawable(atlas.createPatch("detail")));
 		troopsTable.setWidth(360);
 		
@@ -162,14 +161,23 @@ public class NpcListScene extends SceneStage {
 		});
 		btnStart.setPosition(295, 30);
 		
+		
+		
+		troopsCost = new TroopsCost();
+		troopsCost.setPosition(85, 34);
+		Label lblTroopsTableInformation = new Label("Select your troops for dig:",new LabelStyle(font,new Color(81f/255f,5f/255f,17f/255f,1)));
+		lblTroopsTableInformation.setPosition(90, 272);
+		this.addActor(lblTroopsTableInformation);
 		this.addActor(troopsTable);
 		this.addActor(troopsCost);
 		this.addActor(btnStart);
-		this.addActor(followImage);
+		
 		
 		TopPartTable topInfo  = new TopPartTable();
 		
 		this.addActor(topInfo);
+		TroopSetter troopSetter = new TroopSetter();
+		this.addActor(troopSetter);
 		
 		ShopWheel shopWheel = new ShopWheel(){
 			@Override
@@ -195,6 +203,7 @@ public class NpcListScene extends SceneStage {
 		shopImage.setPosition(860,500);
 		shopImage.addAction(Actions.forever(Actions.sequence(Actions.scaleTo(0.8f,0.8f,0.1f),Actions.scaleTo(1f,1f,0.1f))));
 		this.addActor(shopImage);
+		this.addActor(followImage);
 	}
 	public void countTroopsCost(){
 		int cost = 0;

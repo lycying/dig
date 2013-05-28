@@ -20,15 +20,17 @@ public class TroopsCost extends Table{
 		TextureAtlas atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
 //		this.setBackground(new NinePatchDrawable(atlas.createPatch("label")));
+//		final Label lblAbl = new Label("Select your troops to dig",new LabelStyle(font,Color.RED));
 		
 		final Image flagGoldMany = new Image(atlas.findRegion("flag-gold-many"));
 		final Label lblDesc = new Label("Cost:   ",new LabelStyle(font,Color.DARK_GRAY));
 		lblNumber = new Label("0",new LabelStyle(font,Color.BLACK));
 		lblNumber.getStyle().background = new NinePatchDrawable(atlas.createPatch("label"));
 		lblDesc.getStyle().background = lblNumber.getStyle().background;
+//		this.add(lblAbl);
 		this.add(flagGoldMany).spaceRight(5);
 		this.add(lblDesc);
-		this.add(lblNumber).width(90);
+		this.add(lblNumber).width(80);
 		
 		this.pack();
 		flagGoldMany.setOrigin(flagGoldMany.getWidth()/2, flagGoldMany.getHeight()/3);

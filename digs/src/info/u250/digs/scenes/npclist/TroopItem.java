@@ -68,8 +68,8 @@ public class TroopItem extends Group {
 		this.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				container.addActor(container.troopNumberSetter);
-				container.troopNumberSetter.show(TroopItem.this);
+				setTroopNumber(++number);
+				container.countTroopsCost();
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
