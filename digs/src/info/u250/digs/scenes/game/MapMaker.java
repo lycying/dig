@@ -12,19 +12,15 @@ import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector2;
 
 public class MapMaker {
-	final public Pixmap map ;
-	TerrainConfig config;
-	public MapMaker(TerrainConfig configx){
-		this.config = configx;
-		
+	public static Pixmap genMap(TerrainConfig config){		
 //		final int width = Math.round(Engine.getWidth());
 //		final int height = Math.round(Engine.getHeight());
-		final int width = 2048;
-		final int height =  512;
+		final int width = config.width;
+		final int height = 512;
 		
 		final Pixmap backgroundPixmap = new Pixmap(Gdx.files.internal(config.surfaceFile));
 		
-		map = new Pixmap(2048, 512, Format.RGBA8888);
+		final  Pixmap map = new Pixmap(width, height, Format.RGBA8888);
 		//round one , to make a full pixmap
 		for(int i=0;i*backgroundPixmap.getWidth()< width;i++){
 			for(int j=0;j*backgroundPixmap.getHeight()<height;j++){
@@ -35,13 +31,13 @@ public class MapMaker {
 						0, 0, backgroundPixmap.getWidth(), backgroundPixmap.getHeight());
 			}
 		}
-		backgroundPixmap.dispose();
+		
 
 		
 		Random random = new Random();
 		final CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();
 		int controlPointsNum = 15;
-		final int baseHeight = 400;
+		final int baseHeight = 450;
 		final int ramdomHeight = 50;
 		Vector2[] controlPoints = new Vector2[controlPointsNum];
 		for(int i=0;i<controlPointsNum;i++){
@@ -62,6 +58,10 @@ public class MapMaker {
 //		final Pixmap test = new Pixmap(Gdx.files.internal("data/test.png"));
 //		Pixmap.setBlending(Blending.SourceOver);
 //		map.drawPixmap(test, 100, 100);
+		
+		backgroundPixmap.dispose();
+		
+		return map;
 	}
-	final Vector2 tmpV = new Vector2();
+	static final Vector2 tmpV = new Vector2();
 }

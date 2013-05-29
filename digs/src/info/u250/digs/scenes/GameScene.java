@@ -105,6 +105,7 @@ public class GameScene extends SceneStage {
 		config.surfaceFile = "texs/DSRT.png";
 //		config.surfaceFile = "data/DSRT.png";
 		config.runnerNumber = 20;
+		config.width = 2048;
 		terrain = new Terrain(config);
 		scroll.setWidget(terrain);
 	} 
@@ -142,12 +143,12 @@ public class GameScene extends SceneStage {
 	
 	@Override
 	public void show() {
-		Engine.getMusicManager().playMusic("MusicBattle", true);
+//		Engine.getMusicManager().playMusic("MusicBattle", true);
 		super.show();
 	}
 	@Override
 	public void hide() {
-		Engine.getMusicManager().stopMusic("MusicBattle");
+//		Engine.getMusicManager().stopMusic("MusicBattle");
 		super.hide();
 	}
 	

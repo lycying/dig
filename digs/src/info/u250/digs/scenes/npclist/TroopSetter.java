@@ -72,6 +72,7 @@ public class TroopSetter extends Group {
 		btn_sub_1.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(-1);
 				super.clicked(event, x, y);
 			}
@@ -79,6 +80,7 @@ public class TroopSetter extends Group {
 		btn_add_1.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(1);
 				super.clicked(event, x, y);
 			}
@@ -86,6 +88,7 @@ public class TroopSetter extends Group {
 		btn_sub_2.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(-2);
 				super.clicked(event, x, y);
 			}
@@ -93,6 +96,7 @@ public class TroopSetter extends Group {
 		btn_add_2.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(2);
 				super.clicked(event, x, y);
 			}
@@ -100,6 +104,7 @@ public class TroopSetter extends Group {
 		btn_sub_5.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(-5);
 				super.clicked(event, x, y);
 			}
@@ -107,6 +112,7 @@ public class TroopSetter extends Group {
 		btn_add_5.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(5);
 				super.clicked(event, x, y);
 			}
@@ -114,6 +120,7 @@ public class TroopSetter extends Group {
 		btn_sub_10.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(-10);
 				super.clicked(event, x, y);
 			}
@@ -121,6 +128,7 @@ public class TroopSetter extends Group {
 		btn_add_10.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				addTroops(10);
 				super.clicked(event, x, y);
 			}
@@ -129,6 +137,7 @@ public class TroopSetter extends Group {
 		btn_close.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				TroopSetter.this.remove();
 				super.clicked(event, x, y);
 			}

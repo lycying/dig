@@ -6,4 +6,5 @@ public class TerrainConfig {
 	public int level = 0;
 	public int completeNumber = 0;
 	public String surfaceFile = "";
+	public int width;
 }

@@ -2,8 +2,8 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.pixmap.PixmapHelper;
-import info.u250.digs.scenes.game.entity.HealBoy;
 import info.u250.digs.scenes.game.entity.GreenHat;
+import info.u250.digs.scenes.game.entity.HealBoy;
 import info.u250.digs.scenes.game.entity.Watchmen;
 
 import java.util.Random;
@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 public class Terrain extends Group{
 	PixmapHelper terrain = null;
 	PixmapHelper goldTerrain = null;
+	TerrainConfig config;
 	
 	private final Color colorLeftBottom = new Color();
 	private final Color colorRightBottom = new Color();
@@ -74,34 +75,44 @@ public class Terrain extends Group{
 			prePosition.set(0, 0);
 		};
 	};
+	
+	
 	public Terrain(TerrainConfig config){
-		
-		MapMaker mapMaker = new MapMaker(config);
-		terrain = new PixmapHelper(mapMaker.map);
-		goldTerrain = new PixmapHelper(new GoldPixmap(2048, 480, 20));
+		this.config = config;
+		this.addTerrains();
+		this.addDocks();
+		this.addNpcs();
+	}
+	
+	public void addTerrains(){
+		terrain = new PixmapHelper(MapMaker.genMap(config));
+		goldTerrain = new PixmapHelper(new GoldPixmap(config.width, 480, 20));
 		this.addListener(terrainInput);
-		
 		this.setSize(terrain.pixmap.getWidth(), terrain.pixmap.getHeight());
-		
+	}
+	public void addDocks(){
+		docks.clear();
 		Dock dock = new Dock();
-		dock.setPosition(0, 310);
+		dock.setPosition(0, 400);
 		Dock dock2 = new Dock();
-		dock2.setPosition(terrain.pixmap.getWidth()-dock2.getWidth(), 320);
+		dock2.setPosition(terrain.pixmap.getWidth()-dock2.getWidth(), 400);
 		docks.add(dock);
 		docks.add(dock2);
 		this.addActor(dock);
 		this.addActor(dock2);
-		
+	}
+	
+	public void addNpcs(){
 		for(int i=0;i<50;i++){
 			GreenHat e = new GreenHat();
 			e.init(this);
-			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*500);
+			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
 			this.addActor(e);
 		}
 		for(int i=0;i<5;i++){
 			Watchmen e = new Watchmen();
 			e.init(this);
-			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*500);
+			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
 			this.addActor(e);
 		}
 		for(int i=0;i<6;i++){
@@ -111,6 +122,7 @@ public class Terrain extends Group{
 			this.addActor(e);
 		}
 	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		this.terrain.sprite.draw(batch);
@@ -219,6 +231,7 @@ public class Terrain extends Group{
 	public void dispose(){
 		this.goldTerrain.dispose();
 		this.terrain.dispose();
+		this.clear();
 	}
 	
 }
