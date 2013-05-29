@@ -1,9 +1,11 @@
 package info.u250.digs.scenes.npclist;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.scenes.NpcListScene;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -15,8 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class TroopSetter extends Group {
 	TroopItem target;
-	
-	public TroopSetter(){
+	NpcListScene container;
+	public TroopSetter(NpcListScene container){
+		this.container = container;
 		//BitmapFont font = Engine.resource("Font");
 		TextureAtlas atlas = Engine.resource("All");
 		Image bg = new Image(atlas.findRegion("color"));
@@ -45,17 +48,17 @@ public class TroopSetter extends Group {
 		
 		
 		Table btnTable = new Table();
-		btnTable.add(btn_add_10).space(10);
 		btnTable.add(btn_sub_10).space(10);
+		btnTable.add(btn_add_10).space(10);
 		btnTable.row();
-		btnTable.add(btn_add_5).space(10);
 		btnTable.add(btn_sub_5).space(10);
+		btnTable.add(btn_add_5).space(10);
 		btnTable.row();
-		btnTable.add(btn_add_2).space(10);
 		btnTable.add(btn_sub_2).space(10);
+		btnTable.add(btn_add_2).space(10);
 		btnTable.row();
-		btnTable.add(btn_add_1).space(10);
 		btnTable.add(btn_sub_1).space(10);
+		btnTable.add(btn_add_1).space(10);
 		btnTable.row();
 		btnTable.pack();
 		btnTable.setPosition(bg.getWidth()/2-btnTable.getWidth()/2, 110);
@@ -136,5 +139,19 @@ public class TroopSetter extends Group {
 	}
 	void addTroops(int number){
 		this.target.setTroopNumber(this.target.getTroopNumber()+number);
+	}
+	Vector2 tmp = new Vector2();
+	@Override
+	public void act(float delta) {
+		container.followImage.setOrigin(0, 2);
+		container.followImage.setPosition(500, 250);
+		tmp.set(target.localToAscendantCoordinates(this,tmp.set(85f/2, 85f/2)));
+		
+		float dst = tmp.dst(500, 250);
+		float angle = tmp.sub(500, 250).angle();
+		
+		container.followImage.setScaleX(dst/4.0f);
+		container.followImage.setRotation(angle);
+		super.act(delta);
 	}
 }

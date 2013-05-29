@@ -180,7 +180,7 @@ public class NpcListScene extends SceneStage {
 		
 		this.addActor(topInfo);
 		troopSetterContainer = new Group();
-		troopSetter = new TroopSetter();
+		troopSetter = new TroopSetter(this);
 		
 		this.addActor(troopSetterContainer);
 		
