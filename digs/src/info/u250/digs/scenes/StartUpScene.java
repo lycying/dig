@@ -59,7 +59,11 @@ public class StartUpScene extends SceneStage{
 		terrain = new Terrain(config);
 		this.addActor(terrain);
 		Image logo = new Image(atlas.findRegion("logo"));
-		logo.setPosition(580, 400);
+		logo.setPosition(490, 400);
+//		logo.addAction(Actions.forever(Actions.sequence(
+//				Actions.rotateBy(5, 0.1f),
+//				Actions.rotateBy(-5, 0.1f,Interpolation.swingOut)
+//		)));
 		this.addActor(logo);
 		
 		
@@ -77,8 +81,8 @@ public class StartUpScene extends SceneStage{
 		
 		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
 		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
-		adventure.setPosition(550, 310);
-		training.setPosition(550, 220);
+		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
+		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
 	
 		this.addActor(adventure);
 		this.addActor(training);
