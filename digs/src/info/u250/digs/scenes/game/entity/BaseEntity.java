@@ -48,6 +48,7 @@ public abstract class BaseEntity extends Actor {
 	private BaseEntity attackAim ;
 	private BaseEntity healAim ;
 	private Vector2 tmp = new Vector2();
+	private boolean showHp = true;
 	
 	protected NpcStatus status = NpcStatus.Walk;
 	protected Animation animation ;
@@ -82,9 +83,11 @@ public abstract class BaseEntity extends Actor {
 			}else{
 				Engine.getDefaultFont().setColor(Color.WHITE);
 			}
-			Engine.getDefaultFont().setScale(0.8f, 0.8f);
-			Engine.getDefaultFont().draw(batch, currentHP+"", getX()+5, getY()+26);
-			Engine.getDefaultFont().setColor(Color.WHITE);
+			if(showHp){
+				Engine.getDefaultFont().setScale(0.8f, 0.8f);
+				Engine.getDefaultFont().draw(batch, currentHP+"", getX()+5, getY()+26);
+				Engine.getDefaultFont().setColor(Color.WHITE);
+			}
 		}
 	}
 	@Override
@@ -400,4 +403,13 @@ public abstract class BaseEntity extends Actor {
 			}
 		}
 	}
+
+	public boolean isShowHp() {
+		return showHp;
+	}
+
+	public void setShowHp(boolean showHp) {
+		this.showHp = showHp;
+	}
+	
 }

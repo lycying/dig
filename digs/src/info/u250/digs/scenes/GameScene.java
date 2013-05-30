@@ -106,6 +106,7 @@ public class GameScene extends SceneStage {
 //		config.surfaceFile = "data/DSRT.png";
 		config.runnerNumber = 20;
 		config.width = 2048;
+		config.segment = 15;
 		terrain = new Terrain(config);
 		scroll.setWidget(terrain);
 	} 

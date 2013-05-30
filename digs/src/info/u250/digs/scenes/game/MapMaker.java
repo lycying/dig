@@ -36,7 +36,7 @@ public class MapMaker {
 		
 		Random random = new Random();
 		final CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();
-		int controlPointsNum = 15;
+		int controlPointsNum = config.segment;
 		final int baseHeight = 450;
 		final int ramdomHeight = 50;
 		Vector2[] controlPoints = new Vector2[controlPointsNum];
