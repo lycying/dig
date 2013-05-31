@@ -103,19 +103,19 @@ public class Terrain extends Group{
 	}
 	
 	public void addNpcs(){
-		for(int i=0;i<50;i++){
+		for(int i=0;i<10;i++){
 			GreenHat e = new GreenHat();
 			e.init(this);
 			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
 			this.addActor(e);
 		}
-		for(int i=0;i<5;i++){
+		for(int i=0;i<2;i++){
 			Watchmen e = new Watchmen();
 			e.init(this);
 			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
 			this.addActor(e);
 		}
-		for(int i=0;i<6;i++){
+		for(int i=0;i<3;i++){
 			HealBoy e = new HealBoy();
 			e.init(this);
 			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);

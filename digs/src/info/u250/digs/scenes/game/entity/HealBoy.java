@@ -15,7 +15,7 @@ public  class HealBoy extends BaseEntity{
 		this.self = true;
 		this.heal = 1;
 		this.healRange = 100;
-		this.speed = 120;
+		this.speed = 70;
 		
 		
 		

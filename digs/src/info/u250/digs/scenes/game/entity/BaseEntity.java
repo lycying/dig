@@ -12,12 +12,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public abstract class BaseEntity extends Actor {
@@ -34,7 +32,6 @@ public abstract class BaseEntity extends Actor {
 	Label hpLabel ;
 	private float margin = 5;
 	private Rectangle tempRectangle = new Rectangle();
-	private Sprite drawable = new Sprite();
 	private Random random   = new Random();
 	private float speedX = 0;
 	private float speedY = 0;
@@ -52,6 +49,8 @@ public abstract class BaseEntity extends Actor {
 	
 	protected NpcStatus status = NpcStatus.Walk;
 	protected Animation animation ;
+	protected Sprite drawable = new Sprite();
+
 	
 	public boolean self = true;
 	public float speed = 40;
@@ -296,44 +295,50 @@ public abstract class BaseEntity extends Actor {
 				}
 			})));
 		}
-		
 		TextureAtlas atlas = Engine.resource("All");
-		final Image fire = new Image(atlas.findRegion("color"));
-		fire.setColor(new Color(1, 0, 0, 0.5f));
-		fire.setPosition(getX()+6, getY()+6);
-		float dst = tmp.set(getX(),getY()).dst(attackAim.getX(), attackAim.getY());
-		float angle = tmp.set(getX(),getY()).sub(attackAim.getX(),attackAim.getY()).angle();
-		float scale = dst/4f;
-		fire.setRotation(angle);
-		fire.setOrigin(4, 2);
-		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				fire.remove();
-			}
-		})));
-		terrain.addActor(fire); 
+		AiBombo aiBombo = new AiBombo(atlas.findRegion("color"),this,attackAim);
+		terrain.addActor(aiBombo);
+		
+//		final Image fire = new Image(atlas.findRegion("color"));
+//		fire.setColor(new Color(1, 0, 0, 0.5f));
+//		fire.setPosition(getX()+6, getY()+6);
+//		float dst = tmp.set(getX(),getY()).dst(attackAim.getX(), attackAim.getY());
+//		float angle = tmp.set(getX(),getY()).sub(attackAim.getX(),attackAim.getY()).angle();
+//		float scale = dst/4f;
+//		fire.setRotation(angle);
+//		fire.setOrigin(4, 2);
+//		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
+//			@Override
+//			public void run() {
+//				fire.remove();
+//			}
+//		})));
+//		terrain.addActor(fire); 
 	}
 	public void doAHeal(){
 		healAim.currentHP+=heal;
 		if(healAim.currentHP>healAim.hp)healAim.currentHP = healAim.hp;
 		
 		TextureAtlas atlas = Engine.resource("All");
-		final Image fire = new Image(atlas.findRegion("color"));
-		fire.setColor(new Color( 0, 1 , 0 , 0.5f));
-		fire.setPosition(getX()+6, getY()+6);
-		float dst = tmp.set(getX(),getY()).dst(healAim.getX(), healAim.getY());
-		float angle = tmp.set(getX(),getY()).sub(healAim.getX(),healAim.getY()).angle();
-		float scale = dst/4f;
-		fire.setRotation(angle);
-		fire.setOrigin(4, 2);
-		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				fire.remove();
-			}
-		})));
-		terrain.addActor(fire); 
+		AiHeal aiHeal = new AiHeal(atlas.findRegion("color"),this,healAim);
+		terrain.addActor(aiHeal);
+		
+//		TextureAtlas atlas = Engine.resource("All");
+//		final Image fire = new Image(atlas.findRegion("color"));
+//		fire.setColor(new Color( 0, 1 , 0 , 0.5f));
+//		fire.setPosition(getX()+6, getY()+6);
+//		float dst = tmp.set(getX(),getY()).dst(healAim.getX(), healAim.getY());
+//		float angle = tmp.set(getX(),getY()).sub(healAim.getX(),healAim.getY()).angle();
+//		float scale = dst/4f;
+//		fire.setRotation(angle);
+//		fire.setOrigin(4, 2);
+//		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
+//			@Override
+//			public void run() {
+//				fire.remove();
+//			}
+//		})));
+//		terrain.addActor(fire); 
 	}
 	
 	public final void setAnimation(Animation animation){
@@ -411,5 +416,9 @@ public abstract class BaseEntity extends Actor {
 	public void setShowHp(boolean showHp) {
 		this.showHp = showHp;
 	}
-	
+//	public Vector2 collisionCenter = new Vector2();
+//	public Vector2 getCollisionCenter(){
+//		collisionCenter.set(getX(), getY());
+//		return collisionCenter ;
+//	}
 }
