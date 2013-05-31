@@ -322,7 +322,6 @@ public abstract class BaseEntity extends Actor {
 		TextureAtlas atlas = Engine.resource("All");
 		AiHeal aiHeal = new AiHeal(atlas.findRegion("color"),this,healAim);
 		terrain.addActor(aiHeal);
-		
 //		TextureAtlas atlas = Engine.resource("All");
 //		final Image fire = new Image(atlas.findRegion("color"));
 //		fire.setColor(new Color( 0, 1 , 0 , 0.5f));
