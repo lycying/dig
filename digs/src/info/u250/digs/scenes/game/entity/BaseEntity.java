@@ -3,6 +3,8 @@ package info.u250.digs.scenes.game.entity;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.game.Dock;
 import info.u250.digs.scenes.game.Terrain;
+import info.u250.digs.scenes.game.entity.ai.AiBombo;
+import info.u250.digs.scenes.game.entity.ai.AiHeal;
 
 import java.util.Random;
 
@@ -415,9 +417,8 @@ public abstract class BaseEntity extends Actor {
 	public void setShowHp(boolean showHp) {
 		this.showHp = showHp;
 	}
-//	public Vector2 collisionCenter = new Vector2();
-//	public Vector2 getCollisionCenter(){
-//		collisionCenter.set(getX(), getY());
-//		return collisionCenter ;
-//	}
+	
+	public Sprite getDrawable(){
+		return drawable;
+	}
 }

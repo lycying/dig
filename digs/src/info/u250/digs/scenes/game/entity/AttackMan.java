@@ -5,43 +5,43 @@ import info.u250.c2d.engine.Engine;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public  class HealBoy extends BaseEntity{
+public class AttackMan extends BaseEntity{
 	
-	public HealBoy(){  
-		this.attack = 0;
-		this.attackRange = 0;
+	public AttackMan(){  
+		this.attack = 1;
+		this.attackRange = 100;
 		this.goldHold = 0;
 		this.defense = true;
-		this.self = true;
-		this.heal = 1;
-		this.healRange = 100;
-		this.speed = 70;
+		this.self = false;
 		
+		this.speed = 20;
 		
 		
 		TextureAtlas atlas = Engine.resource("All");
 		
 		
+		
 		walkRightAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc3-walk-right-1"),
-				atlas.findRegion("npc3-walk-right-2"));
+				atlas.findRegion("npc2-walk-right-1"),
+				atlas.findRegion("npc2-walk-right-2"));
 		walkLeftAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc3-walk-left-1"),
-				atlas.findRegion("npc3-walk-left-2"));
-		healRightAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc3-heal-right-1"),
-				atlas.findRegion("npc3-heal-right-2"));
-		healLeftAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc3-heal-left-1"),
-				atlas.findRegion("npc3-heal-left-2"));
+				atlas.findRegion("npc2-walk-left-1"),
+				atlas.findRegion("npc2-walk-left-2"));
+		attackRightAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-attack-right-1"),
+				atlas.findRegion("npc2-attack-right-2"));
+		attackLeftAnimation = new Animation(0.205f, 
+				atlas.findRegion("npc2-attack-left-1"),
+				atlas.findRegion("npc2-attack-left-2"));
 		animation = walkLeftAnimation;
 	}
 	
 
 	Animation walkRightAnimation ;
 	Animation walkLeftAnimation ;
-	Animation healRightAnimation ;
-	Animation healLeftAnimation ;
+	Animation attackRightAnimation ;
+	Animation attackLeftAnimation ;
+
 	
 
 	@Override
@@ -66,13 +66,12 @@ public  class HealBoy extends BaseEntity{
 
 	@Override
 	public Animation getSkillAnimationLeft() {
-		return healLeftAnimation;
+		return attackLeftAnimation;
 	}
 
 	@Override
 	public Animation getSkillAnimationRight() {
-		return healRightAnimation;
+		return attackRightAnimation;
 	}
-
 	
 }

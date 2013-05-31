@@ -9,7 +9,7 @@ import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.DigsEngineDrive;
-import info.u250.digs.scenes.game.GameInformationPane;
+import info.u250.digs.scenes.game.InformationPane;
 import info.u250.digs.scenes.game.PauseDialog;
 import info.u250.digs.scenes.game.Terrain;
 import info.u250.digs.scenes.game.TerrainConfig;
@@ -32,7 +32,7 @@ public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
 	Terrain terrain = null;
-	GameInformationPane gameInformationPane ;
+	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
 	final ScrollPane scroll;
 	public GameScene(DigsEngineDrive drive){
@@ -74,7 +74,7 @@ public class GameScene extends SceneStage {
 				super.clicked(event, x, y);
 			}
 		});
-		gameInformationPane = new GameInformationPane();
+		gameInformationPane = new InformationPane();
 		final Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pause.setPosition(Engine.getWidth()-pause.getWidth(), Engine.getHeight()- 55);
 		pause.addListener(new ClickListener(){

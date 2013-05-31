@@ -6,8 +6,8 @@ import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.entity.BombMan;
 import info.u250.digs.scenes.game.entity.GreenHat;
-import info.u250.digs.scenes.game.entity.HealBoy;
-import info.u250.digs.scenes.game.entity.Watchmen;
+import info.u250.digs.scenes.game.entity.HealMan;
+import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.npclist.NpcDetailTable;
 import info.u250.digs.scenes.npclist.NpcItemTable;
 import info.u250.digs.scenes.npclist.NpcWrapper;
@@ -76,8 +76,8 @@ public class NpcListScene extends SceneStage {
 		followImage.setColor(new Color(116f/255f, 88f/255f, 133f/255f, 0.5f));
 				
 		npc1 = new NpcWrapper(new GreenHat());
-		npc2 = new NpcWrapper(new Watchmen());
-		npc3 = new NpcWrapper(new HealBoy());
+		npc2 = new NpcWrapper(new AttackMan());
+		npc3 = new NpcWrapper(new HealMan());
 		npc4 = new NpcWrapper(new BombMan());
 		npc1.title = "The most common npc in the world";
 		npc1.desc = "Right now, take part in a battle events and aim to get special rare prizes! And the game will feature more and more events as time goes on, including Raid Battles against unique, limited-time-only characters!Steve Jobs: The Man Who Thought Different,Thank you to all ZOOKEEPER BATTLE fans for 4.5 million total Downloads!";

@@ -1,4 +1,6 @@
-package info.u250.digs.scenes.game.entity;
+package info.u250.digs.scenes.game.entity.ai;
+
+import info.u250.digs.scenes.game.entity.BaseEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,9 +22,9 @@ public class AiHeal extends Image {
 	
 	@Override
 	public void act(float delta) {
-		target_direction.set(target.getX()+target.drawable.getWidth()/2,target.getY()+target.drawable.getHeight()/2).sub(this.getX(),this.getY()).nor();
+		target_direction.set(target.getX()+target.getDrawable().getWidth()/2,target.getY()+target.getDrawable().getHeight()/2).sub(this.getX(),this.getY()).nor();
 		translate(delta*speed*target_direction.x, delta*speed*target_direction.y);
-		if(target.drawable.getBoundingRectangle().contains(getX(), getY())){
+		if(target.getDrawable().getBoundingRectangle().contains(getX(), getY())){
 			this.remove();
 		}
 		super.act(delta);

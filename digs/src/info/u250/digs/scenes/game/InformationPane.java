@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-public class GameInformationPane extends Table{
+public class InformationPane extends Table{
 	final CountDownTimer  countDownTimer;
 	final Label lblGold;
-	public GameInformationPane(){
+	public InformationPane(){
 		TextureAtlas atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
 		lblGold = new Label("0", new LabelStyle(font, Color.RED));
