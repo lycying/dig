@@ -112,9 +112,41 @@ public class StartUpScene extends SceneStage{
 		this.addActor(logo);
 		
 		
+		
 		Image grass = new Image(atlas.findRegion("grass"));
-		grass.setPosition(Engine.getWidth()/2-grass.getWidth()/2, -100);
+		grass.setPosition(Engine.getWidth()/2-grass.getWidth()/2, -30);
 		this.addActor(grass);
+		
+		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
+		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
+		
+		
+		training.setPosition(470,300);
+		adventure.setPosition(470, 390);
+		
+//		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
+//		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
+	
+		this.addActor(adventure);
+		this.addActor(training);
+		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
+		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
+		final Image sound_flag = new Image(sound_flag_on); 
+		sound_flag.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if(sound_flag.getDrawable() == sound_flag_off){
+					sound_flag.setDrawable(sound_flag_on);
+					Engine.getSoundManager().playSound("SoundClick");
+				}else{
+					sound_flag.setDrawable(sound_flag_off);
+					Engine.getSoundManager().playSound("SoundClick");
+				}
+				super.clicked(event, x, y);
+			}
+		});
+		sound_flag.setPosition(460, 240);
+		this.addActor(sound_flag);
 		
 		Finger finger = new Finger(atlas.findRegion("finger"), this);
 		this.addActor(finger);
@@ -127,17 +159,7 @@ public class StartUpScene extends SceneStage{
 		)));
 		this.addActor(water);
 		
-		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
-		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
 		
-		training.setPosition(500,300);
-		adventure.setPosition(500, 400);
-		
-//		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
-//		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
-	
-		this.addActor(adventure);
-		this.addActor(training);
 		
 		adventure.addListener(new ClickListener(){
 			@Override
