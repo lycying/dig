@@ -145,12 +145,12 @@ public class GameScene extends SceneStage {
 	
 	@Override
 	public void show() {
-//		Engine.getMusicManager().playMusic("MusicBattle", true);
+		Engine.getMusicManager().playMusic("MusicBattle", true);
 		super.show();
 	}
 	@Override
 	public void hide() {
-//		Engine.getMusicManager().stopMusic("MusicBattle");
+		Engine.getMusicManager().stopMusic("MusicBattle");
 		super.hide();
 	}
 	

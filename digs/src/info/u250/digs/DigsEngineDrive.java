@@ -15,7 +15,7 @@ public class DigsEngineDrive implements EngineDrive {
 
 	@Override
 	public EngineOptions onSetupEngine() {
-		EngineOptions opt = new EngineOptions(new String[]{"data/","texs/Stone.jpg"}, 960, 540);
+		EngineOptions opt = new EngineOptions(new String[]{"data/","texs/DSRT.png"}, 960, 540);
 		opt.useGL20 = true;
 		opt.autoResume = true;
 		opt.catchBackKey = true;
@@ -46,7 +46,7 @@ public class DigsEngineDrive implements EngineDrive {
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("All", "data/all.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
-		reg.texture("Texture", "texs/Stone.jpg");
+		reg.texture("Texture", "texs/DSRT.png");
 		
 		reg.music("MusicBackground", "data/music/bg.mp3");
 		reg.music("MusicBattle", "data/music/battle.mp3");

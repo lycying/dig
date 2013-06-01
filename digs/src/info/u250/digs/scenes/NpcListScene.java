@@ -228,11 +228,11 @@ public class NpcListScene extends SceneStage {
 	@Override
 	public void show() {
 		super.show();
-//		Engine.getMusicManager().playMusic("MusicBackground", true);
+		Engine.getMusicManager().playMusic("MusicBackground", true);
 	}
 	@Override
 	public void hide() {
-//		Engine.getMusicManager().stopMusic("MusicBackground");
+		Engine.getMusicManager().pauseMusic("MusicBackground");
 		super.hide();
 	}
 	

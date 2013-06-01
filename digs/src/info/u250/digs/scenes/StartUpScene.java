@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -35,6 +36,7 @@ public class StartUpScene extends SceneStage{
 	DigsEngineDrive drive;
 	TextureAtlas atlas = null;
 	public Terrain terrain;
+	public Group terrainContainer;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
 	final TriangleSurfaces surface;
@@ -44,7 +46,7 @@ public class StartUpScene extends SceneStage{
 		atlas = Engine.resource("All");
 		
 //		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
-		meshBackground = new SimpleMeshBackground(new Color(249f/255f, 230f/255f,0, 1),new Color(113f/255f, 25f/255f, 106f/255f, 1f));
+		meshBackground = new SimpleMeshBackground(new Color(1, 243f/255f,89f/255f, 1),new Color(31f/255f, 180f/255f, 59f/255f, 1f));
 
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
@@ -57,7 +59,7 @@ public class StartUpScene extends SceneStage{
 		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data.texture="Texture";
 		data.points = new Array<Vector2>(){{
-			add(new Vector2(-27.005554f,87f));
+			add(new Vector2(-27.005554f,300f));
 			add(new Vector2(-20,-4));
 			add(new Vector2(119,250));
 			add(new Vector2(200.99362f,-14f));
@@ -67,9 +69,9 @@ public class StartUpScene extends SceneStage{
 			add(new Vector2(380,-9f));
 			add(new Vector2(400,300));
 			add(new Vector2(458f,-9f));
-			add(new Vector2(510f,280));
+			add(new Vector2(510f,180));
 			add(new Vector2(556.0f,-7f));
-			add(new Vector2(593f,270));
+			add(new Vector2(593f,200));
 			add(new Vector2(650f,-53f));
 			add(new Vector2(700f,290));
 			add(new Vector2(735f,-53f));
@@ -96,19 +98,16 @@ public class StartUpScene extends SceneStage{
 		this.addActor(p);
 		
 		
-		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "texs/LoamWalls.jpg";
-//		config.surfaceFile = "data/DSRT.png";
-		config.runnerNumber = 20;
-		config.segment = 8;
-		config.width = (int)Engine.getWidth()/2;
-		terrain = new Terrain(config);
-		this.addActor(terrain);
+		
+		terrainContainer = new Group();
+		this.addActor(terrainContainer);
+		genT();
+		
 		Image logo = new Image(atlas.findRegion("logo"));
 		logo.setPosition(570, 120);
 		logo.addAction(Actions.forever(Actions.sequence(
-				Actions.moveBy(0,-50,0.5f,Interpolation.swingIn),
-				Actions.moveBy(0,50,0.5f,Interpolation.swingOut)
+				Actions.moveBy(0,-80,0.5f,Interpolation.swingIn),
+				Actions.moveBy(0,80,0.5f,Interpolation.swingOut)
 		)));
 		this.addActor(logo);
 		
@@ -130,8 +129,12 @@ public class StartUpScene extends SceneStage{
 		
 		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
 		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
-		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
-		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
+		
+		training.setPosition(500,300);
+		adventure.setPosition(500, 400);
+		
+//		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
+//		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
 	
 		this.addActor(adventure);
 		this.addActor(training);
@@ -154,14 +157,31 @@ public class StartUpScene extends SceneStage{
 		});
 		
 	}
+	void genT(){
+		terrainContainer.clear();
+		terrain = null;
+		if(null!=terrain){
+			terrain.dispose();
+		}
+		TerrainConfig config = new TerrainConfig();
+		config.surfaceFile = "texs/LoamWalls.jpg";
+//		config.surfaceFile = "data/DSRT.png";
+		config.runnerNumber = 20;
+		config.segment = 8;
+		config.width = (int)Engine.getWidth()/2;
+		terrain = new Terrain(config);
+		
+		terrainContainer.addActor(terrain);
+	}
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
 		if(deltaAppend>30){
-			terrain.dispose();
-			terrain.addTerrains();
-			//terrain.addDocks();
-			terrain.addNpcs();
+//			terrain.dispose();
+//			terrain.addTerrains();
+//			//terrain.addDocks();
+//			terrain.addNpcs();
+			genT();
 			deltaAppend = 0;
 		}
 		super.act(delta);
@@ -185,5 +205,16 @@ public class StartUpScene extends SceneStage{
 			}
 		}
 		return super.keyDown(keycode);
+	}
+	
+	@Override
+	public void show() {
+		super.show();
+		Engine.getMusicManager().playMusic("MusicBackground", true);
+	}
+	@Override
+	public void hide() {
+		Engine.getMusicManager().pauseMusic("MusicBackground");
+		super.hide();
 	}
 }
