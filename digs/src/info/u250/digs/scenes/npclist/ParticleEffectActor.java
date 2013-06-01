@@ -15,7 +15,7 @@ public class ParticleEffectActor extends Actor {
 	private boolean spiral;
 	private float r = 0;
 
-	protected ParticleEffectActor(ParticleEffect emitter) {
+	public ParticleEffectActor(ParticleEffect emitter) {
 		this.emitter = emitter;
 		this.spiral = false;
 	}

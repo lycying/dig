@@ -108,6 +108,7 @@ public class GameScene extends SceneStage {
 		config.width = 2048;
 		config.segment = 15;
 		terrain = new Terrain(config);
+		terrain.addDocks();
 		scroll.setWidget(terrain);
 	} 
 	public void setupPauseResume(){

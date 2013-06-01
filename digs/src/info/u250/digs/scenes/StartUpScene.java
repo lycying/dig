@@ -11,12 +11,15 @@ import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.Terrain;
 import info.u250.digs.scenes.game.TerrainConfig;
 import info.u250.digs.scenes.game.entity.GreenHat;
+import info.u250.digs.scenes.npclist.ParticleEffectActor;
+import info.u250.digs.scenes.start.Finger;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
@@ -31,7 +34,7 @@ import com.badlogic.gdx.utils.Array;
 public class StartUpScene extends SceneStage{
 	DigsEngineDrive drive;
 	TextureAtlas atlas = null;
-	Terrain terrain;
+	public Terrain terrain;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
 	final TriangleSurfaces surface;
@@ -40,7 +43,8 @@ public class StartUpScene extends SceneStage{
 		
 		atlas = Engine.resource("All");
 		
-		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
+//		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
+		meshBackground = new SimpleMeshBackground(new Color(249f/255f, 230f/255f,0, 1),new Color(113f/255f, 25f/255f, 106f/255f, 1f));
 
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
@@ -84,6 +88,14 @@ public class StartUpScene extends SceneStage{
 		greenHat.setPosition(720, 290);
 		this.addActor(greenHat);
 		
+		
+		ParticleEffect e = new ParticleEffect();
+		e.load(Gdx.files.internal("data/startscene.p"), Gdx.files.internal("data/"));
+		ParticleEffectActor p = new ParticleEffectActor(e);
+		p.setPosition(50, Engine.getHeight());
+		this.addActor(p);
+		
+		
 		TerrainConfig config = new TerrainConfig();
 		config.surfaceFile = "texs/LoamWalls.jpg";
 //		config.surfaceFile = "data/DSRT.png";
@@ -104,6 +116,9 @@ public class StartUpScene extends SceneStage{
 		Image grass = new Image(atlas.findRegion("grass"));
 		grass.setPosition(Engine.getWidth()/2-grass.getWidth()/2, -100);
 		this.addActor(grass);
+		
+		Finger finger = new Finger(atlas.findRegion("finger"), this);
+		this.addActor(finger);
 		
 		Image water = new Image(atlas.findRegion("water"));
 		water.setWidth(Engine.getWidth());
@@ -142,7 +157,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>20){
+		if(deltaAppend>30){
 			terrain.dispose();
 			terrain.addTerrains();
 			//terrain.addDocks();

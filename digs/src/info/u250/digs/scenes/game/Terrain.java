@@ -80,7 +80,6 @@ public class Terrain extends Group{
 	public Terrain(TerrainConfig config){
 		this.config = config;
 		this.addTerrains();
-		this.addDocks();
 		this.addNpcs();
 	}
 	

@@ -19,7 +19,7 @@ public class DigsEngineDrive implements EngineDrive {
 		opt.useGL20 = true;
 		opt.autoResume = true;
 		opt.catchBackKey = true;
-		opt.debug = true;
+		opt.debug = false;
 		return opt;
 	}
 
