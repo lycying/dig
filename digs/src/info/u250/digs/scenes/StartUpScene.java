@@ -29,6 +29,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -244,10 +245,11 @@ public class StartUpScene extends SceneStage{
 	}
 	void genTerrain(){
 		terrainContainer.clear();
-		terrain = null;
 		if(null!=terrain){
+			terrain.setTouchable(Touchable.disabled);
 			terrain.dispose();
 		}
+		terrain = null;
 		TerrainConfig config = new TerrainConfig();
 		config.surfaceFile = texs.get(new Random().nextInt(texs.size()));
 //		config.surfaceFile = "data/DSRT.png";

@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 
 public class Terrain extends Group{
@@ -49,6 +50,8 @@ public class Terrain extends Group{
 			return true;
 		}
 		public void touchDragged(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer) {
+			if(getTouchable() == Touchable.disabled) return;
+			
 			Vector2 position = new Vector2();
 			position.set(x,y);
 			
