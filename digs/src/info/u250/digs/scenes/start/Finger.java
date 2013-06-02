@@ -57,9 +57,9 @@ public class Finger extends Image{
 			this.addAction(Actions.fadeOut(0.3f));
 			return;
 		}else if(timeDelta2>9.5f){
-			start.terrain.fillTerrain(tmp.set(getX(),getY()).add(30,100), 16, true);
+			start.terrain.fillTerrain(tmp.set(getX(),getY()).add(16,50), 16, true);
 		}else{
-			start.terrain.fillTerrain(tmp.set(getX(),getY()).add(30,100), 16, false);
+			start.terrain.fillTerrain(tmp.set(getX(),getY()).add(16,50), 16, false);
 		}
 		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}
