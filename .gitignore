@@ -6,3 +6,5 @@
 /digs-android/bin
 /digs-desktop/bin
 /digs-android/proguard
+/digs-desktop/assets/data/all.png
+/digs-desktop/assets/data/all.atlas

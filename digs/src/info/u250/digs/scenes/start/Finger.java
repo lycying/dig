@@ -38,7 +38,7 @@ public class Finger extends Image{
 		if(getX()+30>start.terrain.getWidth()){
 			speed.x = -SPEED*2 ;
 		}
-		if(getY()>410){
+		if(getY()>420){
 			speed.y = -SPEED ;
 		}
 		if(getX()+30<0){

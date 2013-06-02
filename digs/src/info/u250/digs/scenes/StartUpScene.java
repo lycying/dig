@@ -14,6 +14,11 @@ import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.npclist.ParticleEffectActor;
 import info.u250.digs.scenes.start.Finger;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -41,6 +46,8 @@ public class StartUpScene extends SceneStage{
 	SimpleMeshBackground meshBackground ;
 	final TriangleSurfaces surface;
 	public StartUpScene(DigsEngineDrive drive){
+		loadTextures();
+		
 		this.drive = drive;
 		
 		atlas = Engine.resource("All");
@@ -101,7 +108,7 @@ public class StartUpScene extends SceneStage{
 		
 		terrainContainer = new Group();
 		this.addActor(terrainContainer);
-		genT();
+		genTerrain();
 		
 		Image logo = new Image(atlas.findRegion("logo"));
 		logo.setPosition(570, 120);
@@ -179,14 +186,71 @@ public class StartUpScene extends SceneStage{
 		});
 		
 	}
-	void genT(){
+	
+	List<String> texs = new ArrayList<String>();
+	void loadTextures(){
+//		File file = new File("assets/texs");
+//		for(String s:file.list()){
+//			System.out.println("texs.add(\"texs/"+s+"\");");
+//		}
+		texs.add("texs/flower.png");
+		texs.add("texs/ALIN.png");
+		texs.add("texs/BrickRound.jpg");
+		texs.add("texs/brown002.jpg");
+		texs.add("texs/brown063.jpg");
+		texs.add("texs/brown091.gif");
+		texs.add("texs/brown094.jpg");
+		texs.add("texs/brown096.jpg");
+		texs.add("texs/brown138.jpg");
+		texs.add("texs/brown155.jpg");
+		texs.add("texs/brown156.jpg");
+		texs.add("texs/brown169.gif");
+		texs.add("texs/brown178.png");
+		texs.add("texs/checker-mush.jpg");
+		texs.add("texs/cobblestonesDepth.gif");
+		texs.add("texs/cobblestonesDiffuse.gif");
+		texs.add("texs/dgrey038.jpg");
+		texs.add("texs/Dirt.png");
+		texs.add("texs/DirtGrass.png");
+		texs.add("texs/DSRT.png");
+		texs.add("texs/fluorescent-infection.jpg");
+		texs.add("texs/frog-land.jpg");
+		texs.add("texs/green-monkeyskin.jpg");
+		texs.add("texs/green013.jpg");
+		texs.add("texs/green020.jpg");
+		texs.add("texs/green035.gif");
+		texs.add("texs/green057.jpg");
+		texs.add("texs/green058.jpg");
+		texs.add("texs/green073.jpg");
+		texs.add("texs/green080.jpg");
+		texs.add("texs/green090.jpg");
+		texs.add("texs/green092.png");
+		texs.add("texs/Leather.jpg");
+		texs.add("texs/lgren008.jpg");
+		texs.add("texs/LoamWalls.jpg");
+		texs.add("texs/MetalGalvanized.jpg");
+		texs.add("texs/micro-clorophyl.jpg");
+		texs.add("texs/planet-gravel.jpg");
+		texs.add("texs/RockLayered.jpg");
+		texs.add("texs/Rust.jpg");
+		texs.add("texs/simple-greenish.jpg");
+		texs.add("texs/skinny-reptile.jpg");
+		texs.add("texs/solitary-moss.jpg");
+		texs.add("texs/Stone.jpg");
+		texs.add("texs/stone57.gif");
+		texs.add("texs/stonewallDepth.gif");
+		texs.add("texs/trigger-turf.jpg");
+		texs.add("texs/water-sheets.jpg");
+		texs.add("texs/wood-emboss.jpg");
+	}
+	void genTerrain(){
 		terrainContainer.clear();
 		terrain = null;
 		if(null!=terrain){
 			terrain.dispose();
 		}
 		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "texs/LoamWalls.jpg";
+		config.surfaceFile = texs.get(new Random().nextInt(texs.size()));
 //		config.surfaceFile = "data/DSRT.png";
 		config.runnerNumber = 20;
 		config.segment = 8;
@@ -198,12 +262,8 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>30){
-//			terrain.dispose();
-//			terrain.addTerrains();
-//			//terrain.addDocks();
-//			terrain.addNpcs();
-			genT();
+		if(deltaAppend>1){
+			genTerrain();
 			deltaAppend = 0;
 		}
 		super.act(delta);
