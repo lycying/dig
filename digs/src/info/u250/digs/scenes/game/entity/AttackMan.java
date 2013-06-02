@@ -23,16 +23,18 @@ public class AttackMan extends BaseEntity{
 		
 		walkRightAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc2-walk-right-1"),
-				atlas.findRegion("npc2-walk-right-2"));
+				atlas.findRegion("npc2-walk-right-2"),
+				atlas.findRegion("npc2-walk-right-3"),
+				atlas.findRegion("npc2-walk-right-4"));
 		walkLeftAnimation = new Animation(0.205f, 
 				atlas.findRegion("npc2-walk-left-1"),
-				atlas.findRegion("npc2-walk-left-2"));
+				atlas.findRegion("npc2-walk-left-2"),
+				atlas.findRegion("npc2-walk-left-3"),
+				atlas.findRegion("npc2-walk-left-4"));
 		attackRightAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc2-attack-right-1"),
-				atlas.findRegion("npc2-attack-right-2"));
+				atlas.findRegion("npc2-walk-right-1"));
 		attackLeftAnimation = new Animation(0.205f, 
-				atlas.findRegion("npc2-attack-left-1"),
-				atlas.findRegion("npc2-attack-left-2"));
+				atlas.findRegion("npc2-walk-left-1"));
 		animation = walkLeftAnimation;
 	}
 	
