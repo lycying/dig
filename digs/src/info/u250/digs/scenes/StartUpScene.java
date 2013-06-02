@@ -14,7 +14,6 @@ import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.npclist.ParticleEffectActor;
 import info.u250.digs.scenes.start.Finger;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -262,7 +261,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>1){
+		if(deltaAppend>3){
 			genTerrain();
 			deltaAppend = 0;
 		}
