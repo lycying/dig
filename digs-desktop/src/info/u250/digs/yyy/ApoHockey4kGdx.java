@@ -27,22 +27,28 @@ package info.u250.digs.yyy;
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.applet.Applet;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Event;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
+import info.u250.c2d.engine.Engine;
+import info.u250.c2d.engine.EngineDrive;
+import info.u250.c2d.engine.Scene;
+import info.u250.c2d.engine.resources.AliasResourceManager;
 
 
-public class ApoHockey4k extends Applet implements Runnable {
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+public class ApoHockey4kGdx  implements Scene{
+
+	Rectangle tmpRect1 = new Rectangle();
+	Rectangle tmpRect2 = new Rectangle();
 
 	private final static Color[] COLOR_ORDER = new Color[] {
 		Color.CYAN,
@@ -79,24 +85,12 @@ public class ApoHockey4k extends Applet implements Runnable {
 	 * p[11] == Punkt erzielt Mensch
 	 */
 	private final int[] p = new int[12];
+	float think = 0;
+	float[] paddleVec = new float[6];
+	int colors[] = new int[16];
+	float[] playerspaddle = new float[8];
 	
-	public void start() {
-		new Thread(this).start();
-	}
-	
-	public void run() {
-//		setSize(400, 400); // für den AppletViewer
-		
-		// Graphische Grundlagen für das Double Buffering
-		BufferedImage screen = new BufferedImage(440,600,BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = screen.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		Graphics2D appletGraphics = (Graphics2D)getGraphics();
-
-		// Variablen zum Zeitmessen und genau Timen wann geupdatet werden soll
-		long lastTime = System.nanoTime();
-		long think = 10000000L;
-
+	public ApoHockey4kGdx(){
 		p[7] = 1;
 		
 		/**
@@ -107,7 +101,7 @@ public class ApoHockey4k extends Applet implements Runnable {
 		 * 6 = enemy angle
 		 * 7 = enemy velocity
 		 */
-		float[] playerspaddle = new float[8];
+		
 		playerspaddle[0] = playerspaddle[3] = 190;
 		playerspaddle[1] = 450;
 		playerspaddle[4] = 90;
@@ -116,7 +110,7 @@ public class ApoHockey4k extends Applet implements Runnable {
 		 * 0 = farbe
 		 * 1 = Zeit (wenn größer 0 dann glow
 		 */
-		int colors[] = new int[16];
+		
 		
 		/**
 		 * 0 = x - Wert
@@ -126,21 +120,21 @@ public class ApoHockey4k extends Applet implements Runnable {
 		 * 4 = time to glow
 		 * 5 = color
 		 */
-		float[] paddleVec = new float[6];
+		
 		paddleVec[0] = 205;
 		paddleVec[1] = 345;
 		paddleVec[5] = 3;
+	}
+	public void render(float delta) {
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Engine.getShapeRenderer().setProjectionMatrix(Engine.getDefaultCamera().combined);
 		
-		// Game loop.
-		while (true) {
-			long now = System.nanoTime();
-			long delta = now - lastTime;
 			think += delta;
 			
 			// Update / think
 			// Wenn 10 ms vergangen sind, dann denke nach
-			while (think >= 10000000L) {
-				think -= 10000000L;
+			if (think >= 0.01) {
+				think -= 0.01;
 				
 				if (p[7] <= 0) {
 					float[] oldValues = new float[6];
@@ -317,7 +311,16 @@ public class ApoHockey4k extends Applet implements Runnable {
 							// check intersects with walls
 							float los = paddleVec[2];
 							for (int i = 0; i < WALLS.length; i += 4) {
-								if (new Rectangle2D.Float(WALLS[i], WALLS[i+1], WALLS[i+2], WALLS[i+3]).intersects(paddleVec[0], paddleVec[1], 30, 30)) {
+								tmpRect1.x = WALLS[i];
+								tmpRect1.y = WALLS[i+1];
+								tmpRect1.width = WALLS[i+2];
+								tmpRect1.height = WALLS[i+3];
+								
+								tmpRect2.x = paddleVec[0];
+								tmpRect2.y = paddleVec[1];
+								tmpRect2.width = 30;
+								tmpRect2.height = 30;
+								if (tmpRect1.overlaps(tmpRect2)) {
 									boolean bPaddle = false;
 									if (WALLS[i+2] < WALLS[i+3]) {
 										if ((los >= 90) && (los <= 270)) {
@@ -360,7 +363,18 @@ public class ApoHockey4k extends Applet implements Runnable {
 									if (bPaddle) {
 										// don't touch the wall lovely paddle
 										int count = 0;
-										while ((count < 30) && (new Rectangle2D.Float(WALLS[i], WALLS[i+1], WALLS[i+2], WALLS[i+3]).intersects(paddleVec[0], paddleVec[1], 30, 30))) {
+										
+										tmpRect1.x = WALLS[i];
+										tmpRect1.y = WALLS[i+1];
+										tmpRect1.width = WALLS[i+2];
+										tmpRect1.height = WALLS[i+3];
+										
+										tmpRect2.x = paddleVec[0];
+										tmpRect2.y = paddleVec[1];
+										tmpRect2.width = 30;
+										tmpRect2.height = 30;
+										
+										while ((count < 30) && tmpRect1.overlaps(tmpRect2)) {
 											float radiusOne = 0.5f;
 											count++;
 											paddleVec[0] = (paddleVec[0] - radiusOne * (float)Math.sin(Math.toRadians(paddleVec[2])) );
@@ -375,7 +389,18 @@ public class ApoHockey4k extends Applet implements Runnable {
 										colors[i/2 + 1] = 3000;
 										
 										if (WALLS[i+2] > WALLS[i+3]) {
-											if (new Rectangle2D.Float(WALLS[i], WALLS[i+1], WALLS[i+2], WALLS[i+3]).intersects(paddleVec[0], paddleVec[1], 30, 30)) {
+											
+											tmpRect1.x = WALLS[i];
+											tmpRect1.y = WALLS[i+1];
+											tmpRect1.width = WALLS[i+2];
+											tmpRect1.height = WALLS[i+3];
+											
+											tmpRect2.x = paddleVec[0];
+											tmpRect2.y = paddleVec[1];
+											tmpRect2.width = 30;
+											tmpRect2.height = 30;
+											
+											if (tmpRect1.overlaps(tmpRect2)) {
 												if ((paddleVec[2] >= 90) && (paddleVec[2] <= 270)) {
 													if (paddleVec[2] < 180) {
 														float dif = paddleVec[2] - 90;
@@ -436,24 +461,39 @@ public class ApoHockey4k extends Applet implements Runnable {
 				p[5] = 0;
 			}
 
-			lastTime = now;
+//			lastTime = now;
 
 			// Renderabschnitt
 			// Hintergrund malen
-			g.setColor(new Color(2, 0, 45));
-			g.fillRect(0, 0, 440, 600);
-			g.setColor(new Color(255, 255, 255, 100));
-			g.drawLine(0, 600/2 - 2, 440, 600/2 - 2);
-			g.drawLine(0, 600/2 + 1, 440, 600/2 + 1);
+			Engine.getShapeRenderer().setColor(new Color(2/255f, 0, 45/255f,1));
+			Engine.getShapeRenderer().begin(ShapeType.Filled);
+			Engine.getShapeRenderer().rect(0, 0, 440, 600);
+			Engine.getShapeRenderer().end();
+			
+			Engine.getShapeRenderer().setColor(new Color(1,1,1,100f/255f));
+			Engine.getShapeRenderer().begin(ShapeType.Line);
+			Engine.getShapeRenderer().line(0, 600/2-2, 440, 600/2-2);
+			Engine.getShapeRenderer().line(0, 600/2+1, 440, 600/2+1);
+			Engine.getShapeRenderer().end();
 			
 			int width = 100;
-			g.drawOval(440/2 - width/2, 600/2 - width/2, width, width);
+			
+			Engine.getShapeRenderer().begin(ShapeType.Filled);
+			Engine.getShapeRenderer().circle(440/2, 600/2, width/2);
+			Engine.getShapeRenderer().end();
+			
 			width = 94;
-			g.drawOval(440/2 - width/2, 600/2 - width/2, width, width);
+			Engine.getShapeRenderer().begin(ShapeType.Filled);
+			Engine.getShapeRenderer().circle(440/2, 600/2, width/2);
+			Engine.getShapeRenderer().end();
+
 			
 			width = 200;
-			g.drawOval(440/2 - width/2, 0 - width/2, width, width);
-			g.drawOval(440/2 - width/2, 600 - width/2, width, width);
+			Engine.getShapeRenderer().begin(ShapeType.Filled);
+			Engine.getShapeRenderer().circle(440/2, 0, width/2);
+			Engine.getShapeRenderer().circle(440/2, 600, width/2);
+			Engine.getShapeRenderer().end();
+			
 
 			for (int i = 0; i < WALLS.length; i += 4) {
 				if (colors[i/2] >= COLOR_ORDER.length) {
@@ -465,18 +505,24 @@ public class ApoHockey4k extends Applet implements Runnable {
 				for (int w = 0; w < width/2 - 2; w++) {
 					float add = 200f / (width/2f - 2f);
 					int alpha = 255 - ((int)((width/2 - 2 - w) * add));
-					g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha));
+					Engine.getShapeRenderer().setColor(new Color(c.r, c.g, c.b, alpha/255f));
 					if (WALLS[i + 2] < WALLS[i + 3]) {
-						g.fillRect(WALLS[i] + WALLS[i + 2]/2 - width/2 + w, WALLS[i + 1], 1, WALLS[i + 3]);
-						g.fillRect(WALLS[i] + WALLS[i + 2]/2 + width/2 - w, WALLS[i + 1], 1, WALLS[i + 3]);
+						Engine.getShapeRenderer().begin(ShapeType.Filled);
+						Engine.getShapeRenderer().rect(WALLS[i] + WALLS[i + 2]/2 - width/2 + w, WALLS[i + 1], 1, WALLS[i + 3]);
+						Engine.getShapeRenderer().rect(WALLS[i] + WALLS[i + 2]/2 + width/2 - w, WALLS[i + 1], 1, WALLS[i + 3]);
+						Engine.getShapeRenderer().end();
 					} else {
-						g.fillRect(WALLS[i], WALLS[i + 1] + WALLS[i + 3]/2 - width/2 + w, WALLS[i + 2], 1);
-						g.fillRect(WALLS[i], WALLS[i + 1] + WALLS[i + 3]/2 + width/2 - w, WALLS[i + 2], 1);
+						Engine.getShapeRenderer().begin(ShapeType.Filled);
+						Engine.getShapeRenderer().rect(WALLS[i], WALLS[i + 1] + WALLS[i + 3]/2 - width/2 + w, WALLS[i + 2], 1);
+						Engine.getShapeRenderer().rect(WALLS[i], WALLS[i + 1] + WALLS[i + 3]/2 + width/2 - w, WALLS[i + 2], 1);
+						Engine.getShapeRenderer().end();
 					}
 				}
 				
-				g.setColor(Color.WHITE);
-				g.fillRect(WALLS[i], WALLS[i + 1], WALLS[i + 2], WALLS[i + 3]);
+				Engine.getShapeRenderer().setColor(Color.WHITE);
+				Engine.getShapeRenderer().begin(ShapeType.Filled);
+				Engine.getShapeRenderer().rect(WALLS[i], WALLS[i + 1], WALLS[i + 2], WALLS[i + 3]);
+				Engine.getShapeRenderer().end();
 			}
 
 			Color c = Color.BLUE;
@@ -484,113 +530,173 @@ public class ApoHockey4k extends Applet implements Runnable {
 			for (int i = 0; i < 6; i += 3) {
 				if (i  == 3) c = Color.RED;
 				
-				g.setStroke(new BasicStroke(1));
+				//g.setStroke(new BasicStroke(1));
 				width = (int)(10 - Math.abs(1500 - playerspaddle[i + 2]) / 150 + 14);
 				for (int w = 0; w < width/2 - 2; w++) {
 					float add = 200f / (width/2f - 2f);
 					int alpha = 255 - ((int)((width/2 - 2 - w) * add));
-					g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha));
-					g.drawOval((int)(playerspaddle[i] - width/2 + 2 + w), (int)(playerspaddle[i + 1] - width/2 + 2 + w), (int)(60 + 2*(width/2 - 2 - w)), 60 + 2*(width/2 - 2 - w));	
-					g.drawOval((int)(playerspaddle[i] + width/2 - 2 - w), (int)(playerspaddle[i + 1] + width/2 - 2 - w), (int)(60 - 2*(width/2 - 2 - w)), 60 - 2*(width/2 - 2 - w));	
+					Engine.getShapeRenderer().setColor(new Color(c.r, c.g, c.b, alpha/255f));
+					Engine.getShapeRenderer().begin(ShapeType.Filled);
+					Engine.getShapeRenderer().circle((playerspaddle[i] - width/2 + 2 + w) + ( 60 + 2*(width/2 - 2 - w))/2 , (playerspaddle[i + 1] - width/2 + 2 + w) +( 60 + 2*(width/2 - 2 - w))/2,( 60 + 2*(width/2 - 2 - w))/2);
+					Engine.getShapeRenderer().circle((playerspaddle[i] + width/2 - 2 - w) + ( 60 - 2*(width/2 - 2 - w))/2 , (playerspaddle[i + 1] + width/2 - 2 - w) +( 60 - 2*(width/2 - 2 - w))/2,( 60 - 2*(width/2 - 2 - w))/2);
+					Engine.getShapeRenderer().end();
+//					g.drawOval((int)(playerspaddle[i] - width/2 + 2 + w), (int)(playerspaddle[i + 1] - width/2 + 2 + w), (int)(60 + 2*(width/2 - 2 - w)), 60 + 2*(width/2 - 2 - w));	
+//					g.drawOval((int)(playerspaddle[i] + width/2 - 2 - w), (int)(playerspaddle[i + 1] + width/2 - 2 - w), (int)(60 - 2*(width/2 - 2 - w)), 60 - 2*(width/2 - 2 - w));	
 				}
 				
-				g.setStroke(new BasicStroke(3));
-				g.setColor(Color.WHITE);
-				g.drawOval((int)(playerspaddle[i]), (int)(playerspaddle[i + 1]), 60, 60);
+				//g.setStroke(new BasicStroke(3));
+				Engine.getShapeRenderer().setColor(Color.WHITE);
+				Engine.getShapeRenderer().begin(ShapeType.Filled);
+				Engine.getShapeRenderer().circle(playerspaddle[i]+30, playerspaddle[i + 1]+30,30);
+				Engine.getShapeRenderer().end();
+
 			}
 			
-			g.setStroke(new BasicStroke(1));
+//			g.setStroke(new BasicStroke(1));
 			c = COLOR_ORDER[(int)(paddleVec[5])];
 //			wi = 30;
 			width = (int)(10 - Math.abs(1500 - paddleVec[4]) / 150 + 14);
 			for (int w = 0; w < width/2 - 2; w++) {
 				float add = 200f / (width/2f - 2f);
 				int alpha = 255 - ((int)((width/2 - 2 - w) * add));
-				g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha));
-				g.drawOval((int)(paddleVec[0] - width/2 + 2 + w), (int)(paddleVec[1] - width/2 + 2 + w), 30 + 2*(width/2 - 2 - w), 30 + 2*(width/2 - 2 - w));	
-				g.drawOval((int)(paddleVec[0] + width/2 - 2 - w), (int)(paddleVec[1] + width/2 - 2 - w), 30 - 2*(width/2 - 2 - w), 30 - 2*(width/2 - 2 - w));	
+				Engine.getShapeRenderer().setColor(new Color(c.r, c.g, c.b, alpha/255f));
+				Engine.getShapeRenderer().begin(ShapeType.Filled);
+				Engine.getShapeRenderer().circle((paddleVec[0] - width/2 + 2 + w)+(30 + 2*(width/2 - 2 - w))/2, (paddleVec[1] - width/2 + 2 + w)+(30 + 2*(width/2 - 2 - w))/2, (30 + 2*(width/2 - 2 - w))/2);
+				Engine.getShapeRenderer().circle((paddleVec[0] + width/2 - 2 - w)+(30 - 2*(width/2 - 2 - w))/2, (paddleVec[1] + width/2 - 2 - w)+(30 - 2*(width/2 - 2 - w))/2,(30 - 2*(width/2 - 2 - w))/2);
+				Engine.getShapeRenderer().end();
+//				g.drawOval((int)(paddleVec[0] - width/2 + 2 + w), (int)(paddleVec[1] - width/2 + 2 + w), 30 + 2*(width/2 - 2 - w), 30 + 2*(width/2 - 2 - w));	
+//				g.drawOval((int)(paddleVec[0] + width/2 - 2 - w), (int)(paddleVec[1] + width/2 - 2 - w), 30 - 2*(width/2 - 2 - w), 30 - 2*(width/2 - 2 - w));	
 			}
 			
-			g.setStroke(new BasicStroke(3));
-			g.setColor(Color.WHITE);
-			g.drawOval((int)(paddleVec[0]), (int)(paddleVec[1]), 30, 30);
+//			g.setStroke(new BasicStroke(3));
+			Engine.getShapeRenderer().setColor(Color.WHITE);
+			Engine.getShapeRenderer().begin(ShapeType.Filled);
+			Engine.getShapeRenderer().circle(paddleVec[0]+15,paddleVec[1]+15,15);
+			Engine.getShapeRenderer().end();
 
-			g.setStroke(new BasicStroke(1));
+//			g.setStroke(new BasicStroke(1));
 
-			g.setFont(g.getFont().deriveFont(30f).deriveFont(1));
-			for (int i = 8; i < 10; i++) {
-				String s = String.valueOf(p[i]);
-				int w = g.getFontMetrics().stringWidth(s);
-				g.drawString(s, 410 - w/2, 280 + (i-8)*60);
-			}
-			if (p[7] > 0) {
-				String s = "ApoHockey4k";
-				int w = g.getFontMetrics().stringWidth(s);
-				g.drawString(s, 220 - w/2, 60);
-			
-
-				g.setFont(g.getFont().deriveFont(25f).deriveFont(1));
-				s = "Play with the mouse";
-				w = g.getFontMetrics().stringWidth(s);
-				g.drawString(s, 220 - w/2, 510);
-				
-				s = "Click to start";
-				w = g.getFontMetrics().stringWidth(s);
-				g.drawString(s, 220 - w/2, 550);
-				
-				if (p[8] > p[9]) {
-					s = "The computer wins!";	
-				} else if (p[8] < p[9]) {
-					s = "Congratulation, you win!";	
-				}
-				if (p[8] != p[9]) {
-					w = g.getFontMetrics().stringWidth(s);
-					g.drawString(s, 220 - w/2, 310);
-				}
-			}
+//			g.setFont(g.getFont().deriveFont(30f).deriveFont(1));
+//			for (int i = 8; i < 10; i++) {
+//				String s = String.valueOf(p[i]);
+//				int w = g.getFontMetrics().stringWidth(s);
+//				g.drawString(s, 410 - w/2, 280 + (i-8)*60);
+//			}
+//			if (p[7] > 0) {
+//				String s = "ApoHockey4k";
+//				int w = g.getFontMetrics().stringWidth(s);
+//				g.drawString(s, 220 - w/2, 60);
+//			
+//
+//				g.setFont(g.getFont().deriveFont(25f).deriveFont(1));
+//				s = "Play with the mouse";
+//				w = g.getFontMetrics().stringWidth(s);
+//				g.drawString(s, 220 - w/2, 510);
+//				
+//				s = "Click to start";
+//				w = g.getFontMetrics().stringWidth(s);
+//				g.drawString(s, 220 - w/2, 550);
+//				
+//				if (p[8] > p[9]) {
+//					s = "The computer wins!";	
+//				} else if (p[8] < p[9]) {
+//					s = "Congratulation, you win!";	
+//				}
+//				if (p[8] != p[9]) {
+//					w = g.getFontMetrics().stringWidth(s);
+//					g.drawString(s, 220 - w/2, 310);
+//				}
+//			}
 			
 			// Render das Ganze auf den Bildschirm
-			appletGraphics.drawImage(screen, 0, 0, null);
 
-			try {
-				Thread.sleep(10);
-			} catch (Exception e) { /** nicht schön aber selten */
-			}
-			;
-
-			if (!isActive()) {
-				return;
-			}
-		}
 	}
 	
-	public boolean handleEvent(Event e) {
-		switch (e.id) {
-			case Event.KEY_RELEASE:
-				if (e.key == Event.DELETE) {
-					p[7] = 1;
-				}
-				break;
-			case Event.MOUSE_DOWN:
-				// mouse button pressed
-				p[4] = 1;
-				p[5] = 0;
-				break;
-			case Event.MOUSE_UP:
-				// mouse button released
-				p[4] = 0;
-				p[5] = 1;
-				break;
-			case Event.MOUSE_MOVE:
-				p[0] = e.x;
-				p[1] = e.y;
-				break;
-			case Event.MOUSE_DRAG:
-				p[0] = e.x;
-				p[1] = e.y;
-				break;
+	InputProcessor input = new InputAdapter(){
+		public boolean keyDown(int keycode) {
+			if(keycode==Keys.DEL){
+				p[7] = 1;
+			}
+			return true;
 		}
-		return false;
+		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+			p[4] = 1;
+			p[5] = 0;
+			return true;
+		}
+		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+			p[4] = 0;
+			p[5] = 1;
+			return true;
+		};
+		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			p[0] = (int)Engine.screenToWorld(screenX, screenY).x;
+			p[1] = (int)Engine.screenToWorld(screenX, screenY).y;
+			return true;
+		};
+	};
+
+	
+	public static void main(String args[]){
+		final float w = 450f;
+		final float h = 600f;
+		final float scale = 1f;
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = (int)(w/scale);
+		config.height =(int)(h/scale);
+		new LwjglApplication(new Engine() {
+			
+			@Override
+			protected EngineDrive onSetupEngineDrive() {
+				return new EngineDrive() {
+					
+					@Override
+					public EngineOptions onSetupEngine() {
+						EngineOptions opt = new EngineOptions(new String[]{},w,h);
+						return opt;
+					}
+					
+					@Override
+					public void onResourcesRegister(AliasResourceManager<String> reg) {
+						
+					}
+					
+					@Override
+					public void onLoadedResourcesCompleted() {
+						Engine.setMainScene(new ApoHockey4kGdx());
+					}
+					
+					@Override
+					public void dispose() {
+						
+					}
+				};
+			}
+		},config);
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public InputProcessor getInputProcessor() {
+		return input;
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
