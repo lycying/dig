@@ -16,7 +16,6 @@ import info.u250.digs.scenes.start.Finger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -139,6 +138,8 @@ public class StartUpScene extends SceneStage{
 		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
 		final Image sound_flag = new Image(sound_flag_on); 
+		Engine.getSoundManager().setVolume(0);
+		Engine.getMusicManager().setVolume(0);
 		sound_flag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -189,16 +190,15 @@ public class StartUpScene extends SceneStage{
 	
 	List<String> texs = new ArrayList<String>();
 	void loadTextures(){
-//		File file = new File("assets/texs");
+//		java.io.File file = new java.io.File("assets/texs");
 //		for(String s:file.list()){
 //			System.out.println("texs.add(\"texs/"+s+"\");");
 //		}
-		texs.add("texs/flower.png");
 		texs.add("texs/ALIN.png");
 		texs.add("texs/BrickRound.jpg");
 		texs.add("texs/brown002.jpg");
 		texs.add("texs/brown063.jpg");
-		texs.add("texs/brown091.gif");
+		texs.add("texs/brown091.png");
 		texs.add("texs/brown094.jpg");
 		texs.add("texs/brown096.jpg");
 		texs.add("texs/brown138.jpg");
@@ -213,6 +213,7 @@ public class StartUpScene extends SceneStage{
 		texs.add("texs/Dirt.png");
 		texs.add("texs/DirtGrass.png");
 		texs.add("texs/DSRT.png");
+		texs.add("texs/flower.png");
 		texs.add("texs/fluorescent-infection.jpg");
 		texs.add("texs/frog-land.jpg");
 		texs.add("texs/green-monkeyskin.jpg");
@@ -227,10 +228,36 @@ public class StartUpScene extends SceneStage{
 		texs.add("texs/green092.png");
 		texs.add("texs/Leather.jpg");
 		texs.add("texs/lgren008.jpg");
+		texs.add("texs/lgrey014.jpg");
+		texs.add("texs/lgrey027.jpg");
+		texs.add("texs/lgrey030.jpg");
+		texs.add("texs/lgrey046.jpg");
+		texs.add("texs/lgrey062.jpg");
+		texs.add("texs/lgrey074.jpg");
+		texs.add("texs/lgrey087.gif");
+		texs.add("texs/lgrey089.gif");
+		texs.add("texs/lgrey127.gif");
+		texs.add("texs/lgrey133.jpg");
 		texs.add("texs/LoamWalls.jpg");
 		texs.add("texs/MetalGalvanized.jpg");
 		texs.add("texs/micro-clorophyl.jpg");
+		texs.add("texs/multi035.jpg");
+		texs.add("texs/multi270.jpg");
+		texs.add("texs/multi272.jpg");
+		texs.add("texs/pink020.jpg");
+		texs.add("texs/pink029.jpg");
+		texs.add("texs/pink076.jpg");
+		texs.add("texs/pink079.gif");
+		texs.add("texs/pink095.jpg");
+		texs.add("texs/pink101.jpg");
 		texs.add("texs/planet-gravel.jpg");
+		texs.add("texs/purpl043.jpg");
+		texs.add("texs/purpl045.gif");
+		texs.add("texs/purpl046.gif");
+		texs.add("texs/purpl053.gif");
+		texs.add("texs/purpl055.gif");
+		texs.add("texs/purpl075.jpg");
+		texs.add("texs/purpl192.jpg");
 		texs.add("texs/RockLayered.jpg");
 		texs.add("texs/Rust.jpg");
 		texs.add("texs/simple-greenish.jpg");
@@ -243,6 +270,7 @@ public class StartUpScene extends SceneStage{
 		texs.add("texs/water-sheets.jpg");
 		texs.add("texs/wood-emboss.jpg");
 	}
+	int texs_index = -1;
 	void genTerrain(){
 		terrainContainer.clear();
 		if(null!=terrain){
@@ -251,7 +279,19 @@ public class StartUpScene extends SceneStage{
 		}
 		terrain = null;
 		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = texs.get(new Random().nextInt(texs.size()));
+//		
+		if(-1==texs_index){
+			config.surfaceFile = "texs/brown178.png";
+			texs_index++;
+		}else{
+			config.surfaceFile = texs.get(new java.util.Random().nextInt(texs.size()));
+		}
+//		config.surfaceFile = texs.get(texs_index++);
+		
+//		config.surfaceFile = "texs/multi035.jpg";
+		if(texs_index>texs.size()-1){
+			texs_index = 0;
+		}
 //		config.surfaceFile = "data/DSRT.png";
 		config.runnerNumber = 20;
 		config.segment = 8;
@@ -263,7 +303,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>3){
+		if(deltaAppend>30f){
 			genTerrain();
 			deltaAppend = 0;
 		}
