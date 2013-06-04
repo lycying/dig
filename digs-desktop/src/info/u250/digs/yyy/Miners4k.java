@@ -210,6 +210,9 @@ public class Miners4k extends JFrame
                 {
                     int d0 = level[p];
                     int d1 = level[(p + i) & 1023];
+                    if((p+i)!=((p + i) & 1023)){
+                    	System.out.println("("+p+"+"+i+")"+(p+i)+"&1023="+((p + i) & 1023));
+                    }
                     level[p + i / 2] = (d0 + d1) / 2 + (random.nextInt(i) - i / 2) / 4;
                 }
             }
