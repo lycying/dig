@@ -43,7 +43,9 @@ public class PauseDialog extends Group {
 		lblGold.getStyle().background = new NinePatchDrawable(atlas.createPatch("label"));
 		lblWhiteGold = new Label("0",new LabelStyle(font, Color.WHITE));
 		lblWhiteGold.getStyle().background = new NinePatchDrawable(atlas.createPatch("label"));
+		btnBack.setSize(btnBack.getPrefWidth(), btnBack.getPrefHeight());
 		btnBack.setPosition(mainGroup.getWidth()/2-btnBack.getWidth()/2, Engine.getHeight()-btnBack.getHeight()-30);
+		btnExit.setSize(btnExit.getPrefWidth(), btnExit.getPrefHeight());
 		btnExit.setPosition(mainGroup.getWidth()/2-btnExit.getWidth()/2,100);
 	
 		Table goldTable = new Table();
@@ -91,6 +93,7 @@ public class PauseDialog extends Group {
 				super.clicked(event, x, y);
 			}
 		});
+		
 	}
 	
 	public void close(){

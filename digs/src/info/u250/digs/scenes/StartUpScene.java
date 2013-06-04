@@ -125,7 +125,8 @@ public class StartUpScene extends SceneStage{
 		
 		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
 		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
-		
+		adventure.setSize(adventure.getPrefWidth(), adventure.getPrefHeight());
+		training.setSize(training.getPrefWidth(), training.getPrefHeight());
 		
 		training.setPosition(470,300);
 		adventure.setPosition(470, 390);

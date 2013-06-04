@@ -162,6 +162,7 @@ public class NpcListScene extends SceneStage {
 				super.clicked(event, x, y);
 			}
 		});
+		btnStart.setSize(btnStart.getPrefWidth(), btnStart.getPrefHeight());
 		btnStart.setPosition(295, 30);
 		
 		

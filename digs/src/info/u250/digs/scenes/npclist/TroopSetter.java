@@ -44,8 +44,11 @@ public class TroopSetter extends Group {
 		Button btn_add_1 = new Button(new TextureRegionDrawable(atlas.findRegion("btn-t-add-1-1")), new TextureRegionDrawable(atlas.findRegion("btn-t-add-1-2")));
 		Button btn_sub_1 = new Button(new TextureRegionDrawable(atlas.findRegion("btn-t-sub-1-1")), new TextureRegionDrawable(atlas.findRegion("btn-t-sub-1-2")));
 		Button btn_close = new Button(new TextureRegionDrawable(atlas.findRegion("btn-t-close-1")), new TextureRegionDrawable(atlas.findRegion("btn-t-close-2")));
+		btn_close.setSize(btn_close.getPrefWidth(), btn_close.getPrefHeight());
 		btn_close.setPosition(bg.getWidth()/2-btn_close.getWidth()/2, 5);
 		
+		
+
 		
 		Table btnTable = new Table();
 		btnTable.add(btn_sub_10).space(10);
