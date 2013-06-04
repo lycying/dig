@@ -223,7 +223,7 @@ public class NpcListScene extends SceneStage {
 	}
 	@Override
 	public void draw() {
-		Gdx.gl.glClearColor(116f/255f, 88f/255f, 123f/255f, 1);
+		Gdx.gl.glClearColor(161f/255f, 209f/255f, 161f/255f, 1);
 		super.draw();
 	}
 	@Override

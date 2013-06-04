@@ -36,7 +36,7 @@ public class NpcItemTable extends  Table{
 			this.add();
 		}
 		
-		Label title = new Label(eWrapper.title,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.YELLOW));
+		Label title = new Label(eWrapper.title,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.WHITE));
 		Label desc = new Label(eWrapper.desc,new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.BLACK));
 		Label clickTo = new Label("click to see it's attributes ",new LabelStyle(Engine.resource("Font",BitmapFont.class),Color.GRAY));
 		desc.setWrap(true);
@@ -57,7 +57,7 @@ public class NpcItemTable extends  Table{
 		});
 	} 
 	Vector2 tmp = new Vector2();
-	static Color selectColor = new Color(1,194f/255,203f/255f,1);
+	static Color selectColor = new Color(147f/255f,255f/255,109f/255f,1);
 	@Override
 	public void act(float delta) {
 		if(container.detailTable.getNpc().e.getClass() == flag){
