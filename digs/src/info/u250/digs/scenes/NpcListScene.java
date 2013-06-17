@@ -64,7 +64,12 @@ public class NpcListScene extends SceneStage {
 		
 		atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
-		
+		final Image bg = new Image(atlas.findRegion("branch-blue"));
+		bg.rotate(180);
+		bg.setPosition(Engine.getWidth(), +bg.getHeight());
+//		bg.setSize(Engine.getWidth(), Engine.getHeight());
+		this.addActor(new Image(atlas.findRegion("branch-blue")));
+		this.addActor(bg);
 		Table backgroundFromNinePatch = new Table();
 		backgroundFromNinePatch.setBackground(new NinePatchDrawable(atlas.createPatch("ui-board")));
 		backgroundFromNinePatch.pack();
