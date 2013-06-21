@@ -122,19 +122,19 @@ public class StartUpScene extends SceneStage{
 		grass.setPosition(Engine.getWidth()/2-grass.getWidth()/2, -30);
 		this.addActor(grass);
 		
-		Button adventure = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-adventure-2")));
-		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
-		adventure.setSize(adventure.getPrefWidth(), adventure.getPrefHeight());
-		training.setSize(training.getPrefWidth(), training.getPrefHeight());
+		Button play = new Button(new TextureRegionDrawable(atlas.findRegion("btn-play")), new TextureRegionDrawable(atlas.findRegion("btn-play")));
+//		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
+		play.setSize(play.getPrefWidth(), play.getPrefHeight());
+//		training.setSize(training.getPrefWidth(), training.getPrefHeight());
+//		
+//		training.setPosition(470,300);
+//		adventure.setPosition(470, 390);
 		
-		training.setPosition(470,300);
-		adventure.setPosition(470, 390);
-		
-//		adventure.setPosition(Engine.getWidth()-adventure.getWidth()-20, 20);
+		play.setPosition(Engine.getWidth()/2-play.getWidth()/2, 30);
 //		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
 	
-		this.addActor(adventure);
-		this.addActor(training);
+		
+//		this.addActor(training);
 		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
 		final Image sound_flag = new Image(sound_flag_on); 
@@ -169,7 +169,7 @@ public class StartUpScene extends SceneStage{
 		
 		
 		
-		adventure.addListener(new ClickListener(){
+		play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Engine.setMainScene(StartUpScene.this.drive.getNpcListScene());
@@ -177,15 +177,16 @@ public class StartUpScene extends SceneStage{
 				super.clicked(event, x, y);
 			}
 		});
-		training.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				//Engine.setMainScene(StartUpScene.this.drive.getNpcListScene());
-				Engine.getSoundManager().playSound("SoundClick");
-				super.clicked(event, x, y);
-			}
-		});
-		
+//		training.addListener(new ClickListener(){
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				//Engine.setMainScene(StartUpScene.this.drive.getNpcListScene());
+//				Engine.getSoundManager().playSound("SoundClick");
+//				super.clicked(event, x, y);
+//			}
+//		});
+		this.addActor(play);
+		play.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.5f,0.1f),Actions.alpha(1f,0.5f))));
 	}
 	
 	List<String> texs = new ArrayList<String>();

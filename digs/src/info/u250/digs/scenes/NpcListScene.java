@@ -67,6 +67,7 @@ public class NpcListScene extends SceneStage {
 		final Image bg = new Image(atlas.findRegion("branch-blue"));
 		bg.rotate(180);
 		bg.setPosition(Engine.getWidth(), +bg.getHeight());
+		bg.setColor(Color.LIGHT_GRAY);
 //		bg.setSize(Engine.getWidth(), Engine.getHeight());
 		this.addActor(new Image(atlas.findRegion("branch-blue")));
 		this.addActor(bg);
