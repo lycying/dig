@@ -88,7 +88,7 @@ public class Terrain extends Group{
 	
 	public void addTerrains(){
 		terrain = new PixmapHelper(MapMaker.genMap(config));
-		goldTerrain = new PixmapHelper(new GoldPixmap(config.width, 480, 20));
+		goldTerrain = new PixmapHelper(new GoldPixmap(config.width, config.baseHeight, 20));
 		this.addListener(terrainInput);
 		this.setSize(terrain.pixmap.getWidth(), terrain.pixmap.getHeight());
 	}

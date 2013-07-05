@@ -177,6 +177,8 @@ public abstract class BaseEntity extends Actor {
 			speedX = -getRandomSpeedX();
 		} else if(this.getY()>terrain.getHeight()-this.getHeight() - margin){
 			this.gravityDrop(delta);
+		} else if(this.getY()<0){
+			this.remove();
 		}else{
 			//calculate it
 			tempRectangle.set(drawable.getBoundingRectangle());

@@ -6,6 +6,7 @@ public class TerrainConfig {
 	public int level = 0;
 	public int completeNumber = 0;
 	public String surfaceFile = "";
-	public int width;
-	public int segment;
+	public int width = 960;
+	public int segment = 8;
+	public int baseHeight = 450;
 }
