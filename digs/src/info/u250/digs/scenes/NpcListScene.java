@@ -247,11 +247,11 @@ public class NpcListScene extends SceneStage {
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				Engine.setMainScene(drive.getStartUpScene());
+				Engine.setMainScene(drive.getLevelScene());
 			}
 		} else {
 			if (keycode == Keys.DEL) {
-				Engine.setMainScene(drive.getStartUpScene());
+				Engine.setMainScene(drive.getLevelScene());
 			}
 		}
 		return super.keyDown(keycode);

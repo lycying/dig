@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 import info.u250.digs.scenes.GameScene;
+import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.NpcListScene;
 import info.u250.digs.scenes.StartUpScene;
 
@@ -25,6 +26,7 @@ public class DigsEngineDrive implements EngineDrive {
 
 	StartUpScene startUpScene = null;
 	NpcListScene npcListScene = null;
+	LevelScene levelScene = null;
 	GameScene gameScene = null;
 	
 	
@@ -33,6 +35,7 @@ public class DigsEngineDrive implements EngineDrive {
 		startUpScene = new StartUpScene(this);
 		npcListScene = new NpcListScene(this);
 		gameScene = new GameScene(this);
+		levelScene = new LevelScene(this);
 		
 		Engine.setMainScene(startUpScene);
 	}
@@ -64,7 +67,7 @@ public class DigsEngineDrive implements EngineDrive {
 		}
 		for(AtlasRegion region:appendErArray){
 			atlas.getRegions().add(region);
-			System.out.println("create left region :"+region.name);
+			//System.out.println("create left region :"+region.name);
 		}
 	}
 
@@ -79,6 +82,11 @@ public class DigsEngineDrive implements EngineDrive {
 	public GameScene getGameScene() {
 		return gameScene;
 	}
+
+	public LevelScene getLevelScene() {
+		return levelScene;
+	}
+	
 
 	
 }

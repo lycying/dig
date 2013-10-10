@@ -170,7 +170,7 @@ public class StartUpScene extends SceneStage{
 		play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Engine.setMainScene(StartUpScene.this.drive.getNpcListScene());
+				Engine.setMainScene(StartUpScene.this.drive.getLevelScene());
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
@@ -351,7 +351,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>5f){
+		if(deltaAppend>30f){
 			genTerrain();
 			deltaAppend = 0;
 		}
