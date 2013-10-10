@@ -2,13 +2,16 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.pixmap.PixmapHelper;
+import info.u250.digs.Digs;
+import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.HealMan;
-import info.u250.digs.scenes.game.entity.AttackMan;
 
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -16,11 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.async.AsyncResult;
+import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Terrain extends Group{
 	PixmapHelper terrain = null;
 	PixmapHelper goldTerrain = null;
 	TerrainConfig config;
+	AsyncResult<Void> asyncResult;
 	
 	private final Color colorLeftBottom = new Color();
 	private final Color colorRightBottom = new Color();
@@ -38,10 +44,10 @@ public class Terrain extends Group{
 	final private Color fillColor = new Color(199/255f,140/255f,50f/255,1.0f);
 	private float radius = 16;
 	private boolean fillMode = false;
-	
-	
 	public Array<Dock> docks = new Array<Dock>();
 	
+	boolean mapMaking = true;
+	boolean mapTexturing = false;
 	
 	
 	InputListener terrainInput = new InputListener(){
@@ -82,15 +88,36 @@ public class Terrain extends Group{
 	
 	public Terrain(TerrainConfig config){
 		this.config = config;
+		setSize(config.width,512);
 		this.addTerrains();
-		this.addNpcs();
+		
 	}
-	
+	void assembleToPixmapHelper(){
+		this.clear();
+		terrain = new PixmapHelper(p1);
+		goldTerrain = new PixmapHelper(p2);
+		
+		addListener(terrainInput);
+		addDocks();
+		addNpcs();
+	}
+	Pixmap p1 ,p2 ;
 	public void addTerrains(){
-		terrain = new PixmapHelper(MapMaker.genMap(config));
-		goldTerrain = new PixmapHelper(new GoldPixmap(config.width, config.baseHeight, 20));
-		this.addListener(terrainInput);
-		this.setSize(terrain.pixmap.getWidth(), terrain.pixmap.getHeight());
+		mapMaking = true;
+		mapTexturing = false;
+		this.clear();
+		asyncResult = Digs.getExecutor().submit(new AsyncTask<Void>() {
+			@Override
+			public Void call() throws Exception {
+				Thread.sleep(100);
+				p1 = MapMaker.genMap(config);
+				p2 = new GoldPixmap(config.width, config.baseHeight, 20);
+				
+				mapMaking = false;
+				mapTexturing = true;
+				return null;
+			}
+		});
 	}
 	public void addDocks(){
 		docks.clear();
@@ -127,23 +154,36 @@ public class Terrain extends Group{
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		this.terrain.sprite.draw(batch);
-		this.goldTerrain.sprite.draw(batch);
+		if(!mapMaking){
+			if(mapTexturing){
+				assembleToPixmapHelper();
+				mapTexturing = false;
+			}else{
+				this.terrain.sprite.draw(batch);
+				this.goldTerrain.sprite.draw(batch);
+				super.draw(batch, parentAlpha);
+			}
+		}else{
+			Engine.resource("Font",BitmapFont.class).setColor(Color.RED);
+			Engine.resource("Font",BitmapFont.class).draw(Engine.getSpriteBatch(), "Loading...", 100, 200);
+		}
 		
-		super.draw(batch, parentAlpha);
+		
 	}
 	@Override
 	public void act(float delta) {
-		this.terrain.sprite.setX(getX());
-		this.goldTerrain.sprite.setX(getX());
+		if(!mapMaking && !mapTexturing){
+			this.terrain.sprite.setX(getX());
+			this.goldTerrain.sprite.setX(getX());
+		}
 		super.act(delta);
-		
 	}
 	public void reload(){
 		this.terrain.reload();
 		this.goldTerrain.reload();
 	}
 	public void dig(final float radius,float x,float y){
+		if(this.terrain == null || this.goldTerrain == null)return;
 		//Change the offset==========================
 		x += this.getX();
 		this.terrain.project(tmpProjectedPosition,x,y);
@@ -155,6 +195,7 @@ public class Terrain extends Group{
 		this.goldTerrain.update();
 	}
 	public void fillTerrain(final Vector2 position,final float radius,boolean isFillMode){
+		if(this.terrain == null )return;
 		//Change the offset==========================
 		position.x += this.getX();
 		this.terrain.project(position, position.x, position.y);
@@ -233,6 +274,7 @@ public class Terrain extends Group{
 	public void dispose(){
 		this.goldTerrain.dispose();
 		this.terrain.dispose();
+		this.mapMaking = true;
 		this.clear();
 	}
 	

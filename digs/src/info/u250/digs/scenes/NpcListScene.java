@@ -1,6 +1,7 @@
 package info.u250.digs.scenes;
 
 
+import info.u250.c2d.engine.CoreProvider.TransitionType;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
@@ -164,7 +165,7 @@ public class NpcListScene extends SceneStage {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				NpcListScene.this.drive.getGameScene().configGame(null);
-				Engine.setMainScene(NpcListScene.this.drive.getGameScene());
+				Engine.setMainScene(NpcListScene.this.drive.getGameScene(),TransitionType.Fade,200);
 				super.clicked(event, x, y);
 			}
 		});

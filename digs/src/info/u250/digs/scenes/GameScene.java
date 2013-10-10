@@ -103,12 +103,10 @@ public class GameScene extends SceneStage {
 		
 		TerrainConfig config = new TerrainConfig();
 		config.surfaceFile = "texs/DSRT.png";
-//		config.surfaceFile = "data/DSRT.png";
-		config.runnerNumber = 20;
+		config.runnerNumber = 40;
 		config.width = 2048;
 		config.segment = 15;
 		terrain = new Terrain(config);
-		terrain.addDocks();
 		scroll.setWidget(terrain);
 	} 
 	public void setupPauseResume(){

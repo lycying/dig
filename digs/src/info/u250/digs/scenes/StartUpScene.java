@@ -351,7 +351,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>30f){
+		if(deltaAppend>3f){
 			genTerrain();
 			deltaAppend = 0;
 		}
