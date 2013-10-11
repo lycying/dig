@@ -89,7 +89,7 @@ public class PauseDialog extends Group {
 		btnExit.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Engine.setMainScene(game.drive.getNpcListScene());
+				game.drive.setToLevelScene();
 				super.clicked(event, x, y);
 			}
 		});

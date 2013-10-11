@@ -9,6 +9,9 @@ public class DigsPacker {
 		String output = "assets/data/";
 		
 		TexturePacker2.process(input, output, "all");
+		
+		input = "raw_texs/";
+		TexturePacker2.process(input, output, "texs");
 	}
 
 }

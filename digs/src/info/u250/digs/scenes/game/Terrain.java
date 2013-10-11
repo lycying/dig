@@ -1,8 +1,8 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.c2d.graphic.pixmap.PixmapHelper;
 import info.u250.digs.Digs;
+import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.HealMan;
@@ -11,8 +11,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -109,7 +109,7 @@ public class Terrain extends Group{
 		asyncResult = Digs.getExecutor().submit(new AsyncTask<Void>() {
 			@Override
 			public Void call() throws Exception {
-				Thread.sleep(100);
+				Thread.sleep(5000);
 				p1 = MapMaker.genMap(config);
 				p2 = new GoldPixmap(config.width, config.baseHeight, 20);
 				
@@ -164,8 +164,10 @@ public class Terrain extends Group{
 				super.draw(batch, parentAlpha);
 			}
 		}else{
-			Engine.resource("Font",BitmapFont.class).setColor(Color.RED);
-			Engine.resource("Font",BitmapFont.class).draw(Engine.getSpriteBatch(), "Loading...", 100, 200);
+			batch.setColor(new Color(1,1,1,.5f));
+			batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
+			batch.setColor(Color.WHITE);
+			batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
 		}
 		
 		
@@ -179,8 +181,8 @@ public class Terrain extends Group{
 		super.act(delta);
 	}
 	public void reload(){
-		this.terrain.reload();
-		this.goldTerrain.reload();
+		if(null!=terrain)this.terrain.reload();
+		if(null!=goldTerrain)this.goldTerrain.reload();
 	}
 	public void dig(final float radius,float x,float y){
 		if(this.terrain == null || this.goldTerrain == null)return;
@@ -272,8 +274,8 @@ public class Terrain extends Group{
 	}
 	
 	public void dispose(){
-		this.goldTerrain.dispose();
-		this.terrain.dispose();
+		if(null!=this.goldTerrain)this.goldTerrain.dispose();
+		if(null!=this.terrain)this.terrain.dispose();
 		this.mapMaking = true;
 		this.clear();
 	}

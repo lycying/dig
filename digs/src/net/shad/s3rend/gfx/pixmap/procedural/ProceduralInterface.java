@@ -26,7 +26,7 @@ import com.badlogic.gdx.graphics.Pixmap;
  */
 public interface ProceduralInterface
 {
-	public static final boolean DEBUG=true;
+	public static final boolean DEBUG=false;
 	public void generate(final Pixmap pixmap);
 	public void random(final Pixmap pixmap);
 }

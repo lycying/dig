@@ -4,7 +4,7 @@ package info.u250.digs.scenes;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
-import info.u250.digs.scenes.level.LevelItemTable;
+import info.u250.digs.scenes.level.LevelMaker;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -25,56 +25,42 @@ public class LevelScene extends SceneStage {
 		this.drive = drive;
 		
 		atlas = Engine.resource("All");
-		final Image bg = new Image(atlas.findRegion("branch-blue"));
-		bg.rotate(180);
-		bg.setPosition(Engine.getWidth(), +bg.getHeight());
-		bg.setColor(Color.LIGHT_GRAY);
-//		bg.setSize(Engine.getWidth(), Engine.getHeight());
-		this.addActor(new Image(atlas.findRegion("branch-blue")));
-		this.addActor(bg);
-		Table backgroundFromNinePatch = new Table();
-		backgroundFromNinePatch.setBackground(new NinePatchDrawable(atlas.createPatch("ui-board")));
-		backgroundFromNinePatch.pack();
-		backgroundFromNinePatch.setSize(Engine.getWidth()-50, 500);
-		backgroundFromNinePatch.setX(25);
-		this.addActor(backgroundFromNinePatch);
+		
 		
 		Table levelTable = new Table(); 
-		for(int i=0;i<100;i++){
-			LevelItemTable item = new LevelItemTable(this,i,"The level:"+i+",Fuck the little boy!");
-			switch(i%4){
-			case 0:
-				item.setColor(Color.WHITE);break;
-			case 1:
-				item.setColor(new Color(147f/255f,255f/255,109f/255f,1));break;
-			case 2:
-				item.setColor(new Color(((147+i)%255)/255f,255f/255,209f/255f,1));break;
-			case 3:
-				item.setColor(new Color(247f/255f,255f/255,((109+i)%255)/255f,1));break;
-			}
-			levelTable.add(item).spaceBottom(10);
-			levelTable.row();
-		}
+		LevelMaker.levelMaker(this, levelTable);
 		levelTable.pack();
 		
 		final ScrollPane levelPanel = new ScrollPane(levelTable);
-		levelPanel.setSize(860, 430);
-		levelPanel.setPosition(30, 35);
+		levelPanel.setSize(810, 560);
+		levelPanel.setPosition(0, 0);
 		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		levelPanel.setFillParent(false);
 		levelPanel.setScrollingDisabled(true, false);
 		levelPanel.setFlickScroll(true);
-		levelPanel.setFadeScrollBars(true);
+		levelPanel.setFadeScrollBars(false);
 		levelPanel.setOverscroll(true, true);
 		levelPanel.setScrollbarsOnTop(false);
+		
+		Image rightImage = new Image(atlas.findRegion("color")){
+			@Override
+			public void act(float delta) {
+				this.setColor(new Color((100+levelPanel.getScrollPercentY()*150)/255f,(255-levelPanel.getScrollPercentY()*200)/255f,100f/255f,1));
+				super.act(delta);
+			}
+		};
+		rightImage.setSize(150, Engine.getHeight());
+		rightImage.setX(Engine.getWidth()-rightImage.getWidth());
+		this.addActor(rightImage);
+		
 		this.addActor(levelPanel);
 	}
 	public void startLevel(int level){
-		Engine.setMainScene(this.drive.getNpcListScene());
+		this.drive.setToNpcListScene();
 	}
 	@Override
 	public void draw() {
-		Gdx.gl.glClearColor(161f/255f, 209f/255f, 161f/255f, 1);
+		Gdx.gl.glClearColor(0,0,0, 1);
 		super.draw();
 	}
 	@Override
@@ -92,11 +78,11 @@ public class LevelScene extends SceneStage {
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				Engine.setMainScene(drive.getStartUpScene());
+				this.drive.setToStartUpScene();
 			}
 		} else {
 			if (keycode == Keys.DEL) {
-				Engine.setMainScene(drive.getStartUpScene());
+				this.drive.setToStartUpScene();
 			}
 		}
 		return super.keyDown(keycode);

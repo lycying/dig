@@ -1,8 +1,8 @@
 package info.u250.digs.scenes;
 
+import info.u250.c2d.engine.CoreProvider.CoreEvents;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
-import info.u250.c2d.engine.CoreProvider.CoreEvents;
 import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
@@ -13,7 +13,6 @@ import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.Terrain;
 import info.u250.digs.scenes.game.TerrainConfig;
-import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.npclist.ParticleEffectActor;
 import info.u250.digs.scenes.start.Finger;
 
@@ -47,6 +46,8 @@ public class StartUpScene extends SceneStage{
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
 	final TriangleSurfaces surface;
+	final TriangleSurfaces surface2;
+	final TriangleSurfaces surface3;
 	public StartUpScene(DigsEngineDrive drive){
 		loadTextures();
 		
@@ -66,67 +67,115 @@ public class StartUpScene extends SceneStage{
 		final SurfaceData data = new SurfaceData();
 		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data.texture="Texture";
-//		data.points = new Array<Vector2>(){{
-//			add(new Vector2(-27.005554f,300f));
-//			add(new Vector2(-20,-4));
-//			add(new Vector2(119,250));
-//			add(new Vector2(200.99362f,-14f));
-//			add(new Vector2(293.00104f,300));
-//			add(new Vector2(356f,-9f));
-//			add(new Vector2(360f,310));
-//			add(new Vector2(380,-9f));
-//			add(new Vector2(400,300));
-//			add(new Vector2(458f,-9f));
-//			add(new Vector2(510f,250));
-//			add(new Vector2(556.0f,-7f));
-//			add(new Vector2(593f,250));
-//			add(new Vector2(650f,-53f));
-//			add(new Vector2(700f,290));
-//			add(new Vector2(735f,-53f));
-//			add(new Vector2(800f,290));
-//			add(new Vector2(850f,0));
-//			add(new Vector2(900f,290));
-//			add(new Vector2(960f,0));
-//			add(new Vector2(1024,350));
-//		}};
 		data.points = new Array<Vector2>(){{
-			add(new Vector2(0,0));
-			add(new Vector2(0,240));
-			add(new Vector2(Engine.getWidth(),0));
-			add(new Vector2(Engine.getWidth(),240));
+			add(new Vector2(-27.005554f,300f));
+			add(new Vector2(-20,-4));
+			add(new Vector2(119,250));
+			add(new Vector2(200.99362f,-14f));
+			add(new Vector2(293.00104f,300));
+			add(new Vector2(356f,-9f));
+			add(new Vector2(360f,310));
+			add(new Vector2(380,-9f));
+			add(new Vector2(400,300));
+			add(new Vector2(458f,-9f));
+			add(new Vector2(510f,250));
+			add(new Vector2(556.0f,-7f));
+			add(new Vector2(593f,250));
+			add(new Vector2(650f,-53f));
+			add(new Vector2(700f,290));
+			add(new Vector2(735f,-53f));
+			add(new Vector2(800f,290));
+			add(new Vector2(850f,0));
+			add(new Vector2(900f,290));
+			add(new Vector2(960f,0));
+			add(new Vector2(1024,350));
 		}};
-//		data.points = new Array<Vector2>(){{
-//			add(new Vector2(-27.005554f,300f));
-//			add(new Vector2(-20,-4));
-//			add(new Vector2(119,250));
-//			add(new Vector2(200.99362f,-14f));
-//			add(new Vector2(293.00104f,300));
-//			add(new Vector2(356f,-9f));
-//			add(new Vector2(360f,310));
-//			add(new Vector2(380,-9f));
-//			add(new Vector2(400,300));
-//			add(new Vector2(458f,-9f));
-//			add(new Vector2(510f,250));
-//			add(new Vector2(556.0f,-7f));
-//			add(new Vector2(593f,250));
-//			add(new Vector2(650f,-53f));
-//			add(new Vector2(700f,290));
-//			add(new Vector2(735f,-53f));
-//			add(new Vector2(800f,290));
-//			add(new Vector2(850f,0));
-//			add(new Vector2(900f,290));
-//			add(new Vector2(960f,0));
-//			add(new Vector2(1024,350));
-//		}};
 		surface  = new TriangleSurfaces(data);
+		final SurfaceData data2 = new SurfaceData();
+		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data2.texture="Texture2";
+		data2.points = new Array<Vector2>(){{
+			add(new Vector2(-27.005554f,660f));
+			add(new Vector2(0,380));
+			add(new Vector2(15,600));
+			add(new Vector2(30,370));
+			add(new Vector2(60,600));
+			add(new Vector2(120,480));
+			add(new Vector2(240,620));
+			add(new Vector2(280,500));
+			add(new Vector2(320,620));
+			add(new Vector2(360,480));
+			add(new Vector2(480,700));
+			add(new Vector2(520,520));
+			add(new Vector2(590,700));
+			add(new Vector2(620,500));
+			add(new Vector2(650,700));
+			add(new Vector2(680,400));
+			add(new Vector2(730,700));
+			add(new Vector2(740,450));
+			add(new Vector2(750,700));
+			add(new Vector2(770,450));
+			add(new Vector2(790,700));
+			add(new Vector2(810,420));
+			add(new Vector2(820,700));
+			add(new Vector2(830,460));
+			add(new Vector2(835,700));
+			add(new Vector2(850,460));
+			add(new Vector2(890,700));
+			add(new Vector2(900,520));
+			add(new Vector2(930,700));
+			add(new Vector2(940,500));
+			add(new Vector2(1024,600));
+		}};
+		surface2  = new TriangleSurfaces(data2);
+		
+		final SurfaceData data3 = new SurfaceData();
+		data3.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data3.texture="Texture2";
+		data3.points = new Array<Vector2>(){{
+			add(new Vector2(-27.005554f,-100));
+			add(new Vector2(0,50));
+			add(new Vector2(15,-100));
+			add(new Vector2(30,40));
+			add(new Vector2(60,-100));
+			add(new Vector2(120,30));
+			add(new Vector2(240,-100));
+			add(new Vector2(280,50));
+			add(new Vector2(320,-100));
+			add(new Vector2(360,45));
+			add(new Vector2(480,-100));
+			add(new Vector2(520,30));
+			add(new Vector2(590,-100));
+			add(new Vector2(620,25));
+			add(new Vector2(650,-100));
+			add(new Vector2(680,30));
+			add(new Vector2(730,-100));
+			add(new Vector2(740,35));
+			add(new Vector2(750,-100));
+			add(new Vector2(770,45));
+			add(new Vector2(790,-100));
+			add(new Vector2(810,20));
+			add(new Vector2(820,-100));
+			add(new Vector2(830,24));
+			add(new Vector2(835,-100));
+			add(new Vector2(850,12.5f));
+			add(new Vector2(890,-100));
+			add(new Vector2(900,50));
+			add(new Vector2(930,-100));
+			add(new Vector2(940,50));
+			add(new Vector2(945,-100));
+			add(new Vector2(950,640));
+			add(new Vector2(1024,-100));
+		}};
+		surface3  = new TriangleSurfaces(data3);
 		
 		terrainContainer = new Group();
 		this.addActor(terrainContainer);
 		genTerrain();
 		
-		Image grass = new Image(atlas.findRegion("grass"));
-		grass.setPosition(0, 220);
-		this.addActor(grass);
+//		Image grass = new Image(atlas.findRegion("grass"));
+//		grass.setPosition(0, 220);
+//		this.addActor(grass);
 		
 		Image logo = new Image(atlas.findRegion("logo"));
 		logo.setPosition(570, 120);
@@ -147,7 +196,7 @@ public class StartUpScene extends SceneStage{
 //		training.setPosition(470,300);
 //		adventure.setPosition(470, 390);
 		
-		play.setPosition(30, 30);
+		play.setPosition(-20, 260);
 //		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
 	
 		
@@ -170,36 +219,28 @@ public class StartUpScene extends SceneStage{
 		play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Engine.setMainScene(StartUpScene.this.drive.getLevelScene());
+				StartUpScene.this.drive.setToLevelScene();
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}
 		});
-//		training.addListener(new ClickListener(){
-//			@Override
-//			public void clicked(InputEvent event, float x, float y) {
-//				//Engine.setMainScene(StartUpScene.this.drive.getNpcListScene());
-//				Engine.getSoundManager().playSound("SoundClick");
-//				super.clicked(event, x, y);
-//			}
-//		});
 		
-		play.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.5f,0.1f),Actions.alpha(1f,0.5f))));
+//		play.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 5,0.01f),Actions.moveBy(0, -5,0.01f))));
 		
 		
-		GreenHat greenHat = new GreenHat();
-		greenHat.setScale(13);
-		greenHat.setShowHp(false);
-		greenHat.setAnimation(greenHat.getGoldAnimationLeft());
-		greenHat.setPosition(720, 240);
-		this.addActor(greenHat);
+//		GreenHat greenHat = new GreenHat();
+//		greenHat.setScale(13);
+//		greenHat.setShowHp(false);
+//		greenHat.setAnimation(greenHat.getGoldAnimationLeft());
+//		greenHat.setPosition(720, 240);
+//		this.addActor(greenHat);
 		
 		
 		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
 		final Image sound_flag = new Image(sound_flag_on); 
-//		Engine.getSoundManager().setVolume(0);
-//		Engine.getMusicManager().setVolume(0);
+		Engine.getSoundManager().setVolume(0);
+		Engine.getMusicManager().setVolume(0);
 		sound_flag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -213,7 +254,7 @@ public class StartUpScene extends SceneStage{
 				super.clicked(event, x, y);
 			}
 		});
-		sound_flag.setPosition(700, 230);
+		sound_flag.setPosition(20, 100);
 		this.addActor(sound_flag);
 		
 		
@@ -328,7 +369,7 @@ public class StartUpScene extends SceneStage{
 		TerrainConfig config = new TerrainConfig();
 //		
 		if(-1==texs_index){
-			config.surfaceFile = "texs/brown178.png";
+			config.surfaceFile = "texs/brown169.gif";
 			texs_index++;
 		}else{
 			config.surfaceFile = texs.get(new java.util.Random().nextInt(texs.size()));
@@ -345,13 +386,13 @@ public class StartUpScene extends SceneStage{
 		config.baseHeight = 200;
 		config.width = (int)Engine.getWidth();
 		terrain = new Terrain(config);
-		terrainContainer.setY(240);
+//		terrainContainer.setY(240);
 		terrainContainer.addActor(terrain);
 	}
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>3f){
+		if(deltaAppend>10f){
 			genTerrain();
 			deltaAppend = 0;
 		}
@@ -363,6 +404,8 @@ public class StartUpScene extends SceneStage{
 		surface.render(Engine.getDeltaTime());
 
 		super.draw();
+		surface2.render(Engine.getDeltaTime());
+		surface3.render(Engine.getDeltaTime());
 	}
 	@Override
 	public boolean keyDown(int keycode) {

@@ -1,14 +1,13 @@
 package info.u250.digs.scenes;
 
 
-import info.u250.c2d.engine.CoreProvider.TransitionType;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.game.entity.BombMan;
 import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.HealMan;
-import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.npclist.NpcDetailTable;
 import info.u250.digs.scenes.npclist.NpcItemTable;
 import info.u250.digs.scenes.npclist.NpcWrapper;
@@ -165,7 +164,7 @@ public class NpcListScene extends SceneStage {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				NpcListScene.this.drive.getGameScene().configGame(null);
-				Engine.setMainScene(NpcListScene.this.drive.getGameScene(),TransitionType.Fade,200);
+				NpcListScene.this.drive.setToGameScene();
 				super.clicked(event, x, y);
 			}
 		});
@@ -248,11 +247,11 @@ public class NpcListScene extends SceneStage {
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				Engine.setMainScene(drive.getLevelScene());
+				this.drive.setToLevelScene();
 			}
 		} else {
 			if (keycode == Keys.DEL) {
-				Engine.setMainScene(drive.getLevelScene());
+				this.drive.setToLevelScene();
 			}
 		}
 		return super.keyDown(keycode);

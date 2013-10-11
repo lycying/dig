@@ -74,7 +74,7 @@ public class Glow implements ProceduralInterface, FilterInterface
 		int height=pixmap.getHeight();
 
 		if (DEBUG){
-			Gdx.app.log("Gradient::generate()", "pixmap: " + pixmap + " color: " + color + " centerX: " + centerX + " centerY: " + centerY + " rayX: " + rayX + " rayY: " + rayY + " gamma: " + gamma + " alpha: " + alpha);
+			Gdx.app.log("Glow::generate()", "pixmap: " + pixmap + " color: " + color + " centerX: " + centerX + " centerY: " + centerY + " rayX: " + rayX + " rayY: " + rayY + " gamma: " + gamma + " alpha: " + alpha);
 		}
 
 		int pxCenterX=(int) (centerX * width);

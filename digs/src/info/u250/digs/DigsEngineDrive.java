@@ -1,5 +1,6 @@
 package info.u250.digs;
 
+import info.u250.c2d.engine.CoreProvider.TransitionType;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
@@ -14,9 +15,11 @@ import com.badlogic.gdx.utils.Array;
 
 public class DigsEngineDrive implements EngineDrive {
 
+	static final String FLAT = "texs/water-sheets.jpg";
+	static final String FLAT2 = "texs/multi272.jpg";
 	@Override
 	public EngineOptions onSetupEngine() {
-		EngineOptions opt = new EngineOptions(new String[]{"data/","texs/DSRT.png"}, 960, 540);
+		EngineOptions opt = new EngineOptions(new String[]{"data/",FLAT,FLAT2}, 960, 540);
 		opt.useGL20 = true;
 		opt.autoResume = true;
 		opt.catchBackKey = true;
@@ -37,7 +40,7 @@ public class DigsEngineDrive implements EngineDrive {
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
 		
-		Engine.setMainScene(startUpScene);
+		Engine.setMainScene(levelScene);
 	}
 
 	@Override
@@ -48,8 +51,11 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("All", "data/all.atlas");
+		reg.textureAtlas("Texs", "data/texs.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
-		reg.texture("Texture", "texs/DSRT.png");
+		reg.font("MenuFont", "data/fnt/menu.fnt");
+		reg.texture("Texture", FLAT);
+		reg.texture("Texture2", FLAT2);
 		
 		reg.music("MusicBackground", "data/music/bg.mp3");
 		reg.music("MusicBattle", "data/music/battle.mp3");
@@ -71,21 +77,24 @@ public class DigsEngineDrive implements EngineDrive {
 		}
 	}
 
-	public StartUpScene getStartUpScene() {
-		return startUpScene;
+	public void setToStartUpScene(){
+		Engine.setMainScene(startUpScene,TransitionType.Fade,200);
 	}
-
-	public NpcListScene getNpcListScene() {
-		return npcListScene;
+	public void setToNpcListScene(){
+		Engine.setMainScene(npcListScene,TransitionType.Fade,200);
+	}
+	public void setToGameScene(){
+		Engine.setMainScene(gameScene,TransitionType.Fade,200);
+	}
+	public void setToLevelScene(){
+		Engine.setMainScene(levelScene,TransitionType.Fade,200);
 	}
 
 	public GameScene getGameScene() {
 		return gameScene;
 	}
 
-	public LevelScene getLevelScene() {
-		return levelScene;
-	}
+	
 	
 
 	

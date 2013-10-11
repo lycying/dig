@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Finger extends Image{
-	static int BASE_LINE = 240;
+	static int BASE_LINE = 0;
 	StartUpScene start;
 	public Finger(TextureRegion region,StartUpScene start){
 		super(region);

@@ -1,7 +1,5 @@
 package info.u250.digs.scenes.game;
 
-import info.u250.c2d.graphic.pixmap.PixmapHelper;
-
 import java.util.Random;
 
 import net.shad.s3rend.gfx.pixmap.filter.Glow;
@@ -57,7 +55,7 @@ public class MapMaker {
 		for(int i=0;i<width;i++){
 			spline.valueAt(tmpV, i/(float)width);
 			Pixmap.setBlending(Blending.None);
-			map.setColor(PixmapHelper.TransparentColor);
+			map.setColor(Color.CLEAR);
 			map.fillRectangle(i , 0 , 1, map.getHeight()-(int)tmpV.y);
 		}
 		
