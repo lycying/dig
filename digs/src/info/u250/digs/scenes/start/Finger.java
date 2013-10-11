@@ -23,7 +23,6 @@ public class Finger extends Image{
 	Vector2 speed = new Vector2(400,200);
 	Random random = new Random();
 	Vector2 direction = new Vector2(1,1).nor();
-	Vector2 tmp = new Vector2();
 	float SPEED = 200;
 	@Override
 	public void act(float delta) {
@@ -59,9 +58,9 @@ public class Finger extends Image{
 			this.addAction(Actions.fadeOut(0.3f));
 			return;
 		}else if(timeDelta2>9.5f){
-			start.terrain.fillTerrain(tmp.set(getX(),getY()-BASE_LINE).add(16,50), 16, true);
+			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, 16, true);
 		}else{
-			start.terrain.fillTerrain(tmp.set(getX(),getY()-BASE_LINE).add(16,50), 16, false);
+			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, 16, false);
 		}
 		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}

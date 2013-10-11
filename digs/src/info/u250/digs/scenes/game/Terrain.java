@@ -16,43 +16,44 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.async.AsyncResult;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Terrain extends Group{
 	PixmapHelper terrain = null;
 	PixmapHelper goldTerrain = null;
 	TerrainConfig config;
-	AsyncResult<Void> asyncResult;
 	
-	private final Color colorLeftBottom = new Color();
-	private final Color colorRightBottom = new Color();
-	private final Color colorLeftTop = new Color();
-	private final Color colorRightTop = new Color();
+	private  int clrLB = 0;
+	private  int clrRB = 0;
+	private  int clrLT = 0;
+	private  int clrRT = 0;
+
+	private  int clrLB_G = 0;
+	private  int clrRB_G = 0;
+	private  int clrLT_G = 0;
+	private  int clrRT_G = 0;
 	
-	private final Color colorLeftBottom_gold = new Color();
-	private final Color colorRightBottom_gold = new Color();
-	private final Color colorLeftTop_gold = new Color();
-	private final Color colorRightTop_gold = new Color();
+	final private static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
+	final private static float RADIUS = 16;
+	private final Vector2 projPos = new Vector2();
+	private final Vector2 prePos = new Vector2();
+	private final Vector2 calPos = new Vector2();
 	
+	public  final Array<Dock> docks = new Array<Dock>();
 	
-	private final Vector2 tmpProjectedPosition = new Vector2();
-	private Vector2 prePosition = new Vector2();
-	final private Color fillColor = new Color(199/255f,140/255f,50f/255,1.0f);
-	private float radius = 16;
 	private boolean fillMode = false;
-	public Array<Dock> docks = new Array<Dock>();
+	private boolean mapMaking = true;
+	private boolean mapTexturing = false;
 	
-	boolean mapMaking = true;
-	boolean mapTexturing = false;
-	
+	Pixmap p1 ,p2 ;
 	
 	InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-			prePosition.set(x,y);
+			prePos.set(x,y);
 			return true;
 		}
 		public void touchDragged(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer) {
@@ -61,27 +62,26 @@ public class Terrain extends Group{
 			Vector2 position = new Vector2();
 			position.set(x,y);
 			
-			float distance = position.dst(prePosition);
-			float step = radius;
-			if (distance >step) {
+			float distance = position.dst(prePos);
+			float step = RADIUS;
+			if (distance>step) {
 				double count = Math.ceil((double) (distance / (step))) - 1;
 				Vector2 vtmp = position.cpy();
-				vtmp.sub(prePosition);
+				vtmp.sub(prePos);
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
-					prePosition.add(vtmp);
-					fillTerrain(prePosition.cpy(), radius, fillMode);
+					prePos.add(vtmp);
+					fillTerrain(prePos.x,prePos.y, RADIUS, fillMode);
 				}
 			}
-
-			fillTerrain(position, radius, fillMode);
+			fillTerrain(position.x,position.y, RADIUS, fillMode);
 
 			position.set(x,y);
-			prePosition.x = position.x;
-			prePosition.y = position.y;
+			prePos.x = position.x;
+			prePos.y = position.y;
 		};
-		public void touchUp(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-			prePosition.set(0, 0);
+		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			prePos.set(0, 0);
 		};
 	};
 	
@@ -89,11 +89,11 @@ public class Terrain extends Group{
 	public Terrain(TerrainConfig config){
 		this.config = config;
 		setSize(config.width,512);
-		this.addTerrains();
+		addTerrains();
 		
 	}
 	void assembleToPixmapHelper(){
-		this.clear();
+		clear();
 		terrain = new PixmapHelper(p1);
 		goldTerrain = new PixmapHelper(p2);
 		
@@ -101,15 +101,35 @@ public class Terrain extends Group{
 		addDocks();
 		addNpcs();
 	}
-	Pixmap p1 ,p2 ;
+	public void addNpcs(){
+		for(int i=0;i<10;i++){
+			GreenHat e = new GreenHat();
+			e.init(this);
+			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+			addActor(e);
+		}
+		for(int i=0;i<2;i++){
+			AttackMan e = new AttackMan();
+			e.init(this);
+			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
+			addActor(e);
+		}
+		for(int i=0;i<3;i++){
+			HealMan e = new HealMan();
+			e.init(this);
+			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+			addActor(e);
+		}
+	}
+	
 	public void addTerrains(){
 		mapMaking = true;
 		mapTexturing = false;
-		this.clear();
-		asyncResult = Digs.getExecutor().submit(new AsyncTask<Void>() {
+		clear();
+		Digs.getExecutor().submit(new AsyncTask<Void>() {
 			@Override
 			public Void call() throws Exception {
-				Thread.sleep(5000);
+				Thread.sleep(200);
 				p1 = MapMaker.genMap(config);
 				p2 = new GoldPixmap(config.width, config.baseHeight, 20);
 				
@@ -127,31 +147,15 @@ public class Terrain extends Group{
 		dock2.setPosition(terrain.pixmap.getWidth()-dock2.getWidth(), 400);
 		docks.add(dock);
 		docks.add(dock2);
-		this.addActor(dock);
-		this.addActor(dock2);
+		addActor(dock);
+		addActor(dock2);
 	}
-	
-	public void addNpcs(){
-		for(int i=0;i<10;i++){
-			GreenHat e = new GreenHat();
-			e.init(this);
-			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
-			this.addActor(e);
-		}
-		for(int i=0;i<2;i++){
-			AttackMan e = new AttackMan();
-			e.init(this);
-			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
-			this.addActor(e);
-		}
-		for(int i=0;i<3;i++){
-			HealMan e = new HealMan();
-			e.init(this);
-			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
-			this.addActor(e);
-		}
+	void drawLoading(SpriteBatch batch){
+		batch.setColor(new Color(1,1,1,.5f));
+		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
+		batch.setColor(Color.WHITE);
+		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
 	}
-	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if(!mapMaking){
@@ -159,113 +163,98 @@ public class Terrain extends Group{
 				assembleToPixmapHelper();
 				mapTexturing = false;
 			}else{
-				this.terrain.sprite.draw(batch);
-				this.goldTerrain.sprite.draw(batch);
+				terrain.sprite.draw(batch);
+				goldTerrain.sprite.draw(batch);
 				super.draw(batch, parentAlpha);
 			}
 		}else{
-			batch.setColor(new Color(1,1,1,.5f));
-			batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
-			batch.setColor(Color.WHITE);
-			batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
+			drawLoading(batch);
 		}
-		
-		
 	}
 	@Override
 	public void act(float delta) {
 		if(!mapMaking && !mapTexturing){
-			this.terrain.sprite.setX(getX());
-			this.goldTerrain.sprite.setX(getX());
+			terrain.sprite.setX(getX());
+			goldTerrain.sprite.setX(getX());
 		}
 		super.act(delta);
 	}
 	public void reload(){
-		if(null!=terrain)this.terrain.reload();
-		if(null!=goldTerrain)this.goldTerrain.reload();
+		if(null!=terrain)terrain.reload();
+		if(null!=goldTerrain)goldTerrain.reload();
 	}
 	public void dig(final float radius,float x,float y){
-		if(this.terrain == null || this.goldTerrain == null)return;
-		//Change the offset==========================
-		x += this.getX();
-		this.terrain.project(tmpProjectedPosition,x,y);
-		this.terrain.eraseCircle(tmpProjectedPosition.x ,tmpProjectedPosition.y ,radius );
-		this.terrain.update();
+		if(terrain == null || goldTerrain == null)return;
+		x += getX();
+		terrain.project(projPos,x,y);
+		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
+		terrain.update();
 		
-		this.goldTerrain.project(tmpProjectedPosition,x, y);
-		this.goldTerrain.eraseCircle(tmpProjectedPosition.x ,tmpProjectedPosition.y , radius);
-		this.goldTerrain.update();
+		goldTerrain.project(projPos,x, y);
+		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
+		goldTerrain.update();
 	}
-	public void fillTerrain(final Vector2 position,final float radius,boolean isFillMode){
-		if(this.terrain == null )return;
-		//Change the offset==========================
-		position.x += this.getX();
-		this.terrain.project(position, position.x, position.y);
+	public void fillTerrain(float x,float y,final float radius,boolean isFillMode){
+		if(terrain == null )return;
+		x += getX();
+		terrain.project(calPos, x, y);
 		if(isFillMode){
-			this.terrain.eraseCircle(position.x, position.y, radius, fillColor);
+			terrain.eraseCircle(calPos.x, calPos.y, radius, FILL_COLOR);
 		}else{
-			this.terrain.eraseCircle(position.x, position.y, radius );
+			terrain.eraseCircle(calPos.x, calPos.y, radius );
 		}
-		this.terrain.update();
+		terrain.update();
 	}
 	public void calculateSpriteRectColor(Rectangle rect){
-		//Change the offset==========================
-		rect.x += this.getX();
-		terrain.project(tmpProjectedPosition, rect.x, rect.y);
-		Color.rgba8888ToColor(colorLeftBottom, terrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		terrain.project(tmpProjectedPosition, rect.x+rect.width, rect.y);
-		Color.rgba8888ToColor(colorRightBottom, terrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		terrain.project(tmpProjectedPosition, rect.x+rect.width, rect.y+rect.height);
-		Color.rgba8888ToColor(colorRightTop, terrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		terrain.project(tmpProjectedPosition, rect.x, rect.y+rect.height);
-		Color.rgba8888ToColor(colorLeftTop, terrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
+		rect.x += getX();
+		terrain.project(projPos, rect.x, rect.y);
+		clrLB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		terrain.project(projPos, rect.x+rect.width, rect.y);
+		clrRB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff ;
+		terrain.project(projPos, rect.x+rect.width, rect.y+rect.height);
+		clrRT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		terrain.project(projPos, rect.x, rect.y+rect.height);
+		clrLT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;		
 		
-		
-		goldTerrain.project(tmpProjectedPosition, rect.x, rect.y);
-		Color.rgba8888ToColor(colorLeftBottom_gold, goldTerrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		goldTerrain.project(tmpProjectedPosition, rect.x+rect.width, rect.y);
-		Color.rgba8888ToColor(colorRightBottom_gold, goldTerrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		goldTerrain.project(tmpProjectedPosition, rect.x+rect.width, rect.y+rect.height);
-		Color.rgba8888ToColor(colorRightTop_gold, goldTerrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
-		goldTerrain.project(tmpProjectedPosition, rect.x, rect.y+rect.height);
-		Color.rgba8888ToColor(colorLeftTop_gold, goldTerrain.getPixel(tmpProjectedPosition.x, tmpProjectedPosition.y));
+		goldTerrain.project(projPos, rect.x, rect.y);
+		clrLB_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		goldTerrain.project(projPos, rect.x+rect.width, rect.y);
+		clrRB_G= goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		goldTerrain.project(projPos, rect.x+rect.width, rect.y+rect.height);
+		clrRT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		goldTerrain.project(projPos, rect.x, rect.y+rect.height);
+		clrLT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
 	}
 	public boolean isBlocked(){
-		return  (colorLeftBottom.a !=0 || colorLeftBottom_gold.a != 0) &&
-				(colorRightBottom.a != 0 || colorRightBottom_gold.a != 0) &&
-				(colorLeftTop.a != 0 || colorLeftTop_gold.a != 0) &&
-				(colorRightTop.a != 0 || colorRightTop_gold.a != 0) ;
+		return  (clrLB !=0 || clrLB_G != 0) &&(clrRB != 0 || clrRB_G != 0) && (clrLT != 0 || clrLT_G != 0) && (clrRT != 0 || clrRT_G != 0) ;
 	}
 	public boolean isSpace(){
-		return (colorLeftBottom.a+colorLeftBottom_gold.a+colorRightBottom.a+colorRightBottom_gold.a) == 0;
+		return clrLB==0 && clrLB_G==0 && clrRB==0 && clrRB_G==0;
 	}
-	public boolean isLeftBottomSpace(){
-		return colorLeftBottom.a+colorLeftBottom_gold.a==0;
+	public boolean isLBSpace(){
+		return clrLB==0  && clrLB_G==0;
 	}
-	public boolean isLeftTopSpace(){
-		return colorLeftTop.a + colorLeftTop_gold.a == 0;
+	public boolean isLTSpace(){
+		return clrLT==0 && clrLT_G == 0;
 	}
-	public boolean isRightBottomSpace(){
-		return colorRightBottom.a+colorRightBottom_gold.a==0;
+	public boolean isRBSpace(){
+		return clrRB==0 && clrRB_G==0;
 	}
-	public boolean isRightTopSpace(){
-		return colorRightTop.a + colorRightTop_gold.a == 0;
+	public boolean isRTSpace(){
+		return clrRT == 0 &&  clrRT_G == 0;
 	}
-	
-	public boolean isLeftBottomSpace_gold(){
-		return colorLeftBottom_gold.a==0;
+	public boolean isLB_GSpace(){
+		return clrLB_G==0;
 	}
-	public boolean isLeftTopSpace_gold(){
-		return colorLeftTop_gold.a == 0;
+	public boolean isLT_GSpace(){
+		return clrLT_G == 0;
 	}
-	public boolean isRightBottomSpace_gold(){
-		return colorRightBottom_gold.a==0;
+	public boolean isRB_GSpace(){
+		return clrRB_G==0;
 	}
-	public boolean isRightTopSpace_gold(){
-		return colorRightTop_gold.a == 0;
+	public boolean isRT_GSpace(){
+		return clrRT_G == 0;
 	}
-	
-	
 	public boolean isFillMode() {
 		return fillMode;
 	}
@@ -274,10 +263,10 @@ public class Terrain extends Group{
 	}
 	
 	public void dispose(){
-		if(null!=this.goldTerrain)this.goldTerrain.dispose();
-		if(null!=this.terrain)this.terrain.dispose();
-		this.mapMaking = true;
-		this.clear();
+		if(null!=goldTerrain)goldTerrain.dispose();
+		if(null!=terrain)terrain.dispose();
+		mapMaking = true;
+		clear();
 	}
 	
 }

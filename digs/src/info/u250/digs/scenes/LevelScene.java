@@ -9,9 +9,7 @@ import info.u250.digs.scenes.level.LevelMaker;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -32,7 +30,7 @@ public class LevelScene extends SceneStage {
 		levelTable.pack();
 		
 		final ScrollPane levelPanel = new ScrollPane(levelTable);
-		levelPanel.setSize(810, 560);
+		levelPanel.setSize(940, 560);
 		levelPanel.setPosition(0, 0);
 		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		levelPanel.setFillParent(false);
@@ -42,16 +40,16 @@ public class LevelScene extends SceneStage {
 		levelPanel.setOverscroll(true, true);
 		levelPanel.setScrollbarsOnTop(false);
 		
-		Image rightImage = new Image(atlas.findRegion("color")){
-			@Override
-			public void act(float delta) {
-				this.setColor(new Color((100+levelPanel.getScrollPercentY()*150)/255f,(255-levelPanel.getScrollPercentY()*200)/255f,100f/255f,1));
-				super.act(delta);
-			}
-		};
-		rightImage.setSize(150, Engine.getHeight());
-		rightImage.setX(Engine.getWidth()-rightImage.getWidth());
-		this.addActor(rightImage);
+//		Image rightImage = new Image(atlas.findRegion("color")){
+//			@Override
+//			public void act(float delta) {
+//				this.setColor(new Color((100+levelPanel.getScrollPercentY()*150)/255f,(255-levelPanel.getScrollPercentY()*200)/255f,100f/255f,1));
+//				super.act(delta);
+//			}
+//		};
+//		rightImage.setSize(150, Engine.getHeight());
+//		rightImage.setX(Engine.getWidth()-rightImage.getWidth());
+//		this.addActor(rightImage);
 		
 		this.addActor(levelPanel);
 	}

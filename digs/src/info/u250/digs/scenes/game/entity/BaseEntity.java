@@ -194,15 +194,15 @@ public abstract class BaseEntity extends Actor {
 				if(!isHoldGold){
 					final float r = 4;
 					if(speedX < 0){
-						if(!terrain.isLeftBottomSpace_gold()){
+						if(!terrain.isLB_GSpace()){
 							this.doDig(this.getX(), this.getY(),r);
-						}else if(!terrain.isLeftTopSpace_gold()){
+						}else if(!terrain.isLT_GSpace()){
 							this.doDig(this.getX(), this.getY()+this.getWidth(), r);
 						}
 					}else if(speedX > 0){
-						 if(!terrain.isRightBottomSpace_gold()){
+						 if(!terrain.isRB_GSpace()){
 							this.doDig(this.getX()+this.getWidth(), this.getY(),r);
-						 }else if(!terrain.isRightTopSpace_gold()){
+						 }else if(!terrain.isRT_GSpace()){
 							this.doDig(this.getX()+this.getWidth(), this.getY()+this.getHeight(), r);
 						 }
 					}
@@ -213,22 +213,22 @@ public abstract class BaseEntity extends Actor {
 				}
 				if(this.speedX <0){
 					if(this.speedY<0){
-						if(!terrain.isLeftBottomSpace()){
+						if(!terrain.isLBSpace()){
 							this.speedY = -this.speedX;
 						}
 					}else{
-						if(!terrain.isLeftTopSpace()){
+						if(!terrain.isLTSpace()){
 							this.speedY = this.speedX;
 							this.speedX = -this.speedX;
 						}
 					}
 				}else{
 					if(this.speedY<0){
-						if(!terrain.isRightBottomSpace()){
+						if(!terrain.isRBSpace()){
 							this.speedY = this.speedX;
 						}
 					}else{
-						if(!terrain.isRightTopSpace()){
+						if(!terrain.isRTSpace()){
 							this.speedY = -this.speedX;
 							this.speedX = -this.speedX;
 						}

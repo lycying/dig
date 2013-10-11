@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class LevelItemTable extends  Group{
 	
 	public LevelItemTable(final LevelScene levelScene,final int level ,String levelName){
-		this.setSize(750, 80);
+		this.setSize(880, 80);
 		TextureAtlas texs = Engine.resource("Texs");
 		TextureAtlas atlas = Engine.resource("All");
 		Image bg = new Image(atlas.findRegion("color"));

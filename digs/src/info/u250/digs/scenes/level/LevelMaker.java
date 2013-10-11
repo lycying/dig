@@ -8,7 +8,7 @@ public class LevelMaker {
 	public static void levelMaker(LevelScene lvlSce,Table levelTable){
 		
 		{LevelItemTable item = new LevelItemTable(lvlSce,1,"Rookie Training Ground");
-		levelTable.add(item).spaceBottom(10);
+		levelTable.add(item).spaceBottom(10).padTop(30);
 		levelTable.row();}
 
 {LevelItemTable item = new LevelItemTable(lvlSce,2,"Volcano Foot");

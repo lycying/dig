@@ -40,7 +40,7 @@ public class DigsEngineDrive implements EngineDrive {
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
 		
-		Engine.setMainScene(levelScene);
+		Engine.setMainScene(startUpScene);
 	}
 
 	@Override

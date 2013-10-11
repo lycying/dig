@@ -61,7 +61,6 @@ public class StartUpScene extends SceneStage{
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
 		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(30,1000), new Vector2(0,350)));
-//		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("ground")), new Vector2(0.3f,1), new Vector2(0,1000), new Vector2(0,0)));
 		this.addActor(pbg);
 		
 		final SurfaceData data = new SurfaceData();
@@ -173,10 +172,6 @@ public class StartUpScene extends SceneStage{
 		this.addActor(terrainContainer);
 		genTerrain();
 		
-//		Image grass = new Image(atlas.findRegion("grass"));
-//		grass.setPosition(0, 220);
-//		this.addActor(grass);
-		
 		Image logo = new Image(atlas.findRegion("logo"));
 		logo.setPosition(570, 120);
 		logo.addAction(Actions.forever(Actions.sequence(
@@ -185,23 +180,10 @@ public class StartUpScene extends SceneStage{
 		)));
 		this.addActor(logo);
 		
-		
-
-		
 		Button play = new Button(new TextureRegionDrawable(atlas.findRegion("btn-play")), new TextureRegionDrawable(atlas.findRegion("btn-play")));
-//		Button training = new Button(new TextureRegionDrawable(atlas.findRegion("btn-start-training-1")), new TextureRegionDrawable(atlas.findRegion("btn-start-training-2")));
 		play.setSize(play.getPrefWidth(), play.getPrefHeight());
-//		training.setSize(training.getPrefWidth(), training.getPrefHeight());
-//		
-//		training.setPosition(470,300);
-//		adventure.setPosition(470, 390);
-		
 		play.setPosition(-20, 260);
-//		training.setPosition(adventure.getX()-adventure.getWidth()-20, 20);
-	
-		
-//		this.addActor(training);
-		
+
 		
 		Finger finger = new Finger(atlas.findRegion("finger"), this);
 		this.addActor(finger);
@@ -392,7 +374,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void act(float delta) {
 		deltaAppend += delta;
-		if(deltaAppend>10f){
+		if(deltaAppend>30f){
 			genTerrain();
 			deltaAppend = 0;
 		}
