@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.game.entity.AttackMan;
+import info.u250.digs.scenes.game.entity.BaseEntity;
 import info.u250.digs.scenes.game.entity.GreenHat;
 import info.u250.digs.scenes.game.entity.HealMan;
 
@@ -23,8 +24,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
-	PixmapHelper terrain = null;
-	PixmapHelper goldTerrain = null;
 	LevelConfig config;
 	
 	private  int clrLB = 0;
@@ -43,6 +42,8 @@ public class Level extends Group{
 	private final Vector2 prePos = new Vector2();
 	private final Vector2 calPos = new Vector2();
 	
+	private PixmapHelper terrain = null;
+	private PixmapHelper goldTerrain = null;
 	public  final Array<Dock> docks = new Array<Dock>();
 	
 	private boolean fillMode = false;
@@ -185,11 +186,11 @@ public class Level extends Group{
 		if(terrain == null || goldTerrain == null)return;
 		x += getX();
 		terrain.project(projPos,x,y);
-		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
+		terrain.eraseRectangle(projPos.x ,projPos.y ,radius );
 		terrain.update();
 		
 		goldTerrain.project(projPos,x, y);
-		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
+		goldTerrain.eraseRectangle(projPos.x ,projPos.y , radius);
 		goldTerrain.update();
 	}
 	public void fillTerrain(float x,float y,final float radius,boolean isFillMode){
@@ -197,30 +198,34 @@ public class Level extends Group{
 		x += getX();
 		terrain.project(calPos, x, y);
 		if(isFillMode){
-			terrain.eraseCircle(calPos.x, calPos.y, radius, FILL_COLOR);
+			terrain.eraseRectangle(calPos.x, calPos.y, radius, FILL_COLOR);
 		}else{
-			terrain.eraseCircle(calPos.x, calPos.y, radius );
+			terrain.eraseRectangle(calPos.x, calPos.y, radius );
 		}
 		terrain.update();
 	}
-	public void calculateSpriteRectColor(Rectangle rect){
-		rect.x += getX();
-		terrain.project(projPos, rect.x, rect.y);
+	private Rectangle tmpRect = new Rectangle();
+	public void calculateSpriteRectColor(BaseEntity e,float delta){
+		tmpRect.set(e.drawable.getBoundingRectangle());
+		tmpRect.x += delta*e.speedX + getX();
+		tmpRect.y += delta*e.speedY;
+		
+		terrain.project(projPos, tmpRect.x, tmpRect.y);
 		clrLB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		terrain.project(projPos, rect.x+rect.width, rect.y);
+		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
 		clrRB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff ;
-		terrain.project(projPos, rect.x+rect.width, rect.y+rect.height);
+		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
 		clrRT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		terrain.project(projPos, rect.x, rect.y+rect.height);
+		terrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
 		clrLT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;		
 		
-		goldTerrain.project(projPos, rect.x, rect.y);
+		goldTerrain.project(projPos, tmpRect.x, tmpRect.y);
 		clrLB_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, rect.x+rect.width, rect.y);
+		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
 		clrRB_G= goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, rect.x+rect.width, rect.y+rect.height);
+		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
 		clrRT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, rect.x, rect.y+rect.height);
+		goldTerrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
 		clrLT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
 	}
 	public boolean isBlocked(){

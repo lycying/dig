@@ -3,7 +3,6 @@ package info.u250.digs.scenes.game;
 import java.util.Random;
 
 import net.shad.s3rend.gfx.pixmap.filter.Glow;
-import net.shad.s3rend.gfx.pixmap.filter.Noise;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,8 +11,6 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector2;
-
-import info.u250.digs.scenes.game.LevelConfig;
 
 final class LevelMaker {
 	static final Vector2 tmpV = new Vector2();
@@ -30,7 +27,7 @@ final class LevelMaker {
 		final int lineHeight = config.lineHeight;
 		
 		final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
-		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("data/grass.png"));
+		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("data/grass1.png"));
 		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("data/grass2.png"));
 		
 		final  Pixmap terMap = new Pixmap(width, height, Format.RGBA8888);
@@ -73,13 +70,14 @@ final class LevelMaker {
 		Pixmap.setBlending(Blending.SourceOver);
 		for(int i=0;i<10;i++){
 			int radius = RND.nextInt(30)+5;
-			Pixmap tempPxp = new Pixmap(radius*2,radius*2,Format.RGBA8888);
-			tempPxp.setColor(Color.YELLOW);
-			tempPxp.fillCircle(radius, radius, radius);
-			new Glow().generate(tempPxp);
-			new Noise().generate(tempPxp);
-			gdMap.drawPixmap(tempPxp, (int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250));
-			tempPxp.dispose();
+//			Pixmap tempPxp = new Pixmap(radius*2,radius*2,Format.RGBA8888);
+//			tempPxp.setColor(Color.YELLOW);
+//			tempPxp.fillCircle(radius, radius, radius);
+//			Glow.generate(tempPxp,Color.WHITE, 0.5f, 0.5f, 0.25f, 0.25f, 10, 10);
+//			Noise.generate(tempPxp,64, 64, 64);
+//			gdMap.drawPixmap(tempPxp, (int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250));
+//			tempPxp.dispose();
+			gdMap.drawCircle((int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250), radius);
 		}
 
 		maps[0] = terMap;

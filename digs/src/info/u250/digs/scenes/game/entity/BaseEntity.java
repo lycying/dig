@@ -14,13 +14,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public abstract class BaseEntity extends Actor {
+    // miners[i][0] = x position
+    // miners[i][1] = y position
+    // miners[i][2] = direction (-1 or 1)
+    // miners[i][3] = walk animation step, between 0 and 15
+    // miners[i][4] = jump velocity, between -1 and 16. -1 = on ground, 0 = falling, 1-8 = jumping straight, 9-16 = jumping one pixel up.
+    // miners[i][5] = 1 if the miner is carrying a gold lump, 0 otherwise
+    // miners[i][6] = 0 if the miner is alive, otherwise it's the death animation frame
+    // miners[i][7] = distance the miner has fallen. 0 if the miner is on the ground.
+
 	enum NpcStatus{
 		Walk,
 		GoldWalk,
@@ -33,10 +41,10 @@ public abstract class BaseEntity extends Actor {
 	}
 	Label hpLabel ;
 	private float margin = 5;
-	private Rectangle tempRectangle = new Rectangle();
+	
 	private Random random   = new Random();
-	private float speedX = 0;
-	private float speedY = 0;
+	public float speedX = 0;
+	public float speedY = 0;
 	private float stateTime; 
 	private float gravitySpeedDelta = 0;
 	private float tick = 0;
@@ -51,7 +59,7 @@ public abstract class BaseEntity extends Actor {
 	
 	protected NpcStatus status = NpcStatus.Walk;
 	protected Animation animation ;
-	protected Sprite drawable = new Sprite();
+	public Sprite drawable = new Sprite();
 
 	
 	public boolean self = true;
@@ -65,10 +73,10 @@ public abstract class BaseEntity extends Actor {
 	public boolean defense = false;
 	public int cost = 50;
 	
+//	public int xlt = 0,xlb = 0,xrt = 0, xrb = 0;
+	
 	//the main terrain
 	protected Level terrain;
-	
-	
 	public void init(Level terrain){
 		this.terrain = terrain;
 		this.currentHP = hp;
@@ -180,11 +188,8 @@ public abstract class BaseEntity extends Actor {
 		} else if(this.getY()<0){
 			this.remove();
 		}else{
-			//calculate it
-			tempRectangle.set(drawable.getBoundingRectangle());
-			tempRectangle.x += delta*speedX;
-			tempRectangle.y += delta*speedY;
-			terrain.calculateSpriteRectColor(tempRectangle);
+			
+			terrain.calculateSpriteRectColor(this,delta);
 			
 			//drop until land the ground
 			if(terrain.isSpace()){
@@ -302,22 +307,6 @@ public abstract class BaseEntity extends Actor {
 		TextureAtlas atlas = Engine.resource("All");
 		AiBombo aiBombo = new AiBombo(atlas.findRegion("color"),this,attackAim);
 		terrain.addActor(aiBombo);
-		
-//		final Image fire = new Image(atlas.findRegion("color"));
-//		fire.setColor(new Color(1, 0, 0, 0.5f));
-//		fire.setPosition(getX()+6, getY()+6);
-//		float dst = tmp.set(getX(),getY()).dst(attackAim.getX(), attackAim.getY());
-//		float angle = tmp.set(getX(),getY()).sub(attackAim.getX(),attackAim.getY()).angle();
-//		float scale = dst/4f;
-//		fire.setRotation(angle);
-//		fire.setOrigin(4, 2);
-//		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
-//			@Override
-//			public void run() {
-//				fire.remove();
-//			}
-//		})));
-//		terrain.addActor(fire); 
 	}
 	public void doAHeal(){
 		healAim.currentHP+=heal;
@@ -326,22 +315,6 @@ public abstract class BaseEntity extends Actor {
 		TextureAtlas atlas = Engine.resource("All");
 		AiHeal aiHeal = new AiHeal(atlas.findRegion("color"),this,healAim);
 		terrain.addActor(aiHeal);
-//		TextureAtlas atlas = Engine.resource("All");
-//		final Image fire = new Image(atlas.findRegion("color"));
-//		fire.setColor(new Color( 0, 1 , 0 , 0.5f));
-//		fire.setPosition(getX()+6, getY()+6);
-//		float dst = tmp.set(getX(),getY()).dst(healAim.getX(), healAim.getY());
-//		float angle = tmp.set(getX(),getY()).sub(healAim.getX(),healAim.getY()).angle();
-//		float scale = dst/4f;
-//		fire.setRotation(angle);
-//		fire.setOrigin(4, 2);
-//		fire.addAction(Actions.sequence(Actions.scaleTo(scale,0.5f,0.3f,Interpolation.circleOut),Actions.run(new Runnable() {
-//			@Override
-//			public void run() {
-//				fire.remove();
-//			}
-//		})));
-//		terrain.addActor(fire); 
 	}
 	
 	public final void setAnimation(Animation animation){

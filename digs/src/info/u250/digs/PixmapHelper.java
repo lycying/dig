@@ -131,7 +131,7 @@ public class PixmapHelper implements Disposable {
 		eraseCircle(x, y, radius, TransparentColor);
 	}
 
-	public static Color TransparentColor = new Color(0f, 0f, 0f, 0f);
+	public static Color TransparentColor = Color.CLEAR;
 
 	public void eraseCircle(float x, float y, float radius, Color color) {
 		if (lastModification == modifications.length)
