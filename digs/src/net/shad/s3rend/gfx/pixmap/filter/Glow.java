@@ -70,7 +70,7 @@ public class Glow implements ProceduralInterface, FilterInterface
 	 */
 	public static void generate(final Pixmap pixmap, Color color, float centerX, float centerY, float rayX, float rayY, float gamma, float alpha){
 
-		int width=pixmap.getWidth();
+		int width= pixmap.getWidth();
 		int height=pixmap.getHeight();
 
 		if (DEBUG){

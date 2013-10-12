@@ -65,7 +65,9 @@ public class MapMaker {
 		
 //		Gradient.generate(map,Color.RED, Color.YELLOW, Color.BLUE, Color.PINK, 1.0f);
 		Glow.generate(map, Color.WHITE, 0.2f, 1.0f-400f/512f, 0.5f, 0.6f, 10, 10);
-		
+//		Pixmap.setBlending(Blending.SourceOver);
+//		Pixmap test = new Pixmap(Gdx.files.internal("rbg2.png"));
+//		map.drawPixmap(test, 0, 512-test.getHeight());
 		return map;
 	}
 	static final Vector2 tmpV = new Vector2();

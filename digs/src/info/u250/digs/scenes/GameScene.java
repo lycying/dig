@@ -102,7 +102,7 @@ public class GameScene extends SceneStage {
 		}
 		
 		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "texs/DSRT.png";
+		config.surfaceFile = "texs/night_ground.png";
 		config.runnerNumber = 40;
 		config.width = 2048;
 		config.segment = 15;

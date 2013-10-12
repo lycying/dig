@@ -9,7 +9,9 @@ import info.u250.digs.scenes.level.LevelMaker;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -24,13 +26,24 @@ public class LevelScene extends SceneStage {
 		
 		atlas = Engine.resource("All");
 		
+		Table decoTable = new Table();
+		decoTable.add(new Image(atlas.findRegion("spring"))).space(10);
+		decoTable.row();
+		decoTable.add(new Image(atlas.findRegion("unknown"))).space(10);
+		decoTable.row();
+		decoTable.add(new Image(atlas.findRegion("unknown"))).space(10);
+		decoTable.row();
+		decoTable.add(new Image(atlas.findRegion("unknown"))).space(10);
+		decoTable.row();
+		decoTable.pack();
+		decoTable.setPosition(20,2);
 		
 		Table levelTable = new Table(); 
 		LevelMaker.levelMaker(this, levelTable);
 		levelTable.pack();
 		
 		final ScrollPane levelPanel = new ScrollPane(levelTable);
-		levelPanel.setSize(940, 560);
+		levelPanel.setSize(740, 560);
 		levelPanel.setPosition(0, 0);
 		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		levelPanel.setFillParent(false);
@@ -39,19 +52,23 @@ public class LevelScene extends SceneStage {
 		levelPanel.setFadeScrollBars(false);
 		levelPanel.setOverscroll(true, true);
 		levelPanel.setScrollbarsOnTop(false);
+		levelPanel.setX(220);
 		
-//		Image rightImage = new Image(atlas.findRegion("color")){
-//			@Override
-//			public void act(float delta) {
-//				this.setColor(new Color((100+levelPanel.getScrollPercentY()*150)/255f,(255-levelPanel.getScrollPercentY()*200)/255f,100f/255f,1));
-//				super.act(delta);
-//			}
-//		};
-//		rightImage.setSize(150, Engine.getHeight());
-//		rightImage.setX(Engine.getWidth()-rightImage.getWidth());
-//		this.addActor(rightImage);
 		
+		Image rightImage = new Image(atlas.findRegion("color")){
+			@Override
+			public void act(float delta) {
+				this.setColor(new Color((0+levelPanel.getScrollPercentY()*150)/255f,
+						(200-levelPanel.getScrollPercentY()*200)/255f,0/255f,
+						(55+levelPanel.getScrollPercentY()*200f)/255f));
+				super.act(delta);
+			}
+		};
+		rightImage.setSize(225, Engine.getHeight());
+		rightImage.setX(10);
+		this.addActor(rightImage);
 		this.addActor(levelPanel);
+		this.addActor(decoTable);
 	}
 	public void startLevel(int level){
 		this.drive.setToNpcListScene();

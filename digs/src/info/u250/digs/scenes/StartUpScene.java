@@ -37,6 +37,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.Animation;
+import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.SkeletonJson;
+import com.esotericsoftware.spine.SkeletonRenderer;
 
 public class StartUpScene extends SceneStage{
 	DigsEngineDrive drive;
@@ -48,10 +53,33 @@ public class StartUpScene extends SceneStage{
 	final TriangleSurfaces surface;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
+	
+	SkeletonRenderer renderer;
+	SkeletonData skeletonData;
+	Skeleton skeleton;
+	Animation animation;
+	Array<com.esotericsoftware.spine.Event> events = new Array<com.esotericsoftware.spine.Event>();
+	float time;
+
 	public StartUpScene(DigsEngineDrive drive){
 		loadTextures();
 		
 		this.drive = drive;
+		this.renderer = new SkeletonRenderer();
+		
+		SkeletonJson json = new SkeletonJson(Engine.resource("Cat",TextureAtlas.class));
+		json.setScale(0.5f);
+		skeletonData = json.readSkeletonData(Gdx.files.internal("data/heiniu.json"));
+		skeleton = new Skeleton(skeletonData);
+		skeleton.setSkin("default");
+		skeleton.setToSetupPose();
+		skeleton = new Skeleton(skeleton);
+		skeleton.updateWorldTransform();
+		skeleton.setX(800);
+		skeleton.setY(200);
+
+		animation = skeletonData.findAnimation("idle");
+
 		
 		atlas = Engine.resource("All");
 		
@@ -384,10 +412,20 @@ public class StartUpScene extends SceneStage{
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
 		surface.render(Engine.getDeltaTime());
-
 		super.draw();
 		surface2.render(Engine.getDeltaTime());
 		surface3.render(Engine.getDeltaTime());
+		
+		float lastTime = time;
+		time += Gdx.graphics.getDeltaTime();
+		events.clear();
+		animation.apply(skeleton, lastTime, time, true, events);
+		skeleton.updateWorldTransform();
+		skeleton.update(Gdx.graphics.getDeltaTime());
+		Engine.getSpriteBatch().begin();
+		renderer.draw(Engine.getSpriteBatch(), skeleton);
+		Engine.getSpriteBatch().end();
+
 	}
 	@Override
 	public boolean keyDown(int keycode) {
