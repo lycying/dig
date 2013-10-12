@@ -22,10 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
-public class Terrain extends Group{
+public class Level extends Group{
 	PixmapHelper terrain = null;
 	PixmapHelper goldTerrain = null;
-	TerrainConfig config;
+	LevelConfig config;
 	
 	private  int clrLB = 0;
 	private  int clrRB = 0;
@@ -49,7 +49,7 @@ public class Terrain extends Group{
 	private boolean mapMaking = true;
 	private boolean mapTexturing = false;
 	
-	Pixmap p1 ,p2 ;
+	Pixmap[] pip ;
 	
 	InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
@@ -86,7 +86,7 @@ public class Terrain extends Group{
 	};
 	
 	
-	public Terrain(TerrainConfig config){
+	public Level(LevelConfig config){
 		this.config = config;
 		setSize(config.width,512);
 		addTerrains();
@@ -94,8 +94,8 @@ public class Terrain extends Group{
 	}
 	void assembleToPixmapHelper(){
 		clear();
-		terrain = new PixmapHelper(p1);
-		goldTerrain = new PixmapHelper(p2);
+		terrain = new PixmapHelper(pip[0]);
+		goldTerrain = new PixmapHelper(pip[1]);
 		
 		addListener(terrainInput);
 		addDocks();
@@ -130,9 +130,7 @@ public class Terrain extends Group{
 			@Override
 			public Void call() throws Exception {
 				Thread.sleep(200);
-				p1 = MapMaker.genMap(config);
-				p2 = new GoldPixmap(config.width, config.baseHeight, 20);
-				
+				pip = LevelMaker.gen(config);
 				mapMaking = false;
 				mapTexturing = true;
 				return null;

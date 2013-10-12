@@ -11,8 +11,8 @@ import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.InformationPane;
 import info.u250.digs.scenes.game.PauseDialog;
-import info.u250.digs.scenes.game.Terrain;
-import info.u250.digs.scenes.game.TerrainConfig;
+import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.LevelConfig;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
@@ -31,7 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
-	Terrain terrain = null;
+	Level terrain = null;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
 	final ScrollPane scroll;
@@ -95,18 +95,17 @@ public class GameScene extends SceneStage {
 		
 	}
 	
-	public void configGame(TerrainConfig configx){
+	public void configGame(LevelConfig configx){
 		pauseDialog.remove();
 		if(null!=terrain){
 			terrain.dispose();
 		}
 		
-		TerrainConfig config = new TerrainConfig();
-		config.surfaceFile = "texs/night_ground.png";
-		config.runnerNumber = 40;
+		LevelConfig config = new LevelConfig();
+		config.surface = "texs/night_ground.png";
 		config.width = 2048;
 		config.segment = 15;
-		terrain = new Terrain(config);
+		terrain = new Level(config);
 		scroll.setWidget(terrain);
 	} 
 	public void setupPauseResume(){

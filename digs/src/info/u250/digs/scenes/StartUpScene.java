@@ -11,8 +11,8 @@ import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
-import info.u250.digs.scenes.game.Terrain;
-import info.u250.digs.scenes.game.TerrainConfig;
+import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.npclist.ParticleEffectActor;
 import info.u250.digs.scenes.start.Finger;
 
@@ -46,7 +46,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 public class StartUpScene extends SceneStage{
 	DigsEngineDrive drive;
 	TextureAtlas atlas = null;
-	public Terrain terrain;
+	public Level terrain;
 	public Group terrainContainer;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
@@ -376,27 +376,20 @@ public class StartUpScene extends SceneStage{
 			terrain.dispose();
 		}
 		terrain = null;
-		TerrainConfig config = new TerrainConfig();
-//		
+		LevelConfig config = new LevelConfig();
 		if(-1==texs_index){
-			config.surfaceFile = "texs/brown169.gif";
+			config.surface = "texs/brown169.gif";
 			texs_index++;
 		}else{
-			config.surfaceFile = texs.get(new java.util.Random().nextInt(texs.size()));
-		}
-//		config.surfaceFile = texs.get(texs_index++);
-		
-//		config.surfaceFile = "texs/multi035.jpg";
+			config.surface = texs.get(new java.util.Random().nextInt(texs.size()));
+		}		
 		if(texs_index>texs.size()-1){
 			texs_index = 0;
 		}
-//		config.surfaceFile = "data/DSRT.png";
-		config.runnerNumber = 20;
 		config.segment = 8;
-		config.baseHeight = 200;
+		config.lineHeight = 200;
 		config.width = (int)Engine.getWidth();
-		terrain = new Terrain(config);
-//		terrainContainer.setY(240);
+		terrain = new Level(config);
 		terrainContainer.addActor(terrain);
 	}
 	@Override

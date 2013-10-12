@@ -2,7 +2,7 @@ package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.game.Dock;
-import info.u250.digs.scenes.game.Terrain;
+import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.entity.ai.AiBombo;
 import info.u250.digs.scenes.game.entity.ai.AiHeal;
 
@@ -66,10 +66,10 @@ public abstract class BaseEntity extends Actor {
 	public int cost = 50;
 	
 	//the main terrain
-	protected Terrain terrain;
+	protected Level terrain;
 	
 	
-	public void init(Terrain terrain){
+	public void init(Level terrain){
 		this.terrain = terrain;
 		this.currentHP = hp;
 		this.tick = random.nextFloat();
