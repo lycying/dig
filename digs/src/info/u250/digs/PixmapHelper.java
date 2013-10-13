@@ -43,7 +43,8 @@ public class PixmapHelper implements Disposable {
 	// only allow 10 modifications
 	private PixmapChange[] modifications = new PixmapChange[10];
 	private int lastModification = 0;
-
+	private Pixmap renderPixmap8;
+	private Pixmap renderPixmap16;
 	private Pixmap renderPixmap32;
 	private Pixmap renderPixmap64;
 	private Pixmap renderPixmap128;
@@ -57,6 +58,8 @@ public class PixmapHelper implements Disposable {
 		for (int i = 0; i < modifications.length; i++)
 			modifications[i] = new PixmapChange();
 
+		this.renderPixmap8 = new Pixmap(8, 8, Format.RGBA8888);
+		this.renderPixmap16 = new Pixmap(16, 16, Format.RGBA8888);
 		this.renderPixmap32 = new Pixmap(32, 32, Format.RGBA8888);
 		this.renderPixmap64 = new Pixmap(64, 64, Format.RGBA8888);
 		this.renderPixmap128 = new Pixmap(128, 128, Format.RGBA8888);
@@ -72,7 +75,9 @@ public class PixmapHelper implements Disposable {
 
 		for (int i = 0; i < modifications.length; i++)
 			modifications[i] = new PixmapChange();
-
+		
+		this.renderPixmap8 = new Pixmap(8, 8, Format.RGBA8888);
+		this.renderPixmap16 = new Pixmap(16, 16, Format.RGBA8888);
 		this.renderPixmap32 = new Pixmap(32, 32, Format.RGBA8888);
 		this.renderPixmap64 = new Pixmap(64, 64, Format.RGBA8888);
 		this.renderPixmap128 = new Pixmap(128, 128, Format.RGBA8888);
@@ -195,6 +200,10 @@ public class PixmapHelper implements Disposable {
 	
 
 	private Pixmap getPixmapForRadius(int width) {
+		if(width<=8)
+			return renderPixmap8;
+		if(width <=16)
+			return renderPixmap16;
 		if (width <= 32)
 			return renderPixmap32;
 		if (width <= 64)
@@ -269,6 +278,8 @@ public class PixmapHelper implements Disposable {
 	public void dispose() {
 		this.pixmap.dispose();
 		this.texture.dispose();
+		this.renderPixmap8.dispose();
+		this.renderPixmap16.dispose();
 		this.renderPixmap32.dispose();
 		this.renderPixmap64.dispose();
 		this.renderPixmap128.dispose();

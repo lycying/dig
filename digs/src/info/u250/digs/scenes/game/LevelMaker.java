@@ -68,6 +68,7 @@ final class LevelMaker {
 		/////////////////////////////////////////////////////////////////////////////////////
 		Pixmap gdMap =  new Pixmap(width, lineHeight, Format.RGBA8888);
 		Pixmap.setBlending(Blending.SourceOver);
+		gdMap.setColor(Color.YELLOW);
 		for(int i=0;i<10;i++){
 			int radius = RND.nextInt(30)+5;
 //			Pixmap tempPxp = new Pixmap(radius*2,radius*2,Format.RGBA8888);
@@ -77,7 +78,7 @@ final class LevelMaker {
 //			Noise.generate(tempPxp,64, 64, 64);
 //			gdMap.drawPixmap(tempPxp, (int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250));
 //			tempPxp.dispose();
-			gdMap.drawCircle((int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250), radius);
+			gdMap.fillCircle((int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250), radius);
 		}
 
 		maps[0] = terMap;

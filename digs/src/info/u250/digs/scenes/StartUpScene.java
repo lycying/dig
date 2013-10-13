@@ -13,8 +13,8 @@ import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.npclist.ParticleEffectActor;
 import info.u250.digs.scenes.start.Finger;
+import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -378,7 +378,7 @@ public class StartUpScene extends SceneStage{
 		terrain = null;
 		LevelConfig config = new LevelConfig();
 		if(-1==texs_index){
-			config.surface = "texs/brown169.gif";
+			config.surface = "texs/brown063.jpg";
 			texs_index++;
 		}else{
 			config.surface = texs.get(new java.util.Random().nextInt(texs.size()));
@@ -409,15 +409,15 @@ public class StartUpScene extends SceneStage{
 		surface2.render(Engine.getDeltaTime());
 		surface3.render(Engine.getDeltaTime());
 		
-		float lastTime = time;
-		time += Gdx.graphics.getDeltaTime();
-		events.clear();
-		animation.apply(skeleton, lastTime, time, true, events);
-		skeleton.updateWorldTransform();
-		skeleton.update(Gdx.graphics.getDeltaTime());
-		Engine.getSpriteBatch().begin();
-		renderer.draw(Engine.getSpriteBatch(), skeleton);
-		Engine.getSpriteBatch().end();
+//		float lastTime = time;
+//		time += Gdx.graphics.getDeltaTime();
+//		events.clear();
+//		animation.apply(skeleton, lastTime, time, true, events);
+//		skeleton.updateWorldTransform();
+//		skeleton.update(Gdx.graphics.getDeltaTime());
+//		Engine.getSpriteBatch().begin();
+//		renderer.draw(Engine.getSpriteBatch(), skeleton);
+//		Engine.getSpriteBatch().end();
 
 	}
 	@Override

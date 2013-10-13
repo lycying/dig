@@ -3,7 +3,9 @@ package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
+import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.level.LevelMaker;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -71,7 +73,11 @@ public class LevelScene extends SceneStage {
 		this.addActor(decoTable);
 	}
 	public void startLevel(int level){
-		this.drive.setToNpcListScene();
+		LevelConfig config = new LevelConfig();
+		config.bottomColor = WebColors.BISQUE.get();
+		config.topColor = WebColors.SNOW.get();
+		this.drive.getGameScene().configGame(config);
+		this.drive.setToGameScene();
 	}
 	@Override
 	public void draw() {

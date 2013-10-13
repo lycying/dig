@@ -95,16 +95,12 @@ public class GameScene extends SceneStage {
 		
 	}
 	
-	public void configGame(LevelConfig configx){
+	public void configGame(LevelConfig config){
 		pauseDialog.remove();
 		if(null!=terrain){
 			terrain.dispose();
 		}
-		
-		LevelConfig config = new LevelConfig();
-		config.surface = "texs/night_ground.png";
-		config.width = 2048;
-		config.segment = 15;
+		meshBackground = new SimpleMeshBackground(config.topColor,config.bottomColor);
 		terrain = new Level(config);
 		scroll.setWidget(terrain);
 	} 

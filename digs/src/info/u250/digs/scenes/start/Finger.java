@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.start;
 
 import info.u250.digs.scenes.StartUpScene;
+import info.u250.digs.scenes.game.Level;
 
 import java.util.Random;
 
@@ -58,9 +59,9 @@ public class Finger extends Image{
 			this.addAction(Actions.fadeOut(0.3f));
 			return;
 		}else if(timeDelta2>9.5f){
-			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, 16, true);
+			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS, true);
 		}else{
-			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, 16, false);
+			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS, false);
 		}
 		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}

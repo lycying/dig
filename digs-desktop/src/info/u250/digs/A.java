@@ -162,7 +162,7 @@ public class A extends JFrame
         String[] infoStrings = {"Bring the gold home!", "Rocks are impenetrable.", "Use arrow keys to scroll.", "Slime explodes on contact!", "Wide level!", "Timekiller!", "Bonus level!"};
         int[] slimes = {0, 0, 0, 6, 10, 25, 0};
 
-        int current_level = 0;
+        int current_level = 5;
 
         // Loop until escape is pressed.
         // First set up the level, then run the main game loop.

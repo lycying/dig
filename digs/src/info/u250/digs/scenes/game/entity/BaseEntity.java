@@ -1,102 +1,115 @@
 package info.u250.digs.scenes.game.entity;
 
-import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.game.Dock;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.entity.ai.AiBombo;
-import info.u250.digs.scenes.game.entity.ai.AiHeal;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public abstract class BaseEntity extends Actor {
-    // miners[i][0] = x position
-    // miners[i][1] = y position
-    // miners[i][2] = direction (-1 or 1)
-    // miners[i][3] = walk animation step, between 0 and 15
-    // miners[i][4] = jump velocity, between -1 and 16. -1 = on ground, 0 = falling, 1-8 = jumping straight, 9-16 = jumping one pixel up.
-    // miners[i][5] = 1 if the miner is carrying a gold lump, 0 otherwise
-    // miners[i][6] = 0 if the miner is alive, otherwise it's the death animation frame
-    // miners[i][7] = distance the miner has fallen. 0 if the miner is on the ground.
 
 	enum NpcStatus{
 		Walk,
 		GoldWalk,
-		Attack,
-		Heal
 	}
 	public BaseEntity(){
-		this.setSize(16, 16);
-		this.drawable.setSize(16, 16);
+		this.setSize(7, 10);
+		this.drawable.setSize(7, 10);
 	}
-	Label hpLabel ;
-	private float margin = 5;
-	
+
 	private Random random   = new Random();
-	public float speedX = 0;
-	public float speedY = 0;
+	float x ,y ;
+	public int speedX = random.nextBoolean()?1:-1;
+	public int speedY = 1;
 	private float stateTime; 
-	private float gravitySpeedDelta = 0;
-	private float tick = 0;
-	private int currentHP     = 0;
-	private boolean isActtacking = false;
-	private boolean isHealing = false;
 	private boolean isHoldGold = false;
-	private BaseEntity attackAim ;
-	private BaseEntity healAim ;
-	private Vector2 tmp = new Vector2();
-	private boolean showHp = true;
 	
 	protected NpcStatus status = NpcStatus.Walk;
 	protected Animation animation ;
 	public Sprite drawable = new Sprite();
 
 	
-	public boolean self = true;
-	public float speed = 40;
-	public int attack = 0;
-	public int attackRange = 0;
-	public int heal   = 0;
-	public int healRange   = 0;
-	public int hp     = 0;
+	
 	public int goldHold = 1;
-	public boolean defense = false;
 	public int cost = 50;
-	
-//	public int xlt = 0,xlb = 0,xrt = 0, xrb = 0;
-	
+		
 	//the main terrain
 	protected Level terrain;
 	public void init(Level terrain){
 		this.terrain = terrain;
-		this.currentHP = hp;
-		this.tick = random.nextFloat();
 	}
-	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		drawable.draw(batch);
-		if(defense || hp == 0){}else{
-			if(currentHP<hp){
-				Engine.getDefaultFont().setColor(Color.YELLOW);
-			}else{
-				Engine.getDefaultFont().setColor(Color.WHITE);
+	}
+	
+	
+	public void tick(){
+		if(null == terrain)return ;
+		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+		x = this.getX();
+		y = this.getY();
+		if(x<8)speedX = 1; 
+		if(x>terrain.getWidth()-10) speedX=-1;
+		if (speedY > 1) {
+			if (terrain.tryMove(x+speedX, y + speedY / 8)) {
+				x += speedX;
+				y += speedY / 8;
+				speedY--;
+			} else {
+				// Stop jumping
+				speedY = 0;
 			}
-			if(showHp){
-				Engine.getDefaultFont().setScale(0.8f, 0.8f);
-				Engine.getDefaultFont().draw(batch, currentHP+"", getX()+5, getY()+26);
-				Engine.getDefaultFont().setColor(Color.WHITE);
+		} else {
+			if (terrain.tryMove(x, y-1)) {
+				y--;
+				if (terrain.tryMove(x, y-1)) {
+					y--;
+					speedY = 0;
+				}
+			} else	{
+
+				if (random.nextInt(10) != 0) {
+					// Assume the miner has hit a wall
+					boolean hit = true;
+					for (int p = 1; p <= 4; p++) {
+						if (terrain.tryMove(x+speedX, y+p)) {
+							x += speedX;
+							y += p;
+							hit = false;
+							break;
+						}
+					}
+					if (random.nextInt(hit ? 10 : 4000) == 0) {
+						speedX *= -1;
+						if (hit) {
+							if(random.nextInt(3)!=0)speedY = 16;
+						}else{
+							if(random.nextInt(3)==0)speedY = 16;
+						}
+					}
+				}
 			}
+		}
+
+		this.setX(x);
+		this.setY(y);
+
+      		
+		switch (status) {
+		case Walk:
+			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
+			break;
+		case GoldWalk:
+			animation = this.speedX>0?getGoldAnimationRight():getGoldAnimationLeft();
+			break;
+		default:
+			break;
 		}
 	}
 	@Override
@@ -113,175 +126,18 @@ public abstract class BaseEntity extends Actor {
 			}
 		}
 		
-		/*============Put Down Gold ================================*/
-		
-		/*============Change the animation =========================*/
+	
 		stateTime+=delta;
 		drawable.setRegion(animation.getKeyFrame(stateTime, true));
 		drawable.setColor(this.getColor());
 		drawable.setPosition(this.getX(), this.getY());
-		drawable.setScale(this.getScaleX(),this.getScaleY());
-		/*============Change the animation =========================*/
+		drawable.setScale(this.getScaleX(),this.getScaleY());	
 		
 		
-		if(null == terrain)return ;//if terrain is null , break it 
-		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 		
-		
-		//reset it~~
-		isActtacking = false;
-		isHealing = false;
-		status = NpcStatus.Walk;
-		
-		for(Actor actor:terrain.getChildren()){
-			if(actor == this)continue;
-			if(actor instanceof BaseEntity){
-				BaseEntity e = BaseEntity.class.cast(actor);
-				float dst = tmp.set(getX(),getY()).dst(e.getX(), e.getY());
-				
-				//if the enemy is not defensed and is not our patterns , then i will try attack it
-				//i should have attack that bigger than zero and have not in attacking
-				if(e.currentHP>0 && !e.defense && !self && attack>0){
-					if(dst<attackRange){
-						isActtacking = true;
-						attackAim = e;
-						status = NpcStatus.Attack;
-						followNpc(e);
-					}
-				}
-				//heal
-				if(e.currentHP<e.hp && heal>0 && !isHealing){
-					if(dst<healRange){
-						isHealing = true;
-						healAim = e;
-						status = NpcStatus.Heal;
-						followNpc(e);
-					}
-				}
-			}
-		}
-		tick+=delta;
-		if(tick>1f){
-			tick -= 1f;
-			if(isActtacking){
-				this.doAttack();
-			}
-			if(isHealing){
-				this.doAHeal();
-			}
-		}else if(tick>0.5f){
-			if(isActtacking || isHealing){
-				if(random.nextFloat()>0.6f){
-					status = NpcStatus.Walk;
-				}
-			}
-			
-		}
-		
-		
-		if(this.getX()<=margin){
-			speedX = getRandomSpeedX() ;
-		} else if(this.getX()>terrain.getWidth()-this.getWidth()-margin){
-			speedX = -getRandomSpeedX();
-		} else if(this.getY()>terrain.getHeight()-this.getHeight() - margin){
-			this.gravityDrop(delta);
-		} else if(this.getY()<0){
-			this.remove();
-		}else{
-			
-			terrain.calculateSpriteRectColor(this,delta);
-			
-			//drop until land the ground
-			if(terrain.isSpace()){
-				this.gravityDrop(delta);
-			}else{
-				if(goldHold>0)//if this npc can hold gold
-				if(!isHoldGold){
-					final float r = 4;
-					if(speedX < 0){
-						if(!terrain.isLB_GSpace()){
-							this.doDig(this.getX(), this.getY(),r);
-						}else if(!terrain.isLT_GSpace()){
-							this.doDig(this.getX(), this.getY()+this.getWidth(), r);
-						}
-					}else if(speedX > 0){
-						 if(!terrain.isRB_GSpace()){
-							this.doDig(this.getX()+this.getWidth(), this.getY(),r);
-						 }else if(!terrain.isRT_GSpace()){
-							this.doDig(this.getX()+this.getWidth(), this.getY()+this.getHeight(), r);
-						 }
-					}
-				}
-				
-				if(this.speedX == 0){
-					this.speedX  = (random.nextBoolean() ? 1: -1) * getRandomSpeedX() ;
-				}
-				if(this.speedX <0){
-					if(this.speedY<0){
-						if(!terrain.isLBSpace()){
-							this.speedY = -this.speedX;
-						}
-					}else{
-						if(!terrain.isLTSpace()){
-							this.speedY = this.speedX;
-							this.speedX = -this.speedX;
-						}
-					}
-				}else{
-					if(this.speedY<0){
-						if(!terrain.isRBSpace()){
-							this.speedY = this.speedX;
-						}
-					}else{
-						if(!terrain.isRTSpace()){
-							this.speedY = -this.speedX;
-							this.speedX = -this.speedX;
-						}
-					}
-				}
-				this.gravitySpeedDelta = 0;
-			}
-		}
-		
-		
-		if(terrain.isBlocked()){
-			return;
-		}
-		if(isHoldGold)status = NpcStatus.GoldWalk;
-		if(status == NpcStatus.Walk || status==NpcStatus.GoldWalk){
-			tmp.x = delta*speedX;
-			tmp.y = delta*speedY;
-		}else{
-			tmp.x = 0;
-			tmp.y = 0;
-		}
-		this.translate(tmp.x,tmp.y);
-		super.act(delta);
-		
-		switch (status) {
-		case Walk:
-			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
-			break;
-		case GoldWalk:
-			animation = this.speedX>0?getGoldAnimationRight():getGoldAnimationLeft();
-			break;
-		case Attack:
-			animation = this.getX()>this.attackAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
-			break;
-		case Heal:
-			animation = this.getX()>this.healAim.getX()?getSkillAnimationLeft():getSkillAnimationRight();
-			break;
-		default:
-			break;
-		}
-		
-	}
-	protected void gravityDrop(float delta){
-		this.gravitySpeedDelta+= delta;
-		this.speedY = -500*this.gravitySpeedDelta;
 	}
 	
-	private void doDig(float x,float y,float r){
+	void doDig(float x,float y,float r){
 		this.speedX = -this.speedX;
 		terrain.dig(r, x, y);
 		
@@ -289,64 +145,10 @@ public abstract class BaseEntity extends Actor {
 		status = NpcStatus.GoldWalk;
 	}
 	
-	private float getRandomSpeedX(){
-		return speed +50*random.nextFloat();
-	}
-	public void doAttack(){
-		attackAim.currentHP-=attack;
-		if(attackAim.currentHP<0)attackAim.currentHP = 0;
-		if(attackAim.currentHP==0){
-			final BaseEntity ee = attackAim;
-			ee.addAction(Actions.sequence(Actions.fadeOut(1),Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					ee.remove();
-				}
-			})));
-		}
-		TextureAtlas atlas = Engine.resource("All");
-		AiBombo aiBombo = new AiBombo(atlas.findRegion("color"),this,attackAim);
-		terrain.addActor(aiBombo);
-	}
-	public void doAHeal(){
-		healAim.currentHP+=heal;
-		if(healAim.currentHP>healAim.hp)healAim.currentHP = healAim.hp;
-		
-		TextureAtlas atlas = Engine.resource("All");
-		AiHeal aiHeal = new AiHeal(atlas.findRegion("color"),this,healAim);
-		terrain.addActor(aiHeal);
-	}
+	
 	
 	public final void setAnimation(Animation animation){
 		this.animation = animation;
-	}
-	
-	public void followNpc(BaseEntity e){
-		if(e.speedX*this.speedX>0){
-			if(this.speedX>0){
-				if(this.getX()-90>e.getX()){
-					if(Math.abs(this.speedX)>Math.abs(e.speedX)){
-						this.speedX = -speedX;
-					}
-				}
-			}else{
-				if(this.getX()<e.getX()-90){
-					if(Math.abs(this.speedX)>Math.abs(e.speedX)){
-						this.speedX = -speedX;
-					}
-				}
-			}
-		}else{
-			if(this.speedX>0){
-				if(this.getX() - 90>e.getX()){
-					this.speedX = -speedX;
-				}
-			}else{
-				if(this.getX()<e.getX() - 90){
-					this.speedX = -speedX;
-				}
-			}
-		}
 	}
 	
 	public abstract Animation getWalkAnimationLeft();
@@ -385,13 +187,6 @@ public abstract class BaseEntity extends Actor {
 		}
 	}
 
-	public boolean isShowHp() {
-		return showHp;
-	}
-
-	public void setShowHp(boolean showHp) {
-		this.showHp = showHp;
-	}
 	
 	public Sprite getDrawable(){
 		return drawable;

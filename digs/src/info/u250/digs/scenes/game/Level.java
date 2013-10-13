@@ -3,10 +3,8 @@ package info.u250.digs.scenes.game;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
-import info.u250.digs.scenes.game.entity.AttackMan;
 import info.u250.digs.scenes.game.entity.BaseEntity;
 import info.u250.digs.scenes.game.entity.GreenHat;
-import info.u250.digs.scenes.game.entity.HealMan;
 
 import java.util.Random;
 
@@ -14,7 +12,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,18 +23,18 @@ import com.badlogic.gdx.utils.async.AsyncTask;
 public class Level extends Group{
 	LevelConfig config;
 	
-	private  int clrLB = 0;
-	private  int clrRB = 0;
-	private  int clrLT = 0;
-	private  int clrRT = 0;
-
-	private  int clrLB_G = 0;
-	private  int clrRB_G = 0;
-	private  int clrLT_G = 0;
-	private  int clrRT_G = 0;
+//	private  int clrLB = 0;
+//	private  int clrRB = 0;
+//	private  int clrLT = 0;
+//	private  int clrRT = 0;
+//
+//	private  int clrLB_G = 0;
+//	private  int clrRB_G = 0;
+//	private  int clrLT_G = 0;
+//	private  int clrRT_G = 0;
 	
 	final private static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
-	final private static float RADIUS = 16;
+	public  final static float RADIUS = 4;
 	private final Vector2 projPos = new Vector2();
 	private final Vector2 prePos = new Vector2();
 	private final Vector2 calPos = new Vector2();
@@ -49,6 +46,9 @@ public class Level extends Group{
 	private boolean fillMode = false;
 	private boolean mapMaking = true;
 	private boolean mapTexturing = false;
+	
+	float accum = 0;
+	final static float ACC = 1.0f / 60.0f;
 	
 	Pixmap[] pip ;
 	
@@ -102,27 +102,31 @@ public class Level extends Group{
 		addDocks();
 		addNpcs();
 	}
+	Random random = new Random();
 	public void addNpcs(){
-		for(int i=0;i<10;i++){
+		for(int i=0;i<150;i++){
 			GreenHat e = new GreenHat();
 			e.init(this);
-			e.setPosition(300+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+			e.setPosition(200+random.nextFloat()*200, Engine.getHeight() + random.nextFloat()*100);
 			addActor(e);
+			npcs.add(e);
 		}
-		for(int i=0;i<2;i++){
-			AttackMan e = new AttackMan();
-			e.init(this);
-			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
-			addActor(e);
-		}
-		for(int i=0;i<3;i++){
-			HealMan e = new HealMan();
-			e.init(this);
-			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
-			addActor(e);
-		}
+//		for(int i=0;i<2;i++){
+//			AttackMan e = new AttackMan();
+//			e.init(this);
+//			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
+//			addActor(e);
+//			npcs.add(e);
+//		}
+//		for(int i=0;i<3;i++){
+//			HealMan e = new HealMan();
+//			e.init(this);
+//			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
+//			addActor(e);
+//			npcs.add(e);
+//		}
 	}
-	
+	Array<BaseEntity> npcs = new Array<BaseEntity>();
 	public void addTerrains(){
 		mapMaking = true;
 		mapTexturing = false;
@@ -175,8 +179,19 @@ public class Level extends Group{
 		if(!mapMaking && !mapTexturing){
 			terrain.sprite.setX(getX());
 			goldTerrain.sprite.setX(getX());
+			
+			accum += delta;
+			while (accum >= ACC) {
+				this.tick();
+				accum -= ACC;
+			}
 		}
 		super.act(delta);
+	}
+	void tick(){
+		for(BaseEntity e : npcs){
+			e.tick();
+		}
 	}
 	public void reload(){
 		if(null!=terrain)terrain.reload();
@@ -186,11 +201,11 @@ public class Level extends Group{
 		if(terrain == null || goldTerrain == null)return;
 		x += getX();
 		terrain.project(projPos,x,y);
-		terrain.eraseRectangle(projPos.x ,projPos.y ,radius );
+		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
 		terrain.update();
 		
 		goldTerrain.project(projPos,x, y);
-		goldTerrain.eraseRectangle(projPos.x ,projPos.y , radius);
+		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
 		goldTerrain.update();
 	}
 	public void fillTerrain(float x,float y,final float radius,boolean isFillMode){
@@ -198,66 +213,64 @@ public class Level extends Group{
 		x += getX();
 		terrain.project(calPos, x, y);
 		if(isFillMode){
-			terrain.eraseRectangle(calPos.x, calPos.y, radius, FILL_COLOR);
+			terrain.eraseCircle(calPos.x, calPos.y, radius, FILL_COLOR);
 		}else{
-			terrain.eraseRectangle(calPos.x, calPos.y, radius );
+			terrain.eraseCircle(calPos.x, calPos.y, radius );
 		}
 		terrain.update();
 	}
-	private Rectangle tmpRect = new Rectangle();
-	public void calculateSpriteRectColor(BaseEntity e,float delta){
-		tmpRect.set(e.drawable.getBoundingRectangle());
-		tmpRect.x += delta*e.speedX + getX();
-		tmpRect.y += delta*e.speedY;
-		
-		terrain.project(projPos, tmpRect.x, tmpRect.y);
-		clrLB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
-		clrRB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff ;
-		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
-		clrRT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		terrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
-		clrLT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;		
-		
-		goldTerrain.project(projPos, tmpRect.x, tmpRect.y);
-		clrLB_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
-		clrRB_G= goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
-		clrRT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-		goldTerrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
-		clrLT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+	int cc = 0;
+	public boolean tryMove(float ax,float ay){
+		terrain.project(projPos, ax+getX(), ay);
+		return 0 == (terrain.getPixel(projPos.x+4, projPos.y-2) & 0x000000ff);
+//		terrain.project(projPos, tmpRect.x, tmpRect.y);
+//		clrLB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+//		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
+//		clrRB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff ;
+//		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
+//		clrRT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+//		terrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
+//		clrLT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;		
+//		
+//		goldTerrain.project(projPos, tmpRect.x, tmpRect.y);
+//		clrLB_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+//		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
+//		clrRB_G= goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+//		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
+//		clrRT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+//		goldTerrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
+//		clrLT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
 	}
-	public boolean isBlocked(){
-		return  (clrLB !=0 || clrLB_G != 0) &&(clrRB != 0 || clrRB_G != 0) && (clrLT != 0 || clrLT_G != 0) && (clrRT != 0 || clrRT_G != 0) ;
-	}
-	public boolean isSpace(){
-		return clrLB==0 && clrLB_G==0 && clrRB==0 && clrRB_G==0;
-	}
-	public boolean isLBSpace(){
-		return clrLB==0  && clrLB_G==0;
-	}
-	public boolean isLTSpace(){
-		return clrLT==0 && clrLT_G == 0;
-	}
-	public boolean isRBSpace(){
-		return clrRB==0 && clrRB_G==0;
-	}
-	public boolean isRTSpace(){
-		return clrRT == 0 &&  clrRT_G == 0;
-	}
-	public boolean isLB_GSpace(){
-		return clrLB_G==0;
-	}
-	public boolean isLT_GSpace(){
-		return clrLT_G == 0;
-	}
-	public boolean isRB_GSpace(){
-		return clrRB_G==0;
-	}
-	public boolean isRT_GSpace(){
-		return clrRT_G == 0;
-	}
+//	public boolean isBlocked(){
+//		return  (clrLB !=0 || clrLB_G != 0) &&(clrRB != 0 || clrRB_G != 0) && (clrLT != 0 || clrLT_G != 0) && (clrRT != 0 || clrRT_G != 0) ;
+//	}
+//	public boolean isSpace(){
+//		return clrLB==0 && clrLB_G==0 && clrRB==0 && clrRB_G==0;
+//	}
+//	public boolean isLBSpace(){
+//		return clrLB==0  && clrLB_G==0;
+//	}
+//	public boolean isLTSpace(){
+//		return clrLT==0 && clrLT_G == 0;
+//	}
+//	public boolean isRBSpace(){
+//		return clrRB==0 && clrRB_G==0;
+//	}
+//	public boolean isRTSpace(){
+//		return clrRT == 0 &&  clrRT_G == 0;
+//	}
+//	public boolean isLB_GSpace(){
+//		return clrLB_G==0;
+//	}
+//	public boolean isLT_GSpace(){
+//		return clrLT_G == 0;
+//	}
+//	public boolean isRB_GSpace(){
+//		return clrRB_G==0;
+//	}
+//	public boolean isRT_GSpace(){
+//		return clrRT_G == 0;
+//	}
 	public boolean isFillMode() {
 		return fillMode;
 	}
@@ -269,6 +282,7 @@ public class Level extends Group{
 		if(null!=goldTerrain)goldTerrain.dispose();
 		if(null!=terrain)terrain.dispose();
 		mapMaking = true;
+		npcs.clear();
 		clear();
 	}
 	

@@ -6,7 +6,6 @@ import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.LevelScene;
-import info.u250.digs.scenes.NpcListScene;
 import info.u250.digs.scenes.StartUpScene;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,8 +14,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class DigsEngineDrive implements EngineDrive {
 
-	static final String FLAT = "texs/water-sheets.jpg";
-	static final String FLAT2 = "texs/multi272.jpg";
+	static final String FLAT = "texs/RockLayered.jpg";
+	static final String FLAT2 = "texs/S.png";
 	@Override
 	public EngineOptions onSetupEngine() {
 		EngineOptions opt = new EngineOptions(new String[]{"data/",FLAT,FLAT2}, 960, 540);
@@ -28,7 +27,7 @@ public class DigsEngineDrive implements EngineDrive {
 	}
 
 	StartUpScene startUpScene = null;
-	NpcListScene npcListScene = null;
+//	NpcListScene npcListScene = null;
 	LevelScene levelScene = null;
 	GameScene gameScene = null;
 	
@@ -36,7 +35,7 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public void onLoadedResourcesCompleted() {
 		startUpScene = new StartUpScene(this);
-		npcListScene = new NpcListScene(this);
+//		npcListScene = new NpcListScene(this);
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
 		
@@ -81,9 +80,9 @@ public class DigsEngineDrive implements EngineDrive {
 	public void setToStartUpScene(){
 		Engine.setMainScene(startUpScene,TransitionType.Fade,200);
 	}
-	public void setToNpcListScene(){
-		Engine.setMainScene(npcListScene,TransitionType.Fade,200);
-	}
+//	public void setToNpcListScene(){
+//		Engine.setMainScene(npcListScene,TransitionType.Fade,200);
+//	}
 	public void setToGameScene(){
 		Engine.setMainScene(gameScene,TransitionType.Fade,200);
 	}
