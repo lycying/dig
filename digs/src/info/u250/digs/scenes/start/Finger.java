@@ -35,6 +35,7 @@ public class Finger extends Image{
 		if(timeDelta>0.2f){
 			timeDelta = 0;
 			direction.set(random.nextFloat()*random.nextFloat(),random.nextFloat()).nor();
+			start.water.splash(this.getX(), 20+50*random.nextFloat());
 		}
 		
 		if(getX()+30>start.terrain.getWidth()){

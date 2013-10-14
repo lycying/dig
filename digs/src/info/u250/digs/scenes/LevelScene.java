@@ -74,8 +74,8 @@ public class LevelScene extends SceneStage {
 	}
 	public void startLevel(int level){
 		LevelConfig config = new LevelConfig();
-		config.bottomColor = WebColors.BISQUE.get();
-		config.topColor = WebColors.SNOW.get();
+		config.bottomColor = WebColors.BLACK.get();
+		config.topColor = WebColors.CADET_BLUE.get();
 		this.drive.getGameScene().configGame(config);
 		this.drive.setToGameScene();
 	}

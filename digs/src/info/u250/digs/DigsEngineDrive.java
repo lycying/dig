@@ -8,10 +8,6 @@ import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.StartUpScene;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.utils.Array;
-
 public class DigsEngineDrive implements EngineDrive {
 
 	static final String FLAT = "texs/RockLayered.jpg";
@@ -56,33 +52,31 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("MenuFont", "data/fnt/menu.fnt");
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
+		reg.texture("Water", "data/water.png");
 		
 		reg.music("MusicBackground", "data/music/bg.mp3");
 		reg.music("MusicBattle", "data/music/battle.mp3");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		
-		TextureAtlas atlas = Engine.resource("All");
-		Array<AtlasRegion> appendErArray = new Array<TextureAtlas.AtlasRegion>();
-		for(AtlasRegion region:atlas.getRegions()){
-			if(region.name.contains("right")){
-				AtlasRegion newItem = new AtlasRegion(region);
-				newItem.name = region.name.replace("right", "left");
-				newItem.flip(true, false);
-				appendErArray.add(newItem);
-			}
-		}
-		for(AtlasRegion region:appendErArray){
-			atlas.getRegions().add(region);
-			//System.out.println("create left region :"+region.name);
-		}
+//		TextureAtlas atlas = Engine.resource("All");
+//		Array<AtlasRegion> appendErArray = new Array<TextureAtlas.AtlasRegion>();
+//		for(AtlasRegion region:atlas.getRegions()){
+//			if(region.name.contains("right")){
+//				AtlasRegion newItem = new AtlasRegion(region);
+//				newItem.name = region.name.replace("right", "left");
+//				newItem.flip(true, false);
+//				appendErArray.add(newItem);
+//			}
+//		}
+//		for(AtlasRegion region:appendErArray){
+//			atlas.getRegions().add(region);
+//			//System.out.println("create left region :"+region.name);
+//		}
 	}
 
 	public void setToStartUpScene(){
 		Engine.setMainScene(startUpScene,TransitionType.Fade,200);
 	}
-//	public void setToNpcListScene(){
-//		Engine.setMainScene(npcListScene,TransitionType.Fade,200);
-//	}
 	public void setToGameScene(){
 		Engine.setMainScene(gameScene,TransitionType.Fade,200);
 	}
@@ -94,8 +88,4 @@ public class DigsEngineDrive implements EngineDrive {
 		return gameScene;
 	}
 
-	
-	
-
-	
 }

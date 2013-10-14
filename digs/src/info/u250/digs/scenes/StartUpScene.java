@@ -5,6 +5,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
+import info.u250.c2d.graphic.WebColors;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
@@ -15,6 +16,7 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.start.Finger;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
+import info.u250.digs.scenes.ui.Water;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,9 @@ public class StartUpScene extends SceneStage{
 	Array<com.esotericsoftware.spine.Event> events = new Array<com.esotericsoftware.spine.Event>();
 	float time;
 
+	public Water water = new Water( 201, 150, 
+			new Color(151f/255f,196f/255f,188f/255f,0.5f),
+			new Color(1,1,1,0.5f));
 	public StartUpScene(DigsEngineDrive drive){
 		loadTextures();
 		
@@ -83,7 +88,7 @@ public class StartUpScene extends SceneStage{
 		
 		atlas = Engine.resource("All");
 		
-		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
+		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),WebColors.CADET_BLUE.get());
 //		meshBackground = new SimpleMeshBackground(new Color(1, 243f/255f,89f/255f, 1),new Color(31f/255f, 180f/255f, 59f/255f, 1f));
 
 		
@@ -216,13 +221,13 @@ public class StartUpScene extends SceneStage{
 		Finger finger = new Finger(atlas.findRegion("finger"), this);
 		this.addActor(finger);
 		
-		Image water = new Image(atlas.findRegion("water"));
-		water.setWidth(Engine.getWidth());
-		water.addAction(Actions.forever(Actions.sequence(
-				Actions.moveTo(0,-8,0.5f,Interpolation.swingIn),
-				Actions.moveTo(0,0,0.5f,Interpolation.swingOut)
-		)));
-		this.addActor(water);
+//		Image water = new Image(atlas.findRegion("water"));
+//		water.setWidth(Engine.getWidth());
+//		water.addAction(Actions.forever(Actions.sequence(
+//				Actions.moveTo(0,-8,0.5f,Interpolation.swingIn),
+//				Actions.moveTo(0,0,0.5f,Interpolation.swingOut)
+//		)));
+//		this.addActor(water);
 		
 		
 		
@@ -400,12 +405,14 @@ public class StartUpScene extends SceneStage{
 			deltaAppend = 0;
 		}
 		super.act(delta);
+		water.update(delta);
 	}
 	@Override
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
 		surface.render(Engine.getDeltaTime());
 		super.draw();
+		water.draw();
 		surface2.render(Engine.getDeltaTime());
 		surface3.render(Engine.getDeltaTime());
 		

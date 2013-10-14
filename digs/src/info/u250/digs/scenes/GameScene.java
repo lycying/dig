@@ -100,7 +100,7 @@ public class GameScene extends SceneStage {
 		if(null!=terrain){
 			terrain.dispose();
 		}
-		meshBackground = new SimpleMeshBackground(config.topColor,config.bottomColor);
+		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
 		terrain = new Level(config);
 		scroll.setWidget(terrain);
 	} 

@@ -69,10 +69,6 @@ public class PauseDialog extends Group {
 		this.addActor(mask);
 		this.addActor(mainGroup);
 		
-//		Label lblTest = new Label("Pause",new LabelStyle(font, Color.WHITE));
-//		Group test = new Group();
-//		test.addActor(lblTest);
-//		test.setScale(15);
 		final Image lblPause = new Image(atlas.findRegion("lbl-pause"));
 		lblPause.setPosition(200, Engine.getHeight()/2-lblPause.getHeight()/2);
 		this.addActor(lblPause);

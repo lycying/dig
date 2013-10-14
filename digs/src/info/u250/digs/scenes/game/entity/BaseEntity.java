@@ -1,47 +1,66 @@
 package info.u250.digs.scenes.game.entity;
 
+import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.game.Dock;
 import info.u250.digs.scenes.game.Level;
 
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class BaseEntity extends Actor {
-
-	enum NpcStatus{
-		Walk,
-		GoldWalk,
-	}
+	TextureRegion[] npcRegions = new TextureRegion[4];
+	TextureRegion[] npcGoldRegions = new TextureRegion[4];
+	TextureRegion[] regions = null;
+	int regionsIndex = 0;
 	public BaseEntity(){
 		this.setSize(7, 10);
-		this.drawable.setSize(7, 10);
+		this.drawable.setSize(10.5f, 15);
+		
+		TextureAtlas atlas = Engine.resource("All");
+		npcRegions[0] = atlas.findRegion("npc1");
+		npcRegions[1] = atlas.findRegion("npc2");
+		npcRegions[2] = atlas.findRegion("npc3");
+		npcRegions[3] = atlas.findRegion("npc4");
+		
+		npcGoldRegions[0] = atlas.findRegion("npc-gold1");
+		npcGoldRegions[1] = atlas.findRegion("npc-gold2");
+		npcGoldRegions[2] = atlas.findRegion("npc-gold3");
+		npcGoldRegions[3] = atlas.findRegion("npc-gold4");
+		
+		regions = npcRegions;
+//		this.setColor(generateColor());
 	}
-
+	
+	Color generateColor() {
+	    final int threshold = 150;
+	    int r1, g1, b1;
+	    while (true) {
+	        r1 = random.nextInt(256);
+	        g1 = random.nextInt(256);
+	        b1 = random.nextInt(256);
+	        if (r1+g1+b1 > threshold) break;
+	    }
+	    Color c =  new Color(r1/255f, g1/255f, b1/255f,1);
+	    return c;
+	}
 	private Random random   = new Random();
 	float x ,y ;
-	public int speedX = random.nextBoolean()?1:-1;
-	public int speedY = 1;
-	private float stateTime; 
+	public int direction = random.nextBoolean()?1:-1;
+	public int velocity = 1;
 	private boolean isHoldGold = false;
-	
-	protected NpcStatus status = NpcStatus.Walk;
-	protected Animation animation ;
+
 	public Sprite drawable = new Sprite();
 
-	
-	
-	public int goldHold = 1;
-	public int cost = 50;
-		
 	//the main terrain
-	protected Level terrain;
+	protected Level level;
 	public void init(Level terrain){
-		this.terrain = terrain;
+		this.level = terrain;
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
@@ -50,143 +69,78 @@ public abstract class BaseEntity extends Actor {
 	
 	
 	public void tick(){
-		if(null == terrain)return ;
+		if(null == level)return ;
 		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 		x = this.getX();
 		y = this.getY();
-		if(x<8)speedX = 1; 
-		if(x>terrain.getWidth()-10) speedX=-1;
-		if (speedY > 1) {
-			if (terrain.tryMove(x+speedX, y + speedY / 8)) {
-				x += speedX;
-				y += speedY / 8;
-				speedY--;
+		if (x < 8) direction = 1;//edge
+		if (x > level.getWidth() - 10) direction = -1;//edge
+		
+		if (velocity > 1) { // when the NPC is jumping
+			if (level.tryMove(x+direction, y + velocity / 8)) {
+				x += direction;
+				y += velocity / 8;
+				velocity--;
+				regionsIndex++;
 			} else {
 				// Stop jumping
-				speedY = 0;
+				velocity = 0;
 			}
 		} else {
-			if (terrain.tryMove(x, y-1)) {
+			if (level.tryMove(x, y-1)) {
 				y--;
-				if (terrain.tryMove(x, y-1)) {
+				if (level.tryMove(x, y-1)) {
 					y--;
-					speedY = 0;
+					velocity = 0;
 				}
 			} else	{
-
 				if (random.nextInt(10) != 0) {
 					// Assume the miner has hit a wall
 					boolean hit = true;
 					for (int p = 1; p <= 4; p++) {
-						if (terrain.tryMove(x+speedX, y+p)) {
-							x += speedX;
+						if (level.tryMove(x+direction, y+p)) {
+							x += direction;
 							y += p;
 							hit = false;
+							regionsIndex++;
 							break;
 						}
 					}
 					if (random.nextInt(hit ? 10 : 4000) == 0) {
-						speedX *= -1;
+						direction *= -1;
 						if (hit) {
-							if(random.nextInt(3)!=0)speedY = 16;
+							if(random.nextInt(3)!=0)velocity = 16;
 						}else{
-							if(random.nextInt(3)==0)speedY = 16;
+							if(random.nextInt(3)==0)velocity = 16;
 						}
 					}
 				}
 			}
 		}
-
+		if(isHoldGold){
+			for(Dock dock:level.docks){
+				if(this.drawable.getBoundingRectangle().overlaps(dock.actor.getBoundingRectangle())){
+					isHoldGold = false;
+					this.direction *= -1;
+					dock.number++;
+					regions = npcRegions;
+				}
+			}
+		}else{
+			if(level.tryDig()){
+				isHoldGold = true;
+				direction *= -1;
+				regions = npcGoldRegions;
+			}
+		}
 		this.setX(x);
 		this.setY(y);
 
-      		
-		switch (status) {
-		case Walk:
-			animation = this.speedX>0?getWalkAnimationRight():getWalkAnimationLeft();
-			break;
-		case GoldWalk:
-			animation = this.speedX>0?getGoldAnimationRight():getGoldAnimationLeft();
-			break;
-		default:
-			break;
-		}
-	}
-	@Override
-	public void act(float delta) {
-		/*============Put Down Gold ================================*/
-		if(isHoldGold){
-			for(Dock dock:terrain.docks){
-				if(this.drawable.getBoundingRectangle().overlaps(dock.actor.getBoundingRectangle())){
-					isHoldGold = false;
-					this.speedX = - this.speedX;
-					status = NpcStatus.Walk;
-					dock.number++;
-				}
-			}
-		}
-		
-	
-		stateTime+=delta;
-		drawable.setRegion(animation.getKeyFrame(stateTime, true));
+		drawable.setRegion(regions[(regionsIndex/2)%4]);
 		drawable.setColor(this.getColor());
-		drawable.setPosition(this.getX(), this.getY());
-		drawable.setScale(this.getScaleX(),this.getScaleY());	
-		
-		
-		
+		drawable.setPosition(x, y);
+		if(direction<0)drawable.flip(true, false);
 	}
-	
-	void doDig(float x,float y,float r){
-		this.speedX = -this.speedX;
-		terrain.dig(r, x, y);
-		
-		isHoldGold = true;
-		status = NpcStatus.GoldWalk;
-	}
-	
-	
-	
-	public final void setAnimation(Animation animation){
-		this.animation = animation;
-	}
-	
-	public abstract Animation getWalkAnimationLeft();
-	public abstract Animation getWalkAnimationRight();
-	public abstract Animation getGoldAnimationLeft();
-	public abstract Animation getGoldAnimationRight();
-	public abstract Animation getSkillAnimationLeft();
-	public abstract Animation getSkillAnimationRight();
-	protected TextureRegion flipRegion(TextureRegion region){
-		region.flip(true, false);
-		return region;
-	}
-	private int nextAnimationIndex = 0;
-	public void setNextAnimationForShow(){
-		if(nextAnimationIndex>=3)nextAnimationIndex = 0;
-		if(0==nextAnimationIndex){
-			nextAnimationIndex++;
-			if(null != getGoldAnimationRight()){
-				this.animation = getGoldAnimationRight();
-				return;
-			}
-		}
-		if(1==nextAnimationIndex){
-			nextAnimationIndex++;
-			if(null != getSkillAnimationRight()){
-				this.animation = getSkillAnimationRight();
-				return;
-			}
-		}
-		if(2==nextAnimationIndex){
-			nextAnimationIndex++;
-			if(null != getWalkAnimationRight()){
-				this.animation = getWalkAnimationRight();
-				return;
-			}
-		}
-	}
-
 	
 	public Sprite getDrawable(){
 		return drawable;

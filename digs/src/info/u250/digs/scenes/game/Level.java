@@ -21,18 +21,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
+	
 	LevelConfig config;
-	
-//	private  int clrLB = 0;
-//	private  int clrRB = 0;
-//	private  int clrLT = 0;
-//	private  int clrRT = 0;
-//
-//	private  int clrLB_G = 0;
-//	private  int clrRB_G = 0;
-//	private  int clrLT_G = 0;
-//	private  int clrRT_G = 0;
-	
+
 	final private static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
 	public  final static float RADIUS = 4;
 	private final Vector2 projPos = new Vector2();
@@ -111,20 +102,6 @@ public class Level extends Group{
 			addActor(e);
 			npcs.add(e);
 		}
-//		for(int i=0;i<2;i++){
-//			AttackMan e = new AttackMan();
-//			e.init(this);
-//			e.setPosition(10+new Random().nextFloat()*500, Engine.getHeight() + new Random().nextFloat()*100);
-//			addActor(e);
-//			npcs.add(e);
-//		}
-//		for(int i=0;i<3;i++){
-//			HealMan e = new HealMan();
-//			e.init(this);
-//			e.setPosition(400+i*e.getWidth(), Engine.getHeight() + new Random().nextFloat()*100);
-//			addActor(e);
-//			npcs.add(e);
-//		}
 	}
 	Array<BaseEntity> npcs = new Array<BaseEntity>();
 	public void addTerrains(){
@@ -154,7 +131,7 @@ public class Level extends Group{
 		addActor(dock2);
 	}
 	void drawLoading(SpriteBatch batch){
-		batch.setColor(new Color(1,1,1,.5f));
+		batch.setColor(new Color(0,0,0,.5f));
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
 		batch.setColor(Color.WHITE);
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
@@ -197,14 +174,13 @@ public class Level extends Group{
 		if(null!=terrain)terrain.reload();
 		if(null!=goldTerrain)goldTerrain.reload();
 	}
-	public void dig(final float radius,float x,float y){
+	void dig(final float radius,float ax,float ay){
 		if(terrain == null || goldTerrain == null)return;
-		x += getX();
-		terrain.project(projPos,x,y);
+		terrain.project(projPos,ax+getX(),ay);
 		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
 		terrain.update();
 		
-		goldTerrain.project(projPos,x, y);
+		goldTerrain.project(projPos,ax+getX(), ay);
 		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
 		goldTerrain.update();
 	}
@@ -219,58 +195,42 @@ public class Level extends Group{
 		}
 		terrain.update();
 	}
-	int cc = 0;
+	
+	int at=0,ag=0;
+	float px , py;
 	public boolean tryMove(float ax,float ay){
-		terrain.project(projPos, ax+getX(), ay);
-		return 0 == (terrain.getPixel(projPos.x+4, projPos.y-2) & 0x000000ff);
-//		terrain.project(projPos, tmpRect.x, tmpRect.y);
-//		clrLB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-//		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
-//		clrRB = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff ;
-//		terrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
-//		clrRT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-//		terrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
-//		clrLT = terrain.getPixel(projPos.x, projPos.y) & 0x000000ff;		
-//		
-//		goldTerrain.project(projPos, tmpRect.x, tmpRect.y);
-//		clrLB_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-//		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y);
-//		clrRB_G= goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-//		goldTerrain.project(projPos, tmpRect.x+tmpRect.width, tmpRect.y+tmpRect.height);
-//		clrRT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
-//		goldTerrain.project(projPos, tmpRect.x, tmpRect.y+tmpRect.height);
-//		clrLT_G = goldTerrain.getPixel(projPos.x, projPos.y) & 0x000000ff;
+		px = ax+5;
+		py = ay+3;
+		at = 0;
+		ag = 0;
+		
+		terrain.project(projPos, px+getX(), py);
+		at = (0x000000ff & terrain.getPixel(projPos.x, projPos.y));
+		if(at == 0){
+			goldTerrain.project(projPos, px+getX(), py);
+			ag = (0x000000ff & goldTerrain.getPixel(projPos.x, projPos.y));
+			return ag == 0;
+		}
+		return false;
 	}
-//	public boolean isBlocked(){
-//		return  (clrLB !=0 || clrLB_G != 0) &&(clrRB != 0 || clrRB_G != 0) && (clrLT != 0 || clrLT_G != 0) && (clrRT != 0 || clrRT_G != 0) ;
-//	}
-//	public boolean isSpace(){
-//		return clrLB==0 && clrLB_G==0 && clrRB==0 && clrRB_G==0;
-//	}
-//	public boolean isLBSpace(){
-//		return clrLB==0  && clrLB_G==0;
-//	}
-//	public boolean isLTSpace(){
-//		return clrLT==0 && clrLT_G == 0;
-//	}
-//	public boolean isRBSpace(){
-//		return clrRB==0 && clrRB_G==0;
-//	}
-//	public boolean isRTSpace(){
-//		return clrRT == 0 &&  clrRT_G == 0;
-//	}
-//	public boolean isLB_GSpace(){
-//		return clrLB_G==0;
-//	}
-//	public boolean isLT_GSpace(){
-//		return clrLT_G == 0;
-//	}
-//	public boolean isRB_GSpace(){
-//		return clrRB_G==0;
-//	}
-//	public boolean isRT_GSpace(){
-//		return clrRT_G == 0;
-//	}
+	public boolean tryDig(){
+		if(ag != 0){
+			dig(2,px,py);
+			return true;
+		}
+		for(int i=6;i>=-2;i-=2){
+			for(int j=-4;j<=4;j+=2){
+				goldTerrain.project(projPos, px+j, py+i);
+				ag = (0x000000ff & goldTerrain.getPixel(projPos.x, projPos.y));
+				if(ag != 0){
+					dig(2,px+j,py+i);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public boolean isFillMode() {
 		return fillMode;
 	}

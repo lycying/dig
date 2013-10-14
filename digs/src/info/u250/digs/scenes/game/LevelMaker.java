@@ -71,16 +71,22 @@ final class LevelMaker {
 		gdMap.setColor(Color.YELLOW);
 		for(int i=0;i<10;i++){
 			int radius = RND.nextInt(30)+5;
-//			Pixmap tempPxp = new Pixmap(radius*2,radius*2,Format.RGBA8888);
-//			tempPxp.setColor(Color.YELLOW);
-//			tempPxp.fillCircle(radius, radius, radius);
-//			Glow.generate(tempPxp,Color.WHITE, 0.5f, 0.5f, 0.25f, 0.25f, 10, 10);
-//			Noise.generate(tempPxp,64, 64, 64);
-//			gdMap.drawPixmap(tempPxp, (int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250));
-//			tempPxp.dispose();
-			gdMap.fillCircle((int)(100+RND.nextFloat()*1800),gdMap.getHeight()-(int)(50+RND.nextFloat()*250), radius);
+			int x = (int)(100+RND.nextFloat()*1800);
+			int y = gdMap.getHeight()-(int)(50+RND.nextFloat()*250);
+			while(x-radius<0 || x+radius>width || y-radius<0 || y+radius>lineHeight){
+				radius = RND.nextInt(30)+5;
+				x = (int)(100+RND.nextFloat()*1800);
+				y = gdMap.getHeight()-(int)(50+RND.nextFloat()*250);
+			}
+			gdMap.fillCircle(x,y, radius);
 		}
 
+		//gas
+//		Pixmap.setBlending(Blending.None);
+//		terMap.setColor(Color.CLEAR);
+//		terMap.fillCircle(100,height-100, 80);
+//		gdMap.setColor(new Color(1,1,1,0.8f));
+//		gdMap.fillCircle(100,lineHeight-100, 80);
 		maps[0] = terMap;
 		maps[1] = gdMap;
 		return maps;
