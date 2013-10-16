@@ -3,8 +3,10 @@ package info.u250.digs.scenes.game;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
-import info.u250.digs.scenes.game.entity.BaseEntity;
-import info.u250.digs.scenes.game.entity.GreenHat;
+import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.game.entity.GoldDock;
+import info.u250.digs.scenes.game.entity.InOutTrans;
+import info.u250.digs.scenes.game.entity.Stepladder;
 
 import java.util.Random;
 
@@ -21,18 +23,21 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
-	
-	LevelConfig config;
+	public final Array<GoldDock> docks = new Array<GoldDock>();
+	public final Array<Npc> npcs = new Array<Npc>();
+	public final Array<InOutTrans> inouts = new Array<InOutTrans>();
+	public final Array<Stepladder> ladders = new Array<Stepladder>();
 
-	final private static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
+	
+	private final static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
 	public  final static float RADIUS = 4;
 	private final Vector2 projPos = new Vector2();
 	private final Vector2 prePos = new Vector2();
 	private final Vector2 calPos = new Vector2();
 	
+	private LevelConfig config = null;
 	private PixmapHelper terrain = null;
 	private PixmapHelper goldTerrain = null;
-	public  final Array<Dock> docks = new Array<Dock>();
 	
 	private boolean fillMode = false;
 	private boolean mapMaking = true;
@@ -41,9 +46,8 @@ public class Level extends Group{
 	float accum = 0;
 	final static float ACC = 1.0f / 60.0f;
 	
-	Pixmap[] pip ;
-	
-	InputListener terrainInput = new InputListener(){
+	private Pixmap[] pip ;
+	private InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
 			prePos.set(x,y);
 			return true;
@@ -90,20 +94,13 @@ public class Level extends Group{
 		goldTerrain = new PixmapHelper(pip[1]);
 		
 		addListener(terrainInput);
-		addDocks();
-		addNpcs();
-	}
-	Random random = new Random();
-	public void addNpcs(){
-		for(int i=0;i<150;i++){
-			GreenHat e = new GreenHat();
-			e.init(this);
-			e.setPosition(200+random.nextFloat()*200, Engine.getHeight() + random.nextFloat()*100);
-			addActor(e);
-			npcs.add(e);
+		if(null!=config.callback){
+			config.callback.call(this);
 		}
 	}
-	Array<BaseEntity> npcs = new Array<BaseEntity>();
+	Random random = new Random();
+	
+	
 	public void addTerrains(){
 		mapMaking = true;
 		mapTexturing = false;
@@ -121,9 +118,9 @@ public class Level extends Group{
 	}
 	public void addDocks(){
 		docks.clear();
-		Dock dock = new Dock();
+		GoldDock dock = new GoldDock();
 		dock.setPosition(0, 400);
-		Dock dock2 = new Dock();
+		GoldDock dock2 = new GoldDock();
 		dock2.setPosition(terrain.pixmap.getWidth()-dock2.getWidth(), 400);
 		docks.add(dock);
 		docks.add(dock2);
@@ -131,7 +128,7 @@ public class Level extends Group{
 		addActor(dock2);
 	}
 	void drawLoading(SpriteBatch batch){
-		batch.setColor(new Color(0,0,0,.5f));
+		batch.setColor(new Color(1,1,1,.5f));
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
 		batch.setColor(Color.WHITE);
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
@@ -166,7 +163,7 @@ public class Level extends Group{
 		super.act(delta);
 	}
 	void tick(){
-		for(BaseEntity e : npcs){
+		for(Npc e : npcs){
 			e.tick();
 		}
 	}
@@ -195,12 +192,18 @@ public class Level extends Group{
 		}
 		terrain.update();
 	}
-	
+	public void clearTransPort(float x,float y,final float radius){
+		if(terrain == null )return;
+		x += getX();
+		terrain.project(calPos, x, y);
+		terrain.eraseRectangle(calPos.x, calPos.y, radius );
+		terrain.update();
+	}
 	int at=0,ag=0;
 	float px , py;
 	public boolean tryMove(float ax,float ay){
-		px = ax+5;
-		py = ay+3;
+		px = ax;
+		py = ay;
 		at = 0;
 		ag = 0;
 		
@@ -218,19 +221,19 @@ public class Level extends Group{
 			dig(2,px,py);
 			return true;
 		}
-		for(int i=6;i>=-2;i-=2){
-			for(int j=-4;j<=4;j+=2){
-				goldTerrain.project(projPos, px+j, py+i);
+		for(int i=-4;i<=4;i+=2){
+			for(int j=6;j>=-2;j-=2){
+				goldTerrain.project(projPos, px+i, py+j);
 				ag = (0x000000ff & goldTerrain.getPixel(projPos.x, projPos.y));
 				if(ag != 0){
-					dig(2,px+j,py+i);
+					dig(2,px+i,py+j);
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-
+	
 	public boolean isFillMode() {
 		return fillMode;
 	}

@@ -52,7 +52,6 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("MenuFont", "data/fnt/menu.fnt");
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
-		reg.texture("Water", "data/water.png");
 		
 		reg.music("MusicBackground", "data/music/bg.mp3");
 		reg.music("MusicBattle", "data/music/battle.mp3");

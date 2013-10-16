@@ -76,6 +76,7 @@ public class LevelScene extends SceneStage {
 		LevelConfig config = new LevelConfig();
 		config.bottomColor = WebColors.BLACK.get();
 		config.topColor = WebColors.CADET_BLUE.get();
+		config.lineHeight = 380;
 		this.drive.getGameScene().configGame(config);
 		this.drive.setToGameScene();
 	}

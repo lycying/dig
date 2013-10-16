@@ -200,13 +200,23 @@ public class StartUpScene extends SceneStage{
 			add(new Vector2(1024,-100));
 		}};
 		surface3  = new TriangleSurfaces(data3);
-		
+		final Image wmr = new Image(atlas.findRegion("null"));
+		wmr.setY(-50);
+		wmr.setX(-wmr.getWidth());
+		wmr.addAction(Actions.forever(Actions.sequence(Actions.repeat(5, Actions.sequence(Actions.moveBy(25, 6,0.5f),Actions.moveBy(25, -6,0.5f))),Actions.delay(24),Actions.alpha(0,1),Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				wmr.setX(-wmr.getWidth());
+				wmr.getColor().a = 1;
+			}
+		}))));
+		this.addActor(wmr);
 		terrainContainer = new Group();
 		this.addActor(terrainContainer);
 		genTerrain();
 		
 		Image logo = new Image(atlas.findRegion("logo"));
-		logo.setPosition(570, 120);
+		logo.setPosition(300, 320);
 		logo.addAction(Actions.forever(Actions.sequence(
 				Actions.moveBy(0,-80,0.5f,Interpolation.swingIn),
 				Actions.moveBy(0,80,0.5f,Interpolation.swingOut)
@@ -215,7 +225,7 @@ public class StartUpScene extends SceneStage{
 		
 		Button play = new Button(new TextureRegionDrawable(atlas.findRegion("btn-play")), new TextureRegionDrawable(atlas.findRegion("btn-play")));
 		play.setSize(play.getPrefWidth(), play.getPrefHeight());
-		play.setPosition(-20, 260);
+		play.setPosition(Engine.getWidth()-play.getWidth(), 260);
 
 		
 		Finger finger = new Finger(atlas.findRegion("finger"), this);
