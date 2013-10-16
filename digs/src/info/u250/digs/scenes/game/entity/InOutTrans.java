@@ -56,6 +56,7 @@ public class InOutTrans extends Actor{
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		batch.setColor(Color.WHITE);
 		line.draw(batch);
 		batch.draw(in.getKeyFrame(stateTime, true), getX(),getY());
 		batch.draw(out.getKeyFrame(stateTime, true),outx,outy);

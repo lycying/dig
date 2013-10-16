@@ -200,6 +200,7 @@ public class StartUpScene extends SceneStage{
 			add(new Vector2(1024,-100));
 		}};
 		surface3  = new TriangleSurfaces(data3);
+		
 		final Image wmr = new Image(atlas.findRegion("null"));
 		wmr.setY(-50);
 		wmr.setX(-wmr.getWidth());
@@ -279,7 +280,7 @@ public class StartUpScene extends SceneStage{
 				super.clicked(event, x, y);
 			}
 		});
-		sound_flag.setPosition(20, 100);
+		sound_flag.setPosition(20, 130);
 		this.addActor(sound_flag);
 		
 		

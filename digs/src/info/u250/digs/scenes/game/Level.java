@@ -3,12 +3,11 @@ package info.u250.digs.scenes.game;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
-import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.InOutTrans;
+import info.u250.digs.scenes.game.entity.KillRay;
+import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.Stepladder;
-
-import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -27,6 +26,7 @@ public class Level extends Group{
 	public final Array<Npc> npcs = new Array<Npc>();
 	public final Array<InOutTrans> inouts = new Array<InOutTrans>();
 	public final Array<Stepladder> ladders = new Array<Stepladder>();
+	public final Array<KillRay> killrays = new Array<KillRay>();
 
 	
 	private final static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
@@ -98,7 +98,6 @@ public class Level extends Group{
 			config.callback.call(this);
 		}
 	}
-	Random random = new Random();
 	
 	
 	public void addTerrains(){
@@ -246,6 +245,10 @@ public class Level extends Group{
 		if(null!=terrain)terrain.dispose();
 		mapMaking = true;
 		npcs.clear();
+		docks.clear();
+		inouts.clear();
+		ladders.clear();
+		killrays.clear();
 		clear();
 	}
 	

@@ -1,14 +1,14 @@
 package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.scenes.game.entity.PropsEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class GoldDock extends PropsEntity{
+public class GoldDock extends Actor{
 
 	public Sprite actor ;
 	Sprite gold;

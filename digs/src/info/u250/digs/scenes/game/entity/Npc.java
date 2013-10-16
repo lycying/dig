@@ -1,17 +1,19 @@
 package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 import info.u250.digs.scenes.game.Level;
-
-import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Npc extends Actor {
 	TextureRegion[] npcRegions = new TextureRegion[4];
@@ -20,8 +22,7 @@ public class Npc extends Actor {
 	int regionsIndex = 0;
 	
 	float x ,y ;
-	private static Random RND   = new Random();
-	public int direction = RND.nextBoolean()?1:-1;
+	public int direction = Digs.RND.nextBoolean()?1:-1;
 	public int velocity = 1;
 	private boolean isHoldGold = false;
 	public Sprite drawable = new Sprite();
@@ -53,9 +54,9 @@ public class Npc extends Actor {
 	    final int threshold = 150;
 	    int r1, g1, b1;
 	    while (true) {
-	        r1 = RND.nextInt(256);
-	        g1 = RND.nextInt(256);
-	        b1 = RND.nextInt(256);
+	        r1 = Digs.RND.nextInt(256);
+	        g1 = Digs.RND.nextInt(256);
+	        b1 = Digs.RND.nextInt(256);
 	        if (r1+g1+b1 > threshold) break;
 	    }
 	    Color c =  new Color(r1/255f, g1/255f, b1/255f,1);
@@ -79,8 +80,11 @@ public class Npc extends Actor {
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
 		
+		if(userDefAction()) return;
+		if(tryKillRay()) return;
 		if(tryTransPort()) return;
 		if(tryClampLadder()) return;
+		if(tryKillRay()) return;
 		
 		if (velocity > 1) { // when the NPC is jumping
 			if (level.tryMove(x+direction, y + velocity / 4)) {
@@ -100,7 +104,7 @@ public class Npc extends Actor {
 				}
 				velocity = 0;
 			} else	{
-				if (RND.nextInt(10) != 0) {
+				if (Digs.RND.nextInt(10) != 0) {
 					// Assume the miner has hit a wall
 					boolean hit = true;
 					for (int p = 1; p <= 4; p++) {
@@ -113,12 +117,12 @@ public class Npc extends Actor {
 							break;
 						}
 					}
-					if (RND.nextInt(hit ? 10 : 4000) == 0) {
+					if (Digs.RND.nextInt(hit ? 10 : 4000) == 0) {
 						direction *= -1;
 						if (hit) {
-							if(RND.nextInt(3)!=0)velocity = 16;
+							if(Digs.RND.nextInt(3)!=0)velocity = 16;
 						}else{
-							if(RND.nextInt(3)==0)velocity = 16;
+							if(Digs.RND.nextInt(3)==0)velocity = 16;
 						}
 					}
 				}
@@ -186,25 +190,60 @@ public class Npc extends Actor {
 		}
 		return false;
 	}
-	boolean tryTransPort(){
+	boolean userDefAction(){
+		if(this.getActions().size > 0){
+			sync();
+			return true;
+		}
+		return false;
+	}
+	boolean tryTransPort(){		
 		for(final InOutTrans inout:level.inouts){
 			if(inout.getRect().contains(x,y)){
-				if(this.getActions().size==0){
-					//transfer
-					this.addAction(Actions.sequence(Actions.alpha(0.1f,0.2f),Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							x = inout.getTransX()+15+15*RND.nextFloat();
-							y = inout.getTransY()+15+15*RND.nextFloat();
-							sync();
-						}
-					}),Actions.alpha(1,0.2f)));
-				}
+				x = inout.getRect().x+37;
+				y = inout.getRect().y+20;
+				sync();
+				this.addAction(Actions.sequence(Actions.moveTo(
+						inout.getTransX()+15+15*Digs.RND.nextFloat(), 
+						inout.getTransY()+15+15*Digs.RND.nextFloat(),
+						0.8f),Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						sync();
+					}
+				})));
 				if(!inout.isClear()){
 					inout.setClear(true);
 					level.clearTransPort(inout.getRect().x+5, inout.getRect().y+40-5, 30);
 					level.clearTransPort(inout.getTransX()+5, inout.getTransY()+40-5, 30);
 				}
+				return true;
+			}
+		}
+		return false;
+	}
+	boolean tryKillRay(){
+		for(KillRay kill:level.killrays){
+			if(kill.overlaps(x, y)){
+				TextureAtlas atlas = Engine.resource("All");
+				int size = 8;
+				float part = 360f/size;
+				for(int i=0;i<size;i++){
+					float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
+					float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
+					final Image image = new Image(atlas.findRegion("color"));
+					image.setColor(new Color(1,0,0,0.7f));
+					image.setPosition(x, y);
+					image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
+						@Override
+						public void run() {
+							image.remove();
+						}
+					})));
+					level.addActor(image);
+				}
+				this.remove();
+				level.npcs.removeValue(this, true);
 				return true;
 			}
 		}

@@ -1,5 +1,7 @@
 package info.u250.digs;
 
+import java.util.Random;
+
 import com.badlogic.gdx.utils.async.AsyncExecutor;
 
 import info.u250.c2d.engine.Engine;
@@ -22,4 +24,5 @@ public class Digs extends Engine {
 	public static AsyncExecutor getExecutor() {
 		return executor;
 	}
+	public static final Random RND = new Random();
 }

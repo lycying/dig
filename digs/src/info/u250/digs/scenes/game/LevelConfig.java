@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.scenes.game.entity.KillRay;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.InOutTrans;
 import info.u250.digs.scenes.game.entity.Stepladder;
@@ -27,6 +28,13 @@ public class LevelConfig {
 		Random random = new Random();
 		@Override
 		public void call(Level level) {
+
+			KillRay ray = new KillRay(550, 50, 100,Color.WHITE);
+			level.addActor(ray);
+			level.killrays.add(ray);
+			KillRay ray2 = new KillRay(500, 100,50,Color.BLUE);
+			level.addActor(ray2);
+			level.killrays.add(ray2);
 			Stepladder ladder = new Stepladder(15, 200,100);
 			level.addActor(ladder);
 			level.ladders.add(ladder);
