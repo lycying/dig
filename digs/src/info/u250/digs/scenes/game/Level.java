@@ -5,7 +5,7 @@ import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.InOutTrans;
-import info.u250.digs.scenes.game.entity.KillRay;
+import info.u250.digs.scenes.game.entity.KillCircle;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.Stepladder;
 
@@ -22,11 +22,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
-	public final Array<GoldDock> docks = new Array<GoldDock>();
-	public final Array<Npc> npcs = new Array<Npc>();
-	public final Array<InOutTrans> inouts = new Array<InOutTrans>();
-	public final Array<Stepladder> ladders = new Array<Stepladder>();
-	public final Array<KillRay> killrays = new Array<KillRay>();
+	public enum DigResult{
+		None,
+		Gold,
+		Bomb,
+	}
+	private final Array<Npc> npcs = new Array<Npc>();
+	private final Array<GoldDock> docks = new Array<GoldDock>();
+	private final Array<InOutTrans> inouts = new Array<InOutTrans>();
+	private final Array<Stepladder> ladders = new Array<Stepladder>();
+	private final Array<KillCircle> killrays = new Array<KillCircle>();
 
 	
 	private final static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
@@ -45,6 +50,10 @@ public class Level extends Group{
 	
 	float accum = 0;
 	final static float ACC = 1.0f / 60.0f;
+	
+	final static int MASK_CLEAR = 0;
+	final static int MASK_GOLD  = -16711681;
+	final static int MASK_BOMB = -256;
 	
 	private Pixmap[] pip ;
 	private InputListener terrainInput = new InputListener(){
@@ -187,7 +196,7 @@ public class Level extends Group{
 		if(isFillMode){
 			terrain.eraseCircle(calPos.x, calPos.y, radius, FILL_COLOR);
 		}else{
-			terrain.eraseCircle(calPos.x, calPos.y, radius );
+			terrain.eraseCircle(calPos.x, calPos.y, radius ,Color.CLEAR);
 		}
 		terrain.update();
 	}
@@ -195,7 +204,7 @@ public class Level extends Group{
 		if(terrain == null )return;
 		x += getX();
 		terrain.project(calPos, x, y);
-		terrain.eraseRectangle(calPos.x, calPos.y, radius );
+		terrain.eraseRectangle(calPos.x, calPos.y, radius ,Color.CLEAR);
 		terrain.update();
 	}
 	int at=0,ag=0;
@@ -207,30 +216,55 @@ public class Level extends Group{
 		ag = 0;
 		
 		terrain.project(projPos, px+getX(), py);
-		at = (0x000000ff & terrain.getPixel(projPos.x, projPos.y));
+		at = ( terrain.getPixel(projPos.x, projPos.y));
 		if(at == 0){
 			goldTerrain.project(projPos, px+getX(), py);
-			ag = (0x000000ff & goldTerrain.getPixel(projPos.x, projPos.y));
+			ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 			return ag == 0;
 		}
 		return false;
 	}
-	public boolean tryDig(){
-		if(ag != 0){
-			dig(2,px,py);
-			return true;
-		}
-		for(int i=-4;i<=4;i+=2){
+	public DigResult tryDig(boolean holdGold){
+//		if(at!=0){
+//			System.out.println(at + "x:"+px+",y:"+py);
+//			System.out.println(0x000000ff & at);
+//			System.out.println( (0x00ff0000 & at) >>> 16 );
+//			System.out.println( (0x0000ff00 & at) >>> 8 );
+//		}
+		int lor = Digs.RND.nextBoolean()?1:-1;
+		for(int i=4;i>=1;i--){
 			for(int j=6;j>=-2;j-=2){
-				goldTerrain.project(projPos, px+i, py+j);
-				ag = (0x000000ff & goldTerrain.getPixel(projPos.x, projPos.y));
+				//left or right
+				goldTerrain.project(projPos, px+lor*i, py+j);
+				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 				if(ag != 0){
-					dig(2,px+i,py+j);
-					return true;
+					if(ag == MASK_GOLD){
+						if(!holdGold){
+							dig(2,px+lor*i,py+j);
+							return DigResult.Gold;
+						}
+					}else if(ag == MASK_BOMB){
+						dig(5,px+lor*i,py+j);
+						return DigResult.Bomb;
+					}
+				}
+				//again
+				goldTerrain.project(projPos, px-lor*i, py+j);
+				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
+				if(ag != 0){
+					if(ag == MASK_GOLD){
+						if(!holdGold){
+							dig(2,px-lor*i,py+j);
+							return DigResult.Gold;
+						}
+					}else if(ag == MASK_BOMB){
+						dig(5,px-lor*i,py+j);
+						return DigResult.Bomb;
+					}
 				}
 			}
 		}
-		return false;
+		return DigResult.None;
 	}
 	
 	public boolean isFillMode() {
@@ -239,7 +273,42 @@ public class Level extends Group{
 	public void setFillMode(boolean fillMode) {
 		this.fillMode = fillMode;
 	}
-	
+	public Array<GoldDock> getDocks() {
+		return docks;
+	}
+	public Array<InOutTrans> getInouts() {
+		return inouts;
+	}
+	public Array<Stepladder> getLadders() {
+		return ladders;
+	}
+	public Array<KillCircle> getKillrays() {
+		return killrays;
+	}
+	public void addGoldDock(GoldDock dock){
+		this.docks.add(dock);
+		this.addActor(dock);
+	}
+	public void addNpc(Npc npc){
+		this.npcs.add(npc);
+		this.addActor(npc);
+	}
+	public void removeNpc(Npc npc){
+		this.npcs.removeValue(npc, true);
+		npc.remove();
+	}
+	public void addInOutTrans(InOutTrans inout){
+		this.inouts.add(inout);
+		this.addActor(inout);
+	}
+	public void addStepladder(Stepladder ladder){
+		this.ladders.add(ladder);
+		this.addActor(ladder);
+	}
+	public void addKillCircle(KillCircle kill){
+		this.killrays.add(kill);
+		this.addActor(kill);
+	}
 	public void dispose(){
 		if(null!=goldTerrain)goldTerrain.dispose();
 		if(null!=terrain)terrain.dispose();

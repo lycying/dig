@@ -44,10 +44,10 @@ public class InOutTrans extends Actor{
 		line.setRotation(v.angle());
 		this.setPosition(inx, iny);
 		
-		rect.x = inx;
-		rect.y = iny;
-		rect.width = 40;
-		rect.height = 40;
+		rect.x = inx+8;
+		rect.y = iny+8;
+		rect.width = 24;
+		rect.height = 24;
 	}
 	float stateTime = 0;
 	@Override

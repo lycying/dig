@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Npc extends Actor {
+	
 	TextureRegion[] npcRegions = new TextureRegion[4];
 	TextureRegion[] npcGoldRegions = new TextureRegion[4];
 	TextureRegion[] regions = null;
@@ -128,14 +129,20 @@ public class Npc extends Actor {
 				}
 			}
 		}
-		if(isHoldGold){
-			tryGoldDock();
-		}else{
-			if(level.tryDig()){
-				isHoldGold = true;
-				direction *= -1;
-				regions = npcGoldRegions;
-			}
+		if(isHoldGold)tryGoldDock();
+		
+		switch(level.tryDig(isHoldGold)){
+		case None:break;
+		case Bomb:
+			die();
+			break;
+		case Gold:
+			isHoldGold = true;
+			direction *= -1;
+			regions = npcGoldRegions;
+			break;
+		default:
+			break;
 		}
 		sync();
 	}
@@ -148,7 +155,7 @@ public class Npc extends Actor {
 		if(direction<0)drawable.flip(true, false);
 	}
 	void tryGoldDock(){
-		for(GoldDock dock:level.docks){
+		for(GoldDock dock:level.getDocks()){
 			if(this.drawable.getBoundingRectangle().overlaps(dock.actor.getBoundingRectangle())){
 				isHoldGold = false;
 				this.direction *= -1;
@@ -159,7 +166,7 @@ public class Npc extends Actor {
 		}
 	}
 	boolean tryClampLadder(){
-		for(Stepladder ladder:level.ladders){
+		for(Stepladder ladder:level.getLadders()){
 			if(ladder.getRect().contains(x, y)){
 				if(y>ladder.getRect().y+ladder.getRect().height-10){
 					if(velocity==-1){
@@ -198,7 +205,7 @@ public class Npc extends Actor {
 		return false;
 	}
 	boolean tryTransPort(){		
-		for(final InOutTrans inout:level.inouts){
+		for(final InOutTrans inout:level.getInouts()){
 			if(inout.getRect().contains(x,y)){
 				x = inout.getRect().x+37;
 				y = inout.getRect().y+20;
@@ -223,30 +230,33 @@ public class Npc extends Actor {
 		return false;
 	}
 	boolean tryKillRay(){
-		for(KillRay kill:level.killrays){
-			if(kill.overlaps(x, y)){
-				TextureAtlas atlas = Engine.resource("All");
-				int size = 8;
-				float part = 360f/size;
-				for(int i=0;i<size;i++){
-					float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
-					float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
-					final Image image = new Image(atlas.findRegion("color"));
-					image.setColor(new Color(1,0,0,0.7f));
-					image.setPosition(x, y);
-					image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							image.remove();
-						}
-					})));
-					level.addActor(image);
-				}
-				this.remove();
-				level.npcs.removeValue(this, true);
+		for(KillCircle kill:level.getKillrays()){
+			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
+				die();
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	void die(){
+		TextureAtlas atlas = Engine.resource("All");
+		int size = 8;
+		float part = 360f/size;
+		for(int i=0;i<size;i++){
+			float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
+			float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
+			final Image image = new Image(atlas.findRegion("color"));
+			image.setColor(new Color(1,0,0,0.7f));
+			image.setPosition(x, y);
+			image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
+				@Override
+				public void run() {
+					image.remove();
+				}
+			})));
+			level.addActor(image);
+		}
+		level.removeNpc(this);
 	}
 }

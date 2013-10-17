@@ -1,7 +1,7 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.scenes.game.entity.KillRay;
+import info.u250.digs.scenes.game.entity.KillCircle;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.InOutTrans;
 import info.u250.digs.scenes.game.entity.Stepladder;
@@ -29,27 +29,27 @@ public class LevelConfig {
 		@Override
 		public void call(Level level) {
 
-			KillRay ray = new KillRay(550, 50, 100,Color.WHITE);
-			level.addActor(ray);
-			level.killrays.add(ray);
-			KillRay ray2 = new KillRay(500, 100,50,Color.BLUE);
-			level.addActor(ray2);
-			level.killrays.add(ray2);
+			KillCircle ray = new KillCircle(550, 50, 100,Color.WHITE);
+			level.addKillCircle(ray);
+			KillCircle ray2 = new KillCircle(300, 0,50,Color.BLUE);
+			level.addKillCircle(ray2);
+			KillCircle ray3 = new KillCircle(100, 0,76,Color.GREEN);
+			level.addKillCircle(ray3);
+			KillCircle ray4 = new KillCircle(800, -20,88,Color.CYAN);
+			level.addKillCircle(ray4);
+			
 			Stepladder ladder = new Stepladder(15, 200,100);
-			level.addActor(ladder);
-			level.ladders.add(ladder);
+			level.addStepladder(ladder);
 			
 			for(int i=0;i<150;i++){
 				Npc e = new Npc();
 				e.init(level);
 				e.setPosition(200+random.nextFloat()*200, Engine.getHeight() + random.nextFloat()*100);
-				level.addActor(e);
-				level.npcs.add(e);
+				level.addNpc(e);
 			}
 			
 			InOutTrans inout = new InOutTrans(300,150,500,250);
-			level.addActor(inout);
-			level.inouts.add(inout);
+			level.addInOutTrans(inout);
 			
 		}
 	};

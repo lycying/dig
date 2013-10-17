@@ -10,9 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
-public class KillRay extends Group{
+public class KillCircle extends Group{
 float raduis;
-	public KillRay(float x,float y,float raduis,Color c){
+	public KillCircle(float x,float y,float raduis,Color c){
 		this.raduis = raduis;
 		final TextureAtlas atlas = Engine.resource("All",TextureAtlas.class);
 		final Image  bg = new Image(atlas.findRegion("kill"));

@@ -95,7 +95,14 @@ public class Glow implements ProceduralInterface, FilterInterface
 			float dy2=dy * dy;
 
 			for (int x=0; x < width; x++){
-
+				int rgb=pixmap.getPixel(x, y);
+				int a=(rgb & 0x000000ff);
+				if(a==0)continue;
+				int r=(rgb & 0xff000000) >>> 24;
+				int g=(rgb & 0x00ff0000) >>> 16;
+				int b=(rgb & 0x0000ff00) >>> 8;
+				
+				
 				//
 				// Calculate distance at center
 				//
@@ -109,11 +116,6 @@ public class Glow implements ProceduralInterface, FilterInterface
 				//
 				// Draw glow pixel
 				//
-				int rgb=pixmap.getPixel(x, y);
-				int r=(rgb & 0xff000000) >>> 24;
-				int g=(rgb & 0x00ff0000) >>> 16;
-				int b=(rgb & 0x0000ff00) >>> 8;
-				int a=(rgb & 0x000000ff);
 
 				r=(int) (r + ((gamma * d * red) * alpha));
 				g=(int) (g + ((gamma * d * green) * alpha));
@@ -126,7 +128,10 @@ public class Glow implements ProceduralInterface, FilterInterface
 				g=g > 255 ? 255 : g;
 				b=b > 255 ? 255 : b;
 
+				
 				pixmap.drawPixel(x, y, ((int) r << 24) | ((int) g << 16) | ((int) b << 8) | a);
+				
+				
 			}
 		}
 	}
