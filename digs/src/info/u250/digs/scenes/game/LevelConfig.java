@@ -41,7 +41,7 @@ public class LevelConfig {
 			Stepladder ladder = new Stepladder(15, 200,100);
 			level.addStepladder(ladder);
 			
-			for(int i=0;i<150;i++){
+			for(int i=0;i<200;i++){
 				Npc e = new Npc();
 				e.init(level);
 				e.setPosition(200+random.nextFloat()*200, Engine.getHeight() + random.nextFloat()*100);

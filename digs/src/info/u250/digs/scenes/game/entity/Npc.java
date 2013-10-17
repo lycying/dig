@@ -151,7 +151,7 @@ public class Npc extends Actor {
 		this.setY(y);
 		drawable.setRegion(regions[(regionsIndex/2)%4]);
 		drawable.setColor(this.getColor());
-		drawable.setPosition(x, y);
+		drawable.setPosition(x-this.getOriginX(), y-this.getOriginY());
 		if(direction<0)drawable.flip(true, false);
 	}
 	void tryGoldDock(){
@@ -190,7 +190,7 @@ public class Npc extends Actor {
 				}else{
 					y-=1;
 				}
-				x = ladder.getRect().x + (ladder.getRect().getWidth()-this.getWidth())/2;
+				x = ladder.getRect().x + (ladder.getPrefWidth())/2;
 				sync();
 				return true;
 			}

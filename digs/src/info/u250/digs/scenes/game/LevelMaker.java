@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.digs.Digs;
+import info.u250.digs.PolygonTable;
 import net.shad.s3rend.gfx.pixmap.filter.Glow;
 
 import com.badlogic.gdx.Gdx;
@@ -82,13 +83,13 @@ final class LevelMaker {
 //			gdMap.fillCircle(x,y, radius);
 //		}
 		gdMap.setColor(Color.YELLOW);
-		Polygon polygon =  new Polygon(new float[]{48.0f,11.0f,58.0f,15.0f,70.0f,24.0f,92.0f,49.0f,112.0f,61.0f,116.0f,67.0f,113.0f,77.0f,113.0f,89.0f,116.0f,101.0f,122.0f,108.0f,123.0f,114.0f,120.0f,117.0f,110.0f,118.0f,79.0f,111.0f,57.0f,113.0f,18.0f,112.0f,10.0f,110.0f,10.0f,107.0f,30.0f,104.0f,31.0f,101.0f,25.0f,98.0f,11.0f,84.0f,7.0f,77.0f,6.0f,67.0f,38.0f,21.0f,});
-		polygon.setScale(2, 2);
+		Polygon polygon =  PolygonTable.WALLACE_128;
+//		polygon.setScale(2, 2);
 		polygon.translate(200, 50);
 		drawPolygon(polygon, gdMap);
 		
 		gdMap.setColor(Color.CYAN);
-		Polygon bomb =  new Polygon(new float[]{92.0f,1.0f,96.0f,1.0f,118.0f,23.0f,124.0f,34.0f,113.0f,46.0f,103.0f,52.0f,95.0f,45.0f,91.0f,46.0f,69.0f,68.0f,63.0f,79.0f,67.0f,84.0f,70.0f,95.0f,68.0f,99.0f,49.0f,115.0f,35.0f,122.0f,25.0f,124.0f,13.0f,122.0f,6.0f,116.0f,2.0f,107.0f,2.0f,100.0f,7.0f,84.0f,18.0f,67.0f,29.0f,57.0f,35.0f,56.0f,47.0f,63.0f,52.0f,62.0f,58.0f,58.0f,80.0f,30.0f,75.0f,25.0f,74.0f,19.0f,85.0f,7.0f,});
+		Polygon bomb =  PolygonTable.ADIUM;
 		bomb.translate(400, 50);
 		bomb.rotate(50);
 		drawPolygon(bomb, gdMap);

@@ -1,5 +1,9 @@
 package info.u250.digs;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -20,39 +24,62 @@ public class TextureConverter {
 		config.width = 10;
 		config.height= 10;
 		new LwjglApplication(new ApplicationAdapter() {
-			final String path = "C:\\Users\\Administrator\\Desktop\\ui_button_dig.png";
+			StringBuffer buffer = new StringBuffer("package info.u250.digs;\n" + 
+					"\n" + 
+					"import com.badlogic.gdx.math.Polygon;\n" + 
+					"\n" + 
+					"public final class PolygonTable {\n");
+
+			final String path = "E:\\codes\\dig\\digs-desktop\\polygon_shape";
 			@Override
 			public void create() {
-				try{
-					Pixmap.setBlending(Blending.None);
-					Pixmap pixmap = new Pixmap(Gdx.files.absolute(path));
-					int size = pixmap.getWidth() * pixmap.getHeight();
-					int[] array = new int[size];
-					for (int y = 0; y < pixmap.getHeight(); y++) {
-						for (int x = 0; x < pixmap.getWidth(); x++) {
-							int color = pixmap.getPixel(x, y);
-							array[x + y * pixmap.getWidth()] = color;
+				File dir = new File(path);
+				for(File file:dir.listFiles()){
+					try{
+						Pixmap.setBlending(Blending.None);
+						Pixmap pixmap = new Pixmap(Gdx.files.absolute(file.getAbsolutePath()));
+						int size = pixmap.getWidth() * pixmap.getHeight();
+						int[] array = new int[size];
+						for (int y = 0; y < pixmap.getHeight(); y++) {
+							for (int x = 0; x < pixmap.getWidth(); x++) {
+								int color = pixmap.getPixel(x, y);
+								array[x + y * pixmap.getWidth()] = color;
+							}
 						}
-					}
-					int w = pixmap.getWidth();
-					int h = pixmap.getHeight();
-					
-					
-					pixmap.dispose();
-					pixmap = null;
-					Array<Vector2> outline = TextureConverter.createPolygon(array, w, h);
-					StringBuffer buffer = new StringBuffer("new Polygon(new float[]{");
-					for(Vector2 v:outline){
-						buffer.append(v.x+"f,");
-						buffer.append(v.y+"f,");
-					}
-					buffer.append("});");
-					System.out.println(buffer.toString());
+						int w = pixmap.getWidth();
+						int h = pixmap.getHeight();
+						
+						
+						pixmap.dispose();
+						pixmap = null;
+						Array<Vector2> outline = TextureConverter.createPolygon(array, w, h);
+						buffer.append("public static final Polygon ");
+						buffer.append(file.getName().split(".png")[0].toUpperCase());
+						buffer.append("=new Polygon(new float[]{");
+						for(Vector2 v:outline){
+							buffer.append(v.x+"f,");
+							buffer.append(v.y+"f,");
+						}
+						buffer.append("});\n");
+						
 
-					System.exit(0);
-				}catch(Exception ex){
-					ex.printStackTrace();
+						
+					}catch(Exception ex){
+						ex.printStackTrace();
+					}	
 				}
+				buffer.append("}");
+				System.out.println(buffer.toString());
+				try {
+					FileWriter write = new FileWriter("E:\\codes\\dig\\digs\\src\\info\\u250\\digs\\PolygonTable.java");
+					write.write(buffer.toString());
+					write.flush();
+					write.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.exit(0);
+				
 			}
 		},config);
 		

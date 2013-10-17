@@ -52,8 +52,8 @@ public class Level extends Group{
 	final static float ACC = 1.0f / 60.0f;
 	
 	final static int MASK_CLEAR = 0;
-	final static int MASK_GOLD  = -16711681;
-	final static int MASK_BOMB = -256;
+	final static int MASK_GOLD  = -65281;
+	final static int MASK_BOMB = 16777215;
 	
 	private Pixmap[] pip ;
 	private InputListener terrainInput = new InputListener(){
@@ -225,45 +225,56 @@ public class Level extends Group{
 		return false;
 	}
 	public DigResult tryDig(boolean holdGold){
-//		if(at!=0){
-//			System.out.println(at + "x:"+px+",y:"+py);
-//			System.out.println(0x000000ff & at);
-//			System.out.println( (0x00ff0000 & at) >>> 16 );
-//			System.out.println( (0x0000ff00 & at) >>> 8 );
-//		}
-		int lor = Digs.RND.nextBoolean()?1:-1;
-		for(int i=4;i>=1;i--){
-			for(int j=6;j>=-2;j-=2){
-				//left or right
-				goldTerrain.project(projPos, px+lor*i, py+j);
-				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
-				if(ag != 0){
-					if(ag == MASK_GOLD){
-						if(!holdGold){
-							dig(2,px+lor*i,py+j);
-							return DigResult.Gold;
-						}
-					}else if(ag == MASK_BOMB){
-						dig(5,px+lor*i,py+j);
-						return DigResult.Bomb;
-					}
+		int key = Digs.RND.nextInt(4*11);
+		int ax = key%4*(Digs.RND.nextBoolean()?1:-1);
+		int ay = key%11-2;
+		
+		goldTerrain.project(projPos, px+ax, py+ay);
+		ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
+		if(ag != 0){
+			if(ag == MASK_GOLD){
+				if(!holdGold){
+					dig(2,px+ax,py+ay);
+					return DigResult.Gold;
 				}
-				//again
-				goldTerrain.project(projPos, px-lor*i, py+j);
-				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
-				if(ag != 0){
-					if(ag == MASK_GOLD){
-						if(!holdGold){
-							dig(2,px-lor*i,py+j);
-							return DigResult.Gold;
-						}
-					}else if(ag == MASK_BOMB){
-						dig(5,px-lor*i,py+j);
-						return DigResult.Bomb;
-					}
-				}
+			}else if(ag == MASK_BOMB){
+				dig(20,px+ax,py+ay);
+				return DigResult.Bomb;
 			}
 		}
+//		int lor = Digs.RND.nextBoolean()?1:-1;
+//		for(int i=5;i>=1;i-=3){
+//			for(int j=10;j>=-2;j-=3){
+//				//left or right
+//				goldTerrain.project(projPos, px+lor*i, py+j);
+//				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
+//				if(ag != 0){
+//					if(ag == MASK_GOLD){
+//						if(!holdGold){
+//							dig(2,px+lor*i,py+j);
+//							return DigResult.Gold;
+//						}
+//					}else if(ag == MASK_BOMB){
+//						dig(20,px+lor*i,py+j);
+//						return DigResult.Bomb;
+//					}
+//				}
+//				//again
+//				goldTerrain.project(projPos, px-lor*i, py+j);
+//				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
+//				if(ag != 0){
+//					if(ag == MASK_GOLD){
+//						if(!holdGold){
+//							dig(2,px-lor*i,py+j);
+//							return DigResult.Gold;
+//						}
+//					}else if(ag == MASK_BOMB){
+//						dig(20,px-lor*i,py+j);
+//						return DigResult.Bomb;
+//					}
+//				}
+//			}
+//		}
 		return DigResult.None;
 	}
 	
