@@ -56,12 +56,16 @@ public class Level extends Group{
 	final static int MASK_BOMB = 16777215;
 	
 	private Pixmap[] pip ;
+	//fix the multi finger press 
 	private InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
+			if(pointer!=0) return true;
+			if(getTouchable() == Touchable.disabled) return true;
 			prePos.set(x,y);
 			return true;
 		}
 		public void touchDragged(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer) {
+			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
 			
 			Vector2 position = new Vector2();
@@ -86,6 +90,8 @@ public class Level extends Group{
 			prePos.y = position.y;
 		};
 		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+			if(pointer!=0)return;
+			if(getTouchable() == Touchable.disabled) return;
 			prePos.set(0, 0);
 		};
 	};
@@ -109,7 +115,7 @@ public class Level extends Group{
 	}
 	
 	
-	public void addTerrains(){
+	void addTerrains(){
 		mapMaking = true;
 		mapTexturing = false;
 		clear();
@@ -124,17 +130,7 @@ public class Level extends Group{
 			}
 		});
 	}
-	public void addDocks(){
-		docks.clear();
-		GoldDock dock = new GoldDock();
-		dock.setPosition(0, 400);
-		GoldDock dock2 = new GoldDock();
-		dock2.setPosition(terrain.pixmap.getWidth()-dock2.getWidth(), 400);
-		docks.add(dock);
-		docks.add(dock2);
-		addActor(dock);
-		addActor(dock2);
-	}
+	
 	void drawLoading(SpriteBatch batch){
 		batch.setColor(new Color(1,1,1,.5f));
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
@@ -229,7 +225,7 @@ public class Level extends Group{
 		int ax = key%4*(Digs.RND.nextBoolean()?1:-1);
 		int ay = key%11-2;
 		
-		goldTerrain.project(projPos, px+ax, py+ay);
+		goldTerrain.project(projPos, px+getX()+ax, py+ay);
 		ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 		if(ag != 0){
 			if(ag == MASK_GOLD){
@@ -242,39 +238,6 @@ public class Level extends Group{
 				return DigResult.Bomb;
 			}
 		}
-//		int lor = Digs.RND.nextBoolean()?1:-1;
-//		for(int i=5;i>=1;i-=3){
-//			for(int j=10;j>=-2;j-=3){
-//				//left or right
-//				goldTerrain.project(projPos, px+lor*i, py+j);
-//				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
-//				if(ag != 0){
-//					if(ag == MASK_GOLD){
-//						if(!holdGold){
-//							dig(2,px+lor*i,py+j);
-//							return DigResult.Gold;
-//						}
-//					}else if(ag == MASK_BOMB){
-//						dig(20,px+lor*i,py+j);
-//						return DigResult.Bomb;
-//					}
-//				}
-//				//again
-//				goldTerrain.project(projPos, px-lor*i, py+j);
-//				ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
-//				if(ag != 0){
-//					if(ag == MASK_GOLD){
-//						if(!holdGold){
-//							dig(2,px-lor*i,py+j);
-//							return DigResult.Gold;
-//						}
-//					}else if(ag == MASK_BOMB){
-//						dig(20,px-lor*i,py+j);
-//						return DigResult.Bomb;
-//					}
-//				}
-//			}
-//		}
 		return DigResult.None;
 	}
 	

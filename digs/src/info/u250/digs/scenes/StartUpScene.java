@@ -265,8 +265,8 @@ public class StartUpScene extends SceneStage{
 		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
 		final Image sound_flag = new Image(sound_flag_on); 
-		Engine.getSoundManager().setVolume(0);
-		Engine.getMusicManager().setVolume(0);
+//		Engine.getSoundManager().setVolume(0);
+//		Engine.getMusicManager().setVolume(0);
 		sound_flag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -456,10 +456,5 @@ public class StartUpScene extends SceneStage{
 	public void show() {
 		super.show();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
-	}
-	@Override
-	public void hide() {
-		Engine.getMusicManager().pauseMusic("MusicBackground");
-		super.hide();
 	}
 }

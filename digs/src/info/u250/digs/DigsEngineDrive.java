@@ -53,8 +53,8 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
 		
-		reg.music("MusicBackground", "data/music/bg.mp3");
-		reg.music("MusicBattle", "data/music/battle.mp3");
+		reg.music("MusicBackground", "data/music/bg.ogg");
+		reg.music("MusicBattle", "data/music/battle.ogg");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		
 //		TextureAtlas atlas = Engine.resource("All");

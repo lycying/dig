@@ -30,6 +30,7 @@ public class LevelItemTable extends  Group{
 		this.addActor(bg);
 		this.addActor(icon);
 		this.addActor(title);
+		this.addActor(new Image(atlas.findRegion("window_badge_blank_red")));
 		
 		Image menu_play = new Image(atlas.findRegion("menu_play"));
 		menu_play.setPosition(this.getWidth()-menu_play.getWidth()-20,(this.getHeight()-menu_play.getHeight())/2);

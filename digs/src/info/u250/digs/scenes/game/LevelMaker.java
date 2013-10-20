@@ -1,7 +1,6 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.digs.Digs;
-import info.u250.digs.PolygonTable;
 import net.shad.s3rend.gfx.pixmap.filter.Glow;
 
 import com.badlogic.gdx.Gdx;
@@ -10,10 +9,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.CatmullRomSpline;
-import com.badlogic.gdx.math.EarClippingTriangulator;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ShortArray;
 
 final class LevelMaker {
 	static final Vector2 tmpV = new Vector2();
@@ -43,23 +39,35 @@ final class LevelMaker {
 			}
 		}
 		
-		Vector2[] controlPoints = new Vector2[segment];
-		for(int i=0;i<segment;i++){
-			controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(RND_Height)+lineHeight);
-		}
-		spline.set(controlPoints, false);
+		if(segment>1){
+			Vector2[] controlPoints = new Vector2[segment];
+			controlPoints[0] = new Vector2(0,lineHeight);
+			for(int i=1;i<segment;i++){
+				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(RND_Height)+lineHeight);
+			}
+			spline.set(controlPoints, true);
 
-		for(int i=0;i<width;i+=10){
-			spline.valueAt(tmpV, i/(float)width);
-			Pixmap.setBlending(Blending.SourceOver);
-			terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
-		}
-		for(int i=0;i<width;i++){
-			spline.valueAt(tmpV, i/(float)width);
+			for(int i=0;i<width;i+=10){
+				spline.valueAt(tmpV, i/(float)width);
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
+			}
+			for(int i=0;i<width;i++){
+				spline.valueAt(tmpV, i/(float)width);
+				Pixmap.setBlending(Blending.None);
+				terMap.setColor(Color.CLEAR);
+				terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
+			}
+		}else{//draw directly 
+			for(int i=0;i<width;i+=20){
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
+			}
 			Pixmap.setBlending(Blending.None);
 			terMap.setColor(Color.CLEAR);
-			terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
+			terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
 		}
+		
 		
 		bgPix.dispose();
 		gPix2.dispose();
@@ -68,49 +76,15 @@ final class LevelMaker {
 		Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-400f/512f, 0.5f, 0.6f, 10, 10);
 		
 		/////////////////////////////////////////////////////////////////////////////////////
-		Pixmap gdMap =  new Pixmap(width, lineHeight, Format.RGBA8888);
+		Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);
 		Pixmap.setBlending(Blending.None);
-		
-//		for(int i=0;i<10;i++){
-//			int radius = RND.nextInt(30)+5;
-//			int x = (int)(100+RND.nextFloat()*1800);
-//			int y = gdMap.getHeight()-(int)(50+RND.nextFloat()*250);
-//			while(x-radius<0 || x+radius>width || y-radius<0 || y+radius>lineHeight){
-//				radius = RND.nextInt(30)+5;
-//				x = (int)(100+RND.nextFloat()*1800);
-//				y = gdMap.getHeight()-(int)(50+RND.nextFloat()*250);
-//			}
-//			gdMap.fillCircle(x,y, radius);
-//		}
-		gdMap.setColor(Color.YELLOW);
-		Polygon polygon =  PolygonTable.WALLACE_128;
-//		polygon.setScale(2, 2);
-		polygon.translate(200, 50);
-		drawPolygon(polygon, gdMap);
-		
-		gdMap.setColor(Color.CYAN);
-		Polygon bomb =  PolygonTable.ADIUM;
-		bomb.translate(400, 50);
-		bomb.rotate(50);
-		drawPolygon(bomb, gdMap);
+		if(null!=config.callback){
+			config.callback.mapMaker(terMap, gdMap);
+		}
 		
 		maps[0] = terMap;
 		maps[1] = gdMap;
 		return maps;
 	}
-	static void drawPolygon(Polygon polygon,Pixmap pixmap){
-		float[] polygonVertices = polygon.getTransformedVertices();
-		ShortArray array = ear.computeTriangles(polygonVertices);
-		for(int i=0;i<array.size;i+=3){
-			int x1 = (int)polygonVertices[2*array.get(i)];
-			int y1 = (int)polygonVertices[2*array.get(i)+1];
-			int x2 = (int)polygonVertices[2*array.get(i+1)];
-			int y2 = (int)polygonVertices[2*array.get(i+1)+1];
-			int x3 = (int)polygonVertices[2*array.get(i+2)];
-			int y3 = (int)polygonVertices[2*array.get(i+2)+1];
-			pixmap.fillTriangle(x1, y1, x2, y2, x3, y3);
-		}
-	}
-	static EarClippingTriangulator ear = new EarClippingTriangulator();
 }
 

@@ -85,7 +85,6 @@ public class Npc extends Actor {
 		if(tryKillRay()) return;
 		if(tryTransPort()) return;
 		if(tryClampLadder()) return;
-		if(tryKillRay()) return;
 		
 		if (velocity > 1) { // when the NPC is jumping
 			if (level.tryMove(x+direction, y + velocity / 4)) {
@@ -221,7 +220,7 @@ public class Npc extends Actor {
 				})));
 				if(!inout.isClear()){
 					inout.setClear(true);
-					level.clearTransPort(inout.getRect().x+5, inout.getRect().y+40-5, 30);
+//					level.clearTransPort(inout.getX()+5, inout.getY(), 30);
 					level.clearTransPort(inout.getTransX()+5, inout.getTransY()+40-5, 30);
 				}
 				return true;

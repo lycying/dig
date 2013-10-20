@@ -1,12 +1,17 @@
 package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Bezier;
+import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,10 +19,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class InOutTrans extends Actor{
 	Animation in ;
 	Animation out ;
-	float outx ,outy;
-	Sprite line ;
 	boolean clear = false;
 	private Rectangle rect = new Rectangle();
+	Path<Vector2> path = null;
+	float len = 0;
 	public InOutTrans(float inx,float iny,float outx,float outy){
 		TextureAtlas atlas = Engine.resource("All",TextureAtlas.class);
 		in = new Animation(0.1f,atlas.findRegion("in1"),
@@ -32,22 +37,60 @@ public class InOutTrans extends Actor{
 				atlas.findRegion("out4"),
 				atlas.findRegion("out5"),
 				atlas.findRegion("out6"));
-		line = new Sprite(atlas.findRegion("color"));
-		this.outx = outx;
-		this.outy = outy;
-		line.setSize(4, 4);
-		line.setPosition(inx+37, iny+20);
-		line.setOrigin(0, 2);
-		line.setColor(new Color(1,1,1,0.5f));
-		Vector2 v = new Vector2(outx+3,outy+20).sub(inx+37,iny+20);
-		line.setScale(v.len()/4, 1);
-		line.setRotation(v.angle());
 		this.setPosition(inx, iny);
+		this.setSize(Math.abs(outx-inx), Math.abs(iny-outy));
 		
 		rect.x = inx+8;
 		rect.y = iny+8;
 		rect.width = 24;
 		rect.height = 24;
+		
+		len = outx-inx-37+3;
+		Vector2[] vpath = new Vector2[4];
+		vpath[0] = new Vector2(30,20);
+		vpath[3] = new Vector2(this.getWidth(),this.getHeight());
+		vpath[1] = new Vector2(
+				(vpath[0].x+vpath[3].x)/3+Digs.RND.nextFloat()*100*(Digs.RND.nextBoolean()?1:-1),
+				(vpath[0].y+vpath[3].y)/3+Digs.RND.nextFloat()*100*(Digs.RND.nextBoolean()?1:-1));
+		vpath[2] = new Vector2(
+				(vpath[0].x+vpath[3].x)/3*2+Digs.RND.nextFloat()*100*(Digs.RND.nextBoolean()?1:-1),
+				(vpath[0].y+vpath[3].y)/3*2+Digs.RND.nextFloat()*100*(Digs.RND.nextBoolean()?1:-1));
+		
+		path = new Bezier<Vector2>(vpath);
+		last.set(this.getWidth()+8, this.getHeight()+20);
+	}
+	Vector2 tmpV1 = new Vector2(Integer.MAX_VALUE,0);
+	Vector2 tmpV2 = new Vector2();
+	Vector2 last = new Vector2();
+	int index =0 ;
+	static final Color COLOR1 = new Color(1, 1, 1, 0.5f);
+	static final Color COLOR2 = new Color(0, 1, 0, 0.5f);
+	void renderPath(float delta){
+		index = 0;
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Gdx.gl.glLineWidth(5);
+		Engine.getShapeRenderer().begin(ShapeType.Line);
+		for(float t = 0;t<this.getWidth();t+=6+(stateTime%1)*6,index++){
+			if(index%2==0){
+				Engine.getShapeRenderer().setColor(COLOR1);
+			}else{
+				Engine.getShapeRenderer().setColor(COLOR2);
+			}
+			
+			path.valueAt(tmpV2, t/len);
+			if(tmpV2.x>this.getWidth()||tmpV2.y>this.getHeight())break;
+			localToStageCoordinates(tmpV2);
+			if(tmpV1.x != Integer.MAX_VALUE){
+				Engine.getShapeRenderer().line(tmpV1, tmpV2);
+			}
+			tmpV1.set(tmpV2);
+		}
+		localToStageCoordinates(last);
+		Engine.getShapeRenderer().line(tmpV1, last);
+		last.set(this.getWidth()+8, this.getHeight()+20);
+		Engine.getShapeRenderer().end();
+		Gdx.gl.glLineWidth(1);
+		tmpV1.set(Integer.MAX_VALUE,0);
 	}
 	float stateTime = 0;
 	@Override
@@ -56,19 +99,21 @@ public class InOutTrans extends Actor{
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		batch.end();
+		renderPath(Engine.getDeltaTime());
+		batch.begin();
 		batch.setColor(Color.WHITE);
-		line.draw(batch);
 		batch.draw(in.getKeyFrame(stateTime, true), getX(),getY());
-		batch.draw(out.getKeyFrame(stateTime, true),outx,outy);
+		batch.draw(out.getKeyFrame(stateTime, true),this.getX()+this.getWidth(),this.getY()+this.getHeight());
 	}
 	public Rectangle getRect(){
 		return this.rect;
 	}
 	public float getTransX(){
-		return this.outx;
+		return this.getX()+this.getWidth();
 	}
 	public float getTransY(){
-		return this.outy;
+		return this.getY()+this.getHeight();
 	}
 	public boolean isClear() {
 		return clear;
