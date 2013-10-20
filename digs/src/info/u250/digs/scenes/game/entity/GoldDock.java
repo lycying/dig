@@ -2,39 +2,61 @@ package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class GoldDock extends Actor{
-
-	public Sprite actor ;
+public class GoldDock extends Group{
+	public int number = 300;
+	private Rectangle rect = new Rectangle();
+	Image dock;
 	Sprite gold;
-	public int number =0;
-	public int max ;
-	
+	int max ;
 	public GoldDock(){
-		this.actor = new Sprite(Engine.resource("All",TextureAtlas.class).findRegion("dock"));
-		this.gold = new Sprite(Engine.resource("All",TextureAtlas.class).findRegion("color"));
-		this.gold.setColor(Color.YELLOW);
-		this.setSize(actor.getWidth(), actor.getHeight());
-		this.max = (int)(this.getWidth()/this.gold.getWidth());
+		TextureAtlas atlas = Engine.resource("All",TextureAtlas.class);
+		final Image tower = new Image(atlas.findRegion("tower"));
+		tower.setY(-400);
+		this.setSize(tower.getWidth(),100);
+		dock = new Image(atlas.findRegion("dock"));
+		dock.addAction(Actions.forever(Actions.sequence(
+				Actions.moveBy(0, 10,0.5f),
+				Actions.moveBy(0, -10,0.5f)
+				)));
+		
+		this.addActor(tower);
+		this.addActor(dock);
+		this.gold = new Sprite(Engine.resource("All",TextureAtlas.class).findRegion("gold"));
+		this.max = (int)((dock.getWidth()-8)/(this.gold.getWidth()));
 	}
-
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		actor.setPosition(getX(), getY());
-		actor.draw(batch);
-		int row = this.number/this.max+1;
-		for(int i=0;i<row;i++){
-			for(int j=0;j<this.max-i;j++){
-				if(i*this.max+j<this.number){
-					gold.setPosition(this.getX()+j*(gold.getWidth()+1), this.getY()+this.getHeight()+(gold.getHeight()+1)*i);
-					gold.draw(batch);
+		super.draw(batch, parentAlpha);
+		int bak = number;
+		int i = 0,j=0;
+		while(bak>0){
+			if(i%(max-j)==0){
+				j++;
+				i=0;
+				if(j == max){
+					//TODO: collection
+					break;
 				}
 			}
+			gold.setPosition(2*j+this.getX()+i*gold.getWidth()+4, this.getY()+dock.getHeight()+dock.getY()+gold.getHeight()*j-8);
+			gold.draw(batch);
+			bak--;
+			i++;
 		}
+	}
+	public Rectangle getRect(){
+		rect.x = this.getX()+dock.getX();
+		rect.y = this.getY()+dock.getY();
+		rect.width = this.dock.getWidth();
+		rect.height = this.dock.getHeight();
+		return this.rect;
 	}
 }

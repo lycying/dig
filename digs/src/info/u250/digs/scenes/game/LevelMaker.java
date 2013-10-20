@@ -73,7 +73,7 @@ final class LevelMaker {
 		gPix2.dispose();
 		gPix1.dispose();
 		
-		Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-400f/512f, 0.5f, 0.6f, 10, 10);
+		Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
 		
 		/////////////////////////////////////////////////////////////////////////////////////
 		Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);

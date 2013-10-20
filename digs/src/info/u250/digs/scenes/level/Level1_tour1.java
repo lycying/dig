@@ -2,6 +2,8 @@ package info.u250.digs.scenes.level;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
+import info.u250.c2d.graphic.parallax.ParallaxGroup;
+import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
@@ -13,7 +15,10 @@ import info.u250.digs.scenes.ui.ParticleEffectActor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Level1_tour1 extends LevelConfig {
 	public Level1_tour1(){
@@ -37,12 +42,6 @@ public class Level1_tour1 extends LevelConfig {
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
 				}
-				
-				ParticleEffect e = Engine.resource("Effect");
-				ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
-				p.setPosition(50, Engine.getHeight());
-				p.setPosition(50, Engine.getHeight());
-				level.addActor(p);
 			}
 			
 			@Override
@@ -56,6 +55,17 @@ public class Level1_tour1 extends LevelConfig {
 
 			@Override
 			public void before(Level level) {
+
+				TextureAtlas atlas = Engine.resource("All");
+				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
+				level.addActor(pbg);
+				
+				ParticleEffect e = Engine.resource("Effect");
+				ParticleEffectActor p = new ParticleEffectActor(e,"effect-dot-mu");
+				p.setPosition(Engine.getWidth(), 200);
+				level.addActor(p);
+				
 				GoldDock dock = new GoldDock();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
@@ -64,6 +74,7 @@ public class Level1_tour1 extends LevelConfig {
 				dock2.setY(lineHeight);
 				dock2.setX(Engine.getWidth()-dock2.getWidth());
 				level.addGoldDock(dock2);
+				
 			}
 		};
 	}

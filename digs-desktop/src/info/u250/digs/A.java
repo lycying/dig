@@ -15,12 +15,19 @@ package info.u250.digs;
  * Contact: notch@mojang.com
  */
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
+import java.awt.AWTEvent;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class A extends JFrame
 {

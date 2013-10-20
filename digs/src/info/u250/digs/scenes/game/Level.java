@@ -27,7 +27,7 @@ public class Level extends Group{
 		Gold,
 		Bomb,
 	}
-	private final Array<Npc> npcs = new Array<Npc>();
+	public final Array<Npc> npcs = new Array<Npc>();
 	private final Array<GoldDock> docks = new Array<GoldDock>();
 	private final Array<InOutTrans> inouts = new Array<InOutTrans>();
 	private final Array<Stepladder> ladders = new Array<Stepladder>();
@@ -120,6 +120,7 @@ public class Level extends Group{
 		if(null!=config.callback){
 			config.callback.after(this);
 		}
+		this.addActor(new FollowLabel(this));
 	}
 	
 	
@@ -287,6 +288,11 @@ public class Level extends Group{
 		this.killrays.add(kill);
 		this.addActor(kill);
 	}
+	public Npc getRandomNpc(){
+		if(this.npcs.size<1)return null;
+		return this.npcs.get(Digs.RND.nextInt(this.npcs.size));
+	}
+	
 	public void dispose(){
 		if(null!=goldTerrain)goldTerrain.dispose();
 		if(null!=terrain)terrain.dispose();

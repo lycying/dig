@@ -8,18 +8,20 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
 
 public class Level2_tour2 extends LevelConfig {
 	public Level2_tour2(){
-		this.surface = "texs/Dirt.png";
+		this.surface = "texs/green013.jpg";
 		this.width = (int)Engine.getWidth();
 		this.height = 512;
 		this.bottomColor = WebColors.BLACK.get();
-		this.topColor = WebColors.DARK_TURQUOISE.get();
+		this.topColor = WebColors.KHAKI.get();
 		this.lineHeight = 300;
 		this.segment = 2;
 		
@@ -48,6 +50,11 @@ public class Level2_tour2 extends LevelConfig {
 
 			@Override
 			public void before(Level level) {
+				ParticleEffect e = Engine.resource("Effect");
+				ParticleEffectActor p = new ParticleEffectActor(e,"snow");
+				p.setPosition(0, Engine.getHeight());
+				level.addActor(p);
+				
 				GoldDock dock = new GoldDock();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);

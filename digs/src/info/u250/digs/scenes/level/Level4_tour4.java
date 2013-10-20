@@ -10,9 +10,11 @@ import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.InOutTrans;
 import info.u250.digs.scenes.game.entity.KillCircle;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
 
 public class Level4_tour4 extends LevelConfig {
@@ -28,18 +30,18 @@ public class Level4_tour4 extends LevelConfig {
 		
 		callback = new LevelCallBack() {
 			@Override
-			public void before(Level level) {
+			public void after(Level level) {
 				{
-				KillCircle ray = new KillCircle(400, 150, 100,Color.WHITE);
+				KillCircle ray = new KillCircle(400, 150, 100,Color.BLUE);
 				level.addKillCircle(ray);
 				}
 				
 				{
-					KillCircle ray = new KillCircle(300, 200, 150,Color.PINK);
+					KillCircle ray = new KillCircle(300, 200, 150,Color.WHITE);
 					level.addKillCircle(ray);
 					}
 				{
-					KillCircle ray = new KillCircle(350, 180, 50,Color.BLUE);
+					KillCircle ray = new KillCircle(350, 180, 50,Color.PINK);
 					level.addKillCircle(ray);
 					}
 				
@@ -53,19 +55,23 @@ public class Level4_tour4 extends LevelConfig {
 				InOutTrans inout = new InOutTrans(150,250,700,500);
 				level.addInOutTrans(inout);
 				
+				ParticleEffect e = Engine.resource("Effect");
+				ParticleEffectActor p = new ParticleEffectActor(e,"smoke");
+				p.setPosition(450, 250);
+				level.addActor(p);
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.WONDER_PART_8;
-				polygon.setScale(1f, 1f);
-				polygon.setPosition(650, 400);
+				Polygon polygon =  PolygonTable.BLACK_CAT;
+				polygon.setScale(0.3f, 0.3f);
+				polygon.setPosition(750, 400);
 				drawPolygon(polygon, gold);
 			}
 
 			@Override
-			public void after(Level level) {
+			public void before(Level level) {
 				GoldDock dock = new GoldDock();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);

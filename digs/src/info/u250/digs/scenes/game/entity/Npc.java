@@ -49,6 +49,8 @@ public class Npc extends Actor {
 		
 		regions = npcRegions;
 //		this.setColor(generateColor());
+		
+		
 	}
 	
 	Color generateColor() {
@@ -134,6 +136,7 @@ public class Npc extends Actor {
 		case None:break;
 		case Bomb:
 			die();
+			Engine.getSoundManager().playSound("SoundHurt");
 			break;
 		case Gold:
 			isHoldGold = true;
@@ -145,6 +148,7 @@ public class Npc extends Actor {
 		}
 		sync();
 	}
+	int soundCoinIndex = 0;
 	void sync(){
 		this.setX(x);
 		this.setY(y);
@@ -155,7 +159,7 @@ public class Npc extends Actor {
 	}
 	void tryGoldDock(){
 		for(GoldDock dock:level.getDocks()){
-			if(this.drawable.getBoundingRectangle().overlaps(dock.actor.getBoundingRectangle())){
+			if(this.drawable.getBoundingRectangle().overlaps(dock.getRect())){
 				isHoldGold = false;
 				this.direction *= -1;
 				dock.number++;
@@ -232,6 +236,7 @@ public class Npc extends Actor {
 		for(KillCircle kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
+				Engine.getSoundManager().playSound("SoundDie");
 				return true;
 			}
 		}

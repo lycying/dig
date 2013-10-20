@@ -6,20 +6,17 @@ import info.u250.c2d.engine.SceneStage;
 import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
-import info.u250.c2d.graphic.parallax.ParallaxGroup;
-import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.InformationPane;
-import info.u250.digs.scenes.game.PauseDialog;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.game.PauseDialog;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -54,8 +51,6 @@ public class GameScene extends SceneStage {
 		scroll.setScrollbarsOnTop(false);
 		
 		
-		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
-		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
 		
 		final TextureRegionDrawable drawable_clear = new TextureRegionDrawable(atlas.findRegion("control-1"));
 		final TextureRegionDrawable drawable_fill  = new TextureRegionDrawable(atlas.findRegion("control"));
@@ -85,7 +80,6 @@ public class GameScene extends SceneStage {
 			}
 		});
 		
-		this.addActor(pbg);
 		this.addActor(scroll);
 		this.addActor(controlButton);
 		this.addActor(gameInformationPane);
