@@ -15,8 +15,10 @@ public class ParticleEffectActor extends Actor {
 	private boolean spiral;
 	private float r = 0;
 
-	public ParticleEffectActor(ParticleEffect emitter) {
-		this.emitter = emitter;
+	
+	public ParticleEffectActor(ParticleEffect pemitter,String name) {
+		this.emitter = new ParticleEffect();
+		this.emitter.getEmitters().add(pemitter.findEmitter(name));
 		this.spiral = false;
 	}
 

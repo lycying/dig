@@ -30,11 +30,7 @@ public class LevelConfig {
 	public LevelCallBack callback = new LevelCallBack() {
 		Random random = new Random();
 		@Override
-		public void call(Level level) {
-			GoldDock dock = new GoldDock();
-			dock.setY(LevelConfig.this.lineHeight);
-			level.addGoldDock(dock);
-
+		public void after(Level level) {
 			KillCircle ray = new KillCircle(550, 50, 100,Color.WHITE);
 			level.addKillCircle(ray);
 			KillCircle ray2 = new KillCircle(300, 0,50,Color.BLUE);
@@ -73,10 +69,18 @@ public class LevelConfig {
 			bomb.setRotation(50);
 			drawPolygon(bomb, gold);
 		}
+
+		@Override
+		public void before(Level level) {
+			GoldDock dock = new GoldDock();
+			dock.setY(LevelConfig.this.lineHeight);
+			level.addGoldDock(dock);
+		}
 	};
 	
 	public abstract class LevelCallBack{
-		public abstract void call(Level level);
+		public abstract void before(Level level);
+		public abstract void after(Level level);
 		public abstract void mapMaker(Pixmap terr,Pixmap gold);
 		public void drawPolygon(Polygon polygon,Pixmap pixmap){
 			polygon.setPosition(polygon.getX(),pixmap.getHeight()-polygon.getY()-polygon.getBoundingRectangle().height);

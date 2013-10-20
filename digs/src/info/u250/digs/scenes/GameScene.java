@@ -31,7 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
-	Level terrain = null;
+	Level level = null;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
 	final ScrollPane scroll;
@@ -66,10 +66,10 @@ public class GameScene extends SceneStage {
 			public void clicked(InputEvent event, float x, float y) {
 				if(controlButton.getDrawable() == drawable_clear){
 					controlButton.setDrawable(drawable_fill);
-					terrain.setFillMode(true);
+					level.setFillMode(true);
 				}else{
 					controlButton.setDrawable(drawable_clear);
-					terrain.setFillMode(false);
+					level.setFillMode(false);
 				}
 				super.clicked(event, x, y);
 			}
@@ -97,12 +97,12 @@ public class GameScene extends SceneStage {
 	
 	public void configGame(LevelConfig config){
 		pauseDialog.remove();
-		if(null!=terrain){
-			terrain.dispose();
+		if(null!=level){
+			level.dispose();
 		}
 		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
-		terrain = new Level(config);
-		scroll.setWidget(terrain);
+		level = new Level(config);
+		scroll.setWidget(level);
 	} 
 	public void setupPauseResume(){
 		Engine.getEventManager().register(CoreEvents.SystemPause, new EventListener(){
@@ -119,7 +119,7 @@ public class GameScene extends SceneStage {
 			public void onEvent(Event event) {
 				if(Engine.getMainScene()==GameScene.this){
 					Engine.doPause();
-					if(null!=terrain)terrain.reload();
+					if(null!=level)level.reload();
 				}
 			}
 		});

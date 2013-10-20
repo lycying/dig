@@ -10,6 +10,7 @@ public class LevelActor extends Actor{
 	public LevelActor(PixmapHelper px1,PixmapHelper px2){
 		this.px1 = px1;
 		this.px2 = px2;
+		this.setSize(this.px1.sprite.getWidth(), this.px2.sprite.getHeight());
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {

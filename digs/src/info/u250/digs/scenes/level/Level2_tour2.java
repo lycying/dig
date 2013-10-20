@@ -26,10 +26,7 @@ public class Level2_tour2 extends LevelConfig {
 		
 		callback = new LevelCallBack() {
 			@Override
-			public void call(Level level) {
-				GoldDock dock = new GoldDock();
-				dock.setY(lineHeight);
-				level.addGoldDock(dock);
+			public void after(Level level) {
 				
 				for(int i=0;i<5;i++){
 					Npc e = new Npc();
@@ -47,6 +44,13 @@ public class Level2_tour2 extends LevelConfig {
 				polygon.setScale(1f, 1f);
 				polygon.setPosition(650, 400);
 				drawPolygon(polygon, gold);
+			}
+
+			@Override
+			public void before(Level level) {
+				GoldDock dock = new GoldDock();
+				dock.setY(lineHeight);
+				level.addGoldDock(dock);
 			}
 		};
 	}

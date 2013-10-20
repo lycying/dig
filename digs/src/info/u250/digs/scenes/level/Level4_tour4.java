@@ -28,10 +28,7 @@ public class Level4_tour4 extends LevelConfig {
 		
 		callback = new LevelCallBack() {
 			@Override
-			public void call(Level level) {
-				GoldDock dock = new GoldDock();
-				dock.setY(lineHeight);
-				level.addGoldDock(dock);
+			public void before(Level level) {
 				{
 				KillCircle ray = new KillCircle(400, 150, 100,Color.WHITE);
 				level.addKillCircle(ray);
@@ -65,6 +62,13 @@ public class Level4_tour4 extends LevelConfig {
 				polygon.setScale(1f, 1f);
 				polygon.setPosition(650, 400);
 				drawPolygon(polygon, gold);
+			}
+
+			@Override
+			public void after(Level level) {
+				GoldDock dock = new GoldDock();
+				dock.setY(lineHeight);
+				level.addGoldDock(dock);
 			}
 		};
 	}

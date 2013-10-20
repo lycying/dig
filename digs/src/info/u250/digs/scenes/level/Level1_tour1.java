@@ -8,9 +8,11 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
 
 public class Level1_tour1 extends LevelConfig {
@@ -26,15 +28,7 @@ public class Level1_tour1 extends LevelConfig {
 		
 		callback = new LevelCallBack() {
 			@Override
-			public void call(Level level) {
-				GoldDock dock = new GoldDock();
-				dock.setY(lineHeight);
-				level.addGoldDock(dock);
-				
-				GoldDock dock2 = new GoldDock();
-				dock2.setY(lineHeight);
-				dock2.setX(Engine.getWidth()-dock2.getWidth());
-				level.addGoldDock(dock2);
+			public void after(Level level) {
 
 				
 				for(int i=0;i<5;i++){
@@ -44,6 +38,11 @@ public class Level1_tour1 extends LevelConfig {
 					level.addNpc(e);
 				}
 				
+				ParticleEffect e = Engine.resource("Effect");
+				ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
+				p.setPosition(50, Engine.getHeight());
+				p.setPosition(50, Engine.getHeight());
+				level.addActor(p);
 			}
 			
 			@Override
@@ -53,6 +52,18 @@ public class Level1_tour1 extends LevelConfig {
 				polygon.setScale(0.2f, 0.2f);
 				polygon.setPosition(500, 230);
 				drawPolygon(polygon, gold);
+			}
+
+			@Override
+			public void before(Level level) {
+				GoldDock dock = new GoldDock();
+				dock.setY(lineHeight);
+				level.addGoldDock(dock);
+				
+				GoldDock dock2 = new GoldDock();
+				dock2.setY(lineHeight);
+				dock2.setX(Engine.getWidth()-dock2.getWidth());
+				level.addGoldDock(dock2);
 			}
 		};
 	}

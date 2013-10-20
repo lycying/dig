@@ -43,6 +43,7 @@ public class Level extends Group{
 	private LevelConfig config = null;
 	private PixmapHelper terrain = null;
 	private PixmapHelper goldTerrain = null;
+	private LevelActor levelActor = null;
 	
 	private boolean fillMode = false;
 	private boolean mapMaking = true;
@@ -80,10 +81,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					prePos.add(vtmp);
-					fillTerrain(prePos.x,prePos.y, RADIUS, fillMode);
+					fillTerrain(prePos.x-getX(),prePos.y, RADIUS, fillMode);
 				}
 			}
-			fillTerrain(position.x,position.y, RADIUS, fillMode);
+			fillTerrain(position.x-getX(),position.y, RADIUS, fillMode);
 
 			position.set(x,y);
 			prePos.x = position.x;
@@ -99,7 +100,7 @@ public class Level extends Group{
 	
 	public Level(LevelConfig config){
 		this.config = config;
-		setSize(config.width,512);
+		setSize(config.width,config.height);
 		addTerrains();
 		
 	}
@@ -108,9 +109,16 @@ public class Level extends Group{
 		terrain = new PixmapHelper(pip[0]);
 		goldTerrain = new PixmapHelper(pip[1]);
 		
+		if(null!=config.callback){
+			config.callback.before(this);
+		}
+		
+		levelActor = new LevelActor(terrain, goldTerrain);
+		this.addActor(levelActor);
+		
 		addListener(terrainInput);
 		if(null!=config.callback){
-			config.callback.call(this);
+			config.callback.after(this);
 		}
 	}
 	
@@ -143,21 +151,17 @@ public class Level extends Group{
 			if(mapTexturing){
 				assembleToPixmapHelper();
 				mapTexturing = false;
-			}else{
-				terrain.sprite.draw(batch);
-				goldTerrain.sprite.draw(batch);
-				super.draw(batch, parentAlpha);
+				return;
 			}
 		}else{
 			drawLoading(batch);
+			return;
 		}
+		super.draw(batch, parentAlpha);
 	}
 	@Override
 	public void act(float delta) {
 		if(!mapMaking && !mapTexturing){
-			terrain.sprite.setX(getX());
-			goldTerrain.sprite.setX(getX());
-			
 			accum += delta;
 			while (accum >= ACC) {
 				this.tick();
@@ -177,11 +181,11 @@ public class Level extends Group{
 	}
 	void dig(final float radius,float ax,float ay){
 		if(terrain == null || goldTerrain == null)return;
-		terrain.project(projPos,ax+getX(),ay);
+		terrain.project(projPos,ax,ay);
 		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
 		terrain.update();
 		
-		goldTerrain.project(projPos,ax+getX(), ay);
+		goldTerrain.project(projPos,ax, ay);
 		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
 		goldTerrain.update();
 	}
@@ -211,10 +215,10 @@ public class Level extends Group{
 		at = 0;
 		ag = 0;
 		
-		terrain.project(projPos, px+getX(), py);
+		terrain.project(projPos, px, py);
 		at = ( terrain.getPixel(projPos.x, projPos.y));
 		if(at == 0){
-			goldTerrain.project(projPos, px+getX(), py);
+			goldTerrain.project(projPos, px, py);
 			ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 			return ag == 0;
 		}
@@ -225,7 +229,7 @@ public class Level extends Group{
 		int ax = key%4*(Digs.RND.nextBoolean()?1:-1);
 		int ay = key%11-2;
 		
-		goldTerrain.project(projPos, px+getX()+ax, py+ay);
+		goldTerrain.project(projPos, px+ax, py+ay);
 		ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 		if(ag != 0){
 			if(ag == MASK_GOLD){

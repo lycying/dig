@@ -284,9 +284,8 @@ public class StartUpScene extends SceneStage{
 		this.addActor(sound_flag);
 		
 		
-		ParticleEffect e = new ParticleEffect();
-		e.load(Gdx.files.internal("data/startscene.p"), Gdx.files.internal("data/"));
-		ParticleEffectActor p = new ParticleEffectActor(e);
+		ParticleEffect e = Engine.resource("Effect");
+		ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
 		p.setPosition(50, Engine.getHeight());
 		
 		

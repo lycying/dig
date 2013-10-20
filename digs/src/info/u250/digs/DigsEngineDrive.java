@@ -57,6 +57,8 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.music("MusicBattle", "data/music/battle.ogg");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		
+		reg.particleEffect("Effect", "data/startscene.p");
+		
 //		TextureAtlas atlas = Engine.resource("All");
 //		Array<AtlasRegion> appendErArray = new Array<TextureAtlas.AtlasRegion>();
 //		for(AtlasRegion region:atlas.getRegions()){
