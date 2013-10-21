@@ -1,7 +1,7 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.Adagia;
+import info.u250.digs.Proverb;
 import info.u250.digs.Digs;
 import info.u250.digs.scenes.game.entity.Npc;
 
@@ -22,7 +22,7 @@ public class FollowLabel extends Group{
 	public FollowLabel(Level level){
 		this.level = level;
 		final TextureAtlas atlas = Engine.resource("All");
-		label = new Label(Adagia.get(), new LabelStyle(Engine.resource("Font",BitmapFont.class), Color.WHITE));
+		label = new Label(Proverb.get(), new LabelStyle(Engine.resource("Font",BitmapFont.class), Color.WHITE));
 		label.getStyle().background = new NinePatchDrawable(atlas.createPatch("npc-say"));
 		label.pack();
 		this.addActor(label);
@@ -33,7 +33,7 @@ public class FollowLabel extends Group{
 	}
 	
 	void remaker(){
-		label.setText(Adagia.get());
+		label.setText(Proverb.get());
 		label.pack();
 		this.setSize(this.label.getWidth(), this.label.getHeight());
 		this.setOriginX(this.getWidth()/2);

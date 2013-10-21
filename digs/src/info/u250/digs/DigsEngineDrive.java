@@ -15,6 +15,7 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public EngineOptions onSetupEngine() {
 		EngineOptions opt = new EngineOptions(new String[]{"data/",FLAT,FLAT2}, 960, 540);
+		opt.configFile = "info.u250.digs.cfg";
 		opt.useGL20 = true;
 		opt.autoResume = true;
 		opt.catchBackKey = true;
@@ -23,7 +24,6 @@ public class DigsEngineDrive implements EngineDrive {
 	}
 
 	StartUpScene startUpScene = null;
-//	NpcListScene npcListScene = null;
 	LevelScene levelScene = null;
 	GameScene gameScene = null;
 	
@@ -31,7 +31,6 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public void onLoadedResourcesCompleted() {
 		startUpScene = new StartUpScene(this);
-//		npcListScene = new NpcListScene(this);
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
 		
@@ -50,17 +49,18 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.textureAtlas("Cat", "data/heiniu.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
+		reg.particleEffect("Effect", "data/startscene.p");
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
 		
-		reg.music("MusicBackground", "data/music/bg.ogg");
-		reg.music("MusicBattle", "data/music/battle.ogg");
+		reg.music("MusicBackground", "data/music/bg.mp3");
+		reg.music("MusicBattle", "data/music/battle.mp3");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		reg.sound("SoundDie", "data/sounds/die.ogg");
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
 		
-		
+		//sound for NPC say
 		reg.sound("SoundEnv1", "data/sounds/env/wolf-hit-3.ogg");
 		reg.sound("SoundEnv2", "data/sounds/env/megaSplat001.ogg");
 		reg.sound("SoundEnv3", "data/sounds/env/r8_1002.ogg");
@@ -81,23 +81,6 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundEnv18", "data/sounds/env/klocki_normal_01.wav");
 		reg.sound("SoundEnv19", "data/sounds/env/kulka_wybuchowaRemote_02.wav");
 		reg.sound("SoundEnv20", "data/sounds/env/kulki_push_02.wav");
-		
-		reg.particleEffect("Effect", "data/startscene.p");
-		
-//		TextureAtlas atlas = Engine.resource("All");
-//		Array<AtlasRegion> appendErArray = new Array<TextureAtlas.AtlasRegion>();
-//		for(AtlasRegion region:atlas.getRegions()){
-//			if(region.name.contains("right")){
-//				AtlasRegion newItem = new AtlasRegion(region);
-//				newItem.name = region.name.replace("right", "left");
-//				newItem.flip(true, false);
-//				appendErArray.add(newItem);
-//			}
-//		}
-//		for(AtlasRegion region:appendErArray){
-//			atlas.getRegions().add(region);
-//			//System.out.println("create left region :"+region.name);
-//		}
 	}
 
 	public void setToStartUpScene(){

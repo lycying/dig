@@ -171,6 +171,8 @@ public class Level extends Group{
 		}
 		super.act(delta);
 		Npc.DIE_SOUND_CTL += delta;
+		Npc.HURT_SOUND_CTL += delta;
+		Npc.TRANS_SOUND_CTL += delta;
 	}
 	void tick(){
 		for(Npc e : npcs){

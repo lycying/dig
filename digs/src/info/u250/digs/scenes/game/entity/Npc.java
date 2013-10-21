@@ -29,6 +29,8 @@ public class Npc extends Actor {
 	public Sprite drawable = new Sprite();
 	
 	public static float DIE_SOUND_CTL = 0;
+	public static float HURT_SOUND_CTL = 0;
+	public static float TRANS_SOUND_CTL = 0;
 	
 	//the main terrain
 	protected Level level;
@@ -138,9 +140,9 @@ public class Npc extends Actor {
 		case None:break;
 		case Bomb:
 			die();	
-			if(DIE_SOUND_CTL>0.2f){
+			if(HURT_SOUND_CTL>0.2f){
 				Engine.getSoundManager().playSound("SoundHurt");
-				DIE_SOUND_CTL = 0;
+				HURT_SOUND_CTL = 0;
 			}
 			break;
 		case Gold:
@@ -218,9 +220,9 @@ public class Npc extends Actor {
 				x = inout.getRect().x+37;
 				y = inout.getRect().y+20;
 				sync();
-				if(DIE_SOUND_CTL>0.2f){
+				if(TRANS_SOUND_CTL>0.2f){
 					Engine.getSoundManager().playSound("SoundTrans");
-					DIE_SOUND_CTL = 0;
+					TRANS_SOUND_CTL = 0;
 				}
 				this.addAction(Actions.sequence(Actions.moveTo(
 						inout.getTransX()+15+15*Digs.RND.nextFloat(), 

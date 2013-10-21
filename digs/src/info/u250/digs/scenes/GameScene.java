@@ -18,6 +18,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
@@ -132,7 +133,14 @@ public class GameScene extends SceneStage {
 	
 	@Override
 	public void show() {
-		Engine.getMusicManager().playMusic("MusicBattle", true);
+		//delay play the music
+		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				Engine.getMusicManager().playMusic("MusicBattle", true);
+			}
+		})));
+		
 		super.show();
 	}
 	@Override

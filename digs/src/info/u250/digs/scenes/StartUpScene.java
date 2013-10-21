@@ -12,6 +12,7 @@ import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.IO;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.start.Finger;
@@ -231,15 +232,7 @@ public class StartUpScene extends SceneStage{
 		
 		Finger finger = new Finger(atlas.findRegion("finger"), this);
 		this.addActor(finger);
-		
-//		Image water = new Image(atlas.findRegion("water"));
-//		water.setWidth(Engine.getWidth());
-//		water.addAction(Actions.forever(Actions.sequence(
-//				Actions.moveTo(0,-8,0.5f,Interpolation.swingIn),
-//				Actions.moveTo(0,0,0.5f,Interpolation.swingOut)
-//		)));
-//		this.addActor(water);
-		
+	
 		
 		
 		play.addListener(new ClickListener(){
@@ -251,31 +244,28 @@ public class StartUpScene extends SceneStage{
 			}
 		});
 		
-//		play.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 5,0.01f),Actions.moveBy(0, -5,0.01f))));
-		
-		
-//		GreenHat greenHat = new GreenHat();
-//		greenHat.setScale(13);
-//		greenHat.setShowHp(false);
-//		greenHat.setAnimation(greenHat.getGoldAnimationLeft());
-//		greenHat.setPosition(720, 240);
-//		this.addActor(greenHat);
-		
 		
 		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
-		final Image sound_flag = new Image(sound_flag_on); 
-//		Engine.getSoundManager().setVolume(0);
-//		Engine.getMusicManager().setVolume(0);
+		final Image sound_flag ; 
+		if(IO.soundOn()){
+			sound_flag = new Image(sound_flag_on);
+			IO.enableSound();
+		}else{
+			sound_flag = new Image(sound_flag_off);
+			IO.disableSound();
+		}
 		sound_flag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if(sound_flag.getDrawable() == sound_flag_off){
 					sound_flag.setDrawable(sound_flag_on);
 					Engine.getSoundManager().playSound("SoundClick");
+					IO.enableSound();
 				}else{
 					sound_flag.setDrawable(sound_flag_off);
 					Engine.getSoundManager().playSound("SoundClick");
+					IO.disableSound();
 				}
 				super.clicked(event, x, y);
 			}
