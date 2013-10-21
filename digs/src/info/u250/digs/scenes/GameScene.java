@@ -11,6 +11,7 @@ import info.u250.digs.scenes.game.InformationPane;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.PauseDialog;
+import info.u250.digs.scenes.game.WinDialog;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -30,8 +31,10 @@ public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
 	Level level = null;
+	LevelConfig config = null;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
+	WinDialog winDialog;
 	final ScrollPane scroll;
 	public GameScene(DigsEngineDrive drive){
 		this.drive = drive;
@@ -39,6 +42,7 @@ public class GameScene extends SceneStage {
 		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
 		
 		pauseDialog = new PauseDialog(this);
+		winDialog = new WinDialog(this);
 		
 		scroll = new ScrollPane(null);
 		scroll.setStyle(new ScrollPaneStyle(null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider")),null, null));
@@ -89,8 +93,14 @@ public class GameScene extends SceneStage {
 		setupPauseResume();
 		
 	}
-	
+	public void nextLevel(){
+		
+	}
+	public void restart(){
+		configGame(this.config);
+	}
 	public void configGame(LevelConfig config){
+		this.config = config;
 		pauseDialog.remove();
 		if(null!=level){
 			level.dispose();

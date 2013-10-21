@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class GoldDock extends Group{
-	public int number = Digs.RND.nextInt(300)+20;
+	public int number = Digs.RND.nextInt(100)+20;
 	private Rectangle rect = new Rectangle();
 	Image dock;
 	Sprite gold;

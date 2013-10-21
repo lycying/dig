@@ -17,11 +17,13 @@ public class IO {
 		Engine.getPreferences().putString(SOUND_HANDEL, ON);
 		Engine.getPreferences().flush();
 		Engine.getSoundManager().setVolume(1);
+		Engine.getMusicManager().setVolume(1);
 	}
 	public static void disableSound(){
 		Engine.getPreferences().putString(SOUND_HANDEL, OFF);
 		Engine.getPreferences().flush();
 		Engine.getSoundManager().setVolume(0);
+		Engine.getMusicManager().setVolume(0);
 	}
 	//*******************************For SOUND**********************
 	

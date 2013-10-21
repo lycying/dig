@@ -61,7 +61,6 @@ public class Proverb {
 		"His heart was in his boots",
 		"To sleep on it",
 		"To break the ice",
-		"Ship-shape",
 		"To die of laughing",
 		"To have an iron in the fire",
 		"To look a gift horse in the mouth",
