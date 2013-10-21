@@ -62,13 +62,13 @@ public class FollowLabel extends Group{
 			this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15);
 		}else{
 			npc = level.getRandomNpc();
-			npc.velocity = 16;
+			if(null != npc)npc.velocity = 16;
 		}
 		super.act(delta);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if(this.getColor().a != 0)super.draw(batch, parentAlpha);
+		if(this.getColor().a != 0 && null!=npc && npc.getParent()!=null)super.draw(batch, parentAlpha);
 	}
 }

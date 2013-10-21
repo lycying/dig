@@ -28,6 +28,8 @@ public class Npc extends Actor {
 	private boolean isHoldGold = false;
 	public Sprite drawable = new Sprite();
 	
+	public static float DIE_SOUND_CTL = 0;
+	
 	//the main terrain
 	protected Level level;
 	public Npc(){
@@ -135,8 +137,11 @@ public class Npc extends Actor {
 		switch(level.tryDig(isHoldGold)){
 		case None:break;
 		case Bomb:
-			die();
-			Engine.getSoundManager().playSound("SoundHurt");
+			die();	
+			if(DIE_SOUND_CTL>0.2f){
+				Engine.getSoundManager().playSound("SoundHurt");
+				DIE_SOUND_CTL = 0;
+			}
 			break;
 		case Gold:
 			isHoldGold = true;
@@ -213,6 +218,10 @@ public class Npc extends Actor {
 				x = inout.getRect().x+37;
 				y = inout.getRect().y+20;
 				sync();
+				if(DIE_SOUND_CTL>0.2f){
+					Engine.getSoundManager().playSound("SoundTrans");
+					DIE_SOUND_CTL = 0;
+				}
 				this.addAction(Actions.sequence(Actions.moveTo(
 						inout.getTransX()+15+15*Digs.RND.nextFloat(), 
 						inout.getTransY()+15+15*Digs.RND.nextFloat(),
@@ -236,7 +245,10 @@ public class Npc extends Actor {
 		for(KillCircle kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
-				Engine.getSoundManager().playSound("SoundDie");
+				if(DIE_SOUND_CTL>0.2f){
+					Engine.getSoundManager().playSound("SoundDie");
+					DIE_SOUND_CTL = 0;
+				}
 				return true;
 			}
 		}

@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class GoldDock extends Group{
-	public int number = 300;
+	public int number = Digs.RND.nextInt(300)+20;
 	private Rectangle rect = new Rectangle();
 	Image dock;
 	Sprite gold;

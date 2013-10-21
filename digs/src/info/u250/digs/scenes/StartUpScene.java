@@ -266,7 +266,7 @@ public class StartUpScene extends SceneStage{
 		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
 		final Image sound_flag = new Image(sound_flag_on); 
 //		Engine.getSoundManager().setVolume(0);
-		Engine.getMusicManager().setVolume(0);
+//		Engine.getMusicManager().setVolume(0);
 		sound_flag.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
