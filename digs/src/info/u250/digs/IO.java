@@ -39,4 +39,17 @@ public class IO {
 		Engine.getPreferences().flush();
 	}
 	//*******************************For COIN***********************
+	
+	
+	//*******************************For Level**********************
+	private static final String LEVEL_HANDEL = Base64.encode("info.u250.dig._level".getBytes());
+	
+	public static int getLevel(){
+		return Engine.getPreferences().getInteger(LEVEL_HANDEL);
+	}
+	public static void saveLevel(int level){
+		Engine.getPreferences().putInteger(LEVEL_HANDEL, level);
+		Engine.getPreferences().flush();
+	}
+	//*******************************For Level**********************
 }

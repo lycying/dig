@@ -12,6 +12,7 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.PauseDialog;
 import info.u250.digs.scenes.game.WinDialog;
+import info.u250.digs.scenes.level.LevelIdx;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -31,7 +32,7 @@ public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	SimpleMeshBackground meshBackground ;
 	Level level = null;
-	LevelConfig config = null;
+	int levelIndex = 0;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
 	WinDialog winDialog;
@@ -97,10 +98,13 @@ public class GameScene extends SceneStage {
 		
 	}
 	public void restart(){
-		configGame(this.config);
+		startLevel(this.levelIndex);
 	}
-	public void configGame(LevelConfig config){
-		this.config = config;
+	public void startLevel(int level){
+		this.levelIndex = level;
+		configGame(LevelIdx.getLevelConfig(level));
+	}
+	private void configGame(LevelConfig config){
 		pauseDialog.remove();
 		if(null!=level){
 			level.dispose();

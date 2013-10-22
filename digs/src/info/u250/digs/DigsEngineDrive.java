@@ -46,10 +46,9 @@ public class DigsEngineDrive implements EngineDrive {
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("All", "data/all.atlas");
 		reg.textureAtlas("Texs", "data/texs.atlas");
-		reg.textureAtlas("Cat", "data/heiniu.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
-		reg.particleEffect("Effect", "data/startscene.p");
+		reg.particleEffect("Effect", "data/p.p");
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
 		

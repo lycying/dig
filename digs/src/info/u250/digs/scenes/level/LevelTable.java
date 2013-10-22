@@ -4,7 +4,7 @@ import info.u250.digs.scenes.LevelScene;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-public class LevelMaker {
+public class LevelTable {
 	public static void levelMaker(LevelScene lvlSce,Table levelTable){
 		
 		{LevelItemTable item = new LevelItemTable(lvlSce,1,"Rookie Training Ground");

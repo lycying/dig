@@ -3,14 +3,8 @@ package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
-import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.DigsEngineDrive;
-import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.level.Level1_tour1;
-import info.u250.digs.scenes.level.Level2_tour2;
-import info.u250.digs.scenes.level.Level3_tour3;
-import info.u250.digs.scenes.level.Level4_tour4;
-import info.u250.digs.scenes.level.LevelMaker;
+import info.u250.digs.scenes.level.LevelTable;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -44,7 +38,7 @@ public class LevelScene extends SceneStage {
 		decoTable.setPosition(20,2);
 		
 		Table levelTable = new Table(); 
-		LevelMaker.levelMaker(this, levelTable);
+		LevelTable.levelMaker(this, levelTable);
 		levelTable.pack();
 		
 		final ScrollPane levelPanel = new ScrollPane(levelTable);
@@ -77,29 +71,7 @@ public class LevelScene extends SceneStage {
 		this.addActor(decoTable);
 	}
 	public void startLevel(int level){
-		LevelConfig config = null;
-		switch(level){
-		case 1:
-			config = new Level1_tour1();
-			break;
-		case 2:
-			config = new Level2_tour2();
-			break;
-		case 3:
-			config = new Level3_tour3();
-			break;
-		case 4:
-			config = new Level4_tour4();
-			break;
-		default:
-			config = new LevelConfig();
-			config.bottomColor = WebColors.BLACK.get();
-			config.topColor = WebColors.CADET_BLUE.get();
-			config.lineHeight = 380;
-			break;
-		}
-		
-		this.drive.getGameScene().configGame(config);
+		this.drive.getGameScene().startLevel(level);
 		this.drive.setToGameScene();
 	}
 	@Override

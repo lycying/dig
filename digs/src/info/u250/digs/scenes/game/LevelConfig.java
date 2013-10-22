@@ -22,7 +22,7 @@ public class LevelConfig {
 	public Color topColor = null;
 	
 	public int width = 2048;
-	public int height = 512;
+	public int height = (int)Engine.getHeight();
 	
 	public int lineHeight = 450;
 	public int segment = 8;

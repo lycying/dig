@@ -23,7 +23,7 @@ public class LevelItemTable extends  Group{
 		bg.setColor(new Color(160f/255f,179f/255f,177f/255f,1));
 		bg.setSize(this.getWidth(), this.getHeight());
 		
-		Label title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.BLACK));
+		Label title = new Label(level+":"+levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.BLACK));
 		title.setPosition(100, 20);
 		Image icon = new Image(texs.getRegions().get(level));
 		icon.setPosition(5.5f, 2.5f);

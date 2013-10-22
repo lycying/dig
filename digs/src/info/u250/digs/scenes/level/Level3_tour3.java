@@ -19,11 +19,11 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Level3_tour3 extends LevelConfig {
+class Level3_tour3 extends LevelConfig {
 	public Level3_tour3(){
 		this.surface = "texs/Leather.jpg";
 		this.width = (int)Engine.getWidth();
-		this.height = 512;
+		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.DODGER_BLUE.get();
 		this.lineHeight = 300;

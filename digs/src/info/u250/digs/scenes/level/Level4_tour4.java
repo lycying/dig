@@ -17,11 +17,11 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
 
-public class Level4_tour4 extends LevelConfig {
+class Level4_tour4 extends LevelConfig {
 	public Level4_tour4(){
 		this.surface = "texs/green058.jpg";
 		this.width = (int)Engine.getWidth();
-		this.height = 512;
+		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.KHAKI.get();
 		this.lineHeight = 300;
