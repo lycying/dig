@@ -4,6 +4,7 @@ import info.u250.c2d.engine.CoreProvider.TransitionType;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.resources.AliasResourceManager;
+import info.u250.digs.scenes.AboutScene;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.StartUpScene;
@@ -25,6 +26,7 @@ public class DigsEngineDrive implements EngineDrive {
 
 	StartUpScene startUpScene = null;
 	LevelScene levelScene = null;
+	AboutScene aboutScene = null;
 	GameScene gameScene = null;
 	
 	
@@ -33,6 +35,7 @@ public class DigsEngineDrive implements EngineDrive {
 		startUpScene = new StartUpScene(this);
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
+		aboutScene = new AboutScene();
 		
 		Engine.setMainScene(startUpScene);
 	}
@@ -84,6 +87,10 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundEnv18", "data/sounds/env/klocki_normal_01.wav");
 		reg.sound("SoundEnv19", "data/sounds/env/kulka_wybuchowaRemote_02.wav");
 		reg.sound("SoundEnv20", "data/sounds/env/kulki_push_02.wav");
+		reg.sound("SoundEnv21", "data/sounds/env/lingo1.ogg");
+		reg.sound("SoundEnv22", "data/sounds/env/lingo2.ogg");
+		reg.sound("SoundEnv23", "data/sounds/env/lingo3.ogg");
+		reg.sound("SoundEnv24", "data/sounds/env/lingo4.ogg");
 	}
 
 	public void setToStartUpScene(){

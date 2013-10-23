@@ -114,8 +114,12 @@ public class Npc extends Actor {
 						}
 					}
 					if (Digs.RND.nextInt(hit ? 10 : 8000) == 0) {
-						if(!isHoldGold){//if hold gold , not change its direction
+						if(hit){
 							direction *= -1;
+						}else{
+							if(!isHoldGold){//if hold gold , not change its direction
+								direction *= -1;
+							}
 						}
 						if(Digs.RND.nextInt(3)!=0)velocity = 16;
 					}

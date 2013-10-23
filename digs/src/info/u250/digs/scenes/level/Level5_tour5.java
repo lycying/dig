@@ -58,13 +58,16 @@ class Level5_tour5 extends LevelConfig {
 				ParticleEffect e = Engine.resource("Effect");
 				ParticleEffectActor p = new ParticleEffectActor(e,"salut"){
 					float accum = 0;
+					float delay = 1;
 					@Override
 					public void act(float delta) {
 						accum += delta;
-						if(accum>=1f){
-							accum-=1f;
+						if(accum>=delay){
+							accum = 0;
 							setPosition(Digs.RND.nextFloat()*Engine.getWidth(), 300+150*Digs.RND.nextFloat());
+							delay = Digs.RND.nextFloat()*2+0.5f;
 							Engine.getSoundManager().playSound("SoundLvl5Bang");
+							this.getEmitter().start();
 						}
 						super.act(delta);
 					}
