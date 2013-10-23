@@ -6,9 +6,9 @@ import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.entity.GoldDock;
-import info.u250.digs.scenes.game.entity.InOutTrans;
-import info.u250.digs.scenes.game.entity.KillCircle;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
@@ -32,16 +32,16 @@ class Level4_tour4 extends LevelConfig {
 			@Override
 			public void after(Level level) {
 				{
-				KillCircle ray = new KillCircle(400, 150, 100,Color.BLUE);
+				KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.BLUE);
 				level.addKillCircle(ray);
 				}
 				
 				{
-					KillCircle ray = new KillCircle(300, 200, 150,Color.WHITE);
+					KillCircleEntity ray = new KillCircleEntity(300, 200, 150,Color.WHITE);
 					level.addKillCircle(ray);
 					}
 				{
-					KillCircle ray = new KillCircle(350, 180, 50,Color.PINK);
+					KillCircleEntity ray = new KillCircleEntity(350, 180, 50,Color.PINK);
 					level.addKillCircle(ray);
 					}
 				
@@ -52,7 +52,7 @@ class Level4_tour4 extends LevelConfig {
 					level.addNpc(e);
 				}
 				
-				InOutTrans inout = new InOutTrans(150,250,700,500);
+				TeleportEntity inout = new TeleportEntity(150,250,700,500);
 				level.addInOutTrans(inout);
 				
 				ParticleEffect e = Engine.resource("Effect");
@@ -72,7 +72,7 @@ class Level4_tour4 extends LevelConfig {
 
 			@Override
 			public void before(Level level) {
-				GoldDock dock = new GoldDock();
+				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
 			}

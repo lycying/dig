@@ -7,11 +7,11 @@ import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.digs.DigsEngineDrive;
-import info.u250.digs.scenes.game.InformationPane;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.PauseDialog;
-import info.u250.digs.scenes.game.WinDialog;
+import info.u250.digs.scenes.game.dialog.InformationPane;
+import info.u250.digs.scenes.game.dialog.PauseDialog;
+import info.u250.digs.scenes.game.dialog.WinDialog;
 import info.u250.digs.scenes.level.LevelIdx;
 
 import com.badlogic.gdx.Application.ApplicationType;

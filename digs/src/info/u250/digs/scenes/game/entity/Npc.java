@@ -52,10 +52,7 @@ public class Npc extends Actor {
 		npcGoldRegions[2] = atlas.findRegion("npc-gold3");
 		npcGoldRegions[3] = atlas.findRegion("npc-gold4");
 		
-		regions = npcRegions;
-//		this.setColor(generateColor());
-		
-		
+		regions = npcRegions;		
 	}
 	
 	
@@ -71,18 +68,19 @@ public class Npc extends Actor {
 	public void tick(){
 		if(null == level)return ;
 		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-		x = this.getX();
-		y = this.getY();
+		x = this.getX(); //got it x
+		y = this.getY(); //got it y
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
 		
-		if(userDefAction()) return;
-		if(tryKillRay()) return;
-		if(tryTransPort()) return;
-		if(tryClampLadder()) return;
+		if(userDefAction()) return;	//when the addActions run , block everything until the action done
+		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
+		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
+		if(tryClampLadder()) return;//if the npc touch the clamp ladder , then go with the logic
 		
-		if (velocity > 1) { // when the NPC is jumping
-			if (level.tryMove(x+direction, y + velocity / 4)) {
+		// when the NPC is jumping
+		if (velocity > 1) { 
+			if (level.tryMove(x+direction, y + velocity / 4)) { // if he can jump to the position then sub the direction
 				x += direction;
 				y += velocity / 4;
 				velocity--;
@@ -92,18 +90,21 @@ public class Npc extends Actor {
 				velocity = 0;
 			}
 		} else {
-			if (level.tryMove(x, y-1)) {
+			//try move down 
+			if (level.tryMove(x , y-1)) {
 				y--;
-				if (level.tryMove(x, y-1)) {
+				//move down again
+				if (level.tryMove(x , y-1)) {
 					y--;
 				}
 				velocity = 0;
 			} else	{
+				//try move up , the npc can clamp as high as 5 pixels
 				if (Digs.RND.nextInt(10) != 0) {
 					// Assume the miner has hit a wall
 					boolean hit = true;
-					for (int p = 1; p <= 4; p++) {
-						if (level.tryMove(x+direction, y+p)) {
+					for (int p = 1; p <= 5; p++) { //try higher until 5, this makes the npc clamp quickly 
+						if (level.tryMove(x+direction, y+p)) { //clamp and stop this time
 							x += direction;
 							y += p;
 							hit = false;
@@ -112,13 +113,11 @@ public class Npc extends Actor {
 							break;
 						}
 					}
-					if (Digs.RND.nextInt(hit ? 10 : 4000) == 0) {
-						direction *= -1;
-						if (hit) {
-							if(Digs.RND.nextInt(3)!=0)velocity = 16;
-						}else{
-							if(Digs.RND.nextInt(3)==0)velocity = 16;
+					if (Digs.RND.nextInt(hit ? 10 : 8000) == 0) {
+						if(!isHoldGold){//if hold gold , not change its direction
+							direction *= -1;
 						}
+						if(Digs.RND.nextInt(3)!=0)velocity = 16;
 					}
 				}
 			}
@@ -154,7 +153,7 @@ public class Npc extends Actor {
 		if(direction<0)drawable.flip(true, false);
 	}
 	void tryGoldDock(){
-		for(GoldDock dock:level.getDocks()){
+		for(GoldTowerEntity dock:level.getDocks()){
 			if(this.drawable.getBoundingRectangle().overlaps(dock.getRect())){
 				isHoldGold = false;
 				this.direction *= -1;
@@ -169,7 +168,7 @@ public class Npc extends Actor {
 		}
 	}
 	boolean tryClampLadder(){
-		for(Stepladder ladder:level.getLadders()){
+		for(StepladderEntity ladder:level.getLadders()){
 			if(ladder.getRect().contains(x, y)){
 				if(y>ladder.getRect().y+ladder.getRect().height-10){
 					if(velocity==-1){
@@ -208,7 +207,7 @@ public class Npc extends Actor {
 		return false;
 	}
 	boolean tryTransPort(){		
-		for(final InOutTrans inout:level.getInouts()){
+		for(final TeleportEntity inout:level.getInouts()){
 			if(inout.getRect().contains(x,y)){
 				x = inout.getRect().x+37;
 				y = inout.getRect().y+20;
@@ -228,7 +227,6 @@ public class Npc extends Actor {
 				})));
 				if(!inout.isClear()){
 					inout.setClear(true);
-//					level.clearTransPort(inout.getX()+5, inout.getY(), 30);
 					level.clearTransPort(inout.getTransX()+5, inout.getTransY()+40-5, 30);
 				}
 				return true;
@@ -237,7 +235,7 @@ public class Npc extends Actor {
 		return false;
 	}
 	boolean tryKillRay(){
-		for(KillCircle kill:level.getKillrays()){
+		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
 				if(DIE_SOUND_CTL>0.2f){

@@ -4,11 +4,11 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.GameScene;
-import info.u250.digs.scenes.game.entity.GoldDock;
-import info.u250.digs.scenes.game.entity.InOutTrans;
-import info.u250.digs.scenes.game.entity.KillCircle;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.game.entity.Stepladder;
+import info.u250.digs.scenes.game.entity.StepladderEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -23,42 +23,58 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
+	/**
+	 * when the npc walks , it check the area surrounds it to determine 
+	 * if it hit the gold or the bomb .
+	 * We need the result to give some effect and logic to the npc so it is.
+	 */
 	public enum DigResult{
 		None,
 		Gold,
 		Bomb,
 	}
-	public final Array<Npc> npcs = new Array<Npc>();
-	private final Array<GoldDock> docks = new Array<GoldDock>();
-	private final Array<InOutTrans> inouts = new Array<InOutTrans>();
-	private final Array<Stepladder> ladders = new Array<Stepladder>();
-	private final Array<KillCircle> killrays = new Array<KillCircle>();
-
 	
+
+	/*===================Bellow is the entity we must control it =========*/
+	private final Array<Npc> npcs = new Array<Npc>();
+	private final Array<GoldTowerEntity> docks = new Array<GoldTowerEntity>();
+	private final Array<TeleportEntity> inouts = new Array<TeleportEntity>();
+	private final Array<StepladderEntity> ladders = new Array<StepladderEntity>();
+	private final Array<KillCircleEntity> killrays = new Array<KillCircleEntity>();
+	/*===================Bellow is the entity we must control it =========*/
+	
+	/*===================For level draw ==================================*/
 	private final static Color FILL_COLOR = new Color(199/255f,140/255f,50f/255,1.0f);
 	public  final static float RADIUS = 4;
-	private final Vector2 projPos = new Vector2();
-	private final Vector2 prePos = new Vector2();
-	private final Vector2 calPos = new Vector2();
+	/*===================For level draw ==================================*/
+	
+	private final Vector2 projPos = new Vector2(); // for pixmap to screen coors
+	private final Vector2 prePos = new Vector2();  // for touch event position
 	
 	private GameScene game = null;
 	private LevelConfig config = null;
 	private PixmapHelper terrain = null;
 	private PixmapHelper goldTerrain = null;
-	private LevelActor levelActor = null;
+	private LevelActor levelActor = null; // Note : this is use to put the terrain to the center of the drawing
 	
+	/* if it is the fill mode currently */
 	private boolean fillMode = false;
+	
+	/* the bellow two attribute is used to load the map async */
 	private boolean mapMaking = true;
 	private boolean mapTexturing = false;
 	
+	/* for tick , the duration is {@link Level#ACC} */
 	float accum = 0;
 	final static float ACC = 1.0f / 60.0f;
 	
-	final static int MASK_CLEAR = 0;
-	final static int MASK_GOLD  = -65281;
-	final static int MASK_BOMB = 16777215;
+	/* some mask to cal quickly */
+	final static int MASK_CLEAR = 0; //clear color
+	final static int MASK_GOLD  = -65281;//yellow
+	final static int MASK_BOMB = 16777215;//cyan
 	
-	private Pixmap[] pip ;
+	private Pixmap[] pip ; // temp attribute to recive the mapmaker results
+	
 	//fix the multi finger press 
 	private InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
@@ -142,7 +158,7 @@ public class Level extends Group{
 			}
 		});
 	}
-	
+	// loading.....................................
 	void drawLoading(SpriteBatch batch){
 		batch.setColor(new Color(1,1,1,.5f));
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
@@ -163,42 +179,48 @@ public class Level extends Group{
 		}
 		super.draw(batch, parentAlpha);
 	}
+	
+	/* if we arrived the win status */
 	int goldNumber = 0;
 	void fingerWinStatus(){
 		if(null == game) return;
 		goldNumber = 0;
-		for(GoldDock dock:this.docks){
+		for(GoldTowerEntity dock:this.docks){
 			goldNumber+=dock.getNumber();
 		}
 		if(goldNumber>=config.aim){
 			this.game.win(config.idx, goldNumber, 50, 30, 56);//TODO
 		}
 	}
+
 	@Override
 	public void act(float delta) {
 		fingerWinStatus();
 		if(!mapMaking && !mapTexturing){
 			accum += delta;
 			while (accum >= ACC) {
-				this.tick();
+				//OK, tick it
+				for(final Npc e : npcs){
+					e.tick();
+				}
 				accum -= ACC;
 			}
 		}
 		super.act(delta);
+		
+		//in order to play the sound more accepted
 		Npc.DIE_SOUND_CTL += delta;
 		Npc.COIN_SOUND_CTL += delta;
 		Npc.HURT_SOUND_CTL += delta;
 		Npc.TRANS_SOUND_CTL += delta;
 	}
-	void tick(){
-		for(Npc e : npcs){
-			e.tick();
-		}
-	}
+	/* when the phone switch to another app and resume it , we must reload it */
 	public void reload(){
 		if(null!=terrain)terrain.reload();
 		if(null!=goldTerrain)goldTerrain.reload();
 	}
+	
+	/* fetch gold , 4 pixels */
 	void dig(final float radius,float ax,float ay){
 		if(terrain == null || goldTerrain == null)return;
 		terrain.project(projPos,ax,ay);
@@ -209,24 +231,28 @@ public class Level extends Group{
 		goldTerrain.eraseCircle(projPos.x ,projPos.y , radius);
 		goldTerrain.update();
 	}
+	/* clear or fill terrain */
 	public void fillTerrain(float x,float y,final float radius,boolean isFillMode){
 		if(terrain == null )return;
 		x += getX();
-		terrain.project(calPos, x, y);
+		terrain.project(projPos, x, y);
 		if(isFillMode){
-			terrain.eraseCircle(calPos.x, calPos.y, radius, FILL_COLOR);
+			terrain.eraseCircle(projPos.x, projPos.y, radius, FILL_COLOR);
 		}else{
-			terrain.eraseCircle(calPos.x, calPos.y, radius ,Color.CLEAR);
+			terrain.eraseCircle(projPos.x, projPos.y, radius ,Color.CLEAR);
 		}
 		terrain.update();
 	}
+	/* remvoe a rect of the transport aim in order to store the npcs */
 	public void clearTransPort(float x,float y,final float radius){
 		if(terrain == null )return;
 		x += getX();
-		terrain.project(calPos, x, y);
-		terrain.eraseRectangle(calPos.x, calPos.y, radius ,Color.CLEAR);
+		terrain.project(projPos, x, y);
+		terrain.eraseRectangle(projPos.x, projPos.y, radius ,Color.CLEAR);
 		terrain.update();
 	}
+	
+	//wow,wow, try try try
 	int at=0,ag=0;
 	float px , py;
 	public boolean tryMove(float ax,float ay){
@@ -244,6 +270,8 @@ public class Level extends Group{
 		}
 		return false;
 	}
+	
+	//try dig with a dig result 
 	public DigResult tryDig(boolean holdGold){
 		int key = Digs.RND.nextInt(4*11);
 		int ax = key%4*(Digs.RND.nextBoolean()?1:-1);
@@ -271,19 +299,19 @@ public class Level extends Group{
 	public void setFillMode(boolean fillMode) {
 		this.fillMode = fillMode;
 	}
-	public Array<GoldDock> getDocks() {
+	public Array<GoldTowerEntity> getDocks() {
 		return docks;
 	}
-	public Array<InOutTrans> getInouts() {
+	public Array<TeleportEntity> getInouts() {
 		return inouts;
 	}
-	public Array<Stepladder> getLadders() {
+	public Array<StepladderEntity> getLadders() {
 		return ladders;
 	}
-	public Array<KillCircle> getKillrays() {
+	public Array<KillCircleEntity> getKillrays() {
 		return killrays;
 	}
-	public void addGoldDock(GoldDock dock){
+	public void addGoldDock(GoldTowerEntity dock){
 		this.docks.add(dock);
 		this.addActor(dock);
 	}
@@ -295,15 +323,15 @@ public class Level extends Group{
 		this.npcs.removeValue(npc, true);
 		npc.remove();
 	}
-	public void addInOutTrans(InOutTrans inout){
+	public void addInOutTrans(TeleportEntity inout){
 		this.inouts.add(inout);
 		this.addActor(inout);
 	}
-	public void addStepladder(Stepladder ladder){
+	public void addStepladder(StepladderEntity ladder){
 		this.ladders.add(ladder);
 		this.addActor(ladder);
 	}
-	public void addKillCircle(KillCircle kill){
+	public void addKillCircle(KillCircleEntity kill){
 		this.killrays.add(kill);
 		this.addActor(kill);
 	}
@@ -311,7 +339,7 @@ public class Level extends Group{
 		if(this.npcs.size<1)return null;
 		return this.npcs.get(Digs.RND.nextInt(this.npcs.size));
 	}
-	
+	/* dispose everything to clear the memory */
 	public void dispose(){
 		if(null!=goldTerrain)goldTerrain.dispose();
 		if(null!=terrain)terrain.dispose();

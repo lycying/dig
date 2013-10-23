@@ -6,7 +6,7 @@ import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.entity.GoldDock;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
@@ -55,7 +55,7 @@ class Level2_tour2 extends LevelConfig {
 				p.setPosition(0, Engine.getHeight());
 				level.addActor(p);
 				
-				GoldDock dock = new GoldDock();
+				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
 			}

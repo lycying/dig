@@ -8,8 +8,8 @@ import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.entity.GoldDock;
-import info.u250.digs.scenes.game.entity.KillCircle;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 
 import com.badlogic.gdx.graphics.Color;
@@ -38,7 +38,7 @@ class Level3_tour3 extends LevelConfig {
 				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
 				level.addActor(pbg);
 				
-				GoldDock dock = new GoldDock();
+				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
 			}
@@ -55,7 +55,7 @@ class Level3_tour3 extends LevelConfig {
 			@Override
 			public void after(Level level) {
 				
-				KillCircle ray = new KillCircle(400, 150, 100,Color.WHITE);
+				KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.WHITE);
 				level.addKillCircle(ray);
 				
 				for(int i=0;i<5;i++){

@@ -6,10 +6,10 @@ import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.entity.GoldDock;
-import info.u250.digs.scenes.game.entity.KillCircle;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.game.entity.Stepladder;
+import info.u250.digs.scenes.game.entity.StepladderEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -30,19 +30,19 @@ class Level6_tour6 extends LevelConfig {
 			@Override
 			public void after(Level level) {
 				{
-					Stepladder ladder = new Stepladder(20, 200,50);
+					StepladderEntity ladder = new StepladderEntity(20, 200,50);
 					level.addStepladder(ladder);
 				}
 				{
-					Stepladder ladder = new Stepladder(12, 300,150);
+					StepladderEntity ladder = new StepladderEntity(12, 300,150);
 					level.addStepladder(ladder);
 				}
 				{
-					Stepladder ladder = new Stepladder(4, 400, 250);
+					StepladderEntity ladder = new StepladderEntity(4, 400, 250);
 					level.addStepladder(ladder);
 				}
 				
-				KillCircle kill = new KillCircle(500, 200, 100, Color.WHITE);
+				KillCircleEntity kill = new KillCircleEntity(500, 200, 100, Color.WHITE);
 				level.addKillCircle(kill);
 				
 				for(int i=0;i<10;i++){
@@ -64,7 +64,7 @@ class Level6_tour6 extends LevelConfig {
 
 			@Override
 			public void before(Level level) {
-				GoldDock dock = new GoldDock();
+				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
 			}

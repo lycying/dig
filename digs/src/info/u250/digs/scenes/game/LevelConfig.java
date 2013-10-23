@@ -2,11 +2,11 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.entity.GoldDock;
-import info.u250.digs.scenes.game.entity.InOutTrans;
-import info.u250.digs.scenes.game.entity.KillCircle;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.game.entity.Stepladder;
+import info.u250.digs.scenes.game.entity.StepladderEntity;
 
 import java.util.Random;
 
@@ -33,16 +33,16 @@ public class LevelConfig {
 		Random random = new Random();
 		@Override
 		public void after(Level level) {
-			KillCircle ray = new KillCircle(550, 50, 100,Color.WHITE);
+			KillCircleEntity ray = new KillCircleEntity(550, 50, 100,Color.WHITE);
 			level.addKillCircle(ray);
-			KillCircle ray2 = new KillCircle(300, 0,50,Color.BLUE);
+			KillCircleEntity ray2 = new KillCircleEntity(300, 0,50,Color.BLUE);
 			level.addKillCircle(ray2);
-			KillCircle ray3 = new KillCircle(100, 0,76,Color.GREEN);
+			KillCircleEntity ray3 = new KillCircleEntity(100, 0,76,Color.GREEN);
 			level.addKillCircle(ray3);
-			KillCircle ray4 = new KillCircle(800, -20,88,Color.CYAN);
+			KillCircleEntity ray4 = new KillCircleEntity(800, -20,88,Color.CYAN);
 			level.addKillCircle(ray4);
 			
-			Stepladder ladder = new Stepladder(15, 200,100);
+			StepladderEntity ladder = new StepladderEntity(15, 200,100);
 			level.addStepladder(ladder);
 			
 			for(int i=0;i<200;i++){
@@ -52,7 +52,7 @@ public class LevelConfig {
 				level.addNpc(e);
 			}
 			
-			InOutTrans inout = new InOutTrans(300,150,500,250);
+			TeleportEntity inout = new TeleportEntity(300,150,500,250);
 			level.addInOutTrans(inout);
 			
 		}
@@ -74,7 +74,7 @@ public class LevelConfig {
 
 		@Override
 		public void before(Level level) {
-			GoldDock dock = new GoldDock();
+			GoldTowerEntity dock = new GoldTowerEntity();
 			dock.setY(LevelConfig.this.lineHeight);
 			level.addGoldDock(dock);
 		}
