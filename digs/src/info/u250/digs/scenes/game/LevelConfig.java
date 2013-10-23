@@ -17,6 +17,8 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.ShortArray;
 
 public class LevelConfig {
+	public int aim = 10;
+	public int idx = 1;
 	public String surface = "texs/brown096.jpg";
 	public Color bottomColor = null;
 	public Color topColor = null;

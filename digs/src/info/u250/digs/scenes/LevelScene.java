@@ -52,21 +52,6 @@ public class LevelScene extends SceneStage {
 		levelPanel.setOverscroll(true, true);
 		levelPanel.setScrollbarsOnTop(false);
 		levelPanel.setX(220);
-		
-		
-//		Image rightImage = new Image(atlas.findRegion("promo_fd"))
-//		{
-//			@Override
-//			public void act(float delta) {
-//				this.setColor(new Color((0+levelPanel.getScrollPercentY()*150)/255f,
-//						(200-levelPanel.getScrollPercentY()*200)/255f,0/255f,
-//						(55+levelPanel.getScrollPercentY()*200f)/255f));
-//				super.act(delta);
-//			}
-//		};
-//		rightImage.setSize(225, Engine.getHeight());
-//		rightImage.setX(10);
-//		this.addActor(rightImage);
 		this.addActor(levelPanel);
 		this.addActor(decoTable);
 	}

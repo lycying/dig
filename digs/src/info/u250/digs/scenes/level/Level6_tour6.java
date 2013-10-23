@@ -37,6 +37,10 @@ class Level6_tour6 extends LevelConfig {
 					Stepladder ladder = new Stepladder(12, 300,150);
 					level.addStepladder(ladder);
 				}
+				{
+					Stepladder ladder = new Stepladder(4, 400, 250);
+					level.addStepladder(ladder);
+				}
 				
 				KillCircle kill = new KillCircle(500, 200, 100, Color.WHITE);
 				level.addKillCircle(kill);

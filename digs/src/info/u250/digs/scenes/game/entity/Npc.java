@@ -31,6 +31,7 @@ public class Npc extends Actor {
 	public static float DIE_SOUND_CTL = 0;
 	public static float HURT_SOUND_CTL = 0;
 	public static float TRANS_SOUND_CTL = 0;
+	public static float COIN_SOUND_CTL = 0;
 	
 	//the main terrain
 	protected Level level;
@@ -57,18 +58,6 @@ public class Npc extends Actor {
 		
 	}
 	
-	Color generateColor() {
-	    final int threshold = 150;
-	    int r1, g1, b1;
-	    while (true) {
-	        r1 = Digs.RND.nextInt(256);
-	        g1 = Digs.RND.nextInt(256);
-	        b1 = Digs.RND.nextInt(256);
-	        if (r1+g1+b1 > threshold) break;
-	    }
-	    Color c =  new Color(r1/255f, g1/255f, b1/255f,1);
-	    return c;
-	}
 	
 	public void init(Level terrain){
 		this.level = terrain;
@@ -171,6 +160,10 @@ public class Npc extends Actor {
 				this.direction *= -1;
 				dock.number++;
 				regions = npcRegions;
+				if(COIN_SOUND_CTL>0.2f){
+					Engine.getSoundManager().playSound("SoundCoin");
+					COIN_SOUND_CTL = 0;
+				}
 				break;
 			}
 		}

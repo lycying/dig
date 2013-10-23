@@ -95,7 +95,7 @@ public class GameScene extends SceneStage {
 		
 	}
 	public void nextLevel(){
-		
+		startLevel(this.levelIndex+1);
 	}
 	public void restart(){
 		startLevel(this.levelIndex);
@@ -105,12 +105,14 @@ public class GameScene extends SceneStage {
 		configGame(LevelIdx.getLevelConfig(level));
 	}
 	private void configGame(LevelConfig config){
+		config.idx = levelIndex;//remark it
 		pauseDialog.remove();
+		winDialog.remove();
 		if(null!=level){
 			level.dispose();
 		}
 		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
-		level = new Level(config);
+		level = new Level(this,config);
 		scroll.setWidget(level);
 	} 
 	public void setupPauseResume(){
@@ -135,10 +137,17 @@ public class GameScene extends SceneStage {
 
 	}
 	void pauseGame(){
+		if(this.getActors().contains(this.winDialog, true)) return;
 		addActor(pauseDialog);
 		Engine.doPause();
 	}
-	
+	public void win(int levelIdx,int gold,int npc,int npcDead,int time){
+		Engine.doPause();
+		Engine.getMusicManager().stopMusic("MusicBattle");
+		Engine.getSoundManager().playSound("SoundWin");
+		addActor(winDialog);
+		winDialog.show(levelIdx, gold, npc, npcDead, time);
+	}
 	@Override
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
@@ -168,8 +177,10 @@ public class GameScene extends SceneStage {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
 				if(Engine.isPause()){
-					Engine.doResume();
-					pauseDialog.close();
+					if(this.getActors().contains(this.winDialog, true)) {}else{
+						Engine.doResume();
+						pauseDialog.close();
+					}
 				}else{
 					pauseGame();
 				}
@@ -177,8 +188,10 @@ public class GameScene extends SceneStage {
 		} else {
 			if (keycode == Keys.DEL) {
 				if(Engine.isPause()){
-					Engine.doResume();
-					pauseDialog.close();
+					if(this.getActors().contains(this.winDialog, true)) {}else{
+						Engine.doResume();
+						pauseDialog.close();
+					}
 				}else{
 					pauseGame();
 				}

@@ -29,21 +29,28 @@ class Level5_tour5 extends LevelConfig {
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
-				for(int i=0;i<10;i++){
+				for(int i=0;i<30;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);
+					e.setPosition(500, Engine.getHeight() + Digs.RND.nextFloat()*500);
 					level.addNpc(e);
 				}
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				gold.setColor(Color.CYAN);
+				{gold.setColor(Color.CYAN);
 				Polygon polygon =  PolygonTable.BLACK_CAT;
+				polygon.setScale(2f,2f);
+				polygon.setPosition(550, 100);
+				drawPolygon(polygon, gold);}
+				{
+				gold.setColor(Color.YELLOW);
+				Polygon polygon =  PolygonTable.CAKE_7;
 				polygon.setScale(1f,1f);
-				polygon.setPosition(550, 200);
+				polygon.setPosition(700, 100);
 				drawPolygon(polygon, gold);
+				}
 			}
 
 			@Override
@@ -57,10 +64,12 @@ class Level5_tour5 extends LevelConfig {
 						if(accum>=1f){
 							accum-=1f;
 							setPosition(Digs.RND.nextFloat()*Engine.getWidth(), 300+150*Digs.RND.nextFloat());
+							Engine.getSoundManager().playSound("SoundLvl5Bang");
 						}
 						super.act(delta);
 					}
 				};
+				p.setPauseWithEngine(true);//when pause , stop it
 				p.setPosition(0, 320);
 				level.addActor(p);
 				

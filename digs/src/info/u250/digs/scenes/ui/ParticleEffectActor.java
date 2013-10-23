@@ -11,10 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class ParticleEffectActor extends Actor {
 
 	private ParticleEffect emitter;
+	private boolean pauseWithEngine = false;
 	
-	public ParticleEffectActor(ParticleEffect pemitter,String name) {
+	public ParticleEffectActor(ParticleEffect pemitter,String... name) {
 		this.emitter = new ParticleEffect();
-		this.emitter.getEmitters().add(pemitter.findEmitter(name));
+		for(String s :name){
+			this.emitter.getEmitters().add(pemitter.findEmitter(s));
+		}
 	}
 
 	public ParticleEffect getEmitter() {
@@ -37,8 +40,19 @@ public class ParticleEffectActor extends Actor {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (parentAlpha == 1) {
-			this.emitter.setPosition(this.getX(), this.getY());
-			this.emitter.draw(batch, Engine.getDeltaTime());
+			if(Engine.isPause() && pauseWithEngine){}else{
+				this.emitter.setPosition(this.getX(), this.getY());
+				this.emitter.draw(batch, Engine.getDeltaTime());
+			}
 		}
 	}
+
+	public boolean isPauseWithEngine() {
+		return pauseWithEngine;
+	}
+
+	public void setPauseWithEngine(boolean pauseWithEngine) {
+		this.pauseWithEngine = pauseWithEngine;
+	}
+	
 }

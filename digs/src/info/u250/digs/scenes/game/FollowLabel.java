@@ -37,7 +37,6 @@ public class FollowLabel extends Group{
 		label.pack();
 		this.setSize(this.label.getWidth(), this.label.getHeight());
 		this.setOriginX(this.getWidth()/2);
-		Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(20)+1));
 	}
 	float accum = 15;
 	boolean show = false;
@@ -57,16 +56,34 @@ public class FollowLabel extends Group{
 			npc = null;
 			remaker();
 			show = true;
+			if(null!=npc && npc.getParent()!=null){
+				
+			}else{
+				npc = level.getRandomNpc();
+				if(null != npc){
+					npc.velocity = 16;
+					Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(20)+1));
+				}
+			}
 		}
 		if(null!=npc && npc.getParent()!=null){
 			this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15);
-		}else{
-			npc = level.getRandomNpc();
-			if(null != npc)npc.velocity = 16;
 		}
 		super.act(delta);
 	}
-
+	Color generateColor() {
+	    final int threshold = 150;
+	    int r1, g1, b1;
+	    while (true) {
+	        r1 = Digs.RND.nextInt(256);
+	        g1 = Digs.RND.nextInt(256);
+	        b1 = Digs.RND.nextInt(256);
+	        if (r1+g1+b1 > threshold) break;
+	    }
+	    Color c =  new Color(r1/255f, g1/255f, b1/255f,1);
+	    return c;
+	}
+	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if(this.getColor().a != 0 && null!=npc && npc.getParent()!=null)super.draw(batch, parentAlpha);

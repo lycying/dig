@@ -545,12 +545,13 @@ public class Proverb {
 		"You pays your money and you takes your choice",
 		"Youth is wasted on the young",
 		"I mean ..",
-		"Java? C? :(",
+		"Who save me ..",
 		"My girl",
 		"Random",
 		"XXXXXXXXXXXOOOOOOOOOO",
 		"Survival",
 		"Love!",
+		"My last chance",
 	};
 	public static final String get(){
 		return Proverb[Digs.RND.nextInt(Proverb.length)];

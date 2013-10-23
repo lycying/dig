@@ -3,6 +3,7 @@ package info.u250.digs.scenes.game;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
+import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.entity.GoldDock;
 import info.u250.digs.scenes.game.entity.InOutTrans;
 import info.u250.digs.scenes.game.entity.KillCircle;
@@ -40,6 +41,7 @@ public class Level extends Group{
 	private final Vector2 prePos = new Vector2();
 	private final Vector2 calPos = new Vector2();
 	
+	private GameScene game = null;
 	private LevelConfig config = null;
 	private PixmapHelper terrain = null;
 	private PixmapHelper goldTerrain = null;
@@ -98,8 +100,9 @@ public class Level extends Group{
 	};
 	
 	
-	public Level(LevelConfig config){
+	public Level(GameScene game,LevelConfig config){
 		this.config = config;
+		this.game = game;
 		setSize(config.width,config.height);
 		addTerrains();
 		
@@ -160,8 +163,20 @@ public class Level extends Group{
 		}
 		super.draw(batch, parentAlpha);
 	}
+	int goldNumber = 0;
+	void fingerWinStatus(){
+		if(null == game) return;
+		goldNumber = 0;
+		for(GoldDock dock:this.docks){
+			goldNumber+=dock.getNumber();
+		}
+		if(goldNumber>=config.aim){
+			this.game.win(config.idx, goldNumber, 50, 30, 56);//TODO
+		}
+	}
 	@Override
 	public void act(float delta) {
+		fingerWinStatus();
 		if(!mapMaking && !mapTexturing){
 			accum += delta;
 			while (accum >= ACC) {
@@ -171,6 +186,7 @@ public class Level extends Group{
 		}
 		super.act(delta);
 		Npc.DIE_SOUND_CTL += delta;
+		Npc.COIN_SOUND_CTL += delta;
 		Npc.HURT_SOUND_CTL += delta;
 		Npc.TRANS_SOUND_CTL += delta;
 	}

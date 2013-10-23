@@ -370,7 +370,7 @@ public class StartUpScene extends SceneStage{
 		config.segment = 8;
 		config.lineHeight = 200;
 		config.width = (int)Engine.getWidth();
-		terrain = new Level(config);
+		terrain = new Level(null,config);
 		terrainContainer.addActor(terrain);
 	}
 	@Override

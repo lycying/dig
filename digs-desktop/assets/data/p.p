@@ -662,8 +662,8 @@ max: 100
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 50000.0
-highMax: 50000.0
+highMin: 100.0
+highMax: 100.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -725,13 +725,15 @@ timeline1: 1.0
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 20.0
+highMin: 27.0
 highMax: 500.0
 relative: false
-scalingCount: 1
+scalingCount: 2
 scaling0: 1.0
-timelineCount: 1
+scaling1: 1.0
+timelineCount: 2
 timeline0: 0.0
+timeline1: 0.42465752
 - Angle - 
 active: true
 lowMin: 1.0
@@ -788,6 +790,318 @@ timelineCount: 4
 timeline0: 0.0
 timeline1: 0.38356164
 timeline2: 0.7123288
+timeline3: 1.0
+- Options - 
+attached: false
+continuous: true
+aligned: false
+additive: true
+behind: false
+- Image Path -
+E:\codes\dig\digs-desktop\assets\data\fire.png
+
+
+fire
+- Delay -
+active: false
+- Duration - 
+lowMin: 60000.0
+lowMax: 60000.0
+- Count - 
+min: 2
+max: 6
+- Emission - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 10.0
+highMax: 10.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Life - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 500.0
+highMax: 500.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Life Offset - 
+active: false
+- X Offset - 
+active: false
+- Y Offset - 
+active: false
+- Spawn Shape - 
+shape: point
+- Spawn Width - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: 0.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Spawn Height - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: 0.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Scale - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 18.0
+highMax: 18.0
+relative: false
+scalingCount: 3
+scaling0: 0.7647059
+scaling1: 1.0
+scaling2: 0.4509804
+timelineCount: 3
+timeline0: 0.0
+timeline1: 0.46575344
+timeline2: 1.0
+- Velocity - 
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 65.0
+highMax: 65.0
+relative: false
+scalingCount: 2
+scaling0: 0.74509805
+scaling1: 1.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Angle - 
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 102.0
+highMax: 78.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Rotation - 
+active: false
+- Wind - 
+active: false
+- Gravity - 
+active: false
+- Tint - 
+colorsCount: 6
+colors0: 1.0
+colors1: 0.85882354
+colors2: 0.14509805
+colors3: 1.0
+colors4: 0.0
+colors5: 0.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Transparency - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 1.0
+highMax: 1.0
+relative: false
+scalingCount: 4
+scaling0: 0.0
+scaling1: 1.0
+scaling2: 0.877193
+scaling3: 0.0
+timelineCount: 4
+timeline0: 0.0
+timeline1: 0.19863014
+timeline2: 0.89726025
+timeline3: 1.0
+- Options - 
+attached: false
+continuous: true
+aligned: false
+additive: true
+behind: false
+- Image Path -
+E:\codes\dig\digs-desktop\assets\data\fire.png
+
+
+win
+- Delay -
+active: false
+- Duration - 
+lowMin: 500.0
+lowMax: 500.0
+- Count - 
+min: 0
+max: 40
+- Emission - 
+lowMin: 10.0
+lowMax: 10.0
+highMin: 20.0
+highMax: 20.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Life - 
+lowMin: 500.0
+lowMax: 500.0
+highMin: 500.0
+highMax: 700.0
+relative: false
+scalingCount: 2
+scaling0: 0.0
+scaling1: 1.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Life Offset - 
+active: false
+- X Offset - 
+active: false
+- Y Offset - 
+active: false
+- Spawn Shape - 
+shape: point
+- Spawn Width - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: 0.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Spawn Height - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: 0.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Scale - 
+lowMin: 16.0
+lowMax: 16.0
+highMin: 32.0
+highMax: 32.0
+relative: false
+scalingCount: 2
+scaling0: 1.0
+scaling1: 0.26530612
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Velocity - 
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 120.0
+highMax: 800.0
+relative: false
+scalingCount: 3
+scaling0: 1.0
+scaling1: 0.59183675
+scaling2: 0.30612245
+timelineCount: 3
+timeline0: 0.0
+timeline1: 0.30136988
+timeline2: 0.739726
+- Angle - 
+active: true
+lowMin: 1.0
+lowMax: 360.0
+highMin: -180.0
+highMax: 180.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
+- Rotation - 
+active: false
+- Wind - 
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: -90.0
+highMax: 90.0
+relative: false
+scalingCount: 2
+scaling0: 0.0
+scaling1: 1.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Gravity - 
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: -500.0
+relative: false
+scalingCount: 2
+scaling0: 0.3090909
+scaling1: 1.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
+- Tint - 
+colorsCount: 15
+colors0: 0.9019608
+colors1: 1.0
+colors2: 0.5019608
+colors3: 1.0
+colors4: 0.4
+colors5: 0.4
+colors6: 1.0
+colors7: 0.99607843
+colors8: 0.2
+colors9: 0.003921569
+colors10: 1.0
+colors11: 0.0
+colors12: 1.0
+colors13: 1.0
+colors14: 1.0
+timelineCount: 5
+timeline0: 0.0
+timeline1: 0.29595014
+timeline2: 0.55970925
+timeline3: 0.7798546
+timeline4: 1.0
+- Transparency - 
+lowMin: 0.0
+lowMax: 0.0
+highMin: 1.0
+highMax: 1.0
+relative: false
+scalingCount: 4
+scaling0: 0.0
+scaling1: 1.0
+scaling2: 0.42105263
+scaling3: 0.0
+timelineCount: 4
+timeline0: 0.0
+timeline1: 0.2
+timeline2: 0.5410959
 timeline3: 1.0
 - Options - 
 attached: false

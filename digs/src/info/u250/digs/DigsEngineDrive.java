@@ -58,6 +58,10 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundDie", "data/sounds/die.ogg");
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
+		reg.sound("SoundCoin", "data/sounds/coin.ogg");
+		reg.sound("SoundWin", "data/sounds/win.ogg");
+		
+		reg.sound("SoundLvl5Bang", "data/sounds/lvl5-bang.ogg");
 		
 		//sound for NPC say
 		reg.sound("SoundEnv1", "data/sounds/env/wolf-hit-3.ogg");
