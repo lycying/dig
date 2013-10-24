@@ -114,6 +114,14 @@ public class GameScene extends SceneStage {
 		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
 		level = new Level(this,config);
 		scroll.setWidget(level);
+		
+		//delay play the music
+		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				Engine.getMusicManager().playMusic("MusicBattle", true);
+			}
+		})));
 	} 
 	public void setupPauseResume(){
 		Engine.getEventManager().register(CoreEvents.SystemPause, new EventListener(){
@@ -154,18 +162,6 @@ public class GameScene extends SceneStage {
 		super.draw();
 	}
 	
-	@Override
-	public void show() {
-		//delay play the music
-		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				Engine.getMusicManager().playMusic("MusicBattle", true);
-			}
-		})));
-		
-		super.show();
-	}
 	@Override
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBattle");
