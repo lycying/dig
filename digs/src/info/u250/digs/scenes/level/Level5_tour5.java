@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 class Level5_tour5 extends LevelConfig {
 	public Level5_tour5(){
 		this.surface = "texs/lgrey087.gif";
-		this.width = (int)Engine.getWidth();
+		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.KHAKI.get();

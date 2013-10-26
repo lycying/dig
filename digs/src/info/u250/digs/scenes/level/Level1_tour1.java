@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 class Level1_tour1 extends LevelConfig {
 	public Level1_tour1(){
 		this.surface = "texs/brown091.png";
-		this.width = (int)Engine.getWidth();
+		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.DARK_SLATE_GRAY.get();

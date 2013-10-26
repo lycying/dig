@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 class Level6_tour6 extends LevelConfig {
 	public Level6_tour6(){
 		this.surface = "texs/purpl192.jpg";
-		this.width = (int)Engine.getWidth();
+		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.DARK_SLATE_GRAY.get();
 		this.topColor = WebColors.DARK_GREEN.get();
