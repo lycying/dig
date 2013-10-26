@@ -35,7 +35,7 @@ public class DigsEngineDrive implements EngineDrive {
 		startUpScene = new StartUpScene(this);
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);
-		aboutScene = new AboutScene();
+		aboutScene = new AboutScene(this);
 		
 		Engine.setMainScene(startUpScene);
 	}
@@ -57,12 +57,16 @@ public class DigsEngineDrive implements EngineDrive {
 		
 		reg.music("MusicBackground", "data/music/bg.ogg");
 		reg.music("MusicBattle", "data/music/battle.ogg");
+		reg.music("MusicCont", "data/music/cont.ogg");
+		
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		reg.sound("SoundDie", "data/sounds/die.ogg");
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
 		reg.sound("SoundCoin", "data/sounds/coin.ogg");
 		reg.sound("SoundWin", "data/sounds/win.ogg");
+		
+		reg.sound("SoundNewContrib", "data/sounds/newcon.mp3");
 		
 		reg.sound("SoundLvl5Bang", "data/sounds/lvl5-bang.ogg");
 		
@@ -101,6 +105,9 @@ public class DigsEngineDrive implements EngineDrive {
 	}
 	public void setToLevelScene(){
 		Engine.setMainScene(levelScene,TransitionType.Fade,200);
+	}
+	public void setToAboutScene(){
+		Engine.setMainScene(aboutScene,TransitionType.Fade,200);
 	}
 
 	public GameScene getGameScene() {

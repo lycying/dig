@@ -57,7 +57,7 @@ public class StartUpScene extends SceneStage{
 	public Water water = new Water( 201, 150, 
 			new Color(151f/255f,196f/255f,188f/255f,0.5f),
 			new Color(1,1,1,0.5f));
-	public StartUpScene(DigsEngineDrive drive){
+	public StartUpScene(final DigsEngineDrive drive){
 		loadTextures();
 		
 		this.drive = drive;
@@ -249,6 +249,18 @@ public class StartUpScene extends SceneStage{
 		sound_flag.setPosition(20, 130);
 		this.addActor(sound_flag);
 		
+		final Image about = new Image(atlas.findRegion("about"));
+		about.setPosition(860, 440);
+		about.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.6f,0.5f),Actions.alpha(1f,0.5f))));
+		about.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				drive.setToAboutScene();
+				super.clicked(event, x, y);
+			}
+		});
+		this.addActor(about);
+		
 		
 		ParticleEffect e = Engine.resource("Effect");
 		ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
@@ -410,5 +422,10 @@ public class StartUpScene extends SceneStage{
 	public void show() {
 		super.show();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
+	}
+	@Override
+	public void hide() {
+		super.hide();
+		Engine.getMusicManager().pauseMusic("MusicBackground");
 	}
 }
