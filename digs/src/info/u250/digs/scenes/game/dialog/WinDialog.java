@@ -91,8 +91,9 @@ public class WinDialog extends Group {
 		
 		
 		resultTable = new Table();
-		NinePatch nine = new NinePatch(atlas.findRegion("color"));
-		nine.setColor(new Color(1,1,1,0.5f));
+//		NinePatch nine = new NinePatch(atlas.findRegion("color"));
+		NinePatch nine = atlas.createPatch("win-bg");
+//		nine.setColor(new Color(1,1,1,0.5f));
 		resultTable.setBackground(new NinePatchDrawable(nine));
 		resultTable.pad(40);
 		resultTable.add(levelTableInfo).colspan(2).align(BaseTableLayout.CENTER);

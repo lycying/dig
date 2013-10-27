@@ -32,6 +32,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -90,22 +91,31 @@ public class AboutScene extends SceneStage{
 			add(new Vector2(Engine.getWidth(),0));
 		}};
 		surface  = new TriangleSurfaces(data2);
-		GoldTowerEntity tower = new GoldTowerEntity();
-		tower.setPosition(50, 300);
-		this.addActor(tower);
+		{
+			GoldTowerEntity tower = new GoldTowerEntity();
+			tower.setPosition(50, 300);
+			tower.addAction(Actions.forever(Actions.sequence(Actions.moveBy(-10, -10,1),Actions.moveBy(10, 10,1))));
+			this.addActor(tower);
+		}
 		
+
 		ParticleEffect e = Engine.resource("Effect");
 		ParticleEffectActor p = new ParticleEffectActor(e,"about-fire");
 		p.setPosition(0, 0);
 		this.addActor(p);
 		
 
+		{
+			GoldTowerEntity tower = new GoldTowerEntity();
+			tower.setPosition(900, 150);
+			this.addActor(tower);
+		}
+		
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("grass")), new Vector2(1,1), new Vector2(0,1000), new Vector2(0,0)));
 		this.addActor(pbg);
 		
-	
 		ParticleEffectActor p2 = new ParticleEffectActor(e,"effect-dot-mu");
 		p2.setPosition(Engine.getWidth(), 100);
 		this.addActor(p2);
@@ -113,8 +123,8 @@ public class AboutScene extends SceneStage{
 		info = new StepInfo();
 		this.addActor(info);
 		
-		final Image back = new Image(atlas.findRegion("d-exit"));
-		back.setColor(Color.DARK_GRAY);
+		final Image back = new Image(atlas.findRegion("about-back"));
+//		back.setColor(Color.DARK_GRAY);
 		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
 		back.addListener(new ClickListener(){
 			@Override

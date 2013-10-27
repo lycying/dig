@@ -8,7 +8,11 @@ public class DigsPacker {
 		String input = "raw/";
 		String output = "assets/data/";
 		
-		TexturePacker2.process(input, output, "all");
+		TexturePacker2.Settings setting = new TexturePacker2.Settings();
+		setting.debug = false;
+		setting.stripWhitespaceX = true;
+		setting.stripWhitespaceY = true;
+		TexturePacker2.process(setting,input, output, "all");
 		
 		input = "raw_texs/";
 		TexturePacker2.process(input, output, "texs");
