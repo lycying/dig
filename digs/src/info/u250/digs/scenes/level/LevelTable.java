@@ -1,8 +1,13 @@
 package info.u250.digs.scenes.level;
 
+import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.LevelScene;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class LevelTable {
 	public static final String[] Level_String = new String[]{"Rookie Training Ground",
@@ -34,6 +39,7 @@ public class LevelTable {
 		};
 
 	public static void levelMaker(LevelScene lvlSce,Table levelTable){
+		levelTable.add(new Label("Guide",new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.RED))).row();
 		{LevelItemTable item = new LevelItemTable(lvlSce,1,Level_String[0]);
 		levelTable.add(item).spaceBottom(10);
 		levelTable.row();}
@@ -57,7 +63,7 @@ public class LevelTable {
 {LevelItemTable item = new LevelItemTable(lvlSce,6,Level_String[5]);
 		levelTable.add(item).spaceBottom(10);
 		levelTable.row();}
-
+levelTable.add(new Label("Go for game",new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.RED))).row();
 {LevelItemTable item = new LevelItemTable(lvlSce,7,Level_String[6]);
 		levelTable.add(item).spaceBottom(10);
 		levelTable.row();}

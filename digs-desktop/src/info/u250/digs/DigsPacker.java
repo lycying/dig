@@ -12,6 +12,8 @@ public class DigsPacker {
 		setting.debug = false;
 		setting.stripWhitespaceX = true;
 		setting.stripWhitespaceY = true;
+		setting.maxWidth = 2048;
+		setting.maxHeight= 2048;
 		TexturePacker2.process(setting,input, output, "all");
 		
 		input = "raw_texs/";

@@ -20,23 +20,23 @@ public class LevelItemTable extends  Group{
 		TextureAtlas texs = Engine.resource("Texs");
 		TextureAtlas atlas = Engine.resource("All");
 		Image bg = new Image(atlas.findRegion("color"));
-		bg.setColor(new Color(160f/255f,179f/255f,177f/255f,1));
+		bg.setColor(new Color(160f/255f,179f/255f,177f/255f,0.4f));
 		bg.setSize(this.getWidth(), this.getHeight());
 		
-		Label title = new Label(level+":"+levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.BLACK));
+		Label title = new Label(level+":"+levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.WHITE));
 		title.setPosition(100, 20);
 		Image icon = new Image(texs.getRegions().get(level));
 		icon.setPosition(5.5f, 2.5f);
 		this.addActor(bg);
 		this.addActor(icon);
 		this.addActor(title);
-		this.addActor(new Image(atlas.findRegion("window_badge_blank_red")));
+//		this.addActor(new Image(atlas.findRegion("window_badge_blank_red")));
 		
 		Image menu_play = new Image(atlas.findRegion("menu_play"));
 		menu_play.setPosition(this.getWidth()-menu_play.getWidth()-20,(this.getHeight()-menu_play.getHeight())/2);
 		this.addActor(menu_play);
 		
-		this.addListener(new ClickListener(){
+		menu_play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				levelScene.startLevel(level);

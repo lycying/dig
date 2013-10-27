@@ -65,7 +65,7 @@ public class AboutScene extends SceneStage{
 		mesh.setIndices(new short[]{0, 1, 2, 2, 1, 3});
 
 		
-		frameBuffer = new FrameBuffer(Format.RGB565, (int)(Engine.getWidth()/4), (int)(Engine.getHeight()/4), false);
+		frameBuffer = new FrameBuffer(Format.RGB565, (int)(Engine.getWidth()/4), (int)(Engine.getHeight()/4), true);
 		resolution.set(frameBuffer.getWidth(), frameBuffer.getHeight());
 		
 		TextureAtlas atlas = Engine.resource("All");
@@ -124,7 +124,6 @@ public class AboutScene extends SceneStage{
 		this.addActor(info);
 		
 		final Image back = new Image(atlas.findRegion("about-back"));
-//		back.setColor(Color.DARK_GRAY);
 		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
 		back.addListener(new ClickListener(){
 			@Override
