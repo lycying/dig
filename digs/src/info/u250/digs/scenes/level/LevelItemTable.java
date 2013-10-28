@@ -19,10 +19,9 @@ public class LevelItemTable extends  Group{
 		this.setSize(680, 80);
 		TextureAtlas texs = Engine.resource("Texs");
 		TextureAtlas atlas = Engine.resource("All");
-		Image bg = new Image(atlas.findRegion("color"));
-		bg.setColor(new Color(160f/255f,179f/255f,177f/255f,0.4f));
+		Image bg = new Image( atlas.createPatch("level-item-bg"));
+		bg.setColor(new Color(1,1,1,0.4f));
 		bg.setSize(this.getWidth(), this.getHeight());
-		
 		Label title = new Label(level+":"+levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.WHITE));
 		title.setPosition(100, 20);
 		Image icon = new Image(texs.getRegions().get(level));

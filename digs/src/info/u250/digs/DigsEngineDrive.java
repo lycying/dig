@@ -15,7 +15,8 @@ public class DigsEngineDrive implements EngineDrive {
 	static final String FLAT2 = "texs/S.png";
 	@Override
 	public EngineOptions onSetupEngine() {
-		EngineOptions opt = new EngineOptions(new String[]{"data/",FLAT,FLAT2}, 960, 540);
+		EngineOptions opt = new EngineOptions(new String[]{
+				"data/",FLAT,FLAT2}, 960, 540);
 		opt.configFile = "info.u250.digs.cfg";
 		opt.useGL20 = true;
 		opt.autoResume = true;

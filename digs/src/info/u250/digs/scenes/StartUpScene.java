@@ -255,6 +255,7 @@ public class StartUpScene extends SceneStage{
 		about.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				drive.setToAboutScene();
 				super.clicked(event, x, y);
 			}

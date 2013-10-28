@@ -5,6 +5,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.level.LevelItemTextTable;
 import info.u250.digs.scenes.level.LevelPack;
 import info.u250.digs.scenes.level.LevelTable;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
@@ -44,8 +45,17 @@ public class LevelScene extends SceneStage {
 		bg.setScale(Engine.getWidth()/bg.getWidth());
 		bg.setY(Engine.getHeight()-bg.getHeight()*bg.getScaleX());
 		bg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.4f,0.5f),Actions.alpha(1,1))));
-
 		this.addActor(bg);
+		final Image levelSceneImg = new Image(atlas.findRegion("level-scene"));
+		levelSceneImg.setScale(2);
+		levelSceneImg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.2f,1f),Actions.alpha(1,2))));
+		this.addActor(levelSceneImg);
+		{
+			ParticleEffect e = Engine.resource("Effect");
+			ParticleEffectActor p = new ParticleEffectActor(e,"level-waterfall");
+			p.setPosition(0, Engine.getHeight());
+			this.addActor(p);
+		}
 		{
 			ParticleEffect e = Engine.resource("Effect");
 			ParticleEffectActor p = new ParticleEffectActor(e,"level");
@@ -54,10 +64,7 @@ public class LevelScene extends SceneStage {
 		}
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
-			tower.setPosition(50, -100);
-			tower.addAction(Actions.forever(Actions.sequence(
-					Actions.moveBy(0, 460,5),Actions.delay(5),Actions.moveBy(-300, 0,1),Actions.moveBy(300, -460),Actions.delay(5)
-			)));
+			tower.setPosition(50, 360);
 			this.addActor(tower);
 		}
 		{
@@ -72,7 +79,8 @@ public class LevelScene extends SceneStage {
 		}
 		
 		Table levelTable = new Table(); 
-		levelTable.add(new Label("Choose Level",new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW))).row();
+		levelTable.add(new LevelItemTextTable("Choose Level")).row();
+		
 		LevelTable.levelMaker(this, levelTable);
 		levelTable.add(new Label("I feel very sorrow ,\n but i do not why ..",new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.BLUE))).row();
 		levelTable.add(new Label("I do nothing but dig , \n i feel it must be sth worth to do ..",new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW))).row();
@@ -97,6 +105,7 @@ public class LevelScene extends SceneStage {
 		back.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				drive.setToStartUpScene();
 				super.clicked(event, x, y);
 			}

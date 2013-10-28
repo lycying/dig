@@ -22,16 +22,19 @@ public class LevelPack extends Group{
 		final ClickListener guideL = new ClickListener(){@Override
 			public void clicked(InputEvent event, float x, float y) {
 				remake(0);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}};
 		final ClickListener pack1L = new ClickListener(){@Override
 			public void clicked(InputEvent event, float x, float y) {
 				remake(1);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}};
 		final ClickListener pack2L = new ClickListener(){@Override
 			public void clicked(InputEvent event, float x, float y) {
 				remake(2);
+				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
 			}};
 			guide_1.addListener(guideL);guide_2.addListener(guideL);

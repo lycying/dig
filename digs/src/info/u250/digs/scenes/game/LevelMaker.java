@@ -25,8 +25,8 @@ final class LevelMaker {
 		final int lineHeight = config.lineHeight;
 		
 		final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
-		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("data/grass1.png"));
-		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("data/grass2.png"));
+		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("paint/grass1.png"));
+		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("paint/grass2.png"));
 		
 		final  Pixmap terMap = new Pixmap(width, height, Format.RGBA8888);
 		//round one , to make a full pixmap
