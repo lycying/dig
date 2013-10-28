@@ -34,6 +34,7 @@ public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
 	public SimpleMeshBackground meshBackground ;
 	public Level level = null;
+	int packIndex = 0;
 	int levelIndex = 0;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
@@ -60,9 +61,6 @@ public class GameScene extends SceneStage {
 		scroll.setOverscroll(false, false);
 		scroll.setScrollbarsOnTop(false);
 		
-		
-		
-		
 		gameInformationPane = new InformationPane();
 		final Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pause.setPosition(Engine.getWidth()-pause.getWidth(), Engine.getHeight()- pause.getHeight());
@@ -87,21 +85,21 @@ public class GameScene extends SceneStage {
 		functionPane.setPosition(btn_actor.getX()+btn_actor.getWidth()+20, Engine.getHeight()-functionPane.getHeight()+12);
 		this.addActor(functionPane);
 		this.addActor(btn_actor);
-//		this.addActor(gameInformationPane);
 		this.addActor(pause);
 		
 		setupPauseResume();
 		
 	}
 	public void nextLevel(){
-		startLevel(this.levelIndex+1);
+		startLevel(this.packIndex,this.levelIndex+1);
 	}
 	public void restart(){
-		startLevel(this.levelIndex);
+		startLevel(this.packIndex,this.levelIndex);
 	}
-	public void startLevel(int level){
+	public void startLevel(int pack,int level){
+		this.packIndex = pack;
 		this.levelIndex = level;
-		configGame(LevelIdx.getLevelConfig(level));
+		configGame(LevelIdx.getLevelConfig(pack,level));
 	}
 	private void configGame(LevelConfig config){
 		config.idx = levelIndex;//remark it
@@ -148,12 +146,12 @@ public class GameScene extends SceneStage {
 		addActor(pauseDialog);
 		Engine.doPause();
 	}
-	public void win(int levelIdx,int gold,int npc,int npcDead,int time){
+	public void win(LevelConfig config,int gold,int npc,int npcDead,int time){
 		Engine.doPause();
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		Engine.getSoundManager().playSound("SoundWin");
 		addActor(winDialog);
-		winDialog.show(levelIdx, gold, npc, npcDead, time);
+		winDialog.show(config, gold, npc, npcDead, time);
 	}
 	@Override
 	public void draw() {

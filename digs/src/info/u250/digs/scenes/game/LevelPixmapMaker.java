@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector2;
 
-final class LevelMaker {
+final class LevelPixmapMaker {
 	static final Vector2 tmpV = new Vector2();
 	static final int RND_Height  = 50;
 	static final CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();

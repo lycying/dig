@@ -18,7 +18,7 @@ public class LevelItemTextTable extends  Group{
 		Image bg = new Image( atlas.createPatch("level-item-bg-2"));
 		bg.setColor(new Color(1,1,1,1));
 		bg.setSize(this.getWidth(), this.getHeight());
-		Label title = new Label(text,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
+		Label title = new Label(text,new LabelStyle(Engine.resource("BigFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(this.getWidth()/2-title.getWidth()/2, 10);
 		this.addActor(bg);
 		this.addActor(title);

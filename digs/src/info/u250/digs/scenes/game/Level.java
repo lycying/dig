@@ -34,6 +34,13 @@ public class Level extends Group{
 		Bomb,
 	}
 	
+	public enum FingerMode{
+		Fill,
+		Clear,
+		Bomb,
+		Npc,
+		Home,
+	}
 
 	/*===================Bellow is the entity we must control it =========*/
 	private final Array<Npc> npcs = new Array<Npc>();
@@ -58,7 +65,7 @@ public class Level extends Group{
 	private LevelActor levelActor = null; // Note : this is use to put the terrain to the center of the drawing
 	
 	/* if it is the fill mode currently */
-	private boolean fillMode = false;
+	private FingerMode fingerMode = FingerMode.Clear;
 	
 	/* the bellow two attribute is used to load the map async */
 	private boolean mapMaking = true;
@@ -99,10 +106,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					prePos.add(vtmp);
-					fillTerrain(prePos.x-getX(),prePos.y, RADIUS, fillMode);
+					fillTerrain(prePos.x-getX(),prePos.y, RADIUS);
 				}
 			}
-			fillTerrain(position.x-getX(),position.y, RADIUS, fillMode);
+			fillTerrain(position.x-getX(),position.y, RADIUS);
 
 			position.set(x,y);
 			prePos.x = position.x;
@@ -151,7 +158,7 @@ public class Level extends Group{
 			@Override
 			public Void call() throws Exception {
 				Thread.sleep(200);
-				pip = LevelMaker.gen(config);
+				pip = LevelPixmapMaker.gen(config);
 				mapMaking = false;
 				mapTexturing = true;
 				return null;
@@ -189,7 +196,7 @@ public class Level extends Group{
 			goldNumber+=dock.getNumber();
 		}
 		if(goldNumber>=config.aim){
-			this.game.win(config.idx, goldNumber, 50, 30, 56);//TODO
+			this.game.win(config, goldNumber, 50, 30, 56);//TODO
 		}
 	}
 
@@ -232,13 +239,13 @@ public class Level extends Group{
 		goldTerrain.update();
 	}
 	/* clear or fill terrain */
-	public void fillTerrain(float x,float y,final float radius,boolean isFillMode){
+	public void fillTerrain(float x,float y,final float radius){
 		if(terrain == null )return;
 		x += getX();
 		terrain.project(projPos, x, y);
-		if(isFillMode){
+		if(fingerMode == FingerMode.Fill){
 			terrain.eraseCircle(projPos.x, projPos.y, radius, FILL_COLOR);
-		}else{
+		}else if(fingerMode == FingerMode.Clear){
 			terrain.eraseCircle(projPos.x, projPos.y, radius ,Color.CLEAR);
 		}
 		terrain.update();
@@ -293,11 +300,12 @@ public class Level extends Group{
 		return DigResult.None;
 	}
 	
-	public boolean isFillMode() {
-		return fillMode;
+	
+	public FingerMode getFingerMode() {
+		return fingerMode;
 	}
-	public void setFillMode(boolean fillMode) {
-		this.fillMode = fillMode;
+	public void setFingerMode(FingerMode fingerMode) {
+		this.fingerMode = fingerMode;
 	}
 	public Array<GoldTowerEntity> getDocks() {
 		return docks;

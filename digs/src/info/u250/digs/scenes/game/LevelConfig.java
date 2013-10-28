@@ -17,8 +17,13 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.ShortArray;
 
 public class LevelConfig {
+	//for level information auto make
+	public int pack = 0;
+	public int idx  = 0;
+	public String idxName  = "";
+	//auto information auto make end
+	
 	public int aim = 10;
-	public int idx = 1;
 	public String surface = "texs/brown096.jpg";
 	public Color bottomColor = null;
 	public Color topColor = null;
@@ -61,7 +66,6 @@ public class LevelConfig {
 		public void mapMaker(Pixmap terr, Pixmap gold) {
 			gold.setColor(Color.YELLOW);
 			Polygon polygon =  PolygonTable.WALLACE_128;
-//			polygon.setScale(2, 2);
 			polygon.setPosition(200, 50);
 			drawPolygon(polygon, gold);
 			

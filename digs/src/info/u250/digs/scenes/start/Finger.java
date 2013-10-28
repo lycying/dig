@@ -2,6 +2,7 @@ package info.u250.digs.scenes.start;
 
 import info.u250.digs.scenes.StartUpScene;
 import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.Level.FingerMode;
 
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class Finger extends Image{
 			start.water.splash(this.getX(), 20+100*random.nextFloat());
 		}
 		
-		if(getX()+30>start.terrain.getWidth()){
+		if(getX()+30>start.level.getWidth()){
 			speed.x = -SPEED*2 ;
 		}
 		if(getY()-BASE_LINE>170){
@@ -60,9 +61,11 @@ public class Finger extends Image{
 			this.addAction(Actions.fadeOut(0.3f));
 			return;
 		}else if(timeDelta2>9.5f){
-			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS, true);
+			start.level.setFingerMode(FingerMode.Fill);
+			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS);
 		}else{
-			start.terrain.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS, false);
+			start.level.setFingerMode(FingerMode.Clear);
+			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS);
 		}
 		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}

@@ -44,7 +44,7 @@ import com.badlogic.gdx.utils.Array;
 public class StartUpScene extends SceneStage{
 	DigsEngineDrive drive;
 	TextureAtlas atlas = null;
-	public Level terrain;
+	public Level level;
 	public Group terrainContainer;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
@@ -66,7 +66,6 @@ public class StartUpScene extends SceneStage{
 		atlas = Engine.resource("All");
 		
 		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),WebColors.CADET_BLUE.get());
-//		meshBackground = new SimpleMeshBackground(new Color(1, 243f/255f,89f/255f, 1),new Color(31f/255f, 180f/255f, 59f/255f, 1f));
 
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
@@ -275,7 +274,7 @@ public class StartUpScene extends SceneStage{
 		Engine.getEventManager().register(CoreEvents.SystemResume, new EventListener(){
 			@Override
 			public void onEvent(Event event) {
-				if(null!=terrain)terrain.reload();
+				if(null!=level)level.reload();
 			}
 		});
 	}
@@ -365,11 +364,11 @@ public class StartUpScene extends SceneStage{
 	int texs_index = -1;
 	void genTerrain(){
 		terrainContainer.clear();
-		if(null!=terrain){
-			terrain.setTouchable(Touchable.disabled);
-			terrain.dispose();
+		if(null!=level){
+			level.setTouchable(Touchable.disabled);
+			level.dispose();
 		}
-		terrain = null;
+		level = null;
 		LevelConfig config = new LevelConfig();
 		if(-1==texs_index){
 			config.surface = "texs/brown063.jpg";
@@ -383,8 +382,8 @@ public class StartUpScene extends SceneStage{
 		config.segment = 8;
 		config.lineHeight = 200;
 		config.width = (int)Engine.getWidth();
-		terrain = new Level(null,config);
-		terrainContainer.addActor(terrain);
+		level = new Level(null,config);
+		terrainContainer.addActor(level);
 	}
 	@Override
 	public void act(float delta) {

@@ -1,4 +1,4 @@
-package info.u250.digs.scenes.level;
+package info.u250.digs.scenes.level.pack.guide;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-class Level1_tour1 extends LevelConfig {
+public class Level1_tour1 extends LevelConfig {
 	public Level1_tour1(){
 		this.surface = "texs/brown091.png";
 		this.width = (int)Engine.getWidth() ;

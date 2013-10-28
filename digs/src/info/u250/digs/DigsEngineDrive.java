@@ -51,7 +51,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.textureAtlas("All", "data/all.atlas");
 		reg.textureAtlas("Texs", "data/texs.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
-		reg.font("MenuFont", "data/fnt/menu.fnt");
+		reg.font("BigFont", "data/fnt/big.fnt");
 		reg.particleEffect("Effect", "data/p.p");
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);

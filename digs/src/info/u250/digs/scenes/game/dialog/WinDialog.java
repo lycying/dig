@@ -4,7 +4,8 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.scenes.GameScene;
-import info.u250.digs.scenes.level.LevelTable;
+import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.level.LevelIdx;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 import info.u250.digs.scenes.ui.Water;
 
@@ -71,7 +72,7 @@ public class WinDialog extends Group {
 //		this.addActor(bg);
 		this.addActor(functionTable);
 		
-		BitmapFont font = Engine.resource("MenuFont");
+		BitmapFont font = Engine.resource("BigFont");
 		
 		lblCoin = new Label("243", new LabelStyle(font,Color.YELLOW));
 		lblBBMan = new Label("50", new LabelStyle(font,Color.YELLOW));
@@ -152,9 +153,9 @@ public class WinDialog extends Group {
 	Label lblTime = null;
 	Label lblLvlIdx = null;
 	Label lblLvlDesc = null;
-	public void show(int levelIdx,int gold,int npc,int npcDead,int time){
-		lblLvlIdx.setText("Level "+levelIdx);
-		lblLvlDesc.setText(LevelTable.Level_String[levelIdx-1]);
+	public void show(LevelConfig config,int gold,int npc,int npcDead,int time){
+		lblLvlIdx.setText("Level "+(config.idx+1));
+		lblLvlDesc.setText(LevelIdx.getLevelName(config.pack, config.idx));
 		lblCoin.setText(gold+"");
 		lblBBMan.setText(npc+"");
 		lblBBManDead.setText(npcDead+"");
