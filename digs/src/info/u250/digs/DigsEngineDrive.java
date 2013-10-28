@@ -43,7 +43,7 @@ public class DigsEngineDrive implements EngineDrive {
 
 	@Override
 	public void dispose() {
-		
+		if(null != aboutScene)aboutScene.dispose();
 	}
 
 	@Override
@@ -52,7 +52,10 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.textureAtlas("Texs", "data/texs.atlas");
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("BigFont", "data/fnt/big.fnt");
+		reg.font("MenuFont", "data/fnt/menu.fnt");
+		
 		reg.particleEffect("Effect", "data/p.p");
+		
 		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
 		

@@ -3,6 +3,8 @@ package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
+import info.u250.c2d.graphic.WebColors;
+import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.level.LevelPack;
@@ -11,6 +13,7 @@ import info.u250.digs.scenes.ui.ParticleEffectActor;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -22,12 +25,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class LevelScene extends SceneStage {
+	public SimpleMeshBackground meshBackground ;
 	DigsEngineDrive drive;
 	final TextureAtlas atlas;
 	final ScrollPane levelPanel;
+	
 	public LevelScene(final DigsEngineDrive drive){
 		this.drive = drive;
-	
+		meshBackground = new SimpleMeshBackground(WebColors.CADET_BLUE.get(),Color.BLACK);
 		
 		
 		atlas = Engine.resource("All");
@@ -38,8 +43,8 @@ public class LevelScene extends SceneStage {
 		bg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.4f,0.5f),Actions.alpha(1,1))));
 		this.addActor(bg);
 		final Image levelSceneImg = new Image(atlas.findRegion("level-scene"));
-		levelSceneImg.setScale(2);
-		levelSceneImg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.2f,1f),Actions.alpha(1,2))));
+		levelSceneImg.setScale(1f);
+		levelSceneImg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.2f,2f),Actions.alpha(1,4))));
 		this.addActor(levelSceneImg);
 		{
 			ParticleEffect e = Engine.resource("Effect");
@@ -106,7 +111,7 @@ public class LevelScene extends SceneStage {
 	}
 	@Override
 	public void draw() {
-		Gdx.gl.glClearColor(0,0,0, 1);
+		meshBackground.render(0);
 		super.draw();
 	}
 	@Override

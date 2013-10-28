@@ -16,7 +16,7 @@ public class ParticleEffectActor extends Actor {
 	public ParticleEffectActor(ParticleEffect pemitter,String... name) {
 		this.emitter = new ParticleEffect();
 		for(String s :name){
-			this.emitter.getEmitters().add(pemitter.findEmitter(s));
+			this.emitter.getEmitters().add(new ParticleEmitter(pemitter.findEmitter(s)));
 		}
 	}
 

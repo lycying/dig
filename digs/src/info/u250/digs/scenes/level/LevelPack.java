@@ -23,8 +23,8 @@ public class LevelPack extends Group{
 		this.setSize(122+122+203, 100);
 		
 		final RefreshableLevelTable guideTabel = LevelIdx.getGuideTable(levelScene); 
-		final RefreshableLevelTable pack1Table = LevelIdx.getGuideTable(levelScene); 
-		final RefreshableLevelTable pack2Table = LevelIdx.getGuideTable(levelScene); 
+		final RefreshableLevelTable pack1Table = LevelIdx.getPack1Table(levelScene); 
+		final RefreshableLevelTable pack2Table = LevelIdx.getPack2Table(levelScene); 
 		
 		if(idx == 0){
 			levelScene.getLevelPanel().setWidget(guideTabel);
@@ -38,6 +38,7 @@ public class LevelPack extends Group{
 			public void clicked(InputEvent event, float x, float y) {
 				if(remake(0)){
 					levelScene.getLevelPanel().setWidget(guideTabel);
+					levelScene.getLevelPanel().setScrollY(0);
 				}
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
@@ -46,6 +47,7 @@ public class LevelPack extends Group{
 			public void clicked(InputEvent event, float x, float y) {
 				if(remake(1)){
 					levelScene.getLevelPanel().setWidget(pack1Table);
+					levelScene.getLevelPanel().setScrollY(0);
 				}
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);
@@ -54,6 +56,7 @@ public class LevelPack extends Group{
 			public void clicked(InputEvent event, float x, float y) {
 				if(remake(2)){
 					levelScene.getLevelPanel().setWidget(pack2Table);
+					levelScene.getLevelPanel().setScrollY(0);
 				}
 				Engine.getSoundManager().playSound("SoundClick");
 				super.clicked(event, x, y);

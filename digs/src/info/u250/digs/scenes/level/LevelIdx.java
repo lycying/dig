@@ -107,7 +107,7 @@ public class LevelIdx {
 	}
 	
 	public static RefreshableLevelTable getGuideTable(final LevelScene lvlSce){
-		final BitmapFont font = Engine.resource("BigFont",BitmapFont.class);
+		final BitmapFont font = Engine.resource("MenuFont",BitmapFont.class);
 		RefreshableLevelTable table = new RefreshableLevelTable(0);
 		table.add(new LevelItemTextTable("Choose Level")).row();
 		{

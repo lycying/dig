@@ -4,8 +4,6 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
-import info.u250.c2d.graphic.surfaces.SurfaceData;
-import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.about.StepInfo;
@@ -17,7 +15,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -35,7 +32,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 
 public class AboutScene extends SceneStage{
 	DigsEngineDrive drive;
@@ -44,8 +40,8 @@ public class AboutScene extends SceneStage{
 	ShaderProgram shader ;
 	FrameBuffer frameBuffer;
 	Mesh mesh ;
-	TriangleSurfaces surface;
 	StepInfo info ;
+	boolean buildSuccess = false;
 	String[] contributes = new String[]{
 			"--Credits--",
 			"Programming: Lycying",
@@ -81,16 +77,7 @@ public class AboutScene extends SceneStage{
 		sprite.setScale(1.5f);
 		sprite.setColor(new Color(Color.GRAY));
 		
-		final SurfaceData data2 = new SurfaceData();
-		data2.primitiveType = GL10.GL_TRIANGLE_FAN;
-		data2.texture="Texture";
-		data2.points = new Array<Vector2>(){{
-			add(new Vector2(0,0));
-			add(new Vector2(0,100));
-			add(new Vector2(Engine.getWidth(),100));
-			add(new Vector2(Engine.getWidth(),0));
-		}};
-		surface  = new TriangleSurfaces(data2);
+		
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
 			tower.setPosition(50, 300);
@@ -162,26 +149,25 @@ public class AboutScene extends SceneStage{
 	Vector2 resolution= new Vector2(Engine.getWidth(),Engine.getHeight());
 	@Override
 	public void draw() {
-		GL20 gl = Gdx.gl20;
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if(buildSuccess){
+			frameBuffer.begin();
+			Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			Gdx.gl20.glViewport(0, 0, frameBuffer.getWidth(), frameBuffer.getHeight());
+			Gdx.gl20.glClearColor(0f, 1f, 0f, 1);
+			Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			shader.begin();
+			shader.setUniformf("resolution", resolution );
+			shader.setUniformf("time", accum);
+			mesh.render(shader, GL20.GL_TRIANGLES);
+			shader.end();
+			frameBuffer.end();
 		
-		frameBuffer.begin();
-		Gdx.gl20.glViewport(0, 0, frameBuffer.getWidth(), frameBuffer.getHeight());
-		Gdx.gl20.glClearColor(0f, 1f, 0f, 1);
-		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shader.begin();
-		shader.setUniformf("resolution", resolution );
-		shader.setUniformf("time", accum);
-		mesh.render(shader, GL20.GL_TRIANGLES);
-		shader.end();
-		frameBuffer.end();
-	
-		Gdx.graphics.getGL20().glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Engine.getSpriteBatch().begin();
-		Engine.getSpriteBatch().setColor(Color.WHITE);
-		Engine.getSpriteBatch().draw(frameBuffer.getColorBufferTexture(), 0, 0,Engine.getWidth(),Engine.getHeight());
-		Engine.getSpriteBatch().end();
-//		surface.render(0);
+			Gdx.graphics.getGL20().glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			Engine.getSpriteBatch().begin();
+			Engine.getSpriteBatch().setColor(Color.WHITE);
+			Engine.getSpriteBatch().draw(frameBuffer.getColorBufferTexture(), 0, 0,Engine.getWidth(),Engine.getHeight());
+			Engine.getSpriteBatch().end();
+		}
 		super.draw();
 		Engine.getSpriteBatch().begin();
 		sprite.draw(Engine.getSpriteBatch());
@@ -198,7 +184,7 @@ public class AboutScene extends SceneStage{
 	public InputProcessor getInputProcessor() {
 		return this;
 	}
-	static public ShaderProgram createDefaultShader () {
+	private ShaderProgram createDefaultShader () {
 		String vertexShader = "attribute vec3 position; void main() { gl_Position = vec4( position, 1.0 ); }";
 		String fragmentShader = "#ifdef GL_ES\r\n" + 
 				"precision highp float;\r\n" + 
@@ -209,22 +195,24 @@ public class AboutScene extends SceneStage{
 				" \r\n" + 
 				"void main(void)\r\n" + 
 				"{\r\n" + 
-				"  // Be Cool\r\n" + 
-				"  vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / resolution.xy;\r\n" + 
+				"  highp vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / resolution.xy;\r\n" + 
 				" \r\n" + 
-				"  float a = atan(p.y, p.x);\r\n" + 
-				"  float r = length(p) + 0.0001;\r\n" + 
+				"  highp float a = atan(p.y, p.x);\r\n" + 
+				"  highp float r = length(p) + 0.0001;\r\n" + 
 				" \r\n" + 
-				"  float b = 1.9 * sin(8.0 * r - time - 2.0 * a);\r\n" + 
+				"  highp float b = 1.9 * sin(8.0 * r - time - 2.0 * a);\r\n" + 
 				"  b = 0.3125 / r + cos(7.0 * a + b * b) / (100.0 * r);\r\n" + 
 				"  b *= smoothstep(0.2, 0.8, b);\r\n" + 
 				" \r\n" + 
 				"  gl_FragColor = vec4(b, 0.67 * b + 0.1 * sin(a + time), 0.0, 1.0);\r\n" + 
-				"}\r\n" + 
-				"";
-
+				"}";
 		ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
-		if (shader.isCompiled() == false) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
+		if (shader.isCompiled() == false) {
+			buildSuccess = false;
+			Gdx.app.log("GLSL", "Error compiling shader: " + shader.getLog());
+		}else{
+			buildSuccess = true;
+		}
 		return shader;
 	}
 	@Override
@@ -239,5 +227,16 @@ public class AboutScene extends SceneStage{
 			}
 		}
 		return super.keyDown(keycode);
+	}
+	void disposeShader(){
+		if(null != shader){
+			shader.dispose();
+		}
+		if(null != frameBuffer){
+			frameBuffer.dispose();
+		}
+		if(mesh != null){
+			mesh.dispose();
+		}
 	}
 }
