@@ -3,26 +3,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"  android:gravity="center"
+    android:background="#fff"
     >
 
     <ImageView
             android:src="@drawable/u250"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
-
-    <TextView
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:textColor="#fff"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
 </LinearLayout>

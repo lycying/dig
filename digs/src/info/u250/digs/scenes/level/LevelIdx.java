@@ -112,7 +112,7 @@ public class LevelIdx {
 		table.add(new LevelItemTextTable("Choose Level")).row();
 		{
 			for(int i=0;i<Level_String[0].length;i++){
-				LevelItemTable item = new LevelItemTable(lvlSce,0,i,Level_String[0][i]);
+				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
 				table.add(item).spaceBottom(10);
 				table.row();
 			}
@@ -127,7 +127,7 @@ public class LevelIdx {
 		table.add(new LevelItemTextTable("Choose Level")).row();
 		{
 			for(int i=0;i<Level_String[1].length;i++){
-				LevelItemTable item = new LevelItemTable(lvlSce,1,i,Level_String[1][i]);
+				LevelItem item = new LevelItem(lvlSce,1,i,Level_String[1][i]);
 				table.add(item).spaceBottom(10);
 				table.row();
 			}
@@ -139,7 +139,7 @@ public class LevelIdx {
 		table.add(new LevelItemTextTable("Choose Level")).row();
 		{
 			for(int i=0;i<Level_String[2].length;i++){
-				LevelItemTable item = new LevelItemTable(lvlSce,2,i,Level_String[2][i]);
+				LevelItem item = new LevelItem(lvlSce,2,i,Level_String[2][i]);
 				table.add(item).spaceBottom(10);
 				table.row();
 			}
@@ -154,8 +154,8 @@ public class LevelIdx {
 		}
 		public void refresh(){
 			for(Actor actor:this.getChildren()){
-				if(actor instanceof LevelItemTable){
-					LevelItemTable.class.cast(actor).refresh();
+				if(actor instanceof LevelItem){
+					LevelItem.class.cast(actor).refresh();
 				}
 			}
 		}

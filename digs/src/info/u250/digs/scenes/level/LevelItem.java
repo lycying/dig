@@ -16,10 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-public class LevelItemTable extends  Group{
+public class LevelItem extends  Group{
 	private int pack;
 	private int level;
-	public LevelItemTable(final LevelScene levelScene,final int pack,final int level ,String levelName){
+	public LevelItem(final LevelScene levelScene,final int pack,final int level ,String levelName){
 		this.pack = pack;
 		this.level = level;
 		
@@ -29,13 +29,13 @@ public class LevelItemTable extends  Group{
 		Image bg = new Image( atlas.createPatch("level-item-bg"));
 		switch(pack){
 		case 0:
-			bg.setColor(new Color(210f/255f,254f/255f,212f/255f,0.4f));
+			bg.setColor(new Color(210f/255f,254f/255f,212f/255f,0.6f));
 			break;
 		case 1:
-			bg.setColor(new Color(210f/255f,242f/255f,254f/255f,0.4f));
+			bg.setColor(new Color(210f/255f,242f/255f,254f/255f,0.6f));
 			break;
 		case 2:
-			bg.setColor(new Color(254f/255f,238f/255f,210f/255f,0.4f));
+			bg.setColor(new Color(254f/255f,238f/255f,210f/255f,0.6f));
 			break;
 		}
 		bg.setSize(this.getWidth(), this.getHeight());
