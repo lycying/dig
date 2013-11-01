@@ -24,11 +24,11 @@ public class LevelConfig {
 	//auto information auto make end
 	
 	public int aim = 10;
-	public String surface = "texs/brown096.jpg";
+	public String surface = "vg/1.svg";
 	public Color bottomColor = null;
 	public Color topColor = null;
 	
-	public int width = 2048;
+	public int width = (int)Engine.getWidth();
 	public int height = (int)Engine.getHeight();
 	
 	public int lineHeight = 450;
