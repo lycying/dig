@@ -20,9 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class LevelScene extends SceneStage {
 	public SimpleMeshBackground meshBackground ;
@@ -60,17 +58,17 @@ public class LevelScene extends SceneStage {
 		}
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
-			tower.setPosition(50, 360);
+			tower.setPosition(850, 400);
 			this.addActor(tower);
 		}
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
-			tower.setPosition(0, 100);
+			tower.setPosition(0, 300);
 			this.addActor(tower);
 		}
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
-			tower.setPosition(130, -10);
+			tower.setPosition(60, 190);
 			this.addActor(tower);
 		}
 		
@@ -78,14 +76,14 @@ public class LevelScene extends SceneStage {
 		levelPanel = new ScrollPane(null);
 		levelPanel.setSize(740, 540);
 		levelPanel.setPosition(0, 0);
-		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
+//		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		levelPanel.setFillParent(false);
 		levelPanel.setScrollingDisabled(true, false);
 		levelPanel.setFlickScroll(true);
 		levelPanel.setFadeScrollBars(false);
 		levelPanel.setOverscroll(true, true);
 		levelPanel.setScrollbarsOnTop(false);
-		levelPanel.setX(220);
+		levelPanel.setX(140);
 		this.addActor(levelPanel);
 		
 		final Image back = new Image(atlas.findRegion("about-back"));
@@ -100,7 +98,7 @@ public class LevelScene extends SceneStage {
 		});
 		this.addActor(back);
 		LevelPack btn_table = new LevelPack(this,0);
-		btn_table.setPosition(300, -12);
+		btn_table.setPosition(200, -12);
 		this.addActor(btn_table);
 		
 	}
@@ -111,7 +109,8 @@ public class LevelScene extends SceneStage {
 	}
 	@Override
 	public void draw() {
-		meshBackground.render(0);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+//		meshBackground.render(0);
 		super.draw();
 	}
 	@Override

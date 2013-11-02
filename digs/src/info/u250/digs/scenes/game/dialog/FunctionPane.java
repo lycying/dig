@@ -17,7 +17,7 @@ public class FunctionPane extends Table{
 
 	public FunctionPane(final GameScene gameScene){
 		final TextureAtlas atlas = Engine.resource("All");
-		this.setBackground(new NinePatchDrawable(atlas.createPatch("topbar")));
+		this.setBackground(new NinePatchDrawable(atlas.createPatch("level-item-bg-5")));
 			
 		final Button btn_home = new Button(new TextureRegionDrawable(atlas.findRegion("btn-home-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-home-2")));
 		final Button btn_bomb = new Button(new TextureRegionDrawable(atlas.findRegion("btn-bomb-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-bomb-2")));

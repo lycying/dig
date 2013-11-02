@@ -15,7 +15,7 @@ public class LevelItemTextTable extends  Group{
 	public LevelItemTextTable(String text){
 		this.setSize(680, 60);
 		TextureAtlas atlas = Engine.resource("All");
-		Image bg = new Image( atlas.createPatch("level-item-bg-2"));
+		Image bg = new Image( atlas.createPatch("level-item-bg-4"));
 		bg.setColor(new Color(1,1,1,1));
 		bg.setSize(this.getWidth(), this.getHeight());
 		Label title = new Label(text,new LabelStyle(Engine.resource("BigFont",BitmapFont.class),Color.YELLOW));

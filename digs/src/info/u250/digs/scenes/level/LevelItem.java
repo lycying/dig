@@ -26,21 +26,21 @@ public class LevelItem extends  Group{
 		this.setSize(680, 80);
 		TextureAtlas texs = Engine.resource("Texs");
 		TextureAtlas atlas = Engine.resource("All");
-		Image bg = new Image( atlas.createPatch("level-item-bg"));
+		Image bg = new Image( atlas.createPatch("level-item-bg-5"));
 		switch(pack){
 		case 0:
-			bg.setColor(new Color(210f/255f,254f/255f,212f/255f,0.6f));
+			bg.setColor(new Color(210f/255f,254f/255f,212f/255f,1f));
 			break;
 		case 1:
-			bg.setColor(new Color(210f/255f,242f/255f,254f/255f,0.6f));
+			bg.setColor(new Color(210f/255f,242f/255f,254f/255f,1f));
 			break;
 		case 2:
-			bg.setColor(new Color(254f/255f,238f/255f,210f/255f,0.6f));
+			bg.setColor(new Color(254f/255f,238f/255f,210f/255f,1f));
 			break;
 		}
 		bg.setSize(this.getWidth(), this.getHeight());
 		Label title = new Label(level+":"+levelName,new LabelStyle(
-				Engine.resource("MenuFont",BitmapFont.class),Color.WHITE));
+				Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(100, 25);
 		Image icon = new Image(texs.getRegions().get(level));
 		icon.setSize(60, 60);
@@ -67,7 +67,7 @@ public class LevelItem extends  Group{
 		
 		Image menu_play = new Image(atlas.findRegion("menu_play"));
 		menu_play.setPosition(this.getWidth()-menu_play.getWidth()-20,(this.getHeight()-menu_play.getHeight())/2);
-	
+		menu_play.setColor(new Color(0.8f,0.8f,0.8f,0.8f));
 		
 		menu_play.addListener(new ClickListener(){
 			@Override
@@ -80,16 +80,16 @@ public class LevelItem extends  Group{
 		Image lock = new Image(atlas.findRegion("lock"));
 		Image pass = new Image(atlas.findRegion("pass"));
 		Table t2 = new Table();
-		t2.setBackground(new NinePatchDrawable(atlas.createPatch("label2")));
+		t2.setBackground(new NinePatchDrawable(atlas.createPatch("ui-label-bg")));
 		t2.add(new Image(atlas.findRegion("char")));
-		t2.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.BLACK)));
+		t2.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE)));
 		t2.pack();
 		t2.setPosition(100, 10);
 		
 		lock.setPosition(80, 50);
 		pass.setPosition(80, 50);
 		this.addActor(bg);
-		this.addActor(icon);
+//		this.addActor(icon);
 		this.addActor(title);
 		
 		this.addActor(t2);
@@ -100,7 +100,6 @@ public class LevelItem extends  Group{
 			this.addActor(t);
 		}else{
 			this.addActor(lock);
-			this.setColor(Color.DARK_GRAY);
 		}
 		
 	} 

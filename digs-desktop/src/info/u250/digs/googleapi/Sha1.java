@@ -1,6 +1,14 @@
 package info.u250.digs.googleapi;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.channels.SelectableChannel;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
 import java.security.MessageDigest;
+
+import com.badlogic.gdx.net.Socket;
 
 public class Sha1 {
 //	keytool -exportcert -alias androiddebugkey -keystore path-to-debug-or-production-keystore -list -v
@@ -27,7 +35,52 @@ public class Sha1 {
 			buf.append(HEX_DIGITS[(bytes[j] >> 4) & 0x0f]);
 			buf.append(HEX_DIGITS[bytes[j] & 0x0f]);
 		}
+		new SelectionKey() {
+			
+			@Override
+			public Selector selector() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public int readyOps() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public boolean isValid() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			@Override
+			public SelectionKey interestOps(int ops) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public int interestOps() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public SelectableChannel channel() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public void cancel() {
+				// TODO Auto-generated method stub
+				
+			}
+		}.attach(null);
 		return buf.toString();
+		
 	}
 
 }

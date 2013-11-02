@@ -12,7 +12,9 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -20,7 +22,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.surfaceview.RatioResolutionStrategy;
-import com.badlogic.gdx.graphics.Color;
 
 public class DigActivity extends AndroidApplication {
 	protected RelativeLayout layout;
@@ -42,48 +43,51 @@ public class DigActivity extends AndroidApplication {
 			@Override
 			protected StartupLoading getStartupLoading() {
 				return new StartupLoading() {
-					boolean switchToGdx = false;
+					Runnable feedback = new Runnable() {
+						boolean showBar = false;
+						@Override
+						public void run() {
+							if(!showBar && percent()>0){
+								 loadingView.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+								 showBar = true;
+							} 
+							TextView text = (TextView) loadingView.findViewById(R.id.loading_text);
+							text.setText((int)(100*percent())+"%");
+							((ProgressBar)loadingView.findViewById(R.id.u250_bar)).setProgress((int)(100*percent()));
+						}
+					};
 					@Override
 					protected void inLoadingRender(float delta) {
-						if(switchToGdx || percent()>0.05f){
-							if(!switchToGdx){
-								switchToGdx = true;
-								DigActivity.this.runOnUiThread(new Runnable() {
-									@Override
-									public void run() {
-										Animation fadeOut = new AlphaAnimation(1, 0);
-										fadeOut.setInterpolator(new AccelerateInterpolator());
-									    fadeOut.setDuration(200);
-									    fadeOut.setAnimationListener(new AnimationListener() {
-									        @Override
-									        public void onAnimationEnd(Animation animation) {
-									        	loadingView.setVisibility(View.GONE);
-									        }
-
-											@Override
-											public void onAnimationRepeat(
-													Animation animation) {
-											}
-
-											@Override
-											public void onAnimationStart(
-													Animation animation) {
-											}
-									    });
-									    loadingView.startAnimation(fadeOut);
-									}
-								});
-							}
-							Gdx.gl.glClearColor(1, 1, 1, 1);
-							Engine.getSpriteBatch().begin();
-							Engine.getDefaultFont().setColor(Color.BLACK);
-							Engine.getDefaultFont().draw(Engine.getSpriteBatch(), "Loading "+(int)(100*this.percent())+"%", 100, 200);
-							Engine.getSpriteBatch().end();
-						}
+						DigActivity.this.runOnUiThread(feedback);
 					}
 					@Override
 					protected void finishLoadingCleanup() {
-						Engine.getDefaultFont().setColor(Color.WHITE);
+						DigActivity.this.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Animation fadeOut = new AlphaAnimation(1, 0);
+								fadeOut.setInterpolator(new AccelerateInterpolator());
+								fadeOut.setStartOffset(1000);
+							    fadeOut.setDuration(200);
+							    fadeOut.setAnimationListener(new AnimationListener() {
+							        @Override
+							        public void onAnimationEnd(Animation animation) {
+							        	loadingView.setVisibility(View.GONE);
+							        }
+
+									@Override
+									public void onAnimationRepeat(
+											Animation animation) {
+									}
+
+									@Override
+									public void onAnimationStart(
+											Animation animation) {
+									}
+							    });
+							    loadingView.startAnimation(fadeOut);
+							}
+						});
 					}
 				};
 			}
