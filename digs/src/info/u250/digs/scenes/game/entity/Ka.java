@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Ka extends Actor {
-	
-	TextureRegion[] npcRegions = new TextureRegion[10];
+	static final int  DELAY_RANDOM = 3;
+	TextureRegion[] npcRegions = new TextureRegion[7];
 	TextureRegion[] regions = null;
 	int regionsIndex = 0;
 	
@@ -36,12 +36,10 @@ public class Ka extends Actor {
 		npcRegions[1] = atlas.findRegion("npc-ka2");
 		npcRegions[2] = atlas.findRegion("npc-ka3");
 		npcRegions[3] = atlas.findRegion("npc-ka4");
+		
 		npcRegions[4] = atlas.findRegion("npc-ka2");
 		npcRegions[5] = atlas.findRegion("npc-ka3");
 		npcRegions[6] = atlas.findRegion("npc-ka4");
-		npcRegions[7] = atlas.findRegion("npc-ka2");
-		npcRegions[8] = atlas.findRegion("npc-ka3");
-		npcRegions[9] = atlas.findRegion("npc-ka4");
 	
 		
 		regions = npcRegions;		
@@ -49,6 +47,7 @@ public class Ka extends Actor {
 		this.drawable.setSize(this.getWidth(), this.getHeight());
 		this.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setOrigin(this.getWidth()/2, 3);
+		this.drawable.setRegion(regions[0]);
 	}
 	
 	
@@ -94,7 +93,7 @@ public class Ka extends Actor {
 				velocity = 0;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
-				if (Digs.RND.nextInt(10) != 0) {
+				if (Digs.RND.nextInt(DELAY_RANDOM) != 0) {
 					// Assume the miner has hit a wall
 					boolean hit = true;
 					for (int p = 1; p <= 5; p++) { //try higher until 5, this makes the npc clamp quickly 
@@ -161,6 +160,7 @@ public class Ka extends Actor {
 			})));
 			level.addActor(image);
 		}
+		level.removeKa(this);
 	}
 	float OCX = 0f;
 	void onTower(GoldTowerEntity tower){

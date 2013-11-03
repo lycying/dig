@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.GameScene;
+import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
@@ -41,6 +42,7 @@ public class Level extends Group{
 	private final Array<StepladderEntity> ladders = new Array<StepladderEntity>();
 	private final Array<KillCircleEntity> killrays = new Array<KillCircleEntity>();
 	private final Array<Ka> kas = new Array<Ka>();
+	private final Array<EnemyMiya> enemyMyiyas = new Array<EnemyMiya>();
 	
 	/*===================Bellow is the entity we must control it =========*/
 	
@@ -207,6 +209,9 @@ public class Level extends Group{
 				for(final Ka e : kas){
 					e.tick();
 				}
+				for(final EnemyMiya e:enemyMyiyas){
+					e.tick();
+				}
 				accum -= ACC;
 			}
 		}
@@ -304,6 +309,19 @@ public class Level extends Group{
 	public void setFingerMode(FingerMode fingerMode) {
 		this.fingerMode = fingerMode;
 	}
+	
+	public Array<EnemyMiya> getEnemyMyiyas() {
+		return enemyMyiyas;
+	}
+	public void addEnemyMiya(EnemyMiya miya){
+		this.enemyMyiyas.add(miya);
+		this.addActor(miya);
+	}
+	public void removeEnemyMiya(EnemyMiya miya){
+		this.enemyMyiyas.removeValue(miya, true);
+		miya.remove();
+	}
+	
 	public Array<GoldTowerEntity> getDocks() {
 		return docks;
 	}

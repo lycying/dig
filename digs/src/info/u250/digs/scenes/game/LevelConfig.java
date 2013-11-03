@@ -20,7 +20,7 @@ public class LevelConfig {
 	//auto information auto make end
 	
 	public int aim = 10;
-	public String surface = "vg/1.svg";
+	public String surface = "texs/purpl043.jpg";
 	public Color bottomColor = null;
 	public Color topColor = null;
 	

@@ -24,7 +24,6 @@ public class LevelItem extends  Group{
 		this.level = level;
 		
 		this.setSize(680, 80);
-		TextureAtlas texs = Engine.resource("Texs");
 		TextureAtlas atlas = Engine.resource("All");
 		Image bg = new Image( atlas.createPatch("level-item-bg-5"));
 		switch(pack){
@@ -42,11 +41,7 @@ public class LevelItem extends  Group{
 		Label title = new Label(levelName,new LabelStyle(
 				Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(100, 25);
-		Image icon = new Image(texs.getRegions().get(level));
-		icon.setSize(60, 60);
-		icon.setPosition(10f, 10f);
-		
-		
+			
 		BitmapFont font = Engine.resource("Font");
 		
 		Table t = new Table();
@@ -72,6 +67,7 @@ public class LevelItem extends  Group{
 		menu_play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
 				levelScene.startLevel(pack,level);
 				super.clicked(event, x, y);
 			}

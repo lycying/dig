@@ -1,9 +1,11 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.Proverb;
 import info.u250.digs.Digs;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.game.entity.Npc.NpcStatus;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -62,12 +64,17 @@ public class FollowLabel extends Group{
 				npc = level.getRandomNpc();
 				if(null != npc){
 					npc.velocity = 16;
-					Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(24)+1));
+					Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(DigsEngineDrive.LINGO_SOUND)+1));
 				}
 			}
 		}
 		if(null!=npc && npc.getParent()!=null){
-			this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15);
+			if(npc.getStatus()==NpcStatus.WithKa){
+				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15+15);
+			}else{
+				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15);
+			}
+			
 		}
 		super.act(delta);
 	}

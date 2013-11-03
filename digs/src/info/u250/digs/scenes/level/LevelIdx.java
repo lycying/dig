@@ -1,21 +1,25 @@
 package info.u250.digs.scenes.level;
 
+import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.level.pack.guide.Level1_tour1;
-import info.u250.digs.scenes.level.pack.guide.Level2_tour2;
-import info.u250.digs.scenes.level.pack.guide.Level3_tour3;
-import info.u250.digs.scenes.level.pack.guide.Level4_tour4;
-import info.u250.digs.scenes.level.pack.guide.Level5_tour5;
-import info.u250.digs.scenes.level.pack.guide.Level6_tour6;
-import info.u250.digs.scenes.level.pack.guide.Level7_tour7;
-import info.u250.digs.scenes.level.pack.guide.Level8_tour8;
+import info.u250.digs.scenes.level.pack.guide.Tour1;
+import info.u250.digs.scenes.level.pack.guide.Tour2;
+import info.u250.digs.scenes.level.pack.guide.Tour3;
+import info.u250.digs.scenes.level.pack.guide.Tour4;
+import info.u250.digs.scenes.level.pack.guide.Tour5;
+import info.u250.digs.scenes.level.pack.guide.Tour6;
+import info.u250.digs.scenes.level.pack.guide.Tour7;
+import info.u250.digs.scenes.level.pack.guide.Tour8;
+import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class LevelIdx {
@@ -27,8 +31,9 @@ public class LevelIdx {
 		"As Time Goes By",						//时光流逝
 		"Embrace The Death",					//与死相拥
 		"Got No Place To Go",					//何去何从
-		"Deep and deep",						//一直向下
-		"With a friend",						//与朋友同行
+		"Deeper And Deeper",					//一直向下
+		"Meet A Friend",						//与朋友同行
+		"Enemy Appear",							//敌人出现
 		},
 		new String[]{
 		"Volcano Foot",
@@ -90,28 +95,31 @@ public class LevelIdx {
 		LevelConfig config = null;
 		switch(level){
 		case 0:
-			config = new Level1_tour1();
+			config = new Tour1();
 			break;
 		case 1:
-			config = new Level2_tour2();
+			config = new Tour2();
 			break;
 		case 2:
-			config = new Level3_tour3();
+			config = new Tour3();
 			break;
 		case 3:
-			config = new Level4_tour4();
+			config = new Tour4();
 			break;
 		case 4:
-			config = new Level5_tour5();
+			config = new Tour5();
 			break;
 		case 5:
-			config = new Level6_tour6();
+			config = new Tour6();
 			break;
 		case 6:
-			config = new Level7_tour7();
+			config = new Tour7();
 			break;
 		case 7:
-			config = new Level8_tour8();
+			config = new Tour8();
+			break;
+		case 8:
+			config = new Tour9();
 			break;
 		}
 		return config;
@@ -134,14 +142,35 @@ public class LevelIdx {
 	
 	public static RefreshableLevelTable getGuideTable(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(0);
-		table.add(new LevelItemTextTable("Choose Level")).row();
-		{
-			for(int i=0;i<Level_String[0].length;i++){
-				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
-				table.add(item).spaceBottom(10);
-				table.row();
-			}
-		}
+//		table.add(new LevelItemTextTable("Choose Level")).row();
+//		{
+//			for(int i=0;i<Level_String[0].length;i++){
+//				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
+//				table.add(item).spaceBottom(10);
+//				table.row();
+//			}
+//		}
+		TextureAtlas atlas = Engine.resource("All");
+		table.add(new LevelItemTextTable("Choose Level")).colspan(3).row().spaceBottom(15);
+		table.add();
+		table.add();
+		table.add();
+		table.row().spaceBottom(15);
+		table.add(new GuideItem(lvlSce,0,0,Level_String[0][0])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,1,Level_String[0][1])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,2,Level_String[0][2]));
+		table.row().spaceBottom(15);
+		table.add(new GuideItem(lvlSce,0,3,Level_String[0][3])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,4,Level_String[0][4])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,5,Level_String[0][5])).spaceRight(10);
+		table.row().spaceBottom(15);
+		table.add(new GuideItem(lvlSce,0,6,Level_String[0][6])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,7,Level_String[0][7])).spaceRight(10);
+		table.add(new GuideItem(lvlSce,0,8,Level_String[0][8]));
+		table.row().spaceBottom(100);
+		table.add(new Image(atlas.findRegion("finger"))).colspan(3);
+		
+		
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){

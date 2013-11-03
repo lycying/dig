@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Npc extends Actor {
+	static final int  DELAY_RANDOM = 10;
 	/**
 	 * when the npc walks , it check the area surrounds it to determine 
 	 * if it hit the gold or the bomb .
@@ -125,7 +126,7 @@ public class Npc extends Actor {
 				velocity = 0;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
-				if (Digs.RND.nextInt(10) != 0) {
+				if (Digs.RND.nextInt(DELAY_RANDOM) != 0) {
 					// Assume the miner has hit a wall
 					boolean hit = true;
 					for (int p = 1; p <= 5; p++) { //try higher until 5, this makes the npc clamp quickly 
@@ -196,9 +197,11 @@ public class Npc extends Actor {
 		if(regionsIndex>5)
 		for(Ka ka:level.getKas()){
 			if(ka.drawable.getBoundingRectangle().overlaps(this.drawable.getBoundingRectangle())){
+				Engine.getSoundManager().playSound("SoundMeet");
 				status = NpcStatus.WithKa;
 				withKa = ka;
 				level.removeKa(ka);//ok ok ok , i have catch ka
+				this.direction = -withKa.direction*this.direction;
 				break;
 			}
 		}
@@ -220,6 +223,7 @@ public class Npc extends Actor {
 					withKa.sync();
 					dock.addKa(withKa);
 					withKa = null;
+					Engine.getSoundManager().playSound("SoundDockKa");
 				}
 				status = NpcStatus.Free;
 				break;
@@ -327,4 +331,10 @@ public class Npc extends Actor {
 		}
 		level.removeNpc(this);
 	}
+
+
+	public NpcStatus getStatus() {
+		return status;
+	}
+	
 }

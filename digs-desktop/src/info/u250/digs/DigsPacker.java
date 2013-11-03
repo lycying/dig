@@ -16,8 +16,6 @@ public class DigsPacker {
 		setting.maxHeight= 2048;
 		TexturePacker2.process(setting,input, output, "all");
 		
-		input = "raw_texs/";
-		TexturePacker2.process(input, output, "texs");
 	}
 
 }
