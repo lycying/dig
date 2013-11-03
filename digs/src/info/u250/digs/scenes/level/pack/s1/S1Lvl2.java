@@ -2,24 +2,24 @@ package info.u250.digs.scenes.level.pack.s1;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
-import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
 
-public class S1Lvl1 extends LevelConfig {
-	public S1Lvl1(){
-		this.surface = "vg/s1v1.svg";
+public class S1Lvl2 extends LevelConfig {
+	public S1Lvl2(){
+		this.surface = "vg/s1v2.svg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.GRAY.get();
-		this.topColor = WebColors.BLACK.get();
+		this.bottomColor = WebColors.BLACK.get();
+		this.topColor = WebColors.ALICE_BLUE.get();
 		this.lineHeight = 250;
 		this.segment = 2;
 		
@@ -27,11 +27,13 @@ public class S1Lvl1 extends LevelConfig {
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
+				KillCircleEntity ray = new KillCircleEntity(540, 360, 150,Color.RED);
+				level.addKillCircle(ray);
 				
 				for(int i=0;i<5;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					e.setPosition(400, 400);
 					level.addNpc(e);
 				}
 				

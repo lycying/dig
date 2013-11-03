@@ -1,6 +1,5 @@
 package info.u250.digs.scenes.level;
 
-import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.game.LevelConfig;
@@ -10,12 +9,13 @@ import info.u250.digs.scenes.level.pack.guide.Level3_tour3;
 import info.u250.digs.scenes.level.pack.guide.Level4_tour4;
 import info.u250.digs.scenes.level.pack.guide.Level5_tour5;
 import info.u250.digs.scenes.level.pack.guide.Level6_tour6;
+import info.u250.digs.scenes.level.pack.guide.Level7_tour7;
+import info.u250.digs.scenes.level.pack.guide.Level8_tour8;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class LevelIdx {
@@ -27,6 +27,8 @@ public class LevelIdx {
 		"As Time Goes By",						//时光流逝
 		"Embrace The Death",					//与死相拥
 		"Got No Place To Go",					//何去何从
+		"Deep and deep",						//一直向下
+		"With a friend",						//与朋友同行
 		},
 		new String[]{
 		"Volcano Foot",
@@ -68,6 +70,9 @@ public class LevelIdx {
 			case 0:
 			config = getGuideLevelConfig(level);
 			break;
+			case 1:
+			config = getS1LevelConfig(level);
+			break;
 		}
 		if(null == config){
 			config = new LevelConfig();
@@ -102,12 +107,32 @@ public class LevelIdx {
 		case 5:
 			config = new Level6_tour6();
 			break;
+		case 6:
+			config = new Level7_tour7();
+			break;
+		case 7:
+			config = new Level8_tour8();
+			break;
+		}
+		return config;
+	}
+	private static LevelConfig getS1LevelConfig(int level){
+		LevelConfig config = null;
+		switch(level){
+		case 0:
+			config = new S1Lvl1();
+			break;
+		case 1:
+			config = new S1Lvl2();
+			break;
+		case 2:
+			config = new S1Lvl3();
+			break;
 		}
 		return config;
 	}
 	
 	public static RefreshableLevelTable getGuideTable(final LevelScene lvlSce){
-		final BitmapFont font = Engine.resource("MenuFont",BitmapFont.class);
 		RefreshableLevelTable table = new RefreshableLevelTable(0);
 		table.add(new LevelItemTextTable("Choose Level")).row();
 		{
@@ -117,9 +142,6 @@ public class LevelIdx {
 				table.row();
 			}
 		}
-		table.add(new Label("I feel very sorrow ,\n but i do not why ..",new LabelStyle(font,Color.BLUE))).row();
-		table.add(new Label("I do nothing but dig , \n i feel it must be sth worth to do ..",new LabelStyle(font,Color.YELLOW))).row();
-		table.add(new Label("I love crying in the rain. \n because when i do, \n no one can hear the pain.",new LabelStyle(font,Color.WHITE))).row();
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){

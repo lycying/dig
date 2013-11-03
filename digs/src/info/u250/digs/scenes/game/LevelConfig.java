@@ -1,12 +1,8 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.TeleportEntity;
-import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.game.entity.StepladderEntity;
 
 import java.util.Random;
 
@@ -38,17 +34,17 @@ public class LevelConfig {
 		Random random = new Random();
 		@Override
 		public void after(Level level) {
-			KillCircleEntity ray = new KillCircleEntity(550, 50, 100,Color.WHITE);
-			level.addKillCircle(ray);
-			KillCircleEntity ray2 = new KillCircleEntity(300, 0,50,Color.BLUE);
-			level.addKillCircle(ray2);
-			KillCircleEntity ray3 = new KillCircleEntity(100, 0,76,Color.GREEN);
-			level.addKillCircle(ray3);
-			KillCircleEntity ray4 = new KillCircleEntity(800, -20,88,Color.CYAN);
-			level.addKillCircle(ray4);
-			
-			StepladderEntity ladder = new StepladderEntity(15, 200,100);
-			level.addStepladder(ladder);
+//			KillCircleEntity ray = new KillCircleEntity(550, 50, 100,Color.WHITE);
+//			level.addKillCircle(ray);
+//			KillCircleEntity ray2 = new KillCircleEntity(300, 0,50,Color.BLUE);
+//			level.addKillCircle(ray2);
+//			KillCircleEntity ray3 = new KillCircleEntity(100, 0,76,Color.GREEN);
+//			level.addKillCircle(ray3);
+//			KillCircleEntity ray4 = new KillCircleEntity(800, -20,88,Color.CYAN);
+//			level.addKillCircle(ray4);
+//			
+//			StepladderEntity ladder = new StepladderEntity(15, 200,100);
+//			level.addStepladder(ladder);
 			
 			for(int i=0;i<200;i++){
 				Npc e = new Npc();
@@ -57,23 +53,23 @@ public class LevelConfig {
 				level.addNpc(e);
 			}
 			
-			TeleportEntity inout = new TeleportEntity(300,150,500,250);
-			level.addInOutTrans(inout);
+//			TeleportEntity inout = new TeleportEntity(300,150,500,250);
+//			level.addInOutTrans(inout);
 			
 		}
 		
 		@Override
 		public void mapMaker(Pixmap terr, Pixmap gold) {
-			gold.setColor(Color.YELLOW);
-			Polygon polygon =  PolygonTable.WALLACE_128;
-			polygon.setPosition(200, 50);
-			drawPolygon(polygon, gold);
-			
-			gold.setColor(Color.CYAN);
-			Polygon bomb =  PolygonTable.ADIUM;
-			bomb.setPosition(400, 50);
-			bomb.setRotation(50);
-			drawPolygon(bomb, gold);
+//			gold.setColor(Color.YELLOW);
+//			Polygon polygon =  PolygonTable.WALLACE_128;
+//			polygon.setPosition(200, 50);
+//			drawPolygon(polygon, gold);
+//			
+//			gold.setColor(Color.CYAN);
+//			Polygon bomb =  PolygonTable.ADIUM;
+//			bomb.setPosition(400, 50);
+//			bomb.setRotation(50);
+//			drawPolygon(bomb, gold);
 		}
 
 		@Override

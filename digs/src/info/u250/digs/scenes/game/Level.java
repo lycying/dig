@@ -5,10 +5,12 @@ import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.game.entity.Npc.DigResult;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
+import info.u250.digs.scenes.game.entity.TeleportEntity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -23,21 +25,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
 public class Level extends Group{
-	/**
-	 * when the npc walks , it check the area surrounds it to determine 
-	 * if it hit the gold or the bomb .
-	 * We need the result to give some effect and logic to the npc so it is.
-	 */
-	public enum DigResult{
-		None,
-		Gold,
-		Bomb,
-	}
+
 	
 	public enum FingerMode{
 		Fill,
 		Clear,
-		Bomb,
 		Npc,
 		Home,
 	}
@@ -48,6 +40,8 @@ public class Level extends Group{
 	private final Array<TeleportEntity> inouts = new Array<TeleportEntity>();
 	private final Array<StepladderEntity> ladders = new Array<StepladderEntity>();
 	private final Array<KillCircleEntity> killrays = new Array<KillCircleEntity>();
+	private final Array<Ka> kas = new Array<Ka>();
+	
 	/*===================Bellow is the entity we must control it =========*/
 	
 	/*===================For level draw ==================================*/
@@ -210,16 +204,19 @@ public class Level extends Group{
 				for(final Npc e : npcs){
 					e.tick();
 				}
+				for(final Ka e : kas){
+					e.tick();
+				}
 				accum -= ACC;
 			}
 		}
 		super.act(delta);
 		
 		//in order to play the sound more accepted
-		Npc.DIE_SOUND_CTL += delta;
 		Npc.COIN_SOUND_CTL += delta;
 		Npc.HURT_SOUND_CTL += delta;
 		Npc.TRANS_SOUND_CTL += delta;
+		
 	}
 	/* when the phone switch to another app and resume it , we must reload it */
 	public void reload(){
@@ -318,6 +315,17 @@ public class Level extends Group{
 	}
 	public Array<KillCircleEntity> getKillrays() {
 		return killrays;
+	}
+	public Array<Ka> getKas(){
+		return kas;
+	}
+	public void addKa(Ka ka){
+		this.kas.add(ka);
+		this.addActor(ka);
+	}
+	public void removeKa(Ka ka){
+		this.kas.removeValue(ka, true);
+		ka.remove();
 	}
 	public void addGoldDock(GoldTowerEntity dock){
 		this.docks.add(dock);

@@ -11,13 +11,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 
 public class GoldTowerEntity extends Group{
+	int max ;
 	int number = 0;
 	private Rectangle rect = new Rectangle();
 	Image dock;
 	Sprite gold;
-	int max ;
+	private final Array<Ka> kas = new Array<Ka>();
+	
 	public GoldTowerEntity(){
 		TextureAtlas atlas = Engine.resource("All",TextureAtlas.class);
 		final Image tower = new Image(atlas.findRegion("tower"));
@@ -41,6 +44,10 @@ public class GoldTowerEntity extends Group{
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		for(Ka ka:kas){
+			ka.onTower(this);
+			ka.draw(batch, parentAlpha);
+		}
 		super.draw(batch, parentAlpha);
 		int bak = number;
 		int i = 0,j=0;
@@ -74,5 +81,8 @@ public class GoldTowerEntity extends Group{
 	}
 	public void addNumber(){
 		this.number++;
+	}
+	public void addKa(Ka ka){
+		this.kas.add(ka);
 	}
 }

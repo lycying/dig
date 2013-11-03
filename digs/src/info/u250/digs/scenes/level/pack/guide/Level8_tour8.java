@@ -1,4 +1,4 @@
-package info.u250.digs.scenes.level.pack.s1;
+package info.u250.digs.scenes.level.pack.guide;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
@@ -7,49 +7,54 @@ import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.Npc;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
 
-public class S1Lvl1 extends LevelConfig {
-	public S1Lvl1(){
-		this.surface = "vg/s1v1.svg";
+public class Level8_tour8 extends LevelConfig {
+	public Level8_tour8(){
+		this.surface = "texs/baobao2.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.GRAY.get();
-		this.topColor = WebColors.BLACK.get();
-		this.lineHeight = 250;
-		this.segment = 2;
+		this.bottomColor = WebColors.DARK_CYAN.get();
+		this.topColor = WebColors.DARK_BLUE.get();
+		this.lineHeight = 300;
+		this.segment = 1;
 		
 		
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
-				
-				for(int i=0;i<5;i++){
+				for(int i=0;i<10;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);
 					level.addNpc(e);
 				}
-				
+				for(int i=0;i<10;i++){
+					Ka e = new Ka();
+					e.init(level);
+					e.setPosition(380 + Digs.RND.nextFloat()*100, 70);
+					level.addKa(e);
+				}
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.WONDER_PART_8;
-				polygon.setScale(0.4f, 0.4f);
-				polygon.setPosition(50, 50);
-				drawPolygon(polygon, gold);
+				gold.setColor(Color.CLEAR);
+				Polygon polygon =  PolygonTable.IMG_ISLAND1;
+				polygon.setScale(3f,1f);
+				polygon.setPosition(350, 50);
+				drawPolygon(polygon, terr);
 			}
 
 			@Override
 			public void before(Level level) {
 				GoldTowerEntity dock = new GoldTowerEntity();
-				dock.setY(lineHeight);
+				dock.setPosition(0,lineHeight);
 				level.addGoldDock(dock);
 			}
 		};

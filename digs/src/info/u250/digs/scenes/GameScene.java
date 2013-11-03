@@ -20,6 +20,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -39,7 +40,7 @@ public class GameScene extends SceneStage {
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
 	WinDialog winDialog;
-	FunctionPane functionPane;
+	Group functionGroup ;
 	final ScrollPane scroll;
 	public GameScene(DigsEngineDrive drive){
 		this.drive = drive;
@@ -48,18 +49,19 @@ public class GameScene extends SceneStage {
 		
 		pauseDialog = new PauseDialog(this);
 		winDialog = new WinDialog(this);
-		functionPane = new FunctionPane(this);
+		functionGroup = new Group();
 		
 		scroll = new ScrollPane(null);
-		scroll.setStyle(new ScrollPaneStyle(null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider")),null, null));
+		scroll.setStyle(new ScrollPaneStyle(null,null, null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		scroll.setFillParent(false);
-		scroll.setScrollingDisabled(false, true);
+		scroll.setScrollingDisabled(true, false);
 		scroll.setWidth(Engine.getWidth());
 		scroll.setHeight(Engine.getHeight());
 		scroll.setFlickScroll(false);
 		scroll.setFadeScrollBars(false);
 		scroll.setOverscroll(false, false);
 		scroll.setScrollbarsOnTop(false);
+		scroll.setScrollBarPositions(true, false);
 		
 		gameInformationPane = new InformationPane();
 		final Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
@@ -73,6 +75,8 @@ public class GameScene extends SceneStage {
 		});
 		
 		this.addActor(scroll);
+		
+		final FunctionPane functionPane = new FunctionPane(this);
 		final Button btn_actor = new Button(new TextureRegionDrawable(atlas.findRegion("expand")),null,new TextureRegionDrawable(atlas.findRegion("pitch")));
 		btn_actor.addListener(new ClickListener(){
 			@Override
@@ -81,10 +85,12 @@ public class GameScene extends SceneStage {
 				super.clicked(event, x, y);
 			}
 		});
-		btn_actor.setPosition(20, Engine.getHeight()-btn_actor.getHeight());
-		functionPane.setPosition(btn_actor.getX()+btn_actor.getWidth()+20, Engine.getHeight()-functionPane.getHeight()+12);
-		this.addActor(functionPane);
-		this.addActor(btn_actor);
+		functionPane.setPosition(btn_actor.getWidth(),0);
+		functionGroup.addActor(functionPane);
+		functionGroup.addActor(btn_actor);
+		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight()+10);
+		
+		this.addActor(functionGroup);
 		this.addActor(pause);
 		
 		setupPauseResume();
@@ -102,6 +108,12 @@ public class GameScene extends SceneStage {
 		configGame(LevelIdx.getLevelConfig(pack,level));
 	}
 	private void configGame(LevelConfig config){
+		if(config.height>Engine.getHeight()){
+			functionGroup.setX(35);
+		}else{
+			functionGroup.setX(0);
+		}
+		
 		config.idx = levelIndex;//remark it
 		pauseDialog.remove();
 		winDialog.remove();

@@ -13,36 +13,36 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
 
-public class S1Lvl1 extends LevelConfig {
-	public S1Lvl1(){
-		this.surface = "vg/s1v1.svg";
+public class S1Lvl3 extends LevelConfig {
+	public S1Lvl3(){
+		this.surface = "vg/s1v3.svg";
 		this.width = (int)Engine.getWidth() ;
-		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.GRAY.get();
-		this.topColor = WebColors.BLACK.get();
-		this.lineHeight = 250;
-		this.segment = 2;
+		this.height = 800;
+		this.bottomColor = WebColors.DARK_SLATE_GRAY.get();
+		this.topColor = WebColors.DARK_GREEN.get();
+		this.lineHeight = 800-130;
+		this.segment = 1;
 		
 		
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
 				
-				for(int i=0;i<5;i++){
+				
+				for(int i=0;i<10;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					e.setPosition(100, Engine.getHeight()+ 400 + Digs.RND.nextFloat()*500);
 					level.addNpc(e);
 				}
-				
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.WONDER_PART_8;
-				polygon.setScale(0.4f, 0.4f);
-				polygon.setPosition(50, 50);
+				Polygon polygon =  PolygonTable.DIALOG_OK;
+				polygon.setScale(1f,1f);
+				polygon.setPosition(750, 200);
 				drawPolygon(polygon, gold);
 			}
 

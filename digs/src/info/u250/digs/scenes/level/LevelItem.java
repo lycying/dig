@@ -39,7 +39,7 @@ public class LevelItem extends  Group{
 			break;
 		}
 		bg.setSize(this.getWidth(), this.getHeight());
-		Label title = new Label(level+":"+levelName,new LabelStyle(
+		Label title = new Label(levelName,new LabelStyle(
 				Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(100, 25);
 		Image icon = new Image(texs.getRegions().get(level));
@@ -94,7 +94,7 @@ public class LevelItem extends  Group{
 		
 		this.addActor(t2);
 		
-		if(level<6){
+		if(level<60){
 			this.addActor(pass);
 			this.addActor(menu_play);
 			this.addActor(t);

@@ -16,7 +16,21 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Npc extends Actor {
-	
+	/**
+	 * when the npc walks , it check the area surrounds it to determine 
+	 * if it hit the gold or the bomb .
+	 * We need the result to give some effect and logic to the npc so it is.
+	 */
+	public enum DigResult{
+		None,
+		Gold,
+		Bomb,
+	}
+	public enum NpcStatus{
+		Free,
+		HoldGold,
+		WithKa,
+	}
 	TextureRegion[] npcRegions = new TextureRegion[4];
 	TextureRegion[] npcGoldRegions = new TextureRegion[4];
 	TextureRegion[] regions = null;
@@ -25,7 +39,6 @@ public class Npc extends Actor {
 	float x ,y ;
 	public int direction = Digs.RND.nextBoolean()?1:-1;
 	public int velocity = 1;
-	private boolean isHoldGold = false;
 	public Sprite drawable = new Sprite();
 	
 	public static float DIE_SOUND_CTL = 0;
@@ -33,13 +46,14 @@ public class Npc extends Actor {
 	public static float TRANS_SOUND_CTL = 0;
 	public static float COIN_SOUND_CTL = 0;
 	
+	public Ka withKa = null;//with ka
+	
+	private NpcStatus status = NpcStatus.Free;
+	
 	//the main terrain
 	protected Level level;
+	static final float N_WIDTH = 10.5f;
 	public Npc(){
-		this.setSize(10.5f, 15);
-		this.drawable.setSize(10.5f, 15);
-		this.setOrigin(this.getWidth()/2, 3);
-		this.drawable.setOrigin(this.getWidth()/2, 3);
 		
 		TextureAtlas atlas = Engine.resource("All");
 		npcRegions[0] = atlas.findRegion("npc1");
@@ -53,6 +67,10 @@ public class Npc extends Actor {
 		npcGoldRegions[3] = atlas.findRegion("npc-gold4");
 		
 		regions = npcRegions;		
+		this.setSize(N_WIDTH, N_WIDTH/regions[0].getRegionWidth()*regions[0].getRegionHeight());
+		this.drawable.setSize(this.getWidth(), this.getHeight());
+		this.setOrigin(this.getWidth()/2, 3);
+		this.drawable.setOrigin(this.getWidth()/2, 3);
 	}
 	
 	
@@ -61,6 +79,13 @@ public class Npc extends Actor {
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		if(withKa!=null){
+			withKa.x=this.getX();
+			withKa.y=this.getY()+10;
+			withKa.direction = direction;
+			withKa.sync();
+			withKa.draw(batch, parentAlpha);
+		}
 		drawable.draw(batch);
 	}
 	
@@ -117,7 +142,7 @@ public class Npc extends Actor {
 						if(hit){
 							direction *= -1;
 						}else{
-							if(!isHoldGold){//if hold gold , not change its direction
+							if(NpcStatus.Free == status){//if hold gold , not change its direction
 								direction *= -1;
 							}
 						}
@@ -126,9 +151,20 @@ public class Npc extends Actor {
 				}
 			}
 		}
-		if(isHoldGold)tryGoldDock();
+		switch(status){
+		case Free:
+			meetKa();
+			break;
+		case HoldGold:
+			meetKa(); 	//the npc can meet a ka even if he hold a gold , this will waste much gold
+			tryGoldDock();
+			break;
+		case WithKa:
+			tryGoldDock();
+			break;
+		}
 		
-		switch(level.tryDig(isHoldGold)){
+		switch(level.tryDig(NpcStatus.HoldGold == status)){
 		case None:break;
 		case Bomb:
 			die();	
@@ -138,7 +174,7 @@ public class Npc extends Actor {
 			}
 			break;
 		case Gold:
-			isHoldGold = true;
+			status = NpcStatus.HoldGold;
 			direction *= -1;
 			regions = npcGoldRegions;
 			break;
@@ -151,22 +187,41 @@ public class Npc extends Actor {
 	void sync(){
 		this.setX(x);
 		this.setY(y);
-		drawable.setRegion(regions[(regionsIndex/2)%4]);
+		drawable.setRegion(regions[(regionsIndex/2)%regions.length]);
 		drawable.setColor(this.getColor());
 		drawable.setPosition(x-this.getOriginX(), y-this.getOriginY());
 		if(direction<0)drawable.flip(true, false);
 	}
+	void meetKa(){
+		if(regionsIndex>5)
+		for(Ka ka:level.getKas()){
+			if(ka.drawable.getBoundingRectangle().overlaps(this.drawable.getBoundingRectangle())){
+				status = NpcStatus.WithKa;
+				withKa = ka;
+				level.removeKa(ka);//ok ok ok , i have catch ka
+				break;
+			}
+		}
+	}
 	void tryGoldDock(){
 		for(GoldTowerEntity dock:level.getDocks()){
 			if(this.drawable.getBoundingRectangle().overlaps(dock.getRect())){
-				isHoldGold = false;
-				this.direction *= -1;
-				dock.number++;
-				regions = npcRegions;
-				if(COIN_SOUND_CTL>0.2f){
-					Engine.getSoundManager().playSound("SoundCoin");
-					COIN_SOUND_CTL = 0;
+				if(status==NpcStatus.HoldGold){
+					this.direction *= -1;
+					dock.number++;
+					regions = npcRegions;
+					if(COIN_SOUND_CTL>0.2f){
+						Engine.getSoundManager().playSound("SoundCoin");
+						COIN_SOUND_CTL = 0;
+					}
+				}else if(status==NpcStatus.WithKa){
+					withKa.x = 0;
+					withKa.y = 0;
+					withKa.sync();
+					dock.addKa(withKa);
+					withKa = null;
 				}
+				status = NpcStatus.Free;
 				break;
 			}
 		}
