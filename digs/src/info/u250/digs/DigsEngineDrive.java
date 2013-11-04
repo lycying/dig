@@ -13,7 +13,7 @@ public class DigsEngineDrive implements EngineDrive {
 
 	static final String FLAT = "texs/RockLayered.jpg";
 	static final String FLAT2 = "texs/S.png";
-	static public final int LINGO_SOUND = 40;
+	static public final int LINGO_SOUND = 43;
 	@Override
 	public EngineOptions onSetupEngine() {
 		EngineOptions opt = new EngineOptions(new String[]{

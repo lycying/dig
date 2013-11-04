@@ -35,8 +35,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class AboutScene extends SceneStage{
 	DigsEngineDrive drive;
-	Animation anim = null;
-	Sprite sprite = null;
+	Animation npcAnim = null;
+	Sprite npcSprite = null;
+	Animation kaAnim = null;
+	Sprite kaSprite = null;
 	ShaderProgram shader ;
 	FrameBuffer frameBuffer;
 	Mesh mesh ;
@@ -71,11 +73,24 @@ public class AboutScene extends SceneStage{
 		npcRegions[2] = atlas.findRegion("npc3");
 		npcRegions[3] = atlas.findRegion("npc4");
 		
-		anim = new Animation(0.05f, npcRegions);
-		sprite = new Sprite(anim.getKeyFrame(0));
-		sprite.setPosition(420, 40);
-		sprite.setScale(1.5f);
-		sprite.setColor(new Color(Color.GRAY));
+		npcAnim = new Animation(0.05f, npcRegions);
+		npcSprite = new Sprite(npcAnim.getKeyFrame(0));
+		npcSprite.setPosition(420, 40);
+		npcSprite.setScale(1.5f);
+		npcSprite.setColor(new Color(Color.GRAY));
+		
+		
+		TextureRegion[] kaRegions = new TextureRegion[4];
+		kaRegions[0] = atlas.findRegion("npc-ka1");
+		kaRegions[1] = atlas.findRegion("npc-ka2");
+		kaRegions[2] = atlas.findRegion("npc-ka3");
+		kaRegions[3] = atlas.findRegion("npc-ka4");
+		
+		kaAnim = new Animation(0.05f, kaRegions);
+		kaSprite = new Sprite(kaAnim.getKeyFrame(0));
+		kaSprite.setPosition(400, 40);
+		kaSprite.setScale(1.2f);
+//		kaSprite.setColor(new Color(Color.GRAY));
 		
 		
 		{
@@ -130,7 +145,8 @@ public class AboutScene extends SceneStage{
 	public void act(float delta) {
 		accum+=delta;
 		accum_text+=delta;
-		sprite.setRegion(anim.getKeyFrame(accum,true));
+		npcSprite.setRegion(npcAnim.getKeyFrame(accum,true));
+		kaSprite.setRegion(kaAnim.getKeyFrame(accum,true));
 		if(accum_text>5){
 			accum_text-=5;
 			info.play(Digs.RND.nextInt(2), contributes[index%contributes.length]);
@@ -170,7 +186,8 @@ public class AboutScene extends SceneStage{
 		}
 		super.draw();
 		Engine.getSpriteBatch().begin();
-		sprite.draw(Engine.getSpriteBatch());
+		npcSprite.draw(Engine.getSpriteBatch());
+		kaSprite.draw(Engine.getSpriteBatch());
 		Engine.getSpriteBatch().end();
 		
 //		Gdx.gl.glStencilFunc(GL10.GL_ALWAYS, 1, 1);

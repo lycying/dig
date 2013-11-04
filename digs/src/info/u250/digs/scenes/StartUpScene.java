@@ -423,9 +423,4 @@ public class StartUpScene extends SceneStage{
 		super.show();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
 	}
-	@Override
-	public void hide() {
-		super.hide();
-		Engine.getMusicManager().pauseMusic("MusicBackground");
-	}
 }
