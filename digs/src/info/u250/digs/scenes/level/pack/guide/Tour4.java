@@ -27,7 +27,7 @@ public class Tour4 extends LevelConfig {
 		this.topColor = WebColors.KHAKI.get();
 		this.lineHeight = 300;
 		this.segment = 20;
-		
+		this.aim = 5;
 		
 		callback = new LevelCallBack() {
 			@Override

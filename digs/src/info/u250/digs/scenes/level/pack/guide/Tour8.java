@@ -24,6 +24,7 @@ public class Tour8 extends LevelConfig {
 		this.topColor = WebColors.DARK_BLUE.get();
 		this.lineHeight = 300;
 		this.segment = 1;
+		this.aim = 10;
 		
 		
 		callback = new LevelCallBack() {

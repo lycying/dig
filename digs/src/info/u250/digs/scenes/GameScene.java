@@ -12,7 +12,6 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.dialog.FunctionPane;
 import info.u250.digs.scenes.game.dialog.InformationPane;
 import info.u250.digs.scenes.game.dialog.PauseDialog;
-import info.u250.digs.scenes.game.dialog.WinDialog;
 import info.u250.digs.scenes.level.LevelIdx;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -39,16 +38,16 @@ public class GameScene extends SceneStage {
 	int levelIndex = 0;
 	InformationPane gameInformationPane ;
 	PauseDialog pauseDialog;
-	WinDialog winDialog;
+
 	Group functionGroup ;
 	final ScrollPane scroll;
+	final Image pauseButton;
 	public GameScene(DigsEngineDrive drive){
 		this.drive = drive;
 		TextureAtlas atlas = Engine.resource("All");
 		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
 		
 		pauseDialog = new PauseDialog(this);
-		winDialog = new WinDialog(this);
 		functionGroup = new Group();
 		
 		scroll = new ScrollPane(null);
@@ -64,17 +63,15 @@ public class GameScene extends SceneStage {
 		scroll.setScrollBarPositions(true, false);
 		
 		gameInformationPane = new InformationPane();
-		final Image pause = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
-		pause.setPosition(Engine.getWidth()-pause.getWidth(), Engine.getHeight()- pause.getHeight());
-		pause.addListener(new ClickListener(){
+		pauseButton = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
+		pauseButton.setPosition(Engine.getWidth()-pauseButton.getWidth(), Engine.getHeight()- pauseButton.getHeight());
+		pauseButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				pauseGame();
 				super.clicked(event, x, y);
 			}
 		});
-		
-		this.addActor(scroll);
 		
 		final FunctionPane functionPane = new FunctionPane(this);
 		final Button btn_actor = new Button(new TextureRegionDrawable(atlas.findRegion("expand")),null,new TextureRegionDrawable(atlas.findRegion("pitch")));
@@ -89,12 +86,11 @@ public class GameScene extends SceneStage {
 		functionGroup.addActor(functionPane);
 		functionGroup.addActor(btn_actor);
 		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight()+10);
-		
-		this.addActor(functionGroup);
-		this.addActor(pause);
-		
 		setupPauseResume();
 		
+		this.addActor(scroll);
+		this.addActor(functionGroup);
+		this.addActor(pauseButton);
 	}
 	public void nextLevel(){
 		startLevel(this.packIndex,this.levelIndex+1);
@@ -108,6 +104,12 @@ public class GameScene extends SceneStage {
 		configGame(LevelIdx.getLevelConfig(pack,level));
 	}
 	private void configGame(LevelConfig config){
+		//rebuilt it
+		this.clear();
+		this.addActor(scroll);
+		this.addActor(functionGroup);
+		this.addActor(pauseButton);
+		
 		if(config.height>Engine.getHeight()){
 			functionGroup.setX(35);
 		}else{
@@ -115,8 +117,6 @@ public class GameScene extends SceneStage {
 		}
 		
 		config.idx = levelIndex;//remark it
-		pauseDialog.remove();
-		winDialog.remove();
 		if(null!=level){
 			level.dispose();
 		}
@@ -154,16 +154,13 @@ public class GameScene extends SceneStage {
 
 	}
 	void pauseGame(){
-		if(this.getActors().contains(this.winDialog, true)) return;
+		if(level==null)return;
+		if(level.isMapMaking())return;//avoid the resource load many times
+		if(level.config.levelCompleteCallback.isFail() || level.config.levelCompleteCallback.isWin()){
+			return;
+		}
 		addActor(pauseDialog);
 		Engine.doPause();
-	}
-	public void win(LevelConfig config,int gold,int npc,int npcDead,int time){
-		Engine.doPause();
-		Engine.getMusicManager().stopMusic("MusicBattle");
-		Engine.getSoundManager().playSound("SoundWin");
-		addActor(winDialog);
-		winDialog.show(config, gold, npc, npcDead, time);
 	}
 	@Override
 	public void draw() {
@@ -182,7 +179,7 @@ public class GameScene extends SceneStage {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
 				if(Engine.isPause()){
-					if(this.getActors().contains(this.winDialog, true)) {}else{
+					if(!level.config.levelCompleteCallback.isFail() && !level.config.levelCompleteCallback.isWin()){
 						Engine.doResume();
 						pauseDialog.close();
 					}
@@ -193,7 +190,7 @@ public class GameScene extends SceneStage {
 		} else {
 			if (keycode == Keys.DEL) {
 				if(Engine.isPause()){
-					if(this.getActors().contains(this.winDialog, true)) {}else{
+					if(!level.config.levelCompleteCallback.isFail() && !level.config.levelCompleteCallback.isWin()){
 						Engine.doResume();
 						pauseDialog.close();
 					}

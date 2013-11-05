@@ -54,8 +54,8 @@ public class Level extends Group{
 	private final Vector2 projPos = new Vector2(); // for pixmap to screen coors
 	private final Vector2 prePos = new Vector2();  // for touch event position
 	
+	public LevelConfig config = null;
 	private GameScene game = null;
-	private LevelConfig config = null;
 	private PixmapHelper terrain = null;
 	private PixmapHelper goldTerrain = null;
 	private LevelActor levelActor = null; // Note : this is use to put the terrain to the center of the drawing
@@ -373,5 +373,7 @@ public class Level extends Group{
 		killrays.clear();
 		clear();
 	}
-	
+	public boolean isMapMaking() {
+		return mapMaking;
+	}
 }

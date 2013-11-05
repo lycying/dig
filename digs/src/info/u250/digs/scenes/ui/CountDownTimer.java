@@ -3,14 +3,19 @@ package info.u250.digs.scenes.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
-
+/**
+ * default 5min
+ */
 public class CountDownTimer {
 	private static final int Duration = 5*60; //5 min
 	private int sceonds ;
 	private Label label;
-	public CountDownTimer(Label label){
-		this.sceonds = Duration;
+	public CountDownTimer(Label label,int duration){
+		this.sceonds = duration;
 		this.label = label;
+	}
+	public CountDownTimer(Label label){
+		this(label, Duration);
 	}
 	public void start(){
 		Timer.schedule(new Task() {
@@ -31,4 +36,8 @@ public class CountDownTimer {
 			}
 		}, 0, 1);
 	}
+	public int getSceonds() {
+		return sceonds;
+	}
+	
 }
