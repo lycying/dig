@@ -10,10 +10,12 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
+import info.u250.digs.scenes.ui.HintOnScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Tour7 extends LevelConfig {
 	public Tour7(){
@@ -29,6 +31,14 @@ public class Tour7 extends LevelConfig {
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
+				{
+					HintOnScreen hint = new HintOnScreen("OK , you find me","hint5",Color.BLACK,150);
+					hint.pack();
+					hint.setColor(new Color(1,1,1,0.8f));
+					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(10, 0,0.2f),Actions.moveBy(-10, 0,0.2f))));
+					hint.setPosition(600, 200);
+					level.addActor(hint);
+				}
 				{
 					StepladderEntity ladder = new StepladderEntity(40, 200,50);
 					level.addStepladder(ladder);

@@ -11,6 +11,7 @@ import info.u250.digs.scenes.game.LevelCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.HintOnScreen;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Tour1 extends LevelConfig {
@@ -44,6 +46,13 @@ public class Tour1 extends LevelConfig {
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
 				}
+				{
+					HintOnScreen hint = new HintOnScreen("Bring the gold home!","hint4",Color.BLACK,100);
+					hint.pack();
+					hint.setPosition(520, 200);
+					hint.setColor(new Color(1,1,1,0.8f));
+					level.addActor(hint);
+					}
 			}
 			
 			@Override
@@ -67,6 +76,20 @@ public class Tour1 extends LevelConfig {
 				ParticleEffectActor p = new ParticleEffectActor(e,"effect-dot-mu");
 				p.setPosition(Engine.getWidth(), 200);
 				level.addActor(p);
+				
+				{
+					HintOnScreen hint = new HintOnScreen("They will walk straight forward until they hit a wall or get bored.","hint1",Color.WHITE,300);
+					hint.pack();
+					hint.setPosition(450, 450);
+					level.addActor(hint);
+					}
+				{
+					HintOnScreen hint = new HintOnScreen("Home!","hint4",Color.BLACK,60);
+					hint.pack();
+					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(10, 0,0.2f),Actions.moveBy(-10, 0,0.2f))));
+					hint.setPosition(90, 320);
+					level.addActor(hint);
+					}
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);

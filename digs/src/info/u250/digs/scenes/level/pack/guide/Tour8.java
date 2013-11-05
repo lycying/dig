@@ -10,6 +10,7 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.HintOnScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -58,6 +59,13 @@ public class Tour8 extends LevelConfig {
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setPosition(0,lineHeight);
 				level.addGoldDock(dock);
+				
+				{
+					HintOnScreen hint = new HintOnScreen("seem to have met before","hint2",Color.WHITE,200);
+					hint.pack();
+					hint.setPosition(400, 70);
+					level.addActor(hint);
+					}
 			}
 		};
 	}

@@ -17,9 +17,13 @@ import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class LevelIdx {
@@ -150,8 +154,7 @@ public class LevelIdx {
 //				table.row();
 //			}
 //		}
-		TextureAtlas atlas = Engine.resource("All");
-		table.add(new LevelItemTextTable("Choose Level")).colspan(3).row().spaceBottom(15);
+		
 		table.add();
 		table.add();
 		table.add();
@@ -168,9 +171,11 @@ public class LevelIdx {
 		table.add(new GuideItem(lvlSce,0,7,Level_String[0][7])).spaceRight(10);
 		table.add(new GuideItem(lvlSce,0,8,Level_String[0][8]));
 		table.row().spaceBottom(100);
+		TextureAtlas atlas = Engine.resource("All");
+		BitmapFont font = Engine.resource("BigFont");
+		table.add(new Label("Now come to the new world",new LabelStyle(font,Color.WHITE))).colspan(3).row();
 		table.add(new Image(atlas.findRegion("finger"))).colspan(3);
-		
-		
+
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){

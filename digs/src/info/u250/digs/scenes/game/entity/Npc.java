@@ -55,17 +55,17 @@ public class Npc extends Actor {
 	protected Level level;
 	static final float N_WIDTH = 10.5f;
 	public Npc(){
-		//TODO make the npc colorFull
+		int themeID = Digs.RND.nextInt(5)+1;
 		TextureAtlas atlas = Engine.resource("All");
-		npcRegions[0] = atlas.findRegion("npc-s1-1");
-		npcRegions[1] = atlas.findRegion("npc-s1-2");
-		npcRegions[2] = atlas.findRegion("npc-s1-3");
-		npcRegions[3] = atlas.findRegion("npc-s1-4");
+		npcRegions[0] = atlas.findRegion("npc-s"+themeID+"-1");
+		npcRegions[1] = atlas.findRegion("npc-s"+themeID+"-2");
+		npcRegions[2] = atlas.findRegion("npc-s"+themeID+"-3");
+		npcRegions[3] = atlas.findRegion("npc-s"+themeID+"-4");
 		
-		npcGoldRegions[0] = atlas.findRegion("npc-s1-gold-1");
-		npcGoldRegions[1] = atlas.findRegion("npc-s1-gold-2");
-		npcGoldRegions[2] = atlas.findRegion("npc-s1-gold-3");
-		npcGoldRegions[3] = atlas.findRegion("npc-s1-gold-4");
+		npcGoldRegions[0] = atlas.findRegion("npc-s"+themeID+"-gold-1");
+		npcGoldRegions[1] = atlas.findRegion("npc-s"+themeID+"-gold-2");
+		npcGoldRegions[2] = atlas.findRegion("npc-s"+themeID+"-gold-3");
+		npcGoldRegions[3] = atlas.findRegion("npc-s"+themeID+"-gold-4");
 		
 		regions = npcRegions;		
 		this.setSize(N_WIDTH, N_WIDTH/regions[0].getRegionWidth()*regions[0].getRegionHeight());
@@ -223,6 +223,7 @@ public class Npc extends Actor {
 					withKa.sync();
 					dock.addKa(withKa);
 					withKa = null;
+					this.addAction(Actions.delay(1));//delay...
 					Engine.getSoundManager().playSound("SoundDockKa");
 				}
 				status = NpcStatus.Free;

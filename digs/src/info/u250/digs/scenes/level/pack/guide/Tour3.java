@@ -12,6 +12,7 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.HintOnScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -43,6 +44,13 @@ public class Tour3 extends LevelConfig {
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
+				
+				{
+					HintOnScreen hint = new HintOnScreen("Death is not so terrible... sometimes... But wait!!","hint2",Color.WHITE,250);
+					hint.pack();
+					hint.setPosition(350, 350);
+					level.addActor(hint);
+				}
 			}
 			
 			@Override

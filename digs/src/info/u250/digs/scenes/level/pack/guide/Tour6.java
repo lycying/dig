@@ -11,6 +11,7 @@ import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
+import info.u250.digs.scenes.ui.HintOnScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -68,6 +69,13 @@ public class Tour6 extends LevelConfig {
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
+				
+				{
+					HintOnScreen hint = new HintOnScreen("Who am i...","level-item-bg-4",Color.BLACK,150);
+					hint.pack();
+					hint.setPosition(100, 300);
+					level.addActor(hint);
+				}
 			}
 		};
 	}

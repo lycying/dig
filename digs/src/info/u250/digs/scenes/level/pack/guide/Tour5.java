@@ -9,6 +9,7 @@ import info.u250.digs.scenes.game.LevelCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.ui.HintOnScreen;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
@@ -81,6 +82,13 @@ public class Tour5 extends LevelConfig {
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
+				
+				{
+					HintOnScreen hint = new HintOnScreen("How to tell if your cat is plotting to kill you? Is it or is it?","hint2",Color.WHITE,250);
+					hint.pack();
+					hint.setPosition(530, 350);
+					level.addActor(hint);
+				}
 			}
 		};
 	}

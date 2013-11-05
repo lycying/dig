@@ -11,6 +11,7 @@ import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.ui.HintOnScreen;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
@@ -32,6 +33,13 @@ public class Tour4 extends LevelConfig {
 		callback = new LevelCallBack() {
 			@Override
 			public void after(Level level) {
+				{
+					HintOnScreen hint = new HintOnScreen("If you must wear your tech, try not to look like an idiot ,follow me.","hint3",Color.BLACK,250);
+					hint.pack();
+					hint.setPosition(130, 150);
+					hint.setColor(new Color(1,1,1,0.6f));
+					level.addActor(hint);
+				}
 				{
 				KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.BLUE);
 				level.addKillCircle(ray);
@@ -60,6 +68,8 @@ public class Tour4 extends LevelConfig {
 				ParticleEffectActor p = new ParticleEffectActor(e,"smoke");
 				p.setPosition(450, 250);
 				level.addActor(p);
+				
+				
 			}
 			
 			@Override

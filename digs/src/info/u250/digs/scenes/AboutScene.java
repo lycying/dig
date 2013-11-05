@@ -68,10 +68,10 @@ public class AboutScene extends SceneStage{
 		
 		TextureAtlas atlas = Engine.resource("All");
 		TextureRegion[] npcRegions = new TextureRegion[4];
-		npcRegions[0] = atlas.findRegion("npc1");
-		npcRegions[1] = atlas.findRegion("npc2");
-		npcRegions[2] = atlas.findRegion("npc3");
-		npcRegions[3] = atlas.findRegion("npc4");
+		npcRegions[0] = atlas.findRegion("npc-s1-1");
+		npcRegions[1] = atlas.findRegion("npc-s1-2");
+		npcRegions[2] = atlas.findRegion("npc-s1-3");
+		npcRegions[3] = atlas.findRegion("npc-s1-4");
 		
 		npcAnim = new Animation(0.05f, npcRegions);
 		npcSprite = new Sprite(npcAnim.getKeyFrame(0));
