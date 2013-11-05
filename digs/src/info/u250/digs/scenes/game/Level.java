@@ -42,7 +42,7 @@ public class Level extends Group{
 	private final Array<StepladderEntity> ladders = new Array<StepladderEntity>();
 	private final Array<KillCircleEntity> killrays = new Array<KillCircleEntity>();
 	private final Array<Ka> kas = new Array<Ka>();
-	private final Array<EnemyMiya> enemyMyiyas = new Array<EnemyMiya>();
+	private final Array<EnemyMiya> enemyMiyas = new Array<EnemyMiya>();
 	
 	/*===================Bellow is the entity we must control it =========*/
 	
@@ -182,24 +182,12 @@ public class Level extends Group{
 		}
 		super.draw(batch, parentAlpha);
 	}
-	
-	/* if we arrived the win status */
-	int goldNumber = 0;
-	void fingerWinStatus(){
-		if(null == game) return;
-		goldNumber = 0;
-		for(GoldTowerEntity dock:this.docks){
-			goldNumber+=dock.getNumber();
-		}
-		if(goldNumber>=config.aim){
-			this.game.win(config, goldNumber, 50, 30, 56);//TODO
-		}
-	}
 
 	@Override
 	public void act(float delta) {
-		fingerWinStatus();
 		if(!mapMaking && !mapTexturing){
+			if(config.levelCompleteCallback.tick(game, this, config)) return ;//win callback
+			
 			accum += delta;
 			while (accum >= ACC) {
 				//OK, tick it
@@ -209,7 +197,7 @@ public class Level extends Group{
 				for(final Ka e : kas){
 					e.tick();
 				}
-				for(final EnemyMiya e:enemyMyiyas){
+				for(final EnemyMiya e:enemyMiyas){
 					e.tick();
 				}
 				accum -= ACC;
@@ -311,14 +299,14 @@ public class Level extends Group{
 	}
 	
 	public Array<EnemyMiya> getEnemyMyiyas() {
-		return enemyMyiyas;
+		return enemyMiyas;
 	}
 	public void addEnemyMiya(EnemyMiya miya){
-		this.enemyMyiyas.add(miya);
+		this.enemyMiyas.add(miya);
 		this.addActor(miya);
 	}
 	public void removeEnemyMiya(EnemyMiya miya){
-		this.enemyMyiyas.removeValue(miya, true);
+		this.enemyMiyas.removeValue(miya, true);
 		miya.remove();
 	}
 	

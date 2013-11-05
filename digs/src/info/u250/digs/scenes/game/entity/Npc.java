@@ -55,17 +55,17 @@ public class Npc extends Actor {
 	protected Level level;
 	static final float N_WIDTH = 10.5f;
 	public Npc(){
-		
+		//TODO make the npc colorFull
 		TextureAtlas atlas = Engine.resource("All");
-		npcRegions[0] = atlas.findRegion("npc1");
-		npcRegions[1] = atlas.findRegion("npc2");
-		npcRegions[2] = atlas.findRegion("npc3");
-		npcRegions[3] = atlas.findRegion("npc4");
+		npcRegions[0] = atlas.findRegion("npc-s1-1");
+		npcRegions[1] = atlas.findRegion("npc-s1-2");
+		npcRegions[2] = atlas.findRegion("npc-s1-3");
+		npcRegions[3] = atlas.findRegion("npc-s1-4");
 		
-		npcGoldRegions[0] = atlas.findRegion("npc-gold1");
-		npcGoldRegions[1] = atlas.findRegion("npc-gold2");
-		npcGoldRegions[2] = atlas.findRegion("npc-gold3");
-		npcGoldRegions[3] = atlas.findRegion("npc-gold4");
+		npcGoldRegions[0] = atlas.findRegion("npc-s1-gold-1");
+		npcGoldRegions[1] = atlas.findRegion("npc-s1-gold-2");
+		npcGoldRegions[2] = atlas.findRegion("npc-s1-gold-3");
+		npcGoldRegions[3] = atlas.findRegion("npc-s1-gold-4");
 		
 		regions = npcRegions;		
 		this.setSize(N_WIDTH, N_WIDTH/regions[0].getRegionWidth()*regions[0].getRegionHeight());
