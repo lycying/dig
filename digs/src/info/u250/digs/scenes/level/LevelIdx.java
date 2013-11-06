@@ -146,35 +146,36 @@ public class LevelIdx {
 	
 	public static RefreshableLevelTable getGuideTable(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(0);
-//		table.add(new LevelItemTextTable("Choose Level")).row();
-//		{
-//			for(int i=0;i<Level_String[0].length;i++){
-//				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
-//				table.add(item).spaceBottom(10);
-//				table.row();
-//			}
-//		}
-		
-		table.add();
-		table.add();
-		table.add();
-		table.row().spaceBottom(15);
-		table.add(new GuideItem(lvlSce,0,0,Level_String[0][0])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,1,Level_String[0][1])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,2,Level_String[0][2]));
-		table.row().spaceBottom(15);
-		table.add(new GuideItem(lvlSce,0,3,Level_String[0][3])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,4,Level_String[0][4])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,5,Level_String[0][5])).spaceRight(10);
-		table.row().spaceBottom(15);
-		table.add(new GuideItem(lvlSce,0,6,Level_String[0][6])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,7,Level_String[0][7])).spaceRight(10);
-		table.add(new GuideItem(lvlSce,0,8,Level_String[0][8]));
-		table.row().spaceBottom(100);
+		table.add(new LevelItemTextTable("Choose Level")).row();
 		TextureAtlas atlas = Engine.resource("All");
+		{
+			for(int i=0;i<Level_String[0].length;i++){
+				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
+				table.add(item).spaceBottom(10);
+				table.row();
+			}
+		}
+		
+//		table.add();
+//		table.add();
+//		table.add();
+//		table.row().spaceBottom(15);
+//		table.add(new GuideItem(lvlSce,0,0,Level_String[0][0])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,1,Level_String[0][1])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,2,Level_String[0][2]));
+//		table.row().spaceBottom(15);
+//		table.add(new GuideItem(lvlSce,0,3,Level_String[0][3])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,4,Level_String[0][4])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,5,Level_String[0][5])).spaceRight(10);
+//		table.row().spaceBottom(15);
+//		table.add(new GuideItem(lvlSce,0,6,Level_String[0][6])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,7,Level_String[0][7])).spaceRight(10);
+//		table.add(new GuideItem(lvlSce,0,8,Level_String[0][8]));
+//		table.row().spaceBottom(100);
+		
 		BitmapFont font = Engine.resource("BigFont");
-		table.add(new Label("Now come to the new world",new LabelStyle(font,Color.WHITE))).colspan(3).row();
-		table.add(new Image(atlas.findRegion("finger"))).colspan(3);
+		table.add(new Label("Now come to the new world",new LabelStyle(font,Color.WHITE))).row();
+		table.add(new Image(atlas.findRegion("finger")));
 
 		return table;
 	}

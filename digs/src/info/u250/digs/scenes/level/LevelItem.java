@@ -1,11 +1,13 @@
 package info.u250.digs.scenes.level;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.scenes.LevelScene;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -40,8 +42,8 @@ public class LevelItem extends  Group{
 		bg.setSize(this.getWidth(), this.getHeight());
 		Label title = new Label(levelName,new LabelStyle(
 				Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
-		title.setPosition(100, 25);
-			
+		title.setPosition(90, 25);
+		
 		BitmapFont font = Engine.resource("Font");
 		
 		Table t = new Table();
@@ -82,15 +84,30 @@ public class LevelItem extends  Group{
 		t2.pack();
 		t2.setPosition(100, 10);
 		
-		lock.setPosition(80, 50);
-		pass.setPosition(80, 50);
+		lock.setPosition(45, 15);
+		pass.setPosition(45, 15);
 		this.addActor(bg);
-//		this.addActor(icon);
 		this.addActor(title);
+		Label levelNumber = new Label(""+(level+1),new LabelStyle(Engine.resource("BigFont",BitmapFont.class),Color.WHITE));
+		NinePatch  patch = atlas.createPatch("level-item-bg-4");
+		levelNumber.getStyle().background = new NinePatchDrawable(patch);
+		levelNumber.pack();
+		switch(pack){
+		case 0:
+			patch.setColor(Color.WHITE);
+			break;
+		case 1:
+			patch.setColor(WebColors.LIME.get());
+			break;
+		case 2:
+			patch.setColor(WebColors.INDIGO.get());
+			break;
+		}
+		this.addActor(levelNumber);
 		
 		this.addActor(t2);
 		
-		if(level<60){
+		if(level<10){
 			this.addActor(pass);
 			this.addActor(menu_play);
 			this.addActor(t);
