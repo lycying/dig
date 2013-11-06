@@ -28,7 +28,7 @@ public class LevelConfig {
 	public int segment = 8;
 	
 	public LevelCompleteCallback levelCompleteCallback = new DefaultLevelCompleteCallback();
-	public LevelCallBack callback = new LevelCallBack() {
+	public LevelMakeCallBack levelMakeCallback = new LevelMakeCallBack() {
 		Random random = new Random();
 		@Override
 		public void after(Level level) {

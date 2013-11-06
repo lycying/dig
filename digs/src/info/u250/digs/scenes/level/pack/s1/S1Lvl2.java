@@ -4,7 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelCallBack;
+import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
@@ -25,7 +25,7 @@ public class S1Lvl2 extends LevelConfig {
 		this.segment = 2;
 		
 		
-		callback = new LevelCallBack() {
+		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
 			public void after(Level level) {
 				KillCircleEntity ray = new KillCircleEntity(540, 360, 150,Color.RED);

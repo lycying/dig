@@ -5,7 +5,7 @@ import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelCallBack;
+import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -31,7 +31,7 @@ public class Tour2 extends LevelConfig {
 		this.aim = 5;
 		
 		
-		callback = new LevelCallBack() {
+		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
 			public void after(Level level) {
 				{

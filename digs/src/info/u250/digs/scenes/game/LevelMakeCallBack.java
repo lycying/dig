@@ -5,11 +5,11 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.ShortArray;
 
-public abstract class LevelCallBack{
+public abstract class LevelMakeCallBack{
 	public abstract void before(Level level);
 	public abstract void after(Level level);
 	public abstract void mapMaker(Pixmap terr,Pixmap gold);
-	public void drawPolygon(Polygon polygon,Pixmap pixmap){
+	protected void drawPolygon(Polygon polygon,Pixmap pixmap){
 		polygon.setPosition(polygon.getX(),pixmap.getHeight()-polygon.getY()-polygon.getBoundingRectangle().height);
 		float[] polygonVertices = polygon.getTransformedVertices();
 		ShortArray array = ear.computeTriangles(polygonVertices);

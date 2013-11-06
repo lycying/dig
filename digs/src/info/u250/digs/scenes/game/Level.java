@@ -17,11 +17,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
@@ -131,16 +135,16 @@ public class Level extends Group{
 		terrain = new PixmapHelper(pip[0]);
 		goldTerrain = new PixmapHelper(pip[1]);
 		
-		if(null!=config.callback){
-			config.callback.before(this);
+		if(null!=config.levelMakeCallback){
+			config.levelMakeCallback.before(this);
 		}
 		
 		levelActor = new LevelActor(terrain, goldTerrain);
 		this.addActor(levelActor);
 		
 		addListener(terrainInput);
-		if(null!=config.callback){
-			config.callback.after(this);
+		if(null!=config.levelMakeCallback){
+			config.levelMakeCallback.after(this);
 		}
 		this.addActor(new FollowLabel(this));
 	}
@@ -237,6 +241,8 @@ public class Level extends Group{
 			terrain.eraseCircle(projPos.x, projPos.y, radius, FILL_COLOR);
 		}else if(fingerMode == FingerMode.Clear){
 			terrain.eraseCircle(projPos.x, projPos.y, radius ,Color.CLEAR);
+			//draw the dirt effect.
+			dirtEffect(x-getX(), y);//too big the effect for the FPS
 		}
 		terrain.update();
 	}
@@ -290,6 +296,25 @@ public class Level extends Group{
 		return DigResult.None;
 	}
 	
+	void dirtEffect(final float x,final float y){
+		TextureAtlas atlas = Engine.resource("All");
+		int size = 4;
+		float part = 360f/size;
+		for(int i=0;i<size;i++){
+			float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
+			float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
+			final Image image = new Image(atlas.findRegion("color"));
+			image.setColor(new Color(0.956862745098039f, 0.643137254901961f, 0.376470588235294f,0.9f));
+			image.setPosition(x, y);
+			image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
+				@Override
+				public void run() {
+					image.remove();
+				}
+			})));
+			this.addActor(image);
+		}
+	}
 	
 	public FingerMode getFingerMode() {
 		return fingerMode;

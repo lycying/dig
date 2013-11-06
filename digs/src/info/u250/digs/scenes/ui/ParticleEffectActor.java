@@ -39,10 +39,12 @@ public class ParticleEffectActor extends Actor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if (parentAlpha == 1) {
-			if(Engine.isPause() && pauseWithEngine){}else{
-				this.emitter.setPosition(this.getX(), this.getY());
-				this.emitter.draw(batch, Engine.getDeltaTime());
+		if(this.isVisible()){
+			if (parentAlpha == 1) {
+				if(Engine.isPause() && pauseWithEngine){}else{
+					this.emitter.setPosition(this.getX(), this.getY());
+					this.emitter.draw(batch, Engine.getDeltaTime());
+				}
 			}
 		}
 	}

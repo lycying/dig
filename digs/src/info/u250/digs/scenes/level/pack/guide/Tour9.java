@@ -5,7 +5,7 @@ import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelCallBack;
+import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -27,7 +27,7 @@ public class Tour9 extends LevelConfig {
 		this.segment = 1;
 		this.aim = 10;
 		
-		callback = new LevelCallBack() {
+		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
 			public void after(Level level) {
 				for(int i=0;i<10;i++){

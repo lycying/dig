@@ -120,8 +120,8 @@ final class LevelPixmapMaker {
 		/////////////////////////////////////////////////////////////////////////////////////
 		Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);
 		Pixmap.setBlending(Blending.None);
-		if(null!=config.callback){
-			config.callback.mapMaker(terMap, gdMap);
+		if(null!=config.levelMakeCallback){
+			config.levelMakeCallback.mapMaker(terMap, gdMap);
 		}
 		
 		maps[0] = terMap;
