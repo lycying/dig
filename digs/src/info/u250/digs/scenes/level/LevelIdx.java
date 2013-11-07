@@ -155,28 +155,10 @@ public class LevelIdx {
 				table.row();
 			}
 		}
-		
-//		table.add();
-//		table.add();
-//		table.add();
-//		table.row().spaceBottom(15);
-//		table.add(new GuideItem(lvlSce,0,0,Level_String[0][0])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,1,Level_String[0][1])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,2,Level_String[0][2]));
-//		table.row().spaceBottom(15);
-//		table.add(new GuideItem(lvlSce,0,3,Level_String[0][3])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,4,Level_String[0][4])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,5,Level_String[0][5])).spaceRight(10);
-//		table.row().spaceBottom(15);
-//		table.add(new GuideItem(lvlSce,0,6,Level_String[0][6])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,7,Level_String[0][7])).spaceRight(10);
-//		table.add(new GuideItem(lvlSce,0,8,Level_String[0][8]));
-//		table.row().spaceBottom(100);
-		
 		BitmapFont font = Engine.resource("BigFont");
 		table.add(new Label("Now come to the new world",new LabelStyle(font,Color.WHITE))).row();
 		table.add(new Image(atlas.findRegion("finger")));
-
+		table.pack();
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){
@@ -189,6 +171,7 @@ public class LevelIdx {
 				table.row();
 			}
 		}
+		table.pack();
 		return table;
 	}
 	public static RefreshableLevelTable getPack2Table(final LevelScene lvlSce){
@@ -201,12 +184,17 @@ public class LevelIdx {
 				table.row();
 			}
 		}
+		table.pack();
 		return table;
 	}
 	public final static class RefreshableLevelTable extends Table{
 		int pack = 0;
 		public RefreshableLevelTable(int pack){
 			this.pack = pack;
+		}
+		@Override
+		public void pack() {
+			super.pack();
 			this.refresh();
 		}
 		public void refresh(){

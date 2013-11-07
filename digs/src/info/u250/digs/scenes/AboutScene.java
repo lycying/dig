@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -31,7 +32,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class AboutScene extends SceneStage{
 	DigsEngineDrive drive;
@@ -125,8 +129,17 @@ public class AboutScene extends SceneStage{
 		info = new StepInfo();
 		this.addActor(info);
 		
-		final Image back = new Image(atlas.findRegion("about-back"));
-		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
+//		final Image back = new Image(atlas.findRegion("about-back"));
+//		TextureAtlas atlas = Engine.resource("All");
+		BitmapFont font = Engine.resource("BigFont");
+		TextButtonStyle style = new TextButtonStyle(new NinePatchDrawable(atlas.createPatch("btn")), new NinePatchDrawable(atlas.createPatch("btn-click")), null, font);
+		style.fontColor = Color.BLACK;
+		style.downFontColor = Color.RED;
+		final TextButton back = new TextButton("Back",style);
+		back.setColor(Color.GRAY);
+		back.padRight(60);
+		back.pack();
+		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight()+25);
 		back.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

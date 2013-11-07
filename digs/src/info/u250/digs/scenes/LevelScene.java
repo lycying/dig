@@ -3,11 +3,10 @@ package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
-import info.u250.c2d.graphic.WebColors;
-import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.IO;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.level.LevelPack;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
@@ -32,43 +31,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
 
 public class LevelScene extends SceneStage {
-	public SimpleMeshBackground meshBackground ;
 	DigsEngineDrive drive;
 	final TextureAtlas atlas;
 	final ScrollPane levelPanel;
-	final TriangleSurfaces surface;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
 	public LevelScene(final DigsEngineDrive drive){
 		this.drive = drive;
-		meshBackground = new SimpleMeshBackground(WebColors.CADET_BLUE.get(),Color.BLACK);
-		final SurfaceData data = new SurfaceData();
-		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
-		data.texture="Texture";
-		data.points = new Array<Vector2>(){{
-			add(new Vector2(-27.005554f,300f));
-			add(new Vector2(-20,-4));
-			add(new Vector2(119,250));
-			add(new Vector2(200.99362f,-14f));
-			add(new Vector2(293.00104f,300));
-			add(new Vector2(356f,-9f));
-			add(new Vector2(360f,310));
-			add(new Vector2(380,-9f));
-			add(new Vector2(400,300));
-			add(new Vector2(458f,-9f));
-			add(new Vector2(510f,250));
-			add(new Vector2(556.0f,-7f));
-			add(new Vector2(593f,250));
-			add(new Vector2(650f,-53f));
-			add(new Vector2(700f,290));
-			add(new Vector2(735f,-53f));
-			add(new Vector2(800f,290));
-			add(new Vector2(850f,0));
-			add(new Vector2(900f,290));
-			add(new Vector2(960f,0));
-			add(new Vector2(1024,350));
-		}};
-		surface  = new TriangleSurfaces(data);
 		final SurfaceData data2 = new SurfaceData();
 		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";
@@ -191,7 +160,6 @@ public class LevelScene extends SceneStage {
 		levelPanel = new ScrollPane(null);
 		levelPanel.setSize(740, 540);
 		levelPanel.setPosition(0, 0);
-//		levelPanel.setStyle(new ScrollPaneStyle(null,null,null,new NinePatchDrawable(atlas.createPatch("default-rect-pad")), new NinePatchDrawable(atlas.createPatch("default-slider"))));
 		levelPanel.setFillParent(false);
 		levelPanel.setScrollingDisabled(true, false);
 		levelPanel.setFlickScroll(true);
@@ -205,9 +173,11 @@ public class LevelScene extends SceneStage {
 		BitmapFont font = Engine.resource("BigFont");
 		TextButtonStyle style = new TextButtonStyle(new NinePatchDrawable(atlas.createPatch("btn")), new NinePatchDrawable(atlas.createPatch("btn-click")), null, font);
 		style.fontColor = Color.BLACK;
+		style.downFontColor = Color.RED;
 		final TextButton back = new TextButton("Back",style);
-		back.setColor(Color.GRAY);
-		back.setPosition(0,Engine.getHeight()-back.getHeight()-40);
+		back.padRight(60);
+		back.pack();
+		back.setPosition(0,Engine.getHeight()-back.getHeight()-30);
 		back.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -217,7 +187,7 @@ public class LevelScene extends SceneStage {
 			}
 		});
 		this.addActor(back);
-		LevelPack btn_table = new LevelPack(this,0);
+		LevelPack btn_table = new LevelPack(this,IO.getPackScroll());
 		btn_table.setPosition(810, 120);
 		this.addActor(btn_table);
 		
@@ -230,8 +200,6 @@ public class LevelScene extends SceneStage {
 	@Override
 	public void draw() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
-//		meshBackground.render(0);
-//		surface.render(Engine.getDeltaTime());
 		super.draw();
 		surface2.render(Engine.getDeltaTime());
 		surface3.render(Engine.getDeltaTime());

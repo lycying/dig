@@ -1,13 +1,12 @@
 package info.u250.digs;
 
 import info.u250.c2d.engine.Engine;
-import info.u250.digs.gdx_encrypt.Base64;
 
 public class IO {
 	//*******************************For SOUND**********************
-	private static final String SOUND_HANDEL = Base64.encode("info.u250.dig._sound".getBytes());
-	private static final String ON = Base64.encode("on".getBytes());
-	private static final String OFF = Base64.encode("off".getBytes());
+	private static final String SOUND_HANDEL = "info.u250.dig._sound";
+	private static final String ON = "on";
+	private static final String OFF ="off";
 	//off == false
 	//other == true
 	public static boolean soundOn(){
@@ -29,7 +28,7 @@ public class IO {
 	
 	
 	//*******************************For COIN***********************
-	private static final String COIN_HANDEL = Base64.encode("info.u250.dig._coin".getBytes());
+	private static final String COIN_HANDEL = "info.u250.dig._coin";
 	
 	public static int getCoin(){
 		return Engine.getPreferences().getInteger(COIN_HANDEL);
@@ -42,8 +41,27 @@ public class IO {
 	
 	
 	//*******************************For Level**********************
-	private static final String LEVEL_HANDEL = Base64.encode("info.u250.dig._level".getBytes());
+	private static final String PACK_SCROLL_HANDEL = "info.u250.dig._pack.scroll";
 	
+	public static int getPackScroll(){
+		return Engine.getPreferences().getInteger(PACK_SCROLL_HANDEL);
+	}
+	public static void savePackScroll(int pack){
+		Engine.getPreferences().putInteger(PACK_SCROLL_HANDEL, pack);
+		Engine.getPreferences().flush();
+	}
+	
+	private static final String PACK_HANDEL = "info.u250.dig._pack";
+	
+	public static int getPack(){
+		return Engine.getPreferences().getInteger(PACK_HANDEL);
+	}
+	public static void savePack(int pack){
+		Engine.getPreferences().putInteger(PACK_HANDEL, pack);
+		Engine.getPreferences().flush();
+	}
+	
+	private static final String LEVEL_HANDEL = "info.u250.dig._level";
 	public static int getLevel(){
 		return Engine.getPreferences().getInteger(LEVEL_HANDEL);
 	}

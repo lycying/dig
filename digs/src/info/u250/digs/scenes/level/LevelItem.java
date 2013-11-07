@@ -3,6 +3,7 @@ package info.u250.digs.scenes.level;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
+import info.u250.digs.IO;
 import info.u250.digs.scenes.LevelScene;
 
 import com.badlogic.gdx.graphics.Color;
@@ -21,31 +22,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class LevelItem extends  Group{
 	private int pack;
 	private int level;
+	Image menu_play,lock,pass;
 	public LevelItem(final LevelScene levelScene,final int pack,final int level ,String levelName){
 		this.pack = pack;
 		this.level = level;
 		
 		this.setSize(680, 80);
 		TextureAtlas atlas = Engine.resource("All");
-		Image bg = new Image( atlas.createPatch("level-item-bg-5"));
+		//background
+		final Image bg = new Image( atlas.createPatch("level-item-bg-5"));
 		switch(pack){
 		case 0:
-			bg.setColor(new Color(210f/255f,254f/255f,212f/255f,1f));
+			bg.setColor(WebColors.MEDIUM_SEA_GREEN.get());
 			break;
 		case 1:
-			bg.setColor(new Color(210f/255f,242f/255f,254f/255f,1f));
+			bg.setColor(WebColors.ORANGE.get());
 			break;
 		case 2:
-			bg.setColor(new Color(254f/255f,238f/255f,210f/255f,1f));
+			bg.setColor(WebColors.LIGHT_CORAL.get());
 			break;
 		}
 		bg.setSize(this.getWidth(), this.getHeight());
-		Label title = new Label(levelName,new LabelStyle(
-				Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
+		
+		//title
+		Label title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(90, 25);
 		
 		BitmapFont font = Engine.resource("Font");
-		
 		Table t = new Table();
 		t.setBackground(new NinePatchDrawable(atlas.createPatch("ui-label-bg")));
 		t.add(new Image(atlas.findRegion("award")));
@@ -60,9 +63,7 @@ public class LevelItem extends  Group{
 		t.pack();
 		t.setPosition(180, 10);
 		
-		
-		
-		Image menu_play = new Image(atlas.findRegion("menu_play"));
+		menu_play = new Image(atlas.findRegion("menu_play"));
 		menu_play.setPosition(this.getWidth()-menu_play.getWidth()-20,(this.getHeight()-menu_play.getHeight())/2);
 		menu_play.setColor(new Color(0.8f,0.8f,0.8f,0.8f));
 		
@@ -74,50 +75,58 @@ public class LevelItem extends  Group{
 				super.clicked(event, x, y);
 			}
 		});
+
 		
-		Image lock = new Image(atlas.findRegion("lock"));
-		Image pass = new Image(atlas.findRegion("pass"));
-		Table t2 = new Table();
-		t2.setBackground(new NinePatchDrawable(atlas.createPatch("ui-label-bg")));
-		t2.add(new Image(atlas.findRegion("char")));
-		t2.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE)));
-		t2.pack();
-		t2.setPosition(100, 10);
-		
+		lock = new Image(atlas.findRegion("lock"));
+		pass = new Image(atlas.findRegion("pass"));
 		lock.setPosition(45, 15);
 		pass.setPosition(45, 15);
 		this.addActor(bg);
 		this.addActor(title);
+		
 		Label levelNumber = new Label(""+(level+1),new LabelStyle(Engine.resource("BigFont",BitmapFont.class),Color.WHITE));
 		NinePatch  patch = atlas.createPatch("level-item-bg-4");
 		levelNumber.getStyle().background = new NinePatchDrawable(patch);
 		levelNumber.pack();
 		switch(pack){
 		case 0:
-			patch.setColor(Color.WHITE);
-			break;
-		case 1:
 			patch.setColor(WebColors.LIME.get());
 			break;
+		case 1:
+			patch.setColor(WebColors.GOLD.get());
+			break;
 		case 2:
-			patch.setColor(WebColors.INDIGO.get());
+			patch.setColor(WebColors.RED.get());
 			break;
 		}
 		this.addActor(levelNumber);
+	} 
+	public void refresh(){
+		int currentPack = IO.getPack();
+		int currentLevel = IO.getLevel();
+		pass.remove();
+		lock.remove();
+		menu_play.remove();
 		
-		this.addActor(t2);
-		
-		if(level<10){
+		if(pack == 0 || currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
 			this.addActor(pass);
 			this.addActor(menu_play);
-			this.addActor(t);
+			this.setColor(Color.WHITE);
+		}else if(currentPack==pack){
+			if(currentLevel>level){//i have complete the level
+				this.addActor(pass);
+				this.addActor(menu_play);
+				this.setColor(Color.WHITE);
+			}else if( (0==level&&currentLevel==0) || (currentLevel!=0&&currentLevel==level-1)){// i will play this level
+				//TODO this should use a current flag
+				this.addActor(menu_play);
+				this.setColor(Color.YELLOW);
+			}else{
+				this.addActor(lock);
+				this.setColor(Color.WHITE);
+			}
 		}else{
 			this.addActor(lock);
 		}
-		
-	} 
-	public void refresh(){
-		String key = "au"+pack+level;
-		Engine.getPreferences().getString(key);
 	}
 }
