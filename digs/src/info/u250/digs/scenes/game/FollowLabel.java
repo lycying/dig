@@ -63,7 +63,7 @@ public class FollowLabel extends Group{
 			}else{
 				npc = level.getRandomNpc();
 				if(null != npc){
-					npc.velocity = 16;
+					npc.setVelocity(16);
 					Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(DigsEngineDrive.LINGO_SOUND)+1));
 				}
 			}

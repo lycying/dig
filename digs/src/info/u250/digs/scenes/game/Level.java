@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.GameScene;
+import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Ka;
@@ -47,6 +48,7 @@ public class Level extends Group{
 	private final Array<KillCircleEntity> killrays = new Array<KillCircleEntity>();
 	private final Array<Ka> kas = new Array<Ka>();
 	private final Array<EnemyMiya> enemyMiyas = new Array<EnemyMiya>();
+	private final Array<Boss> bosses = new Array<Boss>();
 	
 	/*===================Bellow is the entity we must control it =========*/
 	
@@ -204,6 +206,9 @@ public class Level extends Group{
 				for(final EnemyMiya e:enemyMiyas){
 					e.tick();
 				}
+				for(final Boss e:bosses){
+					e.tick();
+				}
 				accum -= ACC;
 			}
 		}
@@ -222,7 +227,7 @@ public class Level extends Group{
 	}
 	
 	/* fetch gold , 4 pixels */
-	void dig(final float radius,float ax,float ay){
+	public void dig(final float radius,float ax,float ay){
 		if(terrain == null || goldTerrain == null)return;
 		terrain.project(projPos,ax,ay);
 		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
@@ -322,7 +327,13 @@ public class Level extends Group{
 	public void setFingerMode(FingerMode fingerMode) {
 		this.fingerMode = fingerMode;
 	}
-	
+	public Array<Boss> getBosses(){
+		return bosses;
+	}
+	public void addBoss(Boss boss){
+		this.bosses.add(boss);
+		this.addActor(boss);
+	}
 	public Array<EnemyMiya> getEnemyMyiyas() {
 		return enemyMiyas;
 	}
@@ -334,7 +345,9 @@ public class Level extends Group{
 		this.enemyMiyas.removeValue(miya, true);
 		miya.remove();
 	}
-	
+	public Array<Npc> getNpcs(){
+		return npcs;
+	}
 	public Array<GoldTowerEntity> getDocks() {
 		return docks;
 	}

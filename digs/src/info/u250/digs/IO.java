@@ -54,7 +54,11 @@ public class IO {
 	private static final String PACK_HANDEL = "info.u250.dig._pack";
 	
 	public static int getPack(){
-		return Engine.getPreferences().getInteger(PACK_HANDEL);
+		int pack = Engine.getPreferences().getInteger(PACK_HANDEL);
+		if(0==pack){
+			pack = 1;
+		}
+		return pack;
 	}
 	public static void savePack(int pack){
 		Engine.getPreferences().putInteger(PACK_HANDEL, pack);

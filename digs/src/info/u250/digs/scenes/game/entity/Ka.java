@@ -2,32 +2,14 @@ package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
-import info.u250.digs.scenes.game.Level;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Ka extends Actor {
+public class Ka extends AbstractMoveable {
 	static final int  DELAY_RANDOM = 3;
 	TextureRegion[] npcRegions = new TextureRegion[7];
-	TextureRegion[] regions = null;
-	int regionsIndex = 0;
-	
-	float x ,y ;
-	public int direction = Digs.RND.nextBoolean()?1:-1;
-	public int velocity = 1;
-	public Sprite drawable = new Sprite();
-	
-	//the main terrain
-	protected Level level;
+
 	static final float N_WIDTH = 10.5f;
 	public Ka(){
 		
@@ -48,15 +30,6 @@ public class Ka extends Actor {
 		this.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setRegion(regions[0]);
-	}
-	
-	
-	public void init(Level terrain){
-		this.level = terrain;
-	}
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		drawable.draw(batch);
 	}
 	
 	
@@ -115,26 +88,12 @@ public class Ka extends Actor {
 		}
 		sync();
 	}
-	public void sync(){
-		this.setX(x);
-		this.setY(y);
-		drawable.setRegion(regions[(regionsIndex/2)%regions.length]);
-		drawable.setColor(this.getColor());
-		drawable.setPosition(x-this.getOriginX(), y-this.getOriginY());
-		if(direction<0)drawable.flip(true, false);
-	}
-
-	boolean userDefAction(){
-		if(this.getActions().size > 0){
-			sync();
-			return true;
-		}
-		return false;
-	}
+	
 	boolean tryKillRay(){
 		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
+				level.removeKa(this);
 				Engine.getSoundManager().playSound("SoundDie");//TODO : the sound for the Kaka...
 				return true;
 			}
@@ -142,26 +101,8 @@ public class Ka extends Actor {
 		return false;
 	}
 	
-	void die(){
-		TextureAtlas atlas = Engine.resource("All");
-		int size = 8;
-		float part = 360f/size;
-		for(int i=0;i<size;i++){
-			float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
-			float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
-			final Image image = new Image(atlas.findRegion("color"));
-			image.setColor(new Color(1,0,0,0.7f));
-			image.setPosition(x, y);
-			image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					image.remove();
-				}
-			})));
-			level.addActor(image);
-		}
-		level.removeKa(this);
-	}
+	
+	//my move attribute , bellow method is only used for the Ka in tower.
 	float OCX = 0f;
 	void onTower(GoldTowerEntity tower){
 		if(Digs.RND.nextInt(10)>1){

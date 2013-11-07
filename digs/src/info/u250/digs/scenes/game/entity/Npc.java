@@ -2,20 +2,13 @@ package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
-import info.u250.digs.scenes.game.Level;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Npc extends Actor {
+public class Npc extends AbstractMoveable {
 	static final int  DELAY_RANDOM = 10;
 	/**
 	 * when the npc walks , it check the area surrounds it to determine 
@@ -34,25 +27,15 @@ public class Npc extends Actor {
 	}
 	TextureRegion[] npcRegions = new TextureRegion[4];
 	TextureRegion[] npcGoldRegions = new TextureRegion[4];
-	TextureRegion[] regions = null;
-	int regionsIndex = 0;
 	
-	float x ,y ;
-	public int direction = Digs.RND.nextBoolean()?1:-1;
-	public int velocity = 1;
-	public Sprite drawable = new Sprite();
+	public Ka withKa = null;//with ka
+	private NpcStatus status = NpcStatus.Free;
 	
 	public static float DIE_SOUND_CTL = 0;
 	public static float HURT_SOUND_CTL = 0;
 	public static float TRANS_SOUND_CTL = 0;
 	public static float COIN_SOUND_CTL = 0;
 	
-	public Ka withKa = null;//with ka
-	
-	private NpcStatus status = NpcStatus.Free;
-	
-	//the main terrain
-	protected Level level;
 	static final float N_WIDTH = 10.5f;
 	public Npc(){
 		int themeID = Digs.RND.nextInt(5)+1;
@@ -74,10 +57,6 @@ public class Npc extends Actor {
 		this.drawable.setOrigin(this.getWidth()/2, 3);
 	}
 	
-	
-	public void init(Level terrain){
-		this.level = terrain;
-	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if(withKa!=null){
@@ -169,6 +148,7 @@ public class Npc extends Actor {
 		case None:break;
 		case Bomb:
 			die();	
+			level.removeNpc(this);
 			if(HURT_SOUND_CTL>0.2f){
 				Engine.getSoundManager().playSound("SoundHurt");
 				HURT_SOUND_CTL = 0;
@@ -183,15 +163,6 @@ public class Npc extends Actor {
 			break;
 		}
 		sync();
-	}
-	int soundCoinIndex = 0;
-	void sync(){
-		this.setX(x);
-		this.setY(y);
-		drawable.setRegion(regions[(regionsIndex/2)%regions.length]);
-		drawable.setColor(this.getColor());
-		drawable.setPosition(x-this.getOriginX(), y-this.getOriginY());
-		if(direction<0)drawable.flip(true, false);
 	}
 	void meetKa(){
 		if(regionsIndex>5)
@@ -263,13 +234,6 @@ public class Npc extends Actor {
 		}
 		return false;
 	}
-	boolean userDefAction(){
-		if(this.getActions().size > 0){
-			sync();
-			return true;
-		}
-		return false;
-	}
 	boolean tryTransPort(){		
 		for(final TeleportEntity inout:level.getInouts()){
 			if(inout.getRect().contains(x,y)){
@@ -302,6 +266,7 @@ public class Npc extends Actor {
 		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
+				level.removeNpc(this);
 				if(DIE_SOUND_CTL>0.2f){
 					Engine.getSoundManager().playSound("SoundDie");
 					DIE_SOUND_CTL = 0;
@@ -310,27 +275,6 @@ public class Npc extends Actor {
 			}
 		}
 		return false;
-	}
-	
-	void die(){
-		TextureAtlas atlas = Engine.resource("All");
-		int size = 8;
-		float part = 360f/size;
-		for(int i=0;i<size;i++){
-			float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
-			float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
-			final Image image = new Image(atlas.findRegion("color"));
-			image.setColor(new Color(1,0,0,0.7f));
-			image.setPosition(x, y);
-			image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					image.remove();
-				}
-			})));
-			level.addActor(image);
-		}
-		level.removeNpc(this);
 	}
 
 
