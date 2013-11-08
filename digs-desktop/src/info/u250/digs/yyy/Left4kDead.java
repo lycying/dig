@@ -6,10 +6,13 @@ package info.u250.digs.yyy;
  * http://www.mojang.com/notch/j4k/l4kd/
  */
 import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.util.*;
+import java.awt.AWTEvent;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 public class Left4kDead extends Applet implements Runnable
 {

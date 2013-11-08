@@ -29,6 +29,8 @@ public abstract class AbstractMoveable extends Actor{
 	protected int velocity = 1;
 	//the drawable item to received region
 	protected Sprite drawable = new Sprite();
+	//is selected by other things , not can be kill by another instance
+	protected boolean readyToDie = false;
 	
 	TextureRegion[] regions = null;
 	int regionsIndex = 0;

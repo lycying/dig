@@ -1,6 +1,8 @@
 package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
+import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 
@@ -44,13 +46,19 @@ public class LevelConfig {
 //			StepladderEntity ladder = new StepladderEntity(15, 200,100);
 //			level.addStepladder(ladder);
 			
-			for(int i=0;i<200;i++){
+			for(int i=0;i<20;i++){
 				Npc e = new Npc();
 				e.init(level);
-				e.setPosition(200+random.nextFloat()*200, Engine.getHeight() + random.nextFloat()*100);
+				e.setPosition(400+random.nextFloat()*50, Engine.getHeight() + random.nextFloat()*300);
 				level.addNpc(e);
 			}
-			
+			for(int i=0;i<2;i++){
+				Boss e = new Boss();
+				e.setBossLandHeight(50);
+				e.init(level);
+				e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+				level.addBoss(e);
+			}
 //			TeleportEntity inout = new TeleportEntity(300,150,500,250);
 //			level.addInOutTrans(inout);
 			

@@ -9,6 +9,7 @@ import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.HintOnScreen;
@@ -45,6 +46,13 @@ public class Tour1 extends LevelConfig {
 					e.init(level);
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
+				}
+				//TODO for test , add two boss
+				for(int i=0;i<2;i++){
+					Boss e = new Boss();
+					e.init(level);
+					e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					level.addBoss(e);
 				}
 				{
 					HintOnScreen hint = new HintOnScreen("Bring the gold home!","hint4",Color.BLACK,100);

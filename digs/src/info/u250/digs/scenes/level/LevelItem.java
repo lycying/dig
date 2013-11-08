@@ -5,24 +5,32 @@ import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.LevelScene;
+import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class LevelItem extends  Group{
 	private int pack;
 	private int level;
-	Image menu_play,lock,pass;
+	Button menu_play;
+	Image lock,pass;
+	Label title;
+	static ParticleEffectActor current = null;
 	public LevelItem(final LevelScene levelScene,final int pack,final int level ,String levelName){
 		this.pack = pack;
 		this.level = level;
@@ -45,8 +53,8 @@ public class LevelItem extends  Group{
 		bg.setSize(this.getWidth(), this.getHeight());
 		
 		//title
-		Label title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
-		title.setPosition(90, 25);
+		title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
+		title.setPosition(90, 10);
 		
 		BitmapFont font = Engine.resource("Font");
 		Table t = new Table();
@@ -63,9 +71,27 @@ public class LevelItem extends  Group{
 		t.pack();
 		t.setPosition(180, 10);
 		
-		menu_play = new Image(atlas.findRegion("menu_play"));
-		menu_play.setPosition(this.getWidth()-menu_play.getWidth()-20,(this.getHeight()-menu_play.getHeight())/2);
-		menu_play.setColor(new Color(0.8f,0.8f,0.8f,0.8f));
+		BitmapFont bigFont = Engine.resource("BigFont");
+		NinePatch patchBg = atlas.createPatch("level-item-bg-4");
+		switch(pack){
+		case 0:
+			patchBg.setColor(WebColors.LIME.get());
+			break;
+		case 1:
+			patchBg.setColor(WebColors.GOLD.get());
+			break;
+		case 2:
+			patchBg.setColor(WebColors.RED.get());
+			break;
+		}
+		TextButtonStyle style = new TextButtonStyle(
+				new NinePatchDrawable(patchBg), null, null, bigFont);
+		style.fontColor = Color.WHITE;
+		style.downFontColor = Color.RED;
+		menu_play = new TextButton("Play",style);
+		menu_play.pack();
+		
+		menu_play.setPosition(this.getWidth()-menu_play.getWidth(),(this.getHeight()-menu_play.getHeight())/2);
 		
 		menu_play.addListener(new ClickListener(){
 			@Override
@@ -81,10 +107,16 @@ public class LevelItem extends  Group{
 		pass = new Image(atlas.findRegion("pass"));
 		lock.setPosition(45, 15);
 		pass.setPosition(45, 15);
+		if(null == current){
+			ParticleEffect e = Engine.resource("Effect");
+			current = new ParticleEffectActor(e, "fire");
+			current.setPosition(60, 30);
+		}
+		
 		this.addActor(bg);
 		this.addActor(title);
 		
-		Label levelNumber = new Label(""+(level+1),new LabelStyle(Engine.resource("BigFont",BitmapFont.class),Color.WHITE));
+		Label levelNumber = new Label(""+(level+1),new LabelStyle(bigFont,Color.WHITE));
 		NinePatch  patch = atlas.createPatch("level-item-bg-4");
 		levelNumber.getStyle().background = new NinePatchDrawable(patch);
 		levelNumber.pack();
@@ -107,7 +139,7 @@ public class LevelItem extends  Group{
 		pass.remove();
 		lock.remove();
 		menu_play.remove();
-		
+		title.getStyle().fontColor = Color.YELLOW;
 		if(pack == 0 || currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
 			this.addActor(pass);
 			this.addActor(menu_play);
@@ -118,9 +150,9 @@ public class LevelItem extends  Group{
 				this.addActor(menu_play);
 				this.setColor(Color.WHITE);
 			}else if( (0==level&&currentLevel==0) || (currentLevel!=0&&currentLevel==level-1)){// i will play this level
-				//TODO this should use a current flag
+				this.addActor(current);
 				this.addActor(menu_play);
-				this.setColor(Color.YELLOW);
+				title.getStyle().fontColor = Color.MAGENTA;
 			}else{
 				this.addActor(lock);
 				this.setColor(Color.WHITE);

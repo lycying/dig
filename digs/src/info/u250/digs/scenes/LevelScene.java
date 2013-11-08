@@ -124,10 +124,6 @@ public class LevelScene extends SceneStage {
 		bg.setY(Engine.getHeight()-bg.getHeight()*bg.getScaleX());
 		bg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.4f,0.5f),Actions.alpha(1,1))));
 		this.addActor(bg);
-		final Image levelSceneImg = new Image(atlas.findRegion("level-scene"));
-		levelSceneImg.setScale(1f);
-		levelSceneImg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.2f,2f),Actions.alpha(1,4))));
-		this.addActor(levelSceneImg);
 		{
 			ParticleEffect e = Engine.resource("Effect");
 			ParticleEffectActor p = new ParticleEffectActor(e,"level-waterfall");

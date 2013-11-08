@@ -61,11 +61,9 @@ public class Finger extends Image{
 			this.addAction(Actions.fadeOut(0.3f));
 			return;
 		}else if(timeDelta2>9.5f){
-			start.level.setFingerMode(FingerMode.Fill);
-			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS);
+			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS,FingerMode.Fill);
 		}else{
-			start.level.setFingerMode(FingerMode.Clear);
-			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS);
+			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS,FingerMode.Clear);
 		}
 		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}

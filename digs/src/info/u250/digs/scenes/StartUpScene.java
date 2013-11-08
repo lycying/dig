@@ -54,7 +54,7 @@ public class StartUpScene extends SceneStage{
 
 	float time;
 
-	public Water water = new Water( 201, 150, 
+	public Water water = new Water( 201, 130, 
 			new Color(151f/255f,196f/255f,188f/255f,0.5f),
 			new Color(1,1,1,0.5f));
 	public StartUpScene(final DigsEngineDrive drive){

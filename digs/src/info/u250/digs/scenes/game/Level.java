@@ -18,15 +18,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.async.AsyncTask;
 
@@ -108,10 +104,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					prePos.add(vtmp);
-					fillTerrain(prePos.x-getX(),prePos.y, RADIUS);
+					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,fingerMode);
 				}
 			}
-			fillTerrain(position.x-getX(),position.y, RADIUS);
+			fillTerrain(position.x-getX(),position.y, RADIUS,fingerMode);
 
 			position.set(x,y);
 			prePos.x = position.x;
@@ -238,16 +234,16 @@ public class Level extends Group{
 		goldTerrain.update();
 	}
 	/* clear or fill terrain */
-	public void fillTerrain(float x,float y,final float radius){
+	public void fillTerrain(float x,float y,final float radius,FingerMode mode){
 		if(terrain == null )return;
 		x += getX();
 		terrain.project(projPos, x, y);
-		if(fingerMode == FingerMode.Fill){
+		if(mode == FingerMode.Fill){
 			terrain.eraseCircle(projPos.x, projPos.y, radius, FILL_COLOR);
-		}else if(fingerMode == FingerMode.Clear){
+		}else if(mode == FingerMode.Clear){
 			terrain.eraseCircle(projPos.x, projPos.y, radius ,Color.CLEAR);
 			//draw the dirt effect.
-			dirtEffect(x-getX(), y);//too big the effect for the FPS
+			//dirtEffect(x-getX(), y);//too big the effect for the FPS
 		}
 		terrain.update();
 	}
@@ -299,26 +295,6 @@ public class Level extends Group{
 			}
 		}
 		return DigResult.None;
-	}
-	
-	void dirtEffect(final float x,final float y){
-		TextureAtlas atlas = Engine.resource("All");
-		int size = 4;
-		float part = 360f/size;
-		for(int i=0;i<size;i++){
-			float ax = Digs.RND.nextFloat()*100*MathUtils.cosDeg(i*part);
-			float ay = Digs.RND.nextFloat()*100*MathUtils.sinDeg(i*part);
-			final Image image = new Image(atlas.findRegion("color"));
-			image.setColor(new Color(0.956862745098039f, 0.643137254901961f, 0.376470588235294f,0.9f));
-			image.setPosition(x, y);
-			image.addAction(Actions.sequence(Actions.parallel(Actions.moveTo(x+ax, y+ay,0.2f,Interpolation.circleIn),Actions.fadeOut(0.2f)),Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					image.remove();
-				}
-			})));
-			this.addActor(image);
-		}
 	}
 	
 	public FingerMode getFingerMode() {
