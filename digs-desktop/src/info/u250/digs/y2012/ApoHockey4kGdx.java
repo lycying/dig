@@ -1,4 +1,4 @@
-package info.u250.digs.yyy;
+package info.u250.digs.y2012;
 
 /*
  * Copyright (c) 2005-2012 Dirk Aporius <dirk.aporius@gmail.com>

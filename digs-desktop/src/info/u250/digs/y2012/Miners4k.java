@@ -1,4 +1,4 @@
-package info.u250.digs.yyy;
+package info.u250.digs.y2012;
 
 /**
  * Miners4k

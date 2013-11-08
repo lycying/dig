@@ -1,4 +1,4 @@
-package info.u250.digs.yyy;
+package info.u250.digs.y2012;
 
 /**
  * Comment free (yay) source code for Left 4k Dead by Markus Persson
