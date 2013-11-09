@@ -5,6 +5,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.SceneStage;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
+import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -21,8 +22,6 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -118,16 +117,39 @@ public class LevelScene extends SceneStage {
 		surface3  = new TriangleSurfaces(data3);
 		
 		atlas = Engine.resource("All");
-		
-		final Image bg = new Image(atlas.findRegion("level"));
-		bg.setScale(Engine.getWidth()/bg.getWidth());
-		bg.setY(Engine.getHeight()-bg.getHeight()*bg.getScaleX());
-		bg.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.4f,0.5f),Actions.alpha(1,1))));
-		this.addActor(bg);
 		{
 			ParticleEffect e = Engine.resource("Effect");
-			ParticleEffectActor p = new ParticleEffectActor(e,"level-waterfall");
-			p.setPosition(0, Engine.getHeight());
+			ParticleEffectActor p = new ParticleEffectActor(e,"level-screen"){
+				float timeDelta = 0;
+				
+				Vector2 speed = new Vector2(400,200);
+				Vector2 direction = new Vector2(1,1).nor();
+				float SPEED = 400;
+				@Override
+				public void act(float delta) {
+					timeDelta += delta;
+					if(timeDelta>0.5f){
+						timeDelta = 0;
+						direction.set(Digs.RND.nextFloat()*Digs.RND.nextFloat(),Digs.RND.nextFloat()).nor();
+					}
+					
+					if(getX()>920){
+						speed.x = -SPEED*2 ;
+					}
+					if(getY()>500){
+						speed.y = -SPEED ;
+					}
+					if(getX()<10){
+						speed.x = SPEED *2;
+					}
+					if(getY()<10){
+						speed.y = SPEED ;
+					}
+					
+					this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
+				}
+			};
+			p.setPosition(100, 370);
 			this.addActor(p);
 		}
 		{
@@ -136,6 +158,7 @@ public class LevelScene extends SceneStage {
 			p.setPosition(200, 200);
 			this.addActor(p);
 		}
+		
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
 			tower.setPosition(850, 400);

@@ -11,13 +11,13 @@ import info.u250.digs.scenes.StartUpScene;
 
 public class DigsEngineDrive implements EngineDrive {
 
-	static final String FLAT = "texs/RockLayered.jpg";
+//	static final String FLAT = "texs/RockLayered.jpg";
 	static final String FLAT2 = "texs/S.png";
 	static public final int LINGO_SOUND = 43;
 	@Override
 	public EngineOptions onSetupEngine() {
 		EngineOptions opt = new EngineOptions(new String[]{
-				"data/",FLAT,FLAT2}, 960, 540);
+				"data/",FLAT2}, 960, 540);
 		opt.configFile = "info.u250.digs.cfg";
 		opt.useGL20 = true;
 		opt.autoResume = true;
@@ -56,7 +56,7 @@ public class DigsEngineDrive implements EngineDrive {
 		
 		reg.particleEffect("Effect", "data/p.p");
 		
-		reg.texture("Texture", FLAT);
+//		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
 		
 		reg.music("MusicBackground", "data/music/bg.ogg");

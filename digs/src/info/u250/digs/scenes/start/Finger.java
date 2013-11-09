@@ -1,10 +1,9 @@
 package info.u250.digs.scenes.start;
 
+import info.u250.digs.Digs;
 import info.u250.digs.scenes.StartUpScene;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.Level.FingerMode;
-
-import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -23,7 +22,6 @@ public class Finger extends Image{
 	float timeDelta2 = 0;
 	
 	Vector2 speed = new Vector2(400,200);
-	Random random = new Random();
 	Vector2 direction = new Vector2(1,1).nor();
 	float SPEED = 200;
 	@Override
@@ -35,8 +33,8 @@ public class Finger extends Image{
 		
 		if(timeDelta>0.2f){
 			timeDelta = 0;
-			direction.set(random.nextFloat()*random.nextFloat(),random.nextFloat()).nor();
-			start.water.splash(this.getX(), 20+100*random.nextFloat());
+			direction.set(Digs.RND.nextFloat()*Digs.RND.nextFloat(),Digs.RND.nextFloat()).nor();
+			start.water.splash(this.getX(), 20+100*Digs.RND.nextFloat());
 		}
 		
 		if(getX()+30>start.level.getWidth()){

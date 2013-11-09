@@ -7,8 +7,6 @@ import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
-import info.u250.c2d.graphic.parallax.ParallaxGroup;
-import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.DigsEngineDrive;
@@ -48,7 +46,7 @@ public class StartUpScene extends SceneStage{
 	public Group terrainContainer;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
-	final TriangleSurfaces surface;
+//	final TriangleSurfaces surface;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
 
@@ -68,37 +66,37 @@ public class StartUpScene extends SceneStage{
 		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),WebColors.CADET_BLUE.get());
 
 		
-		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
-		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(30,1000), new Vector2(0,350)));
-		this.addActor(pbg);
+//		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
+//		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(30,1000), new Vector2(0,320)));
+//		this.addActor(pbg);
 		
-		final SurfaceData data = new SurfaceData();
-		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
-		data.texture="Texture";
-		data.points = new Array<Vector2>(){{
-			add(new Vector2(-27.005554f,300f));
-			add(new Vector2(-20,-4));
-			add(new Vector2(119,250));
-			add(new Vector2(200.99362f,-14f));
-			add(new Vector2(293.00104f,300));
-			add(new Vector2(356f,-9f));
-			add(new Vector2(360f,310));
-			add(new Vector2(380,-9f));
-			add(new Vector2(400,300));
-			add(new Vector2(458f,-9f));
-			add(new Vector2(510f,250));
-			add(new Vector2(556.0f,-7f));
-			add(new Vector2(593f,250));
-			add(new Vector2(650f,-53f));
-			add(new Vector2(700f,290));
-			add(new Vector2(735f,-53f));
-			add(new Vector2(800f,290));
-			add(new Vector2(850f,0));
-			add(new Vector2(900f,290));
-			add(new Vector2(960f,0));
-			add(new Vector2(1024,350));
-		}};
-		surface  = new TriangleSurfaces(data);
+//		final SurfaceData data = new SurfaceData();
+//		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
+//		data.texture="Texture";
+//		data.points = new Array<Vector2>(){{
+//			add(new Vector2(-27.005554f,300f));
+//			add(new Vector2(-20,-4));
+//			add(new Vector2(119,250));
+//			add(new Vector2(200.99362f,-14f));
+//			add(new Vector2(293.00104f,300));
+//			add(new Vector2(356f,-9f));
+//			add(new Vector2(360f,310));
+//			add(new Vector2(380,-9f));
+//			add(new Vector2(400,300));
+//			add(new Vector2(458f,-9f));
+//			add(new Vector2(510f,250));
+//			add(new Vector2(556.0f,-7f));
+//			add(new Vector2(593f,250));
+//			add(new Vector2(650f,-53f));
+//			add(new Vector2(700f,290));
+//			add(new Vector2(735f,-53f));
+//			add(new Vector2(800f,290));
+//			add(new Vector2(850f,0));
+//			add(new Vector2(900f,290));
+//			add(new Vector2(960f,0));
+//			add(new Vector2(1024,350));
+//		}};
+//		surface  = new TriangleSurfaces(data);
 		final SurfaceData data2 = new SurfaceData();
 		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";
@@ -177,17 +175,17 @@ public class StartUpScene extends SceneStage{
 		}};
 		surface3  = new TriangleSurfaces(data3);
 		
-		final Image wmr = new Image(atlas.findRegion("null"));
-		wmr.setY(-50);
-		wmr.setX(-wmr.getWidth());
-		wmr.addAction(Actions.forever(Actions.sequence(Actions.repeat(5, Actions.sequence(Actions.moveBy(25, 6,0.5f),Actions.moveBy(25, -6,0.5f))),Actions.delay(24),Actions.alpha(0,1),Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				wmr.setX(-wmr.getWidth());
-				wmr.getColor().a = 1;
-			}
-		}))));
-		this.addActor(wmr);
+//		final Image wmr = new Image(atlas.findRegion("null"));
+//		wmr.setY(-50);
+//		wmr.setX(-wmr.getWidth());
+//		wmr.addAction(Actions.forever(Actions.sequence(Actions.repeat(5, Actions.sequence(Actions.moveBy(25, 6,0.5f),Actions.moveBy(25, -6,0.5f))),Actions.delay(24),Actions.alpha(0,1),Actions.run(new Runnable() {
+//			@Override
+//			public void run() {
+//				wmr.setX(-wmr.getWidth());
+//				wmr.getColor().a = 1;
+//			}
+//		}))));
+//		this.addActor(wmr);
 		terrainContainer = new Group();
 		this.addActor(terrainContainer);
 		genTerrain();
@@ -262,12 +260,14 @@ public class StartUpScene extends SceneStage{
 		this.addActor(about);
 		
 		
-		ParticleEffect e = Engine.resource("Effect");
-		ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
-		p.setPosition(50, Engine.getHeight());
+		
 		
 		
 		this.addActor(play);
+		
+		ParticleEffect e = Engine.resource("Effect");
+		ParticleEffectActor p = new ParticleEffectActor(e,"thousand");
+		p.setPosition(50, Engine.getHeight());
 		this.addActor(p);
 		
 		
@@ -398,7 +398,7 @@ public class StartUpScene extends SceneStage{
 	@Override
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
-		surface.render(Engine.getDeltaTime());
+//		surface.render(Engine.getDeltaTime());
 		super.draw();
 		water.draw();
 		surface2.render(Engine.getDeltaTime());

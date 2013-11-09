@@ -8,6 +8,7 @@ import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.about.StepInfo;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.ui.AnimationDrawable;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -23,7 +24,6 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -39,10 +39,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class AboutScene extends SceneStage{
 	DigsEngineDrive drive;
-	Animation npcAnim = null;
-	Sprite npcSprite = null;
-	Animation kaAnim = null;
-	Sprite kaSprite = null;
 	ShaderProgram shader ;
 	FrameBuffer frameBuffer;
 	Mesh mesh ;
@@ -70,32 +66,6 @@ public class AboutScene extends SceneStage{
 		frameBuffer = new FrameBuffer(Format.RGB565, (int)(Engine.getWidth()/4), (int)(Engine.getHeight()/4), true);
 		resolution.set(frameBuffer.getWidth(), frameBuffer.getHeight());
 		
-		TextureAtlas atlas = Engine.resource("All");
-		TextureRegion[] npcRegions = new TextureRegion[4];
-		npcRegions[0] = atlas.findRegion("npc-s1-1");
-		npcRegions[1] = atlas.findRegion("npc-s1-2");
-		npcRegions[2] = atlas.findRegion("npc-s1-3");
-		npcRegions[3] = atlas.findRegion("npc-s1-4");
-		
-		npcAnim = new Animation(0.05f, npcRegions);
-		npcSprite = new Sprite(npcAnim.getKeyFrame(0));
-		npcSprite.setPosition(420, 40);
-		npcSprite.setScale(1.5f);
-		npcSprite.setColor(new Color(Color.GRAY));
-		
-		
-		TextureRegion[] kaRegions = new TextureRegion[4];
-		kaRegions[0] = atlas.findRegion("npc-ka1");
-		kaRegions[1] = atlas.findRegion("npc-ka2");
-		kaRegions[2] = atlas.findRegion("npc-ka3");
-		kaRegions[3] = atlas.findRegion("npc-ka4");
-		
-		kaAnim = new Animation(0.05f, kaRegions);
-		kaSprite = new Sprite(kaAnim.getKeyFrame(0));
-		kaSprite.setPosition(400, 40);
-		kaSprite.setScale(1.2f);
-//		kaSprite.setColor(new Color(Color.GRAY));
-		
 		
 		{
 			GoldTowerEntity tower = new GoldTowerEntity();
@@ -116,7 +86,7 @@ public class AboutScene extends SceneStage{
 			tower.setPosition(900, 150);
 			this.addActor(tower);
 		}
-		
+		TextureAtlas atlas = Engine.resource("All");
 		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("grass")), new Vector2(1,1), new Vector2(0,1000), new Vector2(0,0)));
@@ -139,7 +109,7 @@ public class AboutScene extends SceneStage{
 		back.setColor(Color.GRAY);
 		back.padRight(60);
 		back.pack();
-		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight()+25);
+		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
 		back.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -150,6 +120,29 @@ public class AboutScene extends SceneStage{
 		});
 		this.addActor(back);
 		
+	
+		TextureRegion[] npcRegions = new TextureRegion[4];
+		npcRegions[0] = atlas.findRegion("npc-s1-1");
+		npcRegions[1] = atlas.findRegion("npc-s1-2");
+		npcRegions[2] = atlas.findRegion("npc-s1-3");
+		npcRegions[3] = atlas.findRegion("npc-s1-4");
+		Animation npcAnim = new Animation(0.05f, npcRegions);
+		Image npcImage = new Image(new AnimationDrawable(npcAnim));
+		npcImage.setPosition(420, 40);
+		npcImage.setScale(1.5f);
+		npcImage.setColor(new Color(Color.GRAY));
+		this.addActor(npcImage);
+		
+		TextureRegion[] kaRegions = new TextureRegion[4];
+		kaRegions[0] = atlas.findRegion("npc-ka1");
+		kaRegions[1] = atlas.findRegion("npc-ka2");
+		kaRegions[2] = atlas.findRegion("npc-ka3");
+		kaRegions[3] = atlas.findRegion("npc-ka4");
+		Animation kaAnim = new Animation(0.05f, kaRegions);
+		Image kaImage = new Image(new AnimationDrawable(kaAnim));
+		kaImage.setPosition(400, 40);
+		kaImage.setScale(1.2f);
+		this.addActor(kaImage);
 	}
 	float accum = 0;
 	float accum_text = 2;
@@ -158,8 +151,6 @@ public class AboutScene extends SceneStage{
 	public void act(float delta) {
 		accum+=delta;
 		accum_text+=delta;
-		npcSprite.setRegion(npcAnim.getKeyFrame(accum,true));
-		kaSprite.setRegion(kaAnim.getKeyFrame(accum,true));
 		if(accum_text>5){
 			accum_text-=5;
 			info.play(Digs.RND.nextInt(2), contributes[index%contributes.length]);
@@ -198,10 +189,6 @@ public class AboutScene extends SceneStage{
 			Engine.getSpriteBatch().end();
 		}
 		super.draw();
-		Engine.getSpriteBatch().begin();
-		npcSprite.draw(Engine.getSpriteBatch());
-		kaSprite.draw(Engine.getSpriteBatch());
-		Engine.getSpriteBatch().end();
 		
 //		Gdx.gl.glStencilFunc(GL10.GL_ALWAYS, 1, 1);
 //		Gdx.gl.glStencilOp(GL10.GL_KEEP, GL10.GL_KEEP, GL10.GL_REPLACE);

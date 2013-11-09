@@ -19,12 +19,12 @@ public class ShaderBackgroundActor extends Actor {
 	FrameBuffer frameBuffer;
 	Mesh mesh ;
 	
-	public ShaderBackgroundActor(){
-		shader = createDefaultShader();
+	public ShaderBackgroundActor(String frag,int level){
+		shader = createDefaultShader(frag);
 		mesh = new Mesh(true,4,6,new VertexAttribute(VertexAttributes.Usage.Position, 2, "position"));
 		mesh.setVertices(new float[] { -1, -1,  -1 , 1,  1, -1 , 1 ,1});
 		mesh.setIndices(new short[]{0, 1, 2, 2, 1, 3});
-		frameBuffer = new FrameBuffer(Format.RGB565, (int)(Engine.getWidth()/4), (int)(Engine.getHeight()/4), false);
+		frameBuffer = new FrameBuffer(Format.RGB565, (int)(Engine.getWidth()/level), (int)(Engine.getHeight()/level), false);
 		resolution.set(frameBuffer.getWidth(), frameBuffer.getHeight());
 	}
 	float accum = 0;
@@ -60,28 +60,21 @@ public class ShaderBackgroundActor extends Actor {
 			Engine.getSpriteBatch().draw(frameBuffer.getColorBufferTexture(), 0, 0,Engine.getWidth(),Engine.getHeight());
 		}
 	}
-	public ShaderProgram createDefaultShader () {
+	public ShaderProgram createDefaultShader (String fragmentShader) {
 		String vertexShader = "attribute vec3 position; void main() { gl_Position = vec4( position, 1.0 ); }";
-		String fragmentShader = "#ifdef GL_ES\r\n" + 
-				"precision mediump float;\r\n" + 
-				"#endif\r\n" + 
-				"\r\n" + 
-				"uniform float time;\r\n" + 
-				"uniform vec2 resolution;\r\n" + 
-				"\r\n" + 
-				"void main( void ) {\r\n" + 
-				"	vec2 position = ( gl_FragCoord.xy / resolution.xy );\r\n" + 
-				"\r\n" + 
-				"	float color = 1.0;\r\n" + 
-				"	color += sin( position.x * cos( time / 5.0 ) * 30.0 ) + sin( position.y * cos( time / 100.0 ) * 100.0 );\r\n" + 
-				"	color += sin( position.x * cos( time / 100.0 ) * 100.0 ) + cos( position.y * sin( time / 10.0 ) * 15.0 );\r\n" + 
-				"		\r\n" + 
-				"	gl_FragColor = vec4(color * .2, color * .4, color * .4, 1.0);\r\n" + 
-				"}\r\n" + 
-				"";
-
 		ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
 		if (shader.isCompiled() == false) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
 		return shader;
+	}
+	public void dispose(){
+		if(null!=mesh){
+			mesh.dispose();
+		}
+		if(null!=shader){
+			shader.dispose();
+		}
+		if(null!=frameBuffer){
+			frameBuffer.dispose();
+		}
 	}
 }
