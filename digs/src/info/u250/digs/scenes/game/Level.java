@@ -62,8 +62,6 @@ public class Level extends Group{
 	private PixmapHelper goldTerrain = null;
 	private LevelActor levelActor = null; // Note : this is use to put the terrain to the center of the drawing
 	
-	/* if it is the fill mode currently */
-	private FingerMode fingerMode = FingerMode.Clear;
 	
 	/* the bellow two attribute is used to load the map async */
 	private boolean mapMaking = true;
@@ -104,10 +102,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					prePos.add(vtmp);
-					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,fingerMode);
+					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,game.getFingerMode());
 				}
 			}
-			fillTerrain(position.x-getX(),position.y, RADIUS,fingerMode);
+			fillTerrain(position.x-getX(),position.y, RADIUS,game.getFingerMode());
 
 			position.set(x,y);
 			prePos.x = position.x;
@@ -221,10 +219,13 @@ public class Level extends Group{
 		if(null!=terrain)terrain.reload();
 		if(null!=goldTerrain)goldTerrain.reload();
 	}
+	int digCount = 0;
 	
 	/* fetch gold , 4 pixels */
 	public void dig(final float radius,float ax,float ay){
 		if(terrain == null || goldTerrain == null)return;
+		Engine.getSoundManager().playSound("SoundDig");
+		
 		terrain.project(projPos,ax,ay);
 		terrain.eraseCircle(projPos.x ,projPos.y ,radius );
 		terrain.update();
@@ -295,13 +296,6 @@ public class Level extends Group{
 			}
 		}
 		return DigResult.None;
-	}
-	
-	public FingerMode getFingerMode() {
-		return fingerMode;
-	}
-	public void setFingerMode(FingerMode fingerMode) {
-		this.fingerMode = fingerMode;
 	}
 	public Array<Boss> getBosses(){
 		return bosses;

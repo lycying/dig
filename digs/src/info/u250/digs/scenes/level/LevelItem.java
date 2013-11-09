@@ -41,13 +41,13 @@ public class LevelItem extends  Group{
 		final Image bg = new Image( atlas.createPatch("level-item-bg-5"));
 		switch(pack){
 		case 0:
-			bg.setColor(WebColors.MEDIUM_SEA_GREEN.get());
+			bg.setColor(WebColors.AQUA.get());
 			break;
 		case 1:
-			bg.setColor(WebColors.ORANGE.get());
+			bg.setColor(WebColors.LIGHT_CORAL.get());
 			break;
 		case 2:
-			bg.setColor(WebColors.LIGHT_CORAL.get());
+			bg.setColor(WebColors.ORANGE.get());
 			break;
 		}
 		bg.setSize(this.getWidth(), this.getHeight());
@@ -75,13 +75,13 @@ public class LevelItem extends  Group{
 		NinePatch patchBg = atlas.createPatch("level-item-bg-4");
 		switch(pack){
 		case 0:
-			patchBg.setColor(WebColors.LIME.get());
+			patchBg.setColor(WebColors.LIGHT_BLUE.get());
 			break;
 		case 1:
-			patchBg.setColor(WebColors.GOLD.get());
+			patchBg.setColor(WebColors.RED.get());
 			break;
 		case 2:
-			patchBg.setColor(WebColors.RED.get());
+			patchBg.setColor(WebColors.GOLD.get());
 			break;
 		}
 		TextButtonStyle style = new TextButtonStyle(
@@ -122,13 +122,13 @@ public class LevelItem extends  Group{
 		levelNumber.pack();
 		switch(pack){
 		case 0:
-			patch.setColor(WebColors.LIME.get());
+			patch.setColor(WebColors.LIGHT_BLUE.get());
 			break;
 		case 1:
-			patch.setColor(WebColors.GOLD.get());
+			patch.setColor(WebColors.RED.get());
 			break;
 		case 2:
-			patch.setColor(WebColors.RED.get());
+			patch.setColor(WebColors.GOLD.get());
 			break;
 		}
 		this.addActor(levelNumber);

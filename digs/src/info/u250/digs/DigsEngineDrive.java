@@ -63,11 +63,16 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.music("MusicBattle", "data/music/battle.ogg");
 		reg.music("MusicCont", "data/music/cont.ogg");
 		
+		reg.sound("SoundChoosePack1", "data/sounds/choose-pack1.ogg");
+		reg.sound("SoundChoosePack2", "data/sounds/choose-pack2.ogg");
+		reg.sound("SoundChooseGuide", "data/sounds/choose-guide.ogg");
+		reg.sound("SoundFunc", "data/sounds/func.ogg");
 		reg.sound("SoundClick", "data/sounds/click.ogg");
 		reg.sound("SoundMeet", "data/sounds/meetf.ogg");
 		reg.sound("SoundBossXO", "data/sounds/boss-xo.ogg");
 		reg.sound("SoundBossBreak", "data/sounds/boss-break.ogg");
 		reg.sound("SoundDockKa", "data/sounds/ka_dock.ogg");
+		reg.sound("SoundDig", "data/sounds/dig.ogg");
 		reg.sound("SoundDie", "data/sounds/die.ogg");
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
@@ -77,7 +82,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundNewContrib", "data/sounds/newcon.ogg");
 		
 		reg.sound("SoundLvl5Bang", "data/sounds/lvl5-bang.ogg");
-		
+	
 		for(int soundIdx=1;soundIdx<=LINGO_SOUND;soundIdx++){
 			reg.sound("SoundEnv"+soundIdx, "data/sounds/env/lingo"+soundIdx+".ogg");
 		}

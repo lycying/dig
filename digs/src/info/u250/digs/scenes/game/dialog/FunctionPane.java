@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class FunctionPane extends Table{
+	/* if it is the fill mode currently */
+	private FingerMode fingerMode = FingerMode.Clear;
 
 	public FunctionPane(final GameScene gameScene){
 		final TextureAtlas atlas = Engine.resource("All");
-		this.setBackground(new NinePatchDrawable(atlas.createPatch("level-item-bg-4")));
 			
 		final Button btn_home = new Button(new TextureRegionDrawable(atlas.findRegion("btn-home-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-home-2")));
 		final Button btn_fill = new Button(new TextureRegionDrawable(atlas.findRegion("btn-fill-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-fill-2")));
@@ -26,33 +26,42 @@ public class FunctionPane extends Table{
 		
 		
 		new ButtonGroup(btn_home,btn_dig,btn_fill,btn_npc);//collection them
-		this.add(btn_home);
-		this.add(btn_npc);
-		this.add(btn_fill);
-		this.add(btn_dig);
+		this.add(btn_home).spaceRight(5);
+		this.add(btn_npc).spaceRight(5);
+		this.add(btn_fill).spaceRight(5);
+		this.add(btn_dig).spaceRight(5);
 		btn_dig.setChecked(true);
 		
 		btn_home.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
-				gameScene.level.setFingerMode(FingerMode.Home);
+				fingerMode = FingerMode.Home;
+				Engine.getSoundManager().playSound("SoundFunc");
 				super.clicked(event, x, y);
 			}});
 		btn_npc.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
-				gameScene.level.setFingerMode(FingerMode.Npc);
+				fingerMode = FingerMode.Npc;
+				Engine.getSoundManager().playSound("SoundFunc");
 				super.clicked(event, x, y);
 			}});
 		btn_fill.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
-				gameScene.level.setFingerMode(FingerMode.Fill);
+				fingerMode = FingerMode.Fill;
+				Engine.getSoundManager().playSound("SoundFunc");
 				super.clicked(event, x, y);
 			}});
 		btn_dig.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
-				gameScene.level.setFingerMode(FingerMode.Clear);
+				Engine.getSoundManager().playSound("SoundFunc");
+				fingerMode = FingerMode.Clear;
 				super.clicked(event, x, y);
 			}});
 
 		this.pack();
 	}
+
+	public FingerMode getFingerMode() {
+		return fingerMode;
+	}
+	
 }

@@ -23,8 +23,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.esotericsoftware.tablelayout.BaseTableLayout;
 
 public class LevelIdx {
 	public static final String[][] Level_String = {
@@ -146,8 +150,24 @@ public class LevelIdx {
 	
 	public static RefreshableLevelTable getGuideTable(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(0);
-		table.add(new LevelItemTextTable("Choose Level")).row();
+		BitmapFont font = Engine.resource("BigFont");
 		TextureAtlas atlas = Engine.resource("All");
+		{
+			Table tb = new Table();
+			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
+			tb.add(new Image(atlas.findRegion("lvl-mv-1")));
+			tb.add(new Label("I wakeup at somewhere...",new LabelStyle(font,Color.WHITE))).minWidth(500);
+			TextButtonStyle style = new TextButtonStyle(
+					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), 
+					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), null, font);
+			style.fontColor = Color.BLACK;
+			style.downFontColor = Color.RED;
+			final TextButton back = new TextButton("View",style);
+			back.pack();
+			tb.add(back);
+			tb.pack();
+			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
+		}
 		{
 			for(int i=0;i<Level_String[0].length;i++){
 				LevelItem item = new LevelItem(lvlSce,0,i,Level_String[0][i]);
@@ -155,15 +175,20 @@ public class LevelIdx {
 				table.row();
 			}
 		}
-		BitmapFont font = Engine.resource("BigFont");
-		table.add(new Label("Now come to the new world",new LabelStyle(font,Color.WHITE))).row();
+		{
+			Table tb = new Table();
+			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
+			tb.add(new Image(atlas.findRegion("guide-icon")));
+			tb.add(new Label("The basic guide",new LabelStyle(font,Color.WHITE))).minWidth(580);
+			tb.pack();
+			table.add(tb).align(BaseTableLayout.LEFT).row();
+		}
 		table.add(new Image(atlas.findRegion("finger")));
 		table.pack();
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(1);
-		table.add(new LevelItemTextTable("Choose Level")).row();
 		{
 			for(int i=0;i<Level_String[1].length;i++){
 				LevelItem item = new LevelItem(lvlSce,1,i,Level_String[1][i]);

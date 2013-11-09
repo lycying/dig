@@ -45,20 +45,20 @@ public class LevelConfig {
 //			
 //			StepladderEntity ladder = new StepladderEntity(15, 200,100);
 //			level.addStepladder(ladder);
-			
-			for(int i=0;i<20;i++){
-				Npc e = new Npc();
-				e.init(level);
-				e.setPosition(400+random.nextFloat()*50, Engine.getHeight() + random.nextFloat()*300);
-				level.addNpc(e);
-			}
-			for(int i=0;i<2;i++){
+			for(int i=0;i<1;i++){
 				Boss e = new Boss();
 				e.setBossLandHeight(50);
 				e.init(level);
 				e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 				level.addBoss(e);
 			}
+			for(int i=0;i<20;i++){
+				Npc e = new Npc();
+				e.init(level);
+				e.setPosition(400+random.nextFloat()*50, Engine.getHeight() + random.nextFloat()*300);
+				level.addNpc(e);
+			}
+			
 //			TeleportEntity inout = new TeleportEntity(300,150,500,250);
 //			level.addInOutTrans(inout);
 			

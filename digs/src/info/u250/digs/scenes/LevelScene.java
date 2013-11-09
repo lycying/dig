@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -207,8 +208,12 @@ public class LevelScene extends SceneStage {
 		});
 		this.addActor(back);
 		LevelPack btn_table = new LevelPack(this,IO.getPackScroll());
-		btn_table.setPosition(810, 120);
+		btn_table.setPosition(840, 100);
 		this.addActor(btn_table);
+		
+		final Image g_plus = new Image(atlas.findRegion("g+"));
+		g_plus.setPosition(50, 50);
+		this.addActor(g_plus);
 		
 	}
 	

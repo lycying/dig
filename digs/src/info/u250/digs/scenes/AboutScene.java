@@ -88,6 +88,10 @@ public class AboutScene extends SceneStage{
 		}
 		TextureAtlas atlas = Engine.resource("All");
 		
+		final Image wmr = new Image(atlas.findRegion("null"));
+		wmr.setX(200);
+		this.addActor(wmr);
+		
 		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("grass")), new Vector2(1,1), new Vector2(0,1000), new Vector2(0,0)));
 		this.addActor(pbg);

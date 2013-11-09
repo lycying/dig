@@ -8,6 +8,7 @@ import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.Level.FingerMode;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.dialog.FunctionPane;
 import info.u250.digs.scenes.game.dialog.InformationPane;
@@ -36,10 +37,11 @@ public class GameScene extends SceneStage {
 	public Level level = null;
 	int packIndex = 0;
 	int levelIndex = 0;
-	InformationPane gameInformationPane ;
-	PauseDialog pauseDialog;
+	final InformationPane gameInformationPane ;
+	final PauseDialog pauseDialog;
 
-	Group functionGroup ;
+	final Group functionGroup ;
+	final FunctionPane functionPane;
 	final ScrollPane scroll;
 	final Image pauseButton;
 	public GameScene(DigsEngineDrive drive){
@@ -73,7 +75,7 @@ public class GameScene extends SceneStage {
 			}
 		});
 		
-		final FunctionPane functionPane = new FunctionPane(this);
+		functionPane = new FunctionPane(this);
 		final Button btn_actor = new Button(new TextureRegionDrawable(atlas.findRegion("expand")),null,new TextureRegionDrawable(atlas.findRegion("pitch")));
 		btn_actor.addListener(new ClickListener(){
 			@Override
@@ -85,7 +87,7 @@ public class GameScene extends SceneStage {
 		functionPane.setPosition(btn_actor.getWidth(),0);
 		functionGroup.addActor(functionPane);
 		functionGroup.addActor(btn_actor);
-		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight()+10);
+		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight());
 		setupPauseResume();
 		
 		this.addActor(scroll);
@@ -152,6 +154,9 @@ public class GameScene extends SceneStage {
 			}
 		});
 
+	}
+	public FingerMode getFingerMode(){
+		return this.functionPane.getFingerMode();
 	}
 	void pauseGame(){
 		if(level==null)return;
