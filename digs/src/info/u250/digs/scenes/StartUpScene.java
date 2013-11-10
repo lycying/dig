@@ -9,22 +9,30 @@ import info.u250.c2d.graphic.WebColors;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.c2d.graphic.surfaces.SurfaceData;
 import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
+import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.entity.Boss;
+import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.start.Finger;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
+import info.u250.digs.scenes.ui.SpineActor;
 import info.u250.digs.scenes.ui.Water;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
@@ -49,7 +57,7 @@ public class StartUpScene extends SceneStage{
 //	final TriangleSurfaces surface;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
-
+	final SpineActor wmr;
 	float time;
 
 	public Water water = new Water( 201, 130, 
@@ -175,17 +183,11 @@ public class StartUpScene extends SceneStage{
 		}};
 		surface3  = new TriangleSurfaces(data3);
 		
-//		final Image wmr = new Image(atlas.findRegion("null"));
-//		wmr.setY(-50);
-//		wmr.setX(-wmr.getWidth());
-//		wmr.addAction(Actions.forever(Actions.sequence(Actions.repeat(5, Actions.sequence(Actions.moveBy(25, 6,0.5f),Actions.moveBy(25, -6,0.5f))),Actions.delay(24),Actions.alpha(0,1),Actions.run(new Runnable() {
-//			@Override
-//			public void run() {
-//				wmr.setX(-wmr.getWidth());
-//				wmr.getColor().a = 1;
-//			}
-//		}))));
-//		this.addActor(wmr);
+		wmr = new SpineActor("null", atlas,"idle",0.2f);
+		wmr.setColor(WebColors.DARK_GREEN.get());
+		wmr.setX(68);
+		wmr.setY(305);
+		
 		terrainContainer = new Group();
 		this.addActor(terrainContainer);
 		genTerrain();
@@ -369,7 +371,40 @@ public class StartUpScene extends SceneStage{
 			level.dispose();
 		}
 		level = null;
-		LevelConfig config = new LevelConfig();
+		wmr.remove();
+		final LevelConfig config = new LevelConfig();
+		config.levelMakeCallback = new LevelMakeCallBack() {
+			Random random = new Random();
+			@Override
+			public void after(Level level) {
+				for(int i=0;i<1;i++){
+					Boss e = new Boss();
+					e.setBossLandHeight(50);
+					e.init(level);
+					e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					level.addBoss(e);
+				}
+				for(int i=0;i<20;i++){
+					Npc e = new Npc();
+					e.init(level);
+					e.setPosition(400+random.nextFloat()*50, Engine.getHeight() + random.nextFloat()*300);
+					level.addNpc(e);
+				}
+				
+			}
+			@Override
+			public void before(Level level) {
+				GoldTowerEntity dock = new GoldTowerEntity();
+				dock.setY(config.lineHeight);
+				level.addGoldDock(dock);
+				StartUpScene.this.addActor(wmr);
+			}
+			@Override
+			public void mapMaker(Pixmap terr, Pixmap gold) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 		if(-1==texs_index){
 			config.surface = "texs/brown063.jpg";
 			texs_index++;

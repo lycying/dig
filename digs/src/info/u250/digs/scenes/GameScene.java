@@ -22,7 +22,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -127,13 +126,19 @@ public class GameScene extends SceneStage {
 		scroll.setWidget(level);
 		
 		//delay play the music
-		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				Engine.getMusicManager().playMusic("MusicBattle", true);
-			}
-		})));
+//		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
+//			@Override
+//			public void run() {
+//				
+//			}
+//		})));
+		Engine.getMusicManager().playMusic("MusicBattle", true);
 	} 
+	@Override
+	public void hide() {
+		Engine.getMusicManager().stopMusic("MusicBattle");
+		super.hide();
+	}
 	public void setupPauseResume(){
 		Engine.getEventManager().register(CoreEvents.SystemPause, new EventListener(){
 			@Override
@@ -171,12 +176,6 @@ public class GameScene extends SceneStage {
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
 		super.draw();
-	}
-	
-	@Override
-	public void hide() {
-		Engine.getMusicManager().stopMusic("MusicBattle");
-		super.hide();
 	}
 	
 	@Override

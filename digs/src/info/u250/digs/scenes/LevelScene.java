@@ -197,7 +197,7 @@ public class LevelScene extends SceneStage {
 		final TextButton back = new TextButton("Back",style);
 		back.padRight(60);
 		back.pack();
-		back.setPosition(0,Engine.getHeight()-back.getHeight()-30);
+		back.setPosition(0,Engine.getHeight()-back.getHeight()-50);
 		back.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

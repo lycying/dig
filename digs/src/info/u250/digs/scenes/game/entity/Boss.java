@@ -6,6 +6,7 @@ import info.u250.digs.scenes.game.Level.FingerMode;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 /* nothing can block me , came to die !! */
 public class Boss extends AbstractMoveable {
@@ -177,6 +178,7 @@ public class Boss extends AbstractMoveable {
 				e.readyToDie = true;
 				kill = e;
 				delayCount = 0;
+				kill.addAction(Actions.forever(Actions.sequence(Actions.moveBy(2, 0,0.03f),Actions.moveBy(-2, 0,0.03f))));
 				return true;
 			}
 		}
@@ -195,6 +197,7 @@ public class Boss extends AbstractMoveable {
 				e.readyToDie = true;
 				kill = e;
 				delayCount = 0;
+				kill.addAction(Actions.forever(Actions.sequence(Actions.moveBy(2, 0,0.03f),Actions.moveBy(-2, 0,0.03f))));
 				return true;
 			}
 		}
@@ -213,6 +216,7 @@ public class Boss extends AbstractMoveable {
 				e.readyToDie = true;
 				kill = e;
 				delayCount = 0;
+				kill.addAction(Actions.forever(Actions.sequence(Actions.moveBy(2, 0,0.03f),Actions.moveBy(-2, 0,0.03f))));
 				return true;
 			}
 		}

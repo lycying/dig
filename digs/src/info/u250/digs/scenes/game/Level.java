@@ -77,7 +77,10 @@ public class Level extends Group{
 	final static int MASK_BOMB = 16777215;//cyan
 	
 	private Pixmap[] pip ; // temp attribute to recive the mapmaker results
-	
+	private FingerMode getFingerMode(){
+		if(null == game)return FingerMode.Fill;
+		return game.getFingerMode();
+	}
 	//fix the multi finger press 
 	private InputListener terrainInput = new InputListener(){
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
@@ -102,10 +105,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					prePos.add(vtmp);
-					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,game.getFingerMode());
+					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,getFingerMode());
 				}
 			}
-			fillTerrain(position.x-getX(),position.y, RADIUS,game.getFingerMode());
+			fillTerrain(position.x-getX(),position.y, RADIUS,getFingerMode());
 
 			position.set(x,y);
 			prePos.x = position.x;
@@ -186,6 +189,8 @@ public class Level extends Group{
 	@Override
 	public void act(float delta) {
 		if(!mapMaking && !mapTexturing){
+			super.act(delta);
+			
 			if(config.levelCompleteCallback.tick(game, this, config)) return ;//win callback
 			
 			accum += delta;
@@ -206,13 +211,12 @@ public class Level extends Group{
 				accum -= ACC;
 			}
 		}
-		super.act(delta);
 		
 		//in order to play the sound more accepted
 		Npc.COIN_SOUND_CTL += delta;
 		Npc.HURT_SOUND_CTL += delta;
 		Npc.TRANS_SOUND_CTL += delta;
-		
+		Npc.DIE_SOUND_CTL += delta;
 	}
 	/* when the phone switch to another app and resume it , we must reload it */
 	public void reload(){

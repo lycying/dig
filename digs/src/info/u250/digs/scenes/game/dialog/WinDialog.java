@@ -2,21 +2,17 @@ package info.u250.digs.scenes.game.dialog;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
-import info.u250.digs.Digs;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.level.LevelIdx;
-import info.u250.digs.scenes.ui.ParticleEffectActor;
-import info.u250.digs.scenes.ui.Water;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -33,9 +29,7 @@ public class WinDialog extends Group {
 	Button btnExit ;
 	Button btnRestart;
 	
-	public Water water = new Water( 201, 260, 
-			new Color(151f/255f,196f/255f,188f/255f,0.2f),
-			new Color(151f/255f,196f/255f,188f/255f,0.2f));
+
 	public WinDialog(final GameScene game){		
 		TextureAtlas atlas = Engine.resource("All");
 		
@@ -96,7 +90,6 @@ public class WinDialog extends Group {
 		NinePatch nine = atlas.createPatch("win-bg");
 //		nine.setColor(new Color(1,1,1,0.5f));
 		resultTable.setBackground(new NinePatchDrawable(nine));
-		resultTable.pad(40);
 		resultTable.add(levelTableInfo).colspan(2).align(BaseTableLayout.CENTER);
 		resultTable.row();
 		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(250);
@@ -112,12 +105,6 @@ public class WinDialog extends Group {
 		resultTable.add(lblTime);
 		resultTable.pack();
 		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()/2-resultTable.getHeight()/2);
-		
-		
-		ParticleEffect e = Engine.resource("Effect");
-		ParticleEffectActor p = new ParticleEffectActor(e,"win");
-		p.setPosition(resultTable.getX()+30, resultTable.getY()+resultTable.getHeight()-30);
-		this.addActor(p);
 		
 		this.addActor(resultTable);
 		
@@ -161,24 +148,15 @@ public class WinDialog extends Group {
 		lblBBManDead.setText(npcDead+"");
 		lblTime.setText(time+"");
 		resultTable.pack();
+		if(resultTable.getWidth()<600){
+			resultTable.setWidth(600);
+		}
 		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()/2-resultTable.getHeight()/2);
+		
+		this.getColor().a = 0;
+		this.addAction(Actions.fadeIn(1f));
 	}
 	public void close(){
 		this.remove();
-	}
-	float accum = 0;
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		accum += Engine.getDeltaTime();
-		if(accum>0.7f){
-			accum -=0.7f;
-			water.splash(Digs.RND.nextInt((int)Engine.getWidth()), 200*Digs.RND.nextFloat());
-		}
-		water.update(Engine.getDeltaTime());
-		water.draw();
-//		batch.end();
-//		batch.begin();
-//		table.draw(batch, parentAlpha);
 	}
 }

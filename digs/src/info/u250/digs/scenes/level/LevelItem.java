@@ -90,6 +90,7 @@ public class LevelItem extends  Group{
 		style.downFontColor = Color.RED;
 		menu_play = new TextButton("Play",style);
 		menu_play.pack();
+		menu_play.setHeight(80);
 		
 		menu_play.setPosition(this.getWidth()-menu_play.getWidth(),(this.getHeight()-menu_play.getHeight())/2);
 		
@@ -120,6 +121,7 @@ public class LevelItem extends  Group{
 		NinePatch  patch = atlas.createPatch("level-item-bg-4");
 		levelNumber.getStyle().background = new NinePatchDrawable(patch);
 		levelNumber.pack();
+		levelNumber.setHeight(80);
 		switch(pack){
 		case 0:
 			patch.setColor(WebColors.LIGHT_BLUE.get());

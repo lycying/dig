@@ -78,6 +78,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
 		reg.sound("SoundCoin", "data/sounds/coin.ogg");
 		reg.sound("SoundWin", "data/sounds/win.ogg");
+		reg.sound("SoundFail", "data/sounds/fail.ogg");
 		
 		reg.sound("SoundNewContrib", "data/sounds/newcon.ogg");
 		

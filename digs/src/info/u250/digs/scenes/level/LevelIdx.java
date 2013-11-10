@@ -162,9 +162,11 @@ public class LevelIdx {
 					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), null, font);
 			style.fontColor = Color.BLACK;
 			style.downFontColor = Color.RED;
-			final TextButton back = new TextButton("View",style);
-			back.pack();
-			tb.add(back);
+			final TextButton view = new TextButton("View",style);
+			view.pack();
+			view.padTop(20);
+			view.padBottom(20);
+			tb.add(view);
 			tb.pack();
 			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
 		}
