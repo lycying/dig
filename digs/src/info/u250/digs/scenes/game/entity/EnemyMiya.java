@@ -24,6 +24,7 @@ public class EnemyMiya extends AbstractMoveable {
 		this.drawable.setSize(this.getWidth(), this.getHeight());
 		this.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setOrigin(this.getWidth()/2, 3);
+		this.drawable.setRegion(regions[0]);
 	}
 	
 	public void tick(){

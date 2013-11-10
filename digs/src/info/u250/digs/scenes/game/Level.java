@@ -130,6 +130,11 @@ public class Level extends Group{
 		
 	}
 	void assembleToPixmapHelper(){
+		if(null != game){
+			Engine.getMusicManager().playMusic("MusicBattle", true);//play the battle music here
+		}
+		
+		
 		clear();
 		terrain = new PixmapHelper(pip[0]);
 		goldTerrain = new PixmapHelper(pip[1]);

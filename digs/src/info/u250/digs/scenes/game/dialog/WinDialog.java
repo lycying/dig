@@ -92,7 +92,7 @@ public class WinDialog extends Group {
 		resultTable.setBackground(new NinePatchDrawable(nine));
 		resultTable.add(levelTableInfo).colspan(2).align(BaseTableLayout.CENTER);
 		resultTable.row();
-		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(250);
+		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(450);
 		resultTable.add(lblCoin);
 		resultTable.row();
 		resultTable.add(new Label("BBMan Born:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
@@ -104,9 +104,30 @@ public class WinDialog extends Group {
 		resultTable.add(new Label("Time:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
 		resultTable.add(lblTime);
 		resultTable.pack();
-		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()/2-resultTable.getHeight()/2);
+		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()-resultTable.getHeight());
 		
 		this.addActor(resultTable);
+		
+		eye1 = new Image(atlas.findRegion("dog-eye"));
+		eye2 = new Image(atlas.findRegion("dog-eye"));
+		eye1.setOriginY(eye1.getHeight()/2);
+		eye2.setOriginY(eye1.getHeight()/2);
+		eye1.addAction(Actions.forever(Actions.sequence(
+				Actions.scaleTo(0.9f, 0, 0.1f),
+				Actions.scaleTo(1, 1, 0.1f),
+				Actions.scaleTo(0.9f, 0, 0.1f),
+				Actions.scaleTo(1, 1, 0.1f),
+				Actions.delay(2)
+		)));
+		eye2.addAction(Actions.forever(Actions.sequence(
+				Actions.scaleTo(0.9f, 0, 0.1f),
+				Actions.scaleTo(1, 1, 0.1f),
+				Actions.scaleTo(0.9f, 0, 0.1f),
+				Actions.scaleTo(1, 1, 0.1f),
+				Actions.delay(2)
+		)));
+		this.addActor(eye1);
+		this.addActor(eye2);
 		
 		btnNextLevel.addListener(new ClickListener(){
 			@Override
@@ -140,21 +161,18 @@ public class WinDialog extends Group {
 	Label lblTime = null;
 	Label lblLvlIdx = null;
 	Label lblLvlDesc = null;
+	final Image eye1,eye2;
 	public void show(LevelConfig config,int gold,int npc,int npcDead,int time){
-		lblLvlIdx.setText("Level "+(config.idx+1));
+		lblLvlIdx.setText("Level "+(config.idx+1)+": ");
 		lblLvlDesc.setText(LevelIdx.getLevelName(config.pack, config.idx));
 		lblCoin.setText(gold+"");
 		lblBBMan.setText(npc+"");
 		lblBBManDead.setText(npcDead+"");
 		lblTime.setText(time+"");
 		resultTable.pack();
-		if(resultTable.getWidth()<600){
-			resultTable.setWidth(600);
-		}
-		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()/2-resultTable.getHeight()/2);
-		
-		this.getColor().a = 0;
-		this.addAction(Actions.fadeIn(1f));
+		resultTable.setPosition(100, Engine.getHeight()-resultTable.getHeight()-80);
+		eye1.setPosition(resultTable.getX()+140, Engine.getHeight()-145);
+		eye2.setPosition(resultTable.getX()+180, Engine.getHeight()-143);
 	}
 	public void close(){
 		this.remove();

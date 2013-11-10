@@ -132,7 +132,6 @@ public class GameScene extends SceneStage {
 //				
 //			}
 //		})));
-		Engine.getMusicManager().playMusic("MusicBattle", true);
 	} 
 	@Override
 	public void hide() {

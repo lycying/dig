@@ -21,7 +21,7 @@ public class InformationPane extends Table{
 		BitmapFont font = Engine.resource("Font");
 		lblGold = new Label("0", new LabelStyle(font, Color.RED));
 		
-		this.setBackground(new NinePatchDrawable(atlas.createPatch("topbar")));
+		this.setBackground(new NinePatchDrawable(atlas.createPatch("level-item-bg-2")));
 		this.add(new Image(atlas.findRegion("flag-gold-many")));
 		this.add(new Label("Gold:", new LabelStyle(font, Color.BLACK)));
 		this.add(lblGold).width(100).spaceRight(5);
