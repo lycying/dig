@@ -54,7 +54,6 @@ public class StartUpScene extends SceneStage{
 	public Group terrainContainer;
 	float deltaAppend;
 	SimpleMeshBackground meshBackground ;
-//	final TriangleSurfaces surface;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
 	final SpineActor wmr;

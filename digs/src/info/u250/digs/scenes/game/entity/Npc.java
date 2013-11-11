@@ -78,6 +78,10 @@ public class Npc extends AbstractMoveable {
 		y = this.getY(); //got it y
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
+		if (y < 8){
+			die();
+			return ;
+		}
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
@@ -149,7 +153,6 @@ public class Npc extends AbstractMoveable {
 		case None:break;
 		case Bomb:
 			die();	
-			level.removeNpc(this);
 			if(HURT_SOUND_CTL>0.2f){
 				Engine.getSoundManager().playSound("SoundHurt");
 				HURT_SOUND_CTL = 0;
@@ -267,7 +270,6 @@ public class Npc extends AbstractMoveable {
 		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
-				level.removeNpc(this);
 				if(DIE_SOUND_CTL>0.2f){
 					Engine.getSoundManager().playSound("SoundDie");
 					DIE_SOUND_CTL = 0;

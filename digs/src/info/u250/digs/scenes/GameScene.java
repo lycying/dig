@@ -124,14 +124,6 @@ public class GameScene extends SceneStage {
 		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
 		level = new Level(this,config);
 		scroll.setWidget(level);
-		
-		//delay play the music
-//		this.addAction(Actions.delay(2, Actions.run(new Runnable() {
-//			@Override
-//			public void run() {
-//				
-//			}
-//		})));
 	} 
 	@Override
 	public void hide() {
@@ -165,9 +157,6 @@ public class GameScene extends SceneStage {
 	void pauseGame(){
 		if(level==null)return;
 		if(level.isMapMaking())return;//avoid the resource load many times
-		if(level.config.levelCompleteCallback.isFail() || level.config.levelCompleteCallback.isWin()){
-			return;
-		}
 		addActor(pauseDialog);
 		Engine.doPause();
 	}
@@ -181,24 +170,28 @@ public class GameScene extends SceneStage {
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				if(Engine.isPause()){
-					if(!level.config.levelCompleteCallback.isFail() && !level.config.levelCompleteCallback.isWin()){
+				if(level.config.levelCompleteCallback.isFail() || level.config.levelCompleteCallback.isWin()){
+					drive.setToLevelScene();
+				}else{
+					if(Engine.isPause()){
 						Engine.doResume();
 						pauseDialog.close();
+					}else{
+						pauseGame();
 					}
-				}else{
-					pauseGame();
 				}
 			}
 		} else {
 			if (keycode == Keys.DEL) {
-				if(Engine.isPause()){
-					if(!level.config.levelCompleteCallback.isFail() && !level.config.levelCompleteCallback.isWin()){
+				if(level.config.levelCompleteCallback.isFail() || level.config.levelCompleteCallback.isWin()){
+					drive.setToLevelScene();
+				}else{
+					if(Engine.isPause()){
 						Engine.doResume();
 						pauseDialog.close();
+					}else{
+						pauseGame();
 					}
-				}else{
-					pauseGame();
 				}
 			}
 		}

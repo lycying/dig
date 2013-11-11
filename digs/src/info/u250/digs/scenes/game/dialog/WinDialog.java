@@ -26,45 +26,35 @@ import com.esotericsoftware.tablelayout.BaseTableLayout;
 public class WinDialog extends Group {
 	
 	Button btnNextLevel ;
-	Button btnExit ;
+	Button btnMenu ;
 	Button btnRestart;
 	
-
+	Table functionTable;
 	public WinDialog(final GameScene game){		
 		TextureAtlas atlas = Engine.resource("All");
 		
 		this.setSize(Engine.getWidth(), Engine.getHeight());
 		
 
-		btnNextLevel = new Button(new TextureRegionDrawable(atlas.findRegion("d-nextlevel")), new TextureRegionDrawable(atlas.findRegion("d-nextlevel")));
-		btnExit = new Button(new TextureRegionDrawable(atlas.findRegion("d-exit")), new TextureRegionDrawable(atlas.findRegion("d-exit")));
+		btnNextLevel = new Button(new TextureRegionDrawable(atlas.findRegion("w-next-level")), new TextureRegionDrawable(atlas.findRegion("w-next-level")));
+		btnMenu = new Button(new TextureRegionDrawable(atlas.findRegion("w-menu")), new TextureRegionDrawable(atlas.findRegion("w-menu")));
 		
 		btnNextLevel.setSize(btnNextLevel.getPrefWidth(), btnNextLevel.getPrefHeight());
-		btnExit.setSize(btnExit.getPrefWidth(), btnExit.getPrefHeight());
-		btnRestart = new Button(new TextureRegionDrawable(atlas.findRegion("restart")), new TextureRegionDrawable(atlas.findRegion("restart")));
+		btnMenu.setSize(btnMenu.getPrefWidth(), btnMenu.getPrefHeight());
+		btnRestart = new Button(new TextureRegionDrawable(atlas.findRegion("w-restart")), new TextureRegionDrawable(atlas.findRegion("w-restart")));
 		
-		Table functionTable = new Table();
-		functionTable.setBackground(new NinePatchDrawable(atlas.createPatch("detail")));
-//		btnExit.setPosition(70, 380);
-//		btnRestart.setPosition(btnExit.getX()+btnExit.getWidth()+30, btnExit.getY());
-//		btnNextLevel.setPosition(btnRestart.getX()+btnRestart.getWidth()+30, btnRestart.getY());
-		functionTable.pad(30);
-		functionTable.add(btnExit).row().space(20);
-		functionTable.add(btnRestart).row().spaceBottom(20);
-		functionTable.add(btnNextLevel).row().spaceBottom(20);
+		functionTable = new Table();
+		functionTable.add(btnMenu).spaceRight(10);
+		functionTable.add(btnRestart).spaceRight(10);
+		functionTable.add(btnNextLevel).spaceRight(10);
 		functionTable.pack();
-
-	
-//		Image bg = new Image(atlas.findRegion("win-bg"));
-//		bg.setPosition(Engine.getWidth()/2-bg.getWidth()/2,0);
 		functionTable.setPosition(Engine.getWidth()-functionTable.getWidth()+20, 40);
 
 		Image mask = new Image(atlas.findRegion("color"));
 		mask.setSize(this.getWidth(), this.getHeight());
 		mask.setColor(new Color(0,0,0,0.7f));
 		this.addActor(mask);
-//		this.addActor(bg);
-		this.addActor(functionTable);
+		
 		
 		BitmapFont font = Engine.resource("BigFont");
 		
@@ -107,11 +97,12 @@ public class WinDialog extends Group {
 		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()-resultTable.getHeight());
 		
 		this.addActor(resultTable);
+		this.addActor(functionTable);
 		
 		eye1 = new Image(atlas.findRegion("dog-eye"));
 		eye2 = new Image(atlas.findRegion("dog-eye"));
-		eye1.setOriginY(eye1.getHeight()/2);
-		eye2.setOriginY(eye1.getHeight()/2);
+		eye1.setOrigin(eye1.getWidth()/2,eye1.getHeight()/2);
+		eye2.setOrigin(eye1.getWidth()/2,eye1.getHeight()/2);
 		eye1.addAction(Actions.forever(Actions.sequence(
 				Actions.scaleTo(0.9f, 0, 0.1f),
 				Actions.scaleTo(1, 1, 0.1f),
@@ -137,7 +128,7 @@ public class WinDialog extends Group {
 				super.clicked(event, x, y);
 			}
 		});
-		btnExit.addListener(new ClickListener(){
+		btnMenu.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Engine.doResume();
@@ -170,9 +161,10 @@ public class WinDialog extends Group {
 		lblBBManDead.setText(npcDead+"");
 		lblTime.setText(time+"");
 		resultTable.pack();
-		resultTable.setPosition(100, Engine.getHeight()-resultTable.getHeight()-80);
-		eye1.setPosition(resultTable.getX()+140, Engine.getHeight()-145);
-		eye2.setPosition(resultTable.getX()+180, Engine.getHeight()-143);
+		resultTable.setPosition(200, Engine.getHeight()-resultTable.getHeight()-60);
+		eye1.setPosition(resultTable.getX()+140, Engine.getHeight()-125);
+		eye2.setPosition(resultTable.getX()+180, Engine.getHeight()-123);
+		functionTable.setPosition(200+170, Engine.getHeight()-functionTable.getHeight()-174);
 	}
 	public void close(){
 		this.remove();

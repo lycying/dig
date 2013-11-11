@@ -28,10 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class AboutScene extends SceneStage{
 	DigsEngineDrive drive;
@@ -114,24 +111,24 @@ public class AboutScene extends SceneStage{
 		
 //		final Image back = new Image(atlas.findRegion("about-back"));
 //		TextureAtlas atlas = Engine.resource("All");
-		BitmapFont font = Engine.resource("BigFont");
-		TextButtonStyle style = new TextButtonStyle(new NinePatchDrawable(atlas.createPatch("btn")), new NinePatchDrawable(atlas.createPatch("btn-click")), null, font);
-		style.fontColor = Color.BLACK;
-		style.downFontColor = Color.RED;
-		final TextButton back = new TextButton("Back",style);
-		back.setColor(Color.GRAY);
-		back.padRight(60);
-		back.pack();
-		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
-		back.addListener(new ClickListener(){
+//		BitmapFont font = Engine.resource("BigFont");
+//		TextButtonStyle style = new TextButtonStyle(new NinePatchDrawable(atlas.createPatch("btn")), new NinePatchDrawable(atlas.createPatch("btn-click")), null, font);
+//		style.fontColor = Color.BLACK;
+//		style.downFontColor = Color.RED;
+//		final TextButton back = new TextButton("Back",style);
+//		back.setColor(Color.GRAY);
+//		back.padRight(60);
+//		back.pack();
+//		back.setPosition(Engine.getWidth()-back.getWidth(),Engine.getHeight()-back.getHeight());
+//		this.addActor(back);
+		this.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Engine.getSoundManager().playSound("SoundClick");
 				drive.setToStartUpScene();
 				super.clicked(event, x, y);
 			}
 		});
-		this.addActor(back);
+		
 		
 	
 		TextureRegion[] npcRegions = new TextureRegion[4];

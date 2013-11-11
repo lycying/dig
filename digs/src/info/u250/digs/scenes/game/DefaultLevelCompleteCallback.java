@@ -4,12 +4,10 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.dialog.FailDailog;
 import info.u250.digs.scenes.game.dialog.WinDialog;
-import info.u250.digs.scenes.game.entity.Boss;
-import info.u250.digs.scenes.game.entity.EnemyMiya;
+import info.u250.digs.scenes.game.entity.AbstractMoveable;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.Ka;
-import info.u250.digs.scenes.game.entity.Npc;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
@@ -39,41 +37,15 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 			if(count>0){
 				float delay = 0.8f/count;
 				count=0;
-				for(final Npc e:level.getNpcs()){
-					e.addAction(Actions.delay(delay*count++,Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							e.die();
-							e.remove();
-						}
-					})));
-				}
-				for(final EnemyMiya e:level.getEnemyMyiyas()){
-					e.addAction(Actions.delay(delay*count++,Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							e.die();
-							e.remove();
-						}
-					})));
-				}
-				for(final Boss e:level.getBosses()){
-					e.addAction(Actions.delay(delay*count++,Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							e.die();
-							e.remove();
-						}
-					})));
-				}
-				for(final Ka e:level.getKas()){
-					e.addAction(Actions.delay(delay*count++,Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							e.die();
-							e.remove();
-						}
-					})));
+				for(final Actor actor:level.getChildren()){
+					if(actor instanceof AbstractMoveable){
+						actor.addAction(Actions.delay(delay*count++,Actions.run(new Runnable() {
+							@Override
+							public void run() {
+								AbstractMoveable.class.cast(actor).die();
+							}
+						})));
+					}
 				}
 				
 			}

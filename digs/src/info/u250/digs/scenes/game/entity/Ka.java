@@ -40,6 +40,10 @@ public class Ka extends AbstractMoveable {
 		y = this.getY(); //got it y
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
+		if (y < 8){
+			die();
+			return ;
+		}
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
@@ -93,7 +97,6 @@ public class Ka extends AbstractMoveable {
 		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
-				level.removeKa(this);
 				Engine.getSoundManager().playSound("SoundDie");//TODO : the sound for the Kaka...
 				return true;
 			}

@@ -34,6 +34,10 @@ public class EnemyMiya extends AbstractMoveable {
 		y = this.getY(); //got it y
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
+		if (y < 8){
+			y = Engine.getHeight()+100;//reborn , never try to kill a enemy , you cann't
+			//not die
+		}
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
@@ -87,7 +91,6 @@ public class EnemyMiya extends AbstractMoveable {
 		for(KillCircleEntity kill:level.getKillrays()){
 			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
 				die();
-				level.removeEnemyMiya(this);
 				Engine.getSoundManager().playSound("SoundDie");//TODO : the sound for the Kaka...
 				return true;
 			}

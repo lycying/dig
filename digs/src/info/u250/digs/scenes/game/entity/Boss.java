@@ -82,16 +82,9 @@ public class Boss extends AbstractMoveable {
 					level.dig(12,getX(), getY()+(Digs.RND.nextBoolean()?Digs.RND.nextFloat()*20:-Digs.RND.nextFloat()*5));
 					break;
 				case Enemy:
-					kill.die();
-					level.removeEnemyMiya(EnemyMiya.class.cast(kill));
-					break;
 				case Ka:
-					kill.die();
-					level.removeKa(Ka.class.cast(kill));
-					break;
 				case Npc:
 					kill.die();
-					level.removeNpc(Npc.class.cast(kill));
 					break;
 				default:
 					break;

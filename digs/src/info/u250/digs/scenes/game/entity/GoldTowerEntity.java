@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class GoldTowerEntity extends Group{
 	int max ;
-	int number = 0;
+	int number = 5;
 	private Rectangle rect = new Rectangle();
 	Image dock;
 	Sprite gold;

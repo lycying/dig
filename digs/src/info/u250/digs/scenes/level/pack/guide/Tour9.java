@@ -60,7 +60,7 @@ public class Tour9 extends LevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("Not a friend","hint2",Color.WHITE,120);
+					HintOnScreen hint = new HintOnScreen("never try to kill a enemy , you cann't","hint2",Color.WHITE,120);
 					hint.pack();
 					hint.setPosition(400, 60);
 					level.addActor(hint);
