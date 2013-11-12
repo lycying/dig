@@ -196,8 +196,10 @@ public class Level extends Group{
 		if(!mapMaking && !mapTexturing){
 			super.act(delta);
 			
-			if(null!=game && game.isShowAim()) return;
-			if(config.levelCompleteCallback.tick(game, this, config)) return ;//win callback
+			if(null!=game){
+				if(game.isShowAim())return;
+				if(config.levelCompleteCallback.tick(this)) return ;//win callback
+			}
 			
 			accum += delta;
 			while (accum >= ACC) {
@@ -383,6 +385,12 @@ public class Level extends Group{
 		if(this.npcs.size<1)return null;
 		return this.npcs.get(Digs.RND.nextInt(this.npcs.size));
 	}
+	public boolean isMapMaking() {
+		return mapMaking;
+	}
+	public GameScene getGame() {
+		return game;
+	}
 	/* dispose everything to clear the memory */
 	public void dispose(){
 		if(null!=goldTerrain)goldTerrain.dispose();
@@ -394,8 +402,5 @@ public class Level extends Group{
 		ladders.clear();
 		killrays.clear();
 		clear();
-	}
-	public boolean isMapMaking() {
-		return mapMaking;
 	}
 }

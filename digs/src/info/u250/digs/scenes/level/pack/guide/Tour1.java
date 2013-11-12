@@ -33,7 +33,7 @@ public class Tour1 extends LevelConfig {
 		this.topColor = WebColors.DARK_SLATE_GRAY.get();
 		this.lineHeight = 300;
 		this.segment = 1;
-		this.aim = 1;// once you got a gold , you win!
+		this.gold = 1;// once you got a gold , you win!
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {

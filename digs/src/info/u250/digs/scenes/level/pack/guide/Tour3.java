@@ -30,7 +30,7 @@ public class Tour3 extends LevelConfig {
 		this.topColor = WebColors.DODGER_BLUE.get();
 		this.lineHeight = 300;
 		this.segment = 10;
-		this.aim = 5;
+		this.gold = 5;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {

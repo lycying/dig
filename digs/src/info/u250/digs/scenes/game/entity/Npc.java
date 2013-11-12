@@ -192,13 +192,15 @@ public class Npc extends AbstractMoveable {
 						Engine.getSoundManager().playSound("SoundCoin");
 						COIN_SOUND_CTL = 0;
 					}
+					this.addAction(Actions.delay(Digs.RND.nextFloat()));// random delay...
 				}else if(status==NpcStatus.WithKa){
 					withKa.x = 0;
 					withKa.y = 0;
 					withKa.sync();
 					dock.addKa(withKa);
 					withKa = null;
-					this.addAction(Actions.delay(1));//delay...
+					direction*=-1;
+					this.addAction(Actions.delay(Digs.RND.nextFloat()));// random delay...
 					Engine.getSoundManager().playSound("SoundDockKa");
 				}
 				status = NpcStatus.Free;

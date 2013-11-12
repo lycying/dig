@@ -18,7 +18,10 @@ public class LevelConfig {
 	public String idxName  = "";
 	//auto information auto make end
 	
-	public int aim = 10;
+	public int gold = -1;
+	public int ka = -1;
+	//the second : time up !!!
+	public int time = -1; 
 	public String surface = "texs/purpl043.jpg";
 	public Color bottomColor = null;
 	public Color topColor = null;

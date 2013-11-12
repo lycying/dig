@@ -26,7 +26,7 @@ public class Tour6 extends LevelConfig {
 		this.topColor = WebColors.DARK_GREEN.get();
 		this.lineHeight = 300;
 		this.segment = 1;
-		this.aim = 10;
+		this.gold = 10;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

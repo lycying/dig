@@ -25,7 +25,8 @@ public class Tour8 extends LevelConfig {
 		this.topColor = WebColors.DARK_BLUE.get();
 		this.lineHeight = 300;
 		this.segment = 1;
-		this.aim = 10;
+		this.gold = 10;
+		this.ka = 10;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {
@@ -37,7 +38,7 @@ public class Tour8 extends LevelConfig {
 					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);
 					level.addNpc(e);
 				}
-				for(int i=0;i<10;i++){
+				for(int i=0;i<ka;i++){
 					Ka e = new Ka();
 					e.init(level);
 					e.setPosition(380 + Digs.RND.nextFloat()*100, 70);

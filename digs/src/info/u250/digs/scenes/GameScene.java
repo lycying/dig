@@ -11,7 +11,7 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.Level.FingerMode;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.dialog.FunctionPane;
-import info.u250.digs.scenes.game.dialog.InformationPane;
+import info.u250.digs.scenes.game.dialog.InformationDialog;
 import info.u250.digs.scenes.game.dialog.PauseDialog;
 import info.u250.digs.scenes.level.LevelIdx;
 
@@ -36,7 +36,7 @@ public class GameScene extends SceneStage {
 	public Level level = null;
 	int packIndex = 0;
 	int levelIndex = 0;
-	final InformationPane gameInformationPane ;
+	final InformationDialog informationDialog ;
 	final PauseDialog pauseDialog;
 
 	final Group functionGroup ;
@@ -64,7 +64,7 @@ public class GameScene extends SceneStage {
 		scroll.setScrollbarsOnTop(false);
 		scroll.setScrollBarPositions(true, false);
 		
-		gameInformationPane = new InformationPane(this);
+		informationDialog = new InformationDialog(this);
 		pauseButton = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pauseButton.setPosition(Engine.getWidth()-pauseButton.getWidth(), Engine.getHeight()- pauseButton.getHeight());
 		pauseButton.addListener(new ClickListener(){
@@ -114,9 +114,8 @@ public class GameScene extends SceneStage {
 		this.setShowAim(true);
 		this.addActor(scroll);
 		this.addActor(functionGroup);
+		this.addActor(informationDialog);
 		this.addActor(pauseButton);
-		this.addActor(gameInformationPane);
-		
 		
 		if(config.height>Engine.getHeight()){
 			functionGroup.setX(35);
@@ -132,7 +131,7 @@ public class GameScene extends SceneStage {
 		level = new Level(this,config);
 		scroll.setWidget(level);
 		
-		gameInformationPane.show();
+		informationDialog.show();
 	} 
 	@Override
 	public void hide() {

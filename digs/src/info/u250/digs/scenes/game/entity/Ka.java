@@ -103,7 +103,13 @@ public class Ka extends AbstractMoveable {
 		}
 		return false;
 	}
-	
+	@Override
+	public void die() {
+		super.die();
+		if(null != level.getGame()){
+			level.config.levelCompleteCallback.failLevel(level);//Not allow any ka die
+		}
+	}
 	
 	//my move attribute , bellow method is only used for the Ka in tower.
 	float OCX = 0f;
