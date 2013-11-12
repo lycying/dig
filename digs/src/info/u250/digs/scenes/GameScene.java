@@ -43,6 +43,7 @@ public class GameScene extends SceneStage {
 	final FunctionPane functionPane;
 	final ScrollPane scroll;
 	final Image pauseButton;
+	boolean isShowAim = true;
 	public GameScene(DigsEngineDrive drive){
 		this.drive = drive;
 		TextureAtlas atlas = Engine.resource("All");
@@ -63,7 +64,7 @@ public class GameScene extends SceneStage {
 		scroll.setScrollbarsOnTop(false);
 		scroll.setScrollBarPositions(true, false);
 		
-		gameInformationPane = new InformationPane();
+		gameInformationPane = new InformationPane(this);
 		pauseButton = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pauseButton.setPosition(Engine.getWidth()-pauseButton.getWidth(), Engine.getHeight()- pauseButton.getHeight());
 		pauseButton.addListener(new ClickListener(){
@@ -88,10 +89,6 @@ public class GameScene extends SceneStage {
 		functionGroup.addActor(btn_actor);
 		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight());
 		setupPauseResume();
-		
-		this.addActor(scroll);
-		this.addActor(functionGroup);
-		this.addActor(pauseButton);
 	}
 	public void nextLevel(){
 		startLevel(this.packIndex,this.levelIndex+1);
@@ -104,12 +101,22 @@ public class GameScene extends SceneStage {
 		this.levelIndex = level;
 		configGame(LevelIdx.getLevelConfig(pack,level));
 	}
+	
+	public boolean isShowAim(){
+		return isShowAim;
+	}
+	public void setShowAim(boolean isShowAim) {
+		this.isShowAim = isShowAim;
+	}
 	private void configGame(LevelConfig config){
 		//rebuilt it
 		this.clear();
+		this.setShowAim(true);
 		this.addActor(scroll);
 		this.addActor(functionGroup);
 		this.addActor(pauseButton);
+		this.addActor(gameInformationPane);
+		
 		
 		if(config.height>Engine.getHeight()){
 			functionGroup.setX(35);
@@ -124,6 +131,8 @@ public class GameScene extends SceneStage {
 		meshBackground = new SimpleMeshBackground(config.bottomColor,config.topColor);
 		level = new Level(this,config);
 		scroll.setWidget(level);
+		
+		gameInformationPane.show();
 	} 
 	@Override
 	public void hide() {

@@ -91,6 +91,8 @@ public abstract class AbstractMoveable extends Actor{
 			level.removeNpc(Npc.class.cast(this));
 		}else if(this instanceof EnemyMiya){
 			level.removeEnemyMiya(EnemyMiya.class.cast(this));
+		}else if(this instanceof Boss){
+			level.removeBoss(Boss.class.cast(this));
 		}
 	}
 }

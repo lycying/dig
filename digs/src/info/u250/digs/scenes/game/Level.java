@@ -13,6 +13,7 @@ import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.Npc.DigResult;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.ui.WaterActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -75,7 +76,7 @@ public class Level extends Group{
 	final static int MASK_CLEAR = 0; //clear color
 	final static int MASK_GOLD  = -65281;//yellow
 	final static int MASK_BOMB = 16777215;//cyan
-	
+		
 	private Pixmap[] pip ; // temp attribute to recive the mapmaker results
 	private FingerMode getFingerMode(){
 		if(null == game)return FingerMode.Fill;
@@ -130,11 +131,6 @@ public class Level extends Group{
 		
 	}
 	void assembleToPixmapHelper(){
-		if(null != game){
-			Engine.getMusicManager().playMusic("MusicBattle", true);//play the battle music here
-		}
-		
-		
 		clear();
 		terrain = new PixmapHelper(pip[0]);
 		goldTerrain = new PixmapHelper(pip[1]);
@@ -151,6 +147,10 @@ public class Level extends Group{
 			config.levelMakeCallback.after(this);
 		}
 		this.addActor(new FollowLabel(this));
+		
+		if(null!=game){
+			this.addActor(new WaterActor(6, new Color(1,0,0,0.4f), new Color(1,0,0,0.4f)));
+		}
 	}
 	
 	
@@ -196,6 +196,7 @@ public class Level extends Group{
 		if(!mapMaking && !mapTexturing){
 			super.act(delta);
 			
+			if(null!=game && game.isShowAim()) return;
 			if(config.levelCompleteCallback.tick(game, this, config)) return ;//win callback
 			
 			accum += delta;
@@ -319,6 +320,10 @@ public class Level extends Group{
 	public void addEnemyMiya(EnemyMiya miya){
 		this.enemyMiyas.add(miya);
 		this.addActor(miya);
+	}
+	public void removeBoss(Boss boss){
+		this.bosses.removeValue(boss, true);
+		boss.remove();
 	}
 	public void removeEnemyMiya(EnemyMiya miya){
 		this.enemyMiyas.removeValue(miya, true);

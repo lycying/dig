@@ -54,7 +54,7 @@ public class LevelItem extends  Group{
 		
 		//title
 		title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
-		title.setPosition(90, 10);
+		title.setPosition(90, 15);
 		
 		BitmapFont font = Engine.resource("Font");
 		Table t = new Table();
