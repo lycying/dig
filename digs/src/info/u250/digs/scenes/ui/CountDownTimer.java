@@ -39,5 +39,7 @@ public class CountDownTimer {
 	public int getSceonds() {
 		return sceonds;
 	}
-	
+	public void setSceonds(int sceonds) {
+		this.sceonds = sceonds;
+	}
 }

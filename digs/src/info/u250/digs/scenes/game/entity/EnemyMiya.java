@@ -16,7 +16,7 @@ public class EnemyMiya extends AbstractMoveable {
 	static final int  DELAY_RANDOM = 5;
 	static final float N_WIDTH = 16f;
 	static final float ATTACK_RANGE = 100;
-	static final float ATTACK_DELAY = 2f;
+	static final float ATTACK_DELAY = 0.5f;
 	public EnemyMiya(){
 		
 		TextureAtlas atlas = Engine.resource("All");
@@ -32,7 +32,7 @@ public class EnemyMiya extends AbstractMoveable {
 		this.drawable.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setRegion(regions[0]);
 	}
-	
+	int accum = 0;
 	public void tick(){
 		if(null == level)return ;
 		/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -44,9 +44,14 @@ public class EnemyMiya extends AbstractMoveable {
 			y = Engine.getHeight()+100;//reborn , never try to kill a enemy , you cann't
 			//not die
 		}
-		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
-		if(tryKillNpcAndKa())return;
+		accum++;
+		if(accum>30){
+			if(tryKillNpcAndKa()){
+				accum = 0;
+				return;
+			}
+		}
 	
 		// when the NPC is jumping
 		if (velocity > 1) { 
@@ -100,6 +105,7 @@ public class EnemyMiya extends AbstractMoveable {
 				e.readyToDie = true;
 				level.addActor(new EnemyBombo(this, e));
 				this.addAction(Actions.delay(ATTACK_DELAY));
+				Engine.getSoundManager().playSound("SoundShot");
 				return true;
 			}
 		}
@@ -107,6 +113,7 @@ public class EnemyMiya extends AbstractMoveable {
 			if(!e.readyToDie && tmp.set(getX(), getY()).dst(e.getX(),e.getY())<ATTACK_RANGE){
 				e.readyToDie = true;
 				level.addActor(new EnemyBombo(this, e));
+				Engine.getSoundManager().playSound("SoundShot");
 				this.addAction(Actions.delay(ATTACK_DELAY));
 				return true;
 			}
@@ -143,6 +150,7 @@ class EnemyBombo extends Image {
 		if(target.drawable.getBoundingRectangle().contains(getX(), getY())){
 			this.remove();
 			target.die();
+			Engine.getSoundManager().playSound("SoundDie");
 		}
 		super.act(delta);
 	}

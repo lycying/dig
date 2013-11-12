@@ -43,7 +43,7 @@ public class Tour2 extends LevelConfig {
 					image.setSize(100, 100);
 					hint.add(image);
 					hint.pack();
-					hint.setPosition(400, 10);
+					hint.setPosition(400, 40);
 					level.addActor(hint);
 					}
 				for(int i=0;i<5;i++){

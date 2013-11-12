@@ -2,7 +2,6 @@ package info.u250.digs.scenes.level;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
-import info.u250.digs.Digs;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -56,20 +54,7 @@ public class LevelItem extends  Group{
 		title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
 		title.setPosition(90, 15);
 		
-		BitmapFont font = Engine.resource("Font");
-		Table t = new Table();
-		t.setBackground(new NinePatchDrawable(atlas.createPatch("ui-label-bg")));
-		t.add(new Image(atlas.findRegion("award")));
-		t.add(new Image(atlas.findRegion("npc"))).spaceRight(5);
-		t.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE))).spaceRight(5);
-		t.add(new Image(atlas.findRegion("dead"))).spaceRight(5);
-		t.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE))).spaceRight(5);
-		t.add(new Image(atlas.findRegion("time"))).spaceRight(5);
-		t.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE))).spaceRight(5);
-		t.add(new Image(atlas.findRegion("flag-gold-many"))).spaceRight(5);
-		t.add(new Label(Digs.RND.nextInt(2000)+"",new LabelStyle(font, Color.WHITE))).spaceRight(5);
-		t.pack();
-		t.setPosition(180, 10);
+		
 		
 		BitmapFont bigFont = Engine.resource("BigFont");
 		NinePatch patchBg = atlas.createPatch("level-item-bg-4");

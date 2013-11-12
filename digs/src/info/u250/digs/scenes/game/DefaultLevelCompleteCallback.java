@@ -8,6 +8,7 @@ import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Timer;
 
 public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 	/* if we arrived the win status */
@@ -17,6 +18,16 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 	@Override
 	public boolean tick(Level level) {
 		if(win || fail)return true;
+		if(level.config.time>0){
+			if(level.getGame().leastTime()<=0){
+				fail(level);
+				Timer.instance().clear();
+				Engine.getMusicManager().stopMusic("MusicTimer");
+				return true;
+			}else if(level.getGame().leastTime()<=5){
+				Engine.getMusicManager().playMusic("MusicTimer", true);
+			}
+		}
 		
 		count = level.getNpcs().size;
 		if(count <= 0){

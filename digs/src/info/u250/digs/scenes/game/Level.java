@@ -149,7 +149,8 @@ public class Level extends Group{
 		this.addActor(new FollowLabel(this));
 		
 		if(null!=game){
-			this.addActor(new WaterActor(6, new Color(1,0,0,0.4f), new Color(1,0,0,0.4f)));
+			this.addActor(new WaterActor(24, new Color(1,0,0,0.4f), new Color(1,0,0,0.4f)));
+			game.levelCallback();
 		}
 	}
 	

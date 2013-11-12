@@ -68,6 +68,7 @@ public abstract class AbstractMoveable extends Actor{
 		drawable.draw(batch);
 		if(readyToDie){
 			info.setPosition(drawable.getX()+drawable.getWidth()/2-info.getWidth()/2, drawable.getY()+drawable.getHeight());
+			info.draw(batch);
 		}
 	}
 

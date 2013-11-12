@@ -15,19 +15,16 @@ import info.u250.digs.scenes.ui.ParticleEffectActor;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 public class LevelScene extends SceneStage {
@@ -189,14 +186,9 @@ public class LevelScene extends SceneStage {
 		levelPanel.setX(130);
 		this.addActor(levelPanel);
 		
-		TextureAtlas atlas = Engine.resource("All");
-		BitmapFont font = Engine.resource("BigFont");
-		TextButtonStyle style = new TextButtonStyle(new NinePatchDrawable(atlas.createPatch("btn")), new NinePatchDrawable(atlas.createPatch("btn-click")), null, font);
-		style.fontColor = Color.BLACK;
-		style.downFontColor = Color.RED;
-		final TextButton back = new TextButton("Back",style);
-		back.padRight(60);
-		back.pack();
+		
+		Button back = new Button(new TextureRegionDrawable(atlas.findRegion("btn-back-1")), new TextureRegionDrawable(atlas.findRegion("btn-back-2")));
+
 		back.setPosition(0,Engine.getHeight()-back.getHeight()-50);
 		back.addListener(new ClickListener(){
 			@Override

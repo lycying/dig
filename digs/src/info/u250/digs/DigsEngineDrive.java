@@ -22,7 +22,7 @@ public class DigsEngineDrive implements EngineDrive {
 		opt.useGL20 = true;
 		opt.autoResume = true;
 		opt.catchBackKey = true;
-		opt.debug = true;
+		opt.debug = false;
 		return opt;
 	}
 
@@ -62,6 +62,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.music("MusicBackground", "data/music/bg.ogg");
 		reg.music("MusicBattle", "data/music/battle.ogg");
 		reg.music("MusicCont", "data/music/cont.ogg");
+		reg.music("MusicTimer", "data/music/timer.ogg");
 		
 		reg.sound("SoundChoosePack1", "data/sounds/choose-pack1.ogg");
 		reg.sound("SoundChoosePack2", "data/sounds/choose-pack2.ogg");
@@ -77,6 +78,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
 		reg.sound("SoundCoin", "data/sounds/coin.ogg");
+		reg.sound("SoundShot", "data/sounds/shot.ogg");
 		reg.sound("SoundWin", "data/sounds/win.ogg");
 		reg.sound("SoundFail", "data/sounds/fail.ogg");
 		

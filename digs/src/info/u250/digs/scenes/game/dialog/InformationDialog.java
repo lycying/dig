@@ -66,7 +66,7 @@ public class InformationDialog extends Group{
 		this.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				game.setShowAim(false);
+				game.reallyStartLevel();
 				hide();
 				super.clicked(event, x, y);
 			}

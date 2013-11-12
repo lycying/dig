@@ -13,6 +13,7 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.dialog.FunctionPane;
 import info.u250.digs.scenes.game.dialog.InformationDialog;
 import info.u250.digs.scenes.game.dialog.PauseDialog;
+import info.u250.digs.scenes.game.dialog.StatusPane;
 import info.u250.digs.scenes.level.LevelIdx;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -29,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 
 public class GameScene extends SceneStage {
 	public DigsEngineDrive drive;
@@ -41,6 +43,7 @@ public class GameScene extends SceneStage {
 
 	final Group functionGroup ;
 	final FunctionPane functionPane;
+	final StatusPane statusPane;
 	final ScrollPane scroll;
 	final Image pauseButton;
 	boolean isShowAim = true;
@@ -50,6 +53,7 @@ public class GameScene extends SceneStage {
 		meshBackground = new SimpleMeshBackground(new Color(0, 0, 0, 1f),new Color(152f/255f, 181f/255f, 249f/255f, 1));
 		
 		pauseDialog = new PauseDialog(this);
+		statusPane = new StatusPane();
 		functionGroup = new Group();
 		
 		scroll = new ScrollPane(null);
@@ -88,6 +92,8 @@ public class GameScene extends SceneStage {
 		functionGroup.addActor(functionPane);
 		functionGroup.addActor(btn_actor);
 		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight());
+		
+		
 		setupPauseResume();
 	}
 	public void nextLevel(){
@@ -105,17 +111,28 @@ public class GameScene extends SceneStage {
 	public boolean isShowAim(){
 		return isShowAim;
 	}
-	public void setShowAim(boolean isShowAim) {
-		this.isShowAim = isShowAim;
+	public void reallyStartLevel(){
+		this.isShowAim = false;
+		this.statusPane.startCounter(level);
+	}
+	public int leastTime(){
+		return statusPane.getTimer().getSceonds();
+	}
+	public void levelCallback(){
+		statusPane.setVisible(true);
+		statusPane.show(level);
+		statusPane.setPosition(Engine.getWidth()-statusPane.getWidth(), 0);
 	}
 	private void configGame(LevelConfig config){
 		//rebuilt it
 		this.clear();
-		this.setShowAim(true);
+		isShowAim = true;
 		this.addActor(scroll);
 		this.addActor(functionGroup);
+		this.addActor(statusPane);
 		this.addActor(informationDialog);
 		this.addActor(pauseButton);
+		statusPane.setVisible(false);
 		
 		if(config.height>Engine.getHeight()){
 			functionGroup.setX(35);
@@ -136,6 +153,8 @@ public class GameScene extends SceneStage {
 	@Override
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBattle");
+		Engine.getMusicManager().stopMusic("MusicTimer");
+		Timer.instance().clear();
 		super.hide();
 	}
 	public void setupPauseResume(){
