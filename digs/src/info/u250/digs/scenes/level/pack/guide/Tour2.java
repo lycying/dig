@@ -18,7 +18,10 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
+/*
+ * this tour will guide you to make a path for your npc to the sky
+ * then carray golds to home
+ */
 public class Tour2 extends LevelConfig {
 	public Tour2(){
 		this.surface = "texs/brown002.jpg";

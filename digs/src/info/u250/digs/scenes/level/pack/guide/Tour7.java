@@ -16,7 +16,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
+/*
+ * this tour show the lager map
+ *
+ */
 public class Tour7 extends LevelConfig {
 	public Tour7(){
 		this.surface = "texs/baobao2.jpg";

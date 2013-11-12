@@ -20,7 +20,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
+/*
+ * the killRay will kill the NPC,the KA,the enemy, but the boss can not die
+ * when all the npc die, game over
+ */
 public class Tour3 extends LevelConfig {
 	public Tour3(){
 		this.surface = "texs/Leather.jpg";

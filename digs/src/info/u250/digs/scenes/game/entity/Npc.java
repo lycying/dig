@@ -67,9 +67,22 @@ public class Npc extends AbstractMoveable {
 			withKa.sync();
 			withKa.draw(batch, parentAlpha);
 		}
-		drawable.draw(batch);
+		super.draw(batch, parentAlpha);
 	}
-	
+	@Override
+	public void die() {	
+		//release ka
+		if(status==NpcStatus.WithKa){
+			withKa.x=this.getX();
+			withKa.y=this.getY()+10;
+			withKa.direction = -direction;
+			withKa.sync();
+			withKa.velocity = 16;//jump
+			level.addKa(withKa);
+			withKa = null;
+		}
+		super.die();
+	}
 	
 	public void tick(){
 		if(null == level)return ;
@@ -197,6 +210,7 @@ public class Npc extends AbstractMoveable {
 					withKa.x = 0;
 					withKa.y = 0;
 					withKa.sync();
+					level.removeKa(withKa);
 					dock.addKa(withKa);
 					withKa = null;
 					direction*=-1;
@@ -281,8 +295,6 @@ public class Npc extends AbstractMoveable {
 		}
 		return false;
 	}
-
-
 	public NpcStatus getStatus() {
 		return status;
 	}

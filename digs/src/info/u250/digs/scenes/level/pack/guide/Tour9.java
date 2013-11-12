@@ -15,7 +15,9 @@ import info.u250.digs.scenes.ui.HintOnScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
-
+/*
+ * show that the enemy will kill you , but it can not be killed!
+ */
 public class Tour9 extends LevelConfig {
 	public Tour9(){
 		this.surface = "texs/pink029.jpg";

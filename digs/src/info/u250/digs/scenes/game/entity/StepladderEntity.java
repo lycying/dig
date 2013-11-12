@@ -28,6 +28,7 @@ public class StepladderEntity extends Table{
 	}
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+//		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
 		batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		super.draw(batch, parentAlpha);
 		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

@@ -3,14 +3,20 @@ package info.u250.digs.scenes.game.entity;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class EnemyMiya extends AbstractMoveable {
-	static final int  DELAY_RANDOM = 5;
 	TextureRegion[] npcRegions = new TextureRegion[4];
 	
+	static final int  DELAY_RANDOM = 5;
 	static final float N_WIDTH = 16f;
+	static final float ATTACK_RANGE = 100;
+	static final float ATTACK_DELAY = 2f;
 	public EnemyMiya(){
 		
 		TextureAtlas atlas = Engine.resource("All");
@@ -40,7 +46,7 @@ public class EnemyMiya extends AbstractMoveable {
 		}
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
-		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
+		if(tryKillNpcAndKa())return;
 	
 		// when the NPC is jumping
 		if (velocity > 1) { 
@@ -87,14 +93,57 @@ public class EnemyMiya extends AbstractMoveable {
 		sync();
 	}
 
-	boolean tryKillRay(){
-		for(KillCircleEntity kill:level.getKillrays()){
-			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
-				die();
-				Engine.getSoundManager().playSound("SoundDie");//TODO : the sound for the Kaka...
+	final Vector2 tmp = new Vector2();
+	boolean tryKillNpcAndKa(){
+		for(Npc e:level.getNpcs()){
+			if(!e.readyToDie && tmp.set(getX(), getY()).dst(e.getX(),e.getY())<ATTACK_RANGE){
+				e.readyToDie = true;
+				level.addActor(new EnemyBombo(this, e));
+				this.addAction(Actions.delay(ATTACK_DELAY));
+				return true;
+			}
+		}
+		for(Ka e:level.getKas()){
+			if(!e.readyToDie && tmp.set(getX(), getY()).dst(e.getX(),e.getY())<ATTACK_RANGE){
+				e.readyToDie = true;
+				level.addActor(new EnemyBombo(this, e));
+				this.addAction(Actions.delay(ATTACK_DELAY));
 				return true;
 			}
 		}
 		return false;
+	}
+}
+/*
+ * just a bomb that will kill a npc or ka
+ */
+class EnemyBombo extends Image {
+	Vector2 target_direction = new Vector2();
+	private AbstractMoveable target;
+		
+	static final float SPEED = 200;
+	public EnemyBombo(EnemyMiya bomber,AbstractMoveable target){
+		super(Engine.resource("All",TextureAtlas.class).findRegion("color"));
+		this.target = target;
+		this.setPosition(bomber.getX()+bomber.getWidth()/2, bomber.getY()+bomber.getHeight()/2);
+		this.setColor(Color.RED);
+		this.setSize(4, 4);
+	}
+	float accum = 0;
+	@Override
+	public void act(float delta) {
+		accum += delta;
+		if(accum>SPEED/EnemyMiya.ATTACK_RANGE){
+			this.remove();
+			target.readyToDie = false;//unlock the target
+			return;
+		}
+		target_direction.set(target.getX()+target.drawable.getWidth()/2,target.getY()+target.drawable.getHeight()/2).sub(this.getX(),this.getY()).nor();
+		translate(delta*SPEED*target_direction.x, delta*SPEED*target_direction.y);
+		if(target.drawable.getBoundingRectangle().contains(getX(), getY())){
+			this.remove();
+			target.die();
+		}
+		super.act(delta);
 	}
 }

@@ -16,7 +16,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
-
+/* 
+ * we called this Gas, npc who touch it will die and expose
+ */
 public class Tour5 extends LevelConfig {
 	public Tour5(){
 		this.surface = "texs/lgrey087.gif";

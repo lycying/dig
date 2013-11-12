@@ -16,7 +16,9 @@ import info.u250.digs.scenes.ui.HintOnScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
-
+/*
+ * this tour show how to use the stepladder
+ */
 public class Tour6 extends LevelConfig {
 	public Tour6(){
 		this.surface = "texs/purpl192.jpg";

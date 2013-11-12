@@ -31,9 +31,14 @@ public abstract class AbstractMoveable extends Actor{
 	protected Sprite drawable = new Sprite();
 	//is selected by other things , not can be kill by another instance
 	protected boolean readyToDie = false;
+	//show the ready to die flag
+	protected Sprite info ;
 	
 	TextureRegion[] regions = null;
 	int regionsIndex = 0;
+	public AbstractMoveable(){
+		this.info = new Sprite(Engine.resource("All",TextureAtlas.class).findRegion("info"));
+	}
 	/*
 	 * Every frame to move , call this method 
 	 */
@@ -61,6 +66,9 @@ public abstract class AbstractMoveable extends Actor{
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		drawable.draw(batch);
+		if(readyToDie){
+			info.setPosition(drawable.getX()+drawable.getWidth()/2-info.getWidth()/2, drawable.getY()+drawable.getHeight());
+		}
 	}
 
 	public void setVelocity(int velocity) {

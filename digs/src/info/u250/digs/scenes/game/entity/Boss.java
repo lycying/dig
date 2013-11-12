@@ -21,6 +21,13 @@ public class Boss extends AbstractMoveable {
 	TextureRegion[] destroyRegions = new TextureRegion[2];
 	static final float N_WIDTH = 24f;
 	float bossLandHeight = 200;
+	int blockMyWayIndex = 0;
+	boolean stopAllDestoryEverything = false;
+	KillWho killWho = KillWho.None;
+	AbstractMoveable kill = null;
+	int count = 0;
+	int delayCount = 0;
+	int tickCount = 0;
 	public Boss(){
 		TextureAtlas atlas = Engine.resource("All");
 		npcRegions[0] = atlas.findRegion("boss-1");
@@ -40,13 +47,7 @@ public class Boss extends AbstractMoveable {
 		this.drawable.setOrigin(this.getWidth()/2, 3);
 		this.drawable.setRegion(regions[0]);
 	}
-	int blockMyWayIndex = 0;
-	boolean stopAllDestoryEverything = false;
-	KillWho killWho = KillWho.None;
-	AbstractMoveable kill = null;
-	int count = 0;
-	int delayCount = 0;
-	int tickCount = 0;
+	
 	public void tick(){
 		tick2xSpeed();
 		tick2xSpeed();

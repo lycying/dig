@@ -18,7 +18,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
-
+/*
+ * the teleport , transfer the npc to the dst
+ */
 public class Tour4 extends LevelConfig {
 	public Tour4(){
 		this.surface = "texs/green058.jpg";

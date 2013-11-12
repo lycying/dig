@@ -23,7 +23,10 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
+/*
+ * this tour show the basic operation that we should 
+ * carry one gold to home.
+ */
 public class Tour1 extends LevelConfig {
 	public Tour1(){
 		this.surface = "texs/brown091.png";

@@ -15,7 +15,9 @@ import info.u250.digs.scenes.ui.HintOnScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
-
+/*
+ * You can find 10 ka in this tour
+ */
 public class Tour8 extends LevelConfig {
 	public Tour8(){
 		this.surface = "texs/aiji.jpg";
@@ -25,7 +27,7 @@ public class Tour8 extends LevelConfig {
 		this.topColor = WebColors.DARK_BLUE.get();
 		this.lineHeight = 300;
 		this.segment = 1;
-		this.gold = 10;
+		this.gold = 0;
 		this.ka = 10;
 		
 		
