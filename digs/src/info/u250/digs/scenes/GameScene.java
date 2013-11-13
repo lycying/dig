@@ -184,8 +184,18 @@ public class GameScene extends SceneStage {
 	void pauseGame(){
 		if(level==null)return;
 		if(level.isMapMaking())return;//avoid the resource load many times
+		if(level.config.levelCompleteCallback.isFail() || level.config.levelCompleteCallback.isWin()){
+			return;
+		}
 		addActor(pauseDialog);
 		Engine.doPause();
+	}
+	@Override
+	public void act() {
+		super.act();
+		if(null!=level){
+			this.statusPane.update(level);
+		}
 	}
 	@Override
 	public void draw() {

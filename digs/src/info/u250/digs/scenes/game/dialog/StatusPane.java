@@ -63,6 +63,8 @@ public class StatusPane extends Table{
 		this.lblGold.setText(count+"");
 	}
 	public void show(Level level){
+		this.clear();
+		
 		this.lblTitle.setText("Level "+(level.config.idx+1)+": "+level.config.idxName);
 		this.lblKa.setText(level.getKas().size+"");
 		this.lblNpc.setText(level.getNpcs().size+"");
