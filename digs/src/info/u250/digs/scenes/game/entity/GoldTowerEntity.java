@@ -3,9 +3,9 @@ package info.u250.digs.scenes.game.entity;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -43,7 +43,7 @@ public class GoldTowerEntity extends Group{
 		this.max = (int)((dock.getWidth()-8)/(this.gold.getWidth()));
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		for(Ka ka:kas){
 			ka.onTower(this);
 			ka.draw(batch, parentAlpha);

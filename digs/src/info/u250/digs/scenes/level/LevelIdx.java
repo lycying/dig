@@ -3,6 +3,7 @@ package info.u250.digs.scenes.level;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.LevelScene;
+import info.u250.digs.scenes.Mv1Scene;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.level.pack.guide.Tour1;
 import info.u250.digs.scenes.level.pack.guide.Tour2;
@@ -21,12 +22,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.esotericsoftware.tablelayout.BaseTableLayout;
 
@@ -169,6 +172,13 @@ public class LevelIdx {
 			tb.add(view);
 			tb.pack();
 			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
+			view.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					Engine.setMainScene(new Mv1Scene(lvlSce));
+					super.clicked(event, x, y);
+				}
+			});
 		}
 		{
 			for(int i=0;i<Level_String[0].length;i++){

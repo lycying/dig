@@ -6,8 +6,8 @@ import info.u250.c2d.engine.Engine;
 import aurelienribon.tweenengine.Tween;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class ProgressBar extends Group {
@@ -59,7 +59,7 @@ public class ProgressBar extends Group {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		float x = this.getX();
 		float y = this.getY();
 		float width = this.getWidth() * ((currentValue.getValue()) / fullValue);

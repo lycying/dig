@@ -2,6 +2,7 @@ package info.u250.digs.scenes.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -54,7 +55,7 @@ public class SpineActor extends Actor{
 		this.skeleton.getColor().set(color);
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		renderer.draw(batch, skeleton);
+	public void draw(Batch batch, float parentAlpha) {
+		renderer.draw((SpriteBatch)batch, skeleton);
 	}
 }

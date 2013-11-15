@@ -2,9 +2,9 @@ package info.u250.digs.scenes.ui;
 
 import info.u250.c2d.engine.Engine;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ParticleEffectActor extends Actor {
@@ -28,7 +28,7 @@ public class ParticleEffectActor extends Actor {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		if(this.isVisible()){
 			if (parentAlpha == 1) {
 				if(Engine.isPause() && pauseWithEngine){}else{

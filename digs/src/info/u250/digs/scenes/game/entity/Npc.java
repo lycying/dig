@@ -3,7 +3,7 @@ package info.u250.digs.scenes.game.entity;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -59,7 +59,7 @@ public class Npc extends AbstractMoveable {
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		if(withKa!=null){
 			withKa.x=this.getX();
 			withKa.y=this.getY()+10;

@@ -191,8 +191,8 @@ public class GameScene extends SceneStage {
 		Engine.doPause();
 	}
 	@Override
-	public void act() {
-		super.act();
+	public void act(float delta) {
+		super.act(delta);
 		if(null!=level){
 			this.statusPane.update(level);
 		}

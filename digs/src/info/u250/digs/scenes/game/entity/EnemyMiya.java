@@ -103,6 +103,8 @@ public class EnemyMiya extends AbstractMoveable {
 		for(Npc e:level.getNpcs()){
 			if(!e.readyToDie && tmp.set(getX(), getY()).dst(e.getX(),e.getY())<ATTACK_RANGE){
 				e.readyToDie = true;
+				e.velocity = 16;
+				e.direction*=-1;
 				level.addActor(new EnemyBombo(this, e));
 				this.addAction(Actions.delay(ATTACK_DELAY));
 				Engine.getSoundManager().playSound("SoundShot");
@@ -112,6 +114,8 @@ public class EnemyMiya extends AbstractMoveable {
 		for(Ka e:level.getKas()){
 			if(!e.readyToDie && tmp.set(getX(), getY()).dst(e.getX(),e.getY())<ATTACK_RANGE){
 				e.readyToDie = true;
+				e.velocity = 16;
+				e.direction*=-1;
 				level.addActor(new EnemyBombo(this, e));
 				Engine.getSoundManager().playSound("SoundShot");
 				this.addAction(Actions.delay(ATTACK_DELAY));
@@ -140,7 +144,7 @@ class EnemyBombo extends Image {
 	@Override
 	public void act(float delta) {
 		accum += delta;
-		if(accum>SPEED/EnemyMiya.ATTACK_RANGE){
+		if(accum>EnemyMiya.ATTACK_RANGE/SPEED){
 			this.remove();
 			target.readyToDie = false;//unlock the target
 			return;

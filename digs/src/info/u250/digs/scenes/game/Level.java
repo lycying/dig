@@ -17,7 +17,7 @@ import info.u250.digs.scenes.ui.WaterActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -171,14 +171,14 @@ public class Level extends Group{
 		});
 	}
 	// loading.....................................
-	void drawLoading(SpriteBatch batch){
+	void drawLoading(Batch batch){
 		batch.setColor(new Color(1,1,1,.5f));
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
 		batch.setColor(Color.WHITE);
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		if(!mapMaking){
 			if(mapTexturing){
 				assembleToPixmapHelper();

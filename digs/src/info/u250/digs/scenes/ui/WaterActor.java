@@ -4,7 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class WaterActor extends Actor{
@@ -24,7 +24,7 @@ public class WaterActor extends Actor{
 		water.update(delta);
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
 		water.draw();
 		batch.begin();

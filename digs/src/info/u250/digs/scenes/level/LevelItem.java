@@ -36,7 +36,7 @@ public class LevelItem extends  Group{
 		this.setSize(680, 80);
 		TextureAtlas atlas = Engine.resource("All");
 		//background
-		final Image bg = new Image( atlas.createPatch("level-item-bg-5"));
+		final Image bg = new Image( atlas.createPatch("level-item-bg-3"));
 		switch(pack){
 		case 0:
 			bg.setColor(WebColors.AQUA.get());

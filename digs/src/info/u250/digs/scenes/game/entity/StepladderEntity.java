@@ -3,7 +3,7 @@ package info.u250.digs.scenes.game.entity;
 import info.u250.c2d.engine.Engine;
 
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,7 +27,7 @@ public class StepladderEntity extends Table{
 		rect.height= this.getPrefHeight();
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 //		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
 		batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		super.draw(batch, parentAlpha);

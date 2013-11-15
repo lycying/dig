@@ -5,8 +5,8 @@ import info.u250.digs.Digs;
 import info.u250.digs.scenes.game.Level;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -64,7 +64,7 @@ public abstract class AbstractMoveable extends Actor{
 		if(direction<0)drawable.flip(true, false);
 	}
 	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
+	public void draw(Batch batch, float parentAlpha) {
 		drawable.draw(batch);
 		if(readyToDie){
 			info.setPosition(drawable.getX()+drawable.getWidth()/2-info.getWidth()/2, drawable.getY()+drawable.getHeight());
