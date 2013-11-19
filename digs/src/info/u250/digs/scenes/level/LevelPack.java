@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class LevelPack extends Table{
 	private int idx = -1;
+	final RefreshableLevelTable guideTabel,pack1Table,pack2Table;
 	public LevelPack(final LevelScene levelScene, int idx){
 		TextureAtlas atlas = Engine.resource("All");
 //		BitmapFont font = Engine.resource("BigFont");
@@ -35,9 +36,9 @@ public class LevelPack extends Table{
 		pack1_2 = new Image(atlas.findRegion("btn-pack1-1"));
 		pack2_1 = new Image(atlas.findRegion("btn-pack2-2"));
 		pack2_2 = new Image(atlas.findRegion("btn-pack2-1"));
-		final RefreshableLevelTable guideTabel = LevelIdx.getGuideTable(levelScene); 
-		final RefreshableLevelTable pack1Table = LevelIdx.getPack1Table(levelScene); 
-		final RefreshableLevelTable pack2Table = LevelIdx.getPack2Table(levelScene); 
+		guideTabel = LevelIdx.getGuideTable(levelScene); 
+		pack1Table = LevelIdx.getPack1Table(levelScene); 
+		pack2Table = LevelIdx.getPack2Table(levelScene); 
 		
 		if(idx == 0){
 			levelScene.getLevelPanel().setWidget(guideTabel);
@@ -105,5 +106,10 @@ public class LevelPack extends Table{
 		this.pack();
 		IO.savePackScroll(idx);//save the pack status
 		return true;
+	}
+	public void refresh(){
+		this.guideTabel.refresh();
+		this.pack1Table.refresh();
+		this.pack2Table.refresh();
 	}
 }

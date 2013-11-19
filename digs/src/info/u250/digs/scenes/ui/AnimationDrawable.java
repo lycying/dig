@@ -4,8 +4,8 @@ import info.u250.c2d.engine.Engine;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 
 public class AnimationDrawable extends BaseDrawable{
@@ -18,7 +18,7 @@ public class AnimationDrawable extends BaseDrawable{
 
 	float accum = 0;
 	@SuppressWarnings("deprecation")
-	public void draw (SpriteBatch batch, float x, float y, float width, float height) {
+	public void draw (Batch batch, float x, float y, float width, float height) {
 		accum += Engine.getDeltaTime();
 		sprite.setRegion(animation.getKeyFrame(accum, true));
 		sprite.setBounds(x, y, width, height);

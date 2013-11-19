@@ -51,7 +51,14 @@ public class StatusPane extends Table{
 		Timer.instance().clear();
 		if(level.config.time<=0)return;
 		timer.setSceonds(level.config.time);
+		timer.setPause(false);
 		timer.start();
+	}
+	public void pauseCounter(){
+		timer.setPause(true);
+	}
+	public void resumeCounter(){
+		timer.setPause(false);
 	}
 	public void update(Level level){
 		if(level.config.ka>0)this.lblKa.setText(level.getKas().size+"");

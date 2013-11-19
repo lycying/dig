@@ -36,7 +36,7 @@ public class Tour1 extends LevelConfig {
 		this.lineHeight = 300;
 		this.segment = 1;
 		this.gold = 1;// once you got a gold , you win!
-		this.time = 5*60;
+		this.time = 3*60;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {
@@ -48,6 +48,7 @@ public class Tour1 extends LevelConfig {
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					e.setDirection(1);
 					level.addNpc(e);
 				}
 				

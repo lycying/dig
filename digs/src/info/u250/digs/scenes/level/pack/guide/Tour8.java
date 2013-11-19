@@ -29,6 +29,7 @@ public class Tour8 extends LevelConfig {
 		this.segment = 1;
 		this.gold = 0;
 		this.ka = 10;
+		this.time = 3*60;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {

@@ -70,9 +70,9 @@ public class FollowLabel extends Group{
 		}
 		if(null!=npc && npc.getParent()!=null){
 			if(npc.getStatus()==NpcStatus.WithKa){
-				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15+15);
+				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+20+15);
 			}else{
-				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+15);
+				this.setPosition(npc.getX()-this.getWidth()/2, npc.getY()+20);
 			}
 			
 		}

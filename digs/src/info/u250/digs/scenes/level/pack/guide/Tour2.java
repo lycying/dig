@@ -10,6 +10,7 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.HintOnScreen;
+import info.u250.digs.scenes.ui.LineActor;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
@@ -32,7 +33,7 @@ public class Tour2 extends LevelConfig {
 		this.lineHeight = 300;
 		this.segment = 1;
 		this.gold = 5;
-		
+		this.time = 3*60;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
@@ -46,13 +47,14 @@ public class Tour2 extends LevelConfig {
 					hint.setPosition(400, 40);
 					level.addActor(hint);
 					}
+				
 				for(int i=0;i<5;i++){
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
 				}
-				
+				level.addActor(new LineActor(530, 80, 120, 480)); // donot click the button below
 			}
 			
 			@Override

@@ -119,6 +119,8 @@ public class InformationDialog extends Group{
 		table.pack();
 		pane.getColor().a = 1;
 		table.setPosition(Engine.getWidth()/2-table.getWidth()/2, Engine.getHeight()/2-table.getHeight()/2);
+		
+		Engine.getSoundManager().playSound("SoundNew");
 	}
 	public void hide(){
 		final InformationDialog pane = InformationDialog.this;

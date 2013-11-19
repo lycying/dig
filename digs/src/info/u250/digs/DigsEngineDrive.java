@@ -53,7 +53,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("BigFont", "data/fnt/big.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
-		reg.font("PassFont", "data/fnt/pass.fnt");
+//		reg.font("PassFont", "data/fnt/pass.fnt");
 		
 		reg.particleEffect("Effect", "data/p.p");
 		
@@ -82,6 +82,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundShot", "data/sounds/shot.ogg");
 		reg.sound("SoundWin", "data/sounds/win.ogg");
 		reg.sound("SoundFail", "data/sounds/fail.ogg");
+		reg.sound("SoundNew", "data/sounds/new.ogg");
 		
 		reg.sound("SoundNewContrib", "data/sounds/newcon.ogg");
 		

@@ -75,7 +75,9 @@ public abstract class AbstractMoveable extends Actor{
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
 	}
-	
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
 	public void die(){
 		TextureAtlas atlas = Engine.resource("All");
 		int size = 8;

@@ -36,15 +36,15 @@ import com.esotericsoftware.tablelayout.BaseTableLayout;
 public class LevelIdx {
 	public static final String[][] Level_String = {
 		new String[]{
-		"The First Gold",						//第一块金子
-		"Walking In The Cloud",					//云端漫步
-		"First Blood",							//第一滴血
-		"As Time Goes By",						//时光流逝
-		"Embrace The Death",					//与死相拥
-		"Got No Place To Go",					//何去何从
-		"Deeper And Deeper",					//一直向下
-		"Meet A Friend",						//与朋友同行
-		"Enemy Appear",							//敌人出现
+		"The First Gold",						
+		"Walking In The Cloud",					
+		"First Blood",							
+		"As Time Goes By",						
+		"Embrace The Death",					
+		"Got No Place To Go",					
+		"Deeper And Deeper",					
+		"Meet A Friend",						
+		"Enemy Appear",							
 		},
 		new String[]{
 		"Volcano Foot",

@@ -46,6 +46,7 @@ public class GameScene extends SceneStage {
 	final StatusPane statusPane;
 	final ScrollPane scroll;
 	final Image pauseButton;
+	final Button btnToggle;
 	boolean isShowAim = true;
 	public GameScene(DigsEngineDrive drive){
 		this.drive = drive;
@@ -80,18 +81,18 @@ public class GameScene extends SceneStage {
 		});
 		
 		functionPane = new FunctionPane(this);
-		final Button btn_actor = new Button(new TextureRegionDrawable(atlas.findRegion("expand")),null,new TextureRegionDrawable(atlas.findRegion("pitch")));
-		btn_actor.addListener(new ClickListener(){
+		btnToggle = new Button(new TextureRegionDrawable(atlas.findRegion("expand")),null,new TextureRegionDrawable(atlas.findRegion("pitch")));
+		btnToggle.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				functionPane.setVisible(!btn_actor.isChecked());
+				functionPane.setVisible(!btnToggle.isChecked());
 				super.clicked(event, x, y);
 			}
 		});
-		functionPane.setPosition(btn_actor.getWidth(),0);
+		functionPane.setPosition(btnToggle.getWidth(),0);
 		functionGroup.addActor(functionPane);
-		functionGroup.addActor(btn_actor);
-		functionGroup.setPosition(0, Engine.getHeight()-functionPane.getHeight());
+		functionGroup.addActor(btnToggle);
+		functionGroup.setPosition(0, Engine.getHeight()-80);
 		
 		
 		setupPauseResume();
@@ -134,6 +135,11 @@ public class GameScene extends SceneStage {
 		this.addActor(pauseButton);
 		statusPane.setVisible(false);
 		
+		if(config.pack == 0){
+			this.functionPane.basicButton();
+		}else{
+			this.functionPane.fullButton();
+		}
 		if(config.height>Engine.getHeight()){
 			functionGroup.setX(35);
 		}else{
@@ -181,6 +187,10 @@ public class GameScene extends SceneStage {
 	public FingerMode getFingerMode(){
 		return this.functionPane.getFingerMode();
 	}
+	
+	public StatusPane getStatusPane() {
+		return statusPane;
+	}
 	void pauseGame(){
 		if(level==null)return;
 		if(level.isMapMaking())return;//avoid the resource load many times
@@ -188,6 +198,7 @@ public class GameScene extends SceneStage {
 			return;
 		}
 		addActor(pauseDialog);
+		pauseDialog.show();
 		Engine.doPause();
 	}
 	@Override

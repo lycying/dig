@@ -15,6 +15,7 @@ import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
 import info.u250.digs.scenes.ui.WaterActor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -70,7 +71,7 @@ public class Level extends Group{
 	
 	/* for tick , the duration is {@link Level#ACC} */
 	float accum = 0;
-	final static float ACC = 1.0f / 60.0f;
+	static float ACC = 1.0f / 90.0f;
 	
 	/* some mask to cal quickly */
 	final static int MASK_CLEAR = 0; //clear color
@@ -218,6 +219,7 @@ public class Level extends Group{
 					e.tick();
 				}
 				accum -= ACC;
+				ACC = Gdx.graphics.getFramesPerSecond()/5400f;//this method keep the npcs move at the same speed what ever the device is 
 			}
 		}
 		

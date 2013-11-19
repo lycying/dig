@@ -15,21 +15,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class FunctionPane extends Table{
 	/* if it is the fill mode currently */
 	private FingerMode fingerMode = FingerMode.Clear;
-
+	final Button btn_home,btn_fill,btn_dig,btn_npc;
 	public FunctionPane(final GameScene gameScene){
 		final TextureAtlas atlas = Engine.resource("All");
 			
-		final Button btn_home = new Button(new TextureRegionDrawable(atlas.findRegion("btn-home-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-home-2")));
-		final Button btn_fill = new Button(new TextureRegionDrawable(atlas.findRegion("btn-fill-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-fill-2")));
-		final Button btn_dig = new Button(new TextureRegionDrawable(atlas.findRegion("btn-dig-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-dig-2")));
-		final Button btn_npc = new Button(new TextureRegionDrawable(atlas.findRegion("btn-npc-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-npc-2")));
+		btn_home = new Button(new TextureRegionDrawable(atlas.findRegion("btn-home-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-home-2")));
+		btn_fill = new Button(new TextureRegionDrawable(atlas.findRegion("btn-fill-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-fill-2")));
+		btn_dig = new Button(new TextureRegionDrawable(atlas.findRegion("btn-dig-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-dig-2")));
+		btn_npc = new Button(new TextureRegionDrawable(atlas.findRegion("btn-npc-1")),null,new TextureRegionDrawable(atlas.findRegion("btn-npc-2")));
 		
 		
 		new ButtonGroup(btn_home,btn_dig,btn_fill,btn_npc);//collection them
-		this.add(btn_home).spaceRight(5);
-		this.add(btn_npc).spaceRight(5);
-		this.add(btn_fill).spaceRight(5);
-		this.add(btn_dig).spaceRight(5);
+//		this.add(btn_home).spaceRight(5);
+//		this.add(btn_npc).spaceRight(5);
+//		this.add(btn_fill).spaceRight(5);
+//		this.add(btn_dig).spaceRight(5);
 		btn_dig.setChecked(true);
 		
 		btn_home.addListener(new ClickListener(){
@@ -57,11 +57,28 @@ public class FunctionPane extends Table{
 				super.clicked(event, x, y);
 			}});
 
-		this.pack();
+//		this.pack();
 	}
 
 	public FingerMode getFingerMode() {
 		return fingerMode;
 	}
-	
+	public void fullButton(){
+		this.clear();
+		this.add(btn_home).spaceRight(5);
+		this.add(btn_npc).spaceRight(5);
+		this.add(btn_fill).spaceRight(5);
+		this.add(btn_dig).spaceRight(5);
+		this.pack();
+	}
+	public void basicButton(){
+		this.clear();
+		this.add(btn_fill).spaceRight(5);
+		this.add(btn_dig).spaceRight(5);
+		if(fingerMode!=FingerMode.Fill && fingerMode!=FingerMode.Clear){
+			btn_dig.setChecked(true);
+			this.fingerMode = FingerMode.Clear;
+		}
+		this.pack();
+	}
 }

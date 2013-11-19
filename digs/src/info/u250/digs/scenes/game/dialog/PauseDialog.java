@@ -25,7 +25,10 @@ public class PauseDialog extends Group {
 	Label lblGold;
 	Label lblWhiteGold;
 	Button btnRestart;
-	public PauseDialog(final GameScene game){		
+	final GameScene game;
+	public PauseDialog(final GameScene game){
+		this.game = game;
+		
 		TextureAtlas atlas = Engine.resource("All");
 		BitmapFont font = Engine.resource("Font");
 		this.setSize(Engine.getWidth(), Engine.getHeight());
@@ -105,8 +108,11 @@ public class PauseDialog extends Group {
 			}
 		});
 	}
-	
+	public void show(){
+		game.getStatusPane().pauseCounter();
+	}
 	public void close(){
+		game.getStatusPane().resumeCounter();
 		this.remove();
 	}
 	

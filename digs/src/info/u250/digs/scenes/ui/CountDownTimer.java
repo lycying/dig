@@ -10,6 +10,7 @@ public class CountDownTimer {
 	private static final int Duration = 5*60; //5 min
 	private int sceonds ;
 	private Label label;
+	private boolean isPause = false;
 	public CountDownTimer(Label label,int duration){
 		this.sceonds = duration;
 		this.label = label;
@@ -21,6 +22,7 @@ public class CountDownTimer {
 		Timer.schedule(new Task() {
 			@Override
 			public void run() {
+				if(isPause)return;
 				try{
 					CountDownTimer.this.sceonds--;
 					int min = sceonds/60;
@@ -41,5 +43,8 @@ public class CountDownTimer {
 	}
 	public void setSceonds(int sceonds) {
 		this.sceonds = sceonds;
+	}
+	public void setPause(boolean isPause) {
+		this.isPause = isPause;
 	}
 }

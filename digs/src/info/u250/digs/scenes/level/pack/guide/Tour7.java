@@ -30,6 +30,7 @@ public class Tour7 extends LevelConfig {
 		this.lineHeight = 300+400;
 		this.segment = 1;
 		this.gold = 10;
+		this.time = 3*60;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

@@ -31,6 +31,7 @@ public class LevelScene extends SceneStage {
 	DigsEngineDrive drive;
 	final TextureAtlas atlas;
 	final ScrollPane levelPanel;
+	final LevelPack levelPack;
 	final TriangleSurfaces surface2;
 	final TriangleSurfaces surface3;
 	public LevelScene(final DigsEngineDrive drive){
@@ -199,9 +200,9 @@ public class LevelScene extends SceneStage {
 			}
 		});
 		this.addActor(back);
-		LevelPack btn_table = new LevelPack(this,IO.getPackScroll());
-		btn_table.setPosition(840, 100);
-		this.addActor(btn_table);
+		levelPack = new LevelPack(this,IO.getPackScroll());
+		levelPack.setPosition(840, 100);
+		this.addActor(levelPack);
 		
 		final Image g_plus = new Image(atlas.findRegion("g+"));
 		g_plus.setPosition(50, 50);
@@ -223,6 +224,7 @@ public class LevelScene extends SceneStage {
 	@Override
 	public void show() {
 		super.show();
+		this.levelPack.refresh();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
 	}
 	@Override
