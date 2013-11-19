@@ -2,6 +2,7 @@ package info.u250.digs;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.load.startup.StartupLoading;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,11 +24,12 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.surfaceview.RatioResolutionStrategy;
 
-public class DigActivity extends AndroidApplication {
+public class DigActivity extends AndroidApplication implements GooglePlayServiceResolver{
 	protected RelativeLayout layout;
 	protected View loadingView;
 	protected View gameView;
 
+	GooglePlayServiceResolverAndroidImpl googlePlayServiceResolverAndroidImpl;
 
 	public void onCreate (Bundle bundle) {
 		super.onCreate(bundle);
@@ -114,6 +116,8 @@ public class DigActivity extends AndroidApplication {
 		adParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		// Hook it all up
 		setContentView(layout, adParamsMain);
+		
+		googlePlayServiceResolverAndroidImpl = new GooglePlayServiceResolverAndroidImpl(this);
 	}
 	
 	@Override
@@ -126,5 +130,81 @@ public class DigActivity extends AndroidApplication {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void onActivityResult(int request, int response, Intent data) {
+		super.onActivityResult(request, response, data);
+		googlePlayServiceResolverAndroidImpl.getGameHelper().onActivityResult(request, response, data);
+	}
+	protected String getStringResourceByName(String aString) {
+		String packageName = getPackageName();
+		int resId = getResources().getIdentifier(aString, "string", packageName);
+		return getString(resId);
+	}
+	
+	@Override
+	public void gpsLogin() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsIsLogin();
+			}
+		});
+	}
+
+	@Override
+	public void gpsLogout() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsLogout();
+			}
+		});
+	}
+
+	@Override
+	public boolean gpsIsLogin() {
+		return googlePlayServiceResolverAndroidImpl.gpsIsLogin();
+	}
+
+	@Override
+	public void gpsSubmitScore(final String id, final int score) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsSubmitScore(getStringResourceByName(id), score);
+			}
+		});
+	}
+
+	@Override
+	public void gpsUnlockAchievement(final String id) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsUnlockAchievement(getStringResourceByName(id));
+			}
+		});
+	}
+
+	@Override
+	public void gpsShowAchievement() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsShowAchievement();
+			}
+		});
+	}
+
+	@Override
+	public void gpsShowLeaderboard(final String id) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.gpsShowLeaderboard(getStringResourceByName(id));
+			}
+		});
 	}
 }

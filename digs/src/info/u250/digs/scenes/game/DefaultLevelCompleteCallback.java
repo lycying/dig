@@ -40,9 +40,20 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 			count+=dock.getNumber();
 		}
 		//if we collect all gold and all kas has docked at the tower (only if we has ka on the screen)
-		if(count>=level.config.gold && (level.config.ka<=0 || (level.config.ka>0 && level.getKas().size == 0))){
-			win(level);
-			return true;
+		if(count>=level.config.gold){
+			if(level.config.ka<=0){
+				win(level);
+				return true;
+			}else{
+				count = 0;
+				for(GoldTowerEntity dock:level.getDocks()){
+					count+=dock.getKaNumber();
+				}
+				if(level.config.ka == count){
+					win(level);
+					return true;
+				}
+			}
 		}
 		return false;
 	}

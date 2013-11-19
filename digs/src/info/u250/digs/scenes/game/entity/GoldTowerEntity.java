@@ -85,4 +85,7 @@ public class GoldTowerEntity extends Group{
 	public void addKa(Ka ka){
 		this.kas.add(ka);
 	}
+	public int getKaNumber(){
+		return this.kas.size;
+	}
 }
