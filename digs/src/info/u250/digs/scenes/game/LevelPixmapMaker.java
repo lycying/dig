@@ -2,9 +2,9 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
-import info.u250.svg.SVGParse;
-import info.u250.svg.elements.SVGRootElement;
-import info.u250.svg.glutils.SVGData;
+//import info.u250.svg.SVGParse;
+//import info.u250.svg.elements.SVGRootElement;
+//import info.u250.svg.glutils.SVGData;
 import net.shad.s3rend.gfx.pixmap.filter.Glow;
 
 import com.badlogic.gdx.Gdx;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector2;
 
@@ -30,88 +29,88 @@ final class LevelPixmapMaker {
 		final int lineHeight = config.lineHeight;
 		
 		
-		if(config.surface.endsWith("svg")){
-			SVGRootElement svgFile  = new SVGRootElement();
-			svgFile.format = 4;
-			svgFile.width = width;
-			svgFile.height = height;
-
-			svgFile.min_x = 0;
-			svgFile.min_y = 0;
-			svgFile.max_x = 0;
-			svgFile.max_y = 0;
-
-			svgFile.scale = 1f;
-
-			SVGParse parse = new SVGParse (Gdx.files.internal (config.surface));
-
-			parse.parse (svgFile);
-			
-			final SVGData data	   = new SVGData(svgFile);
-			long[] nativeData  = new long[]{data.basePtr,svgFile.width,svgFile.height,svgFile.format};
-			
-			Gdx2DPixmap gdx2d  = new Gdx2DPixmap(data.svgData,nativeData){
-				@Override
-				public void dispose () {
-					data.dispose();
-				}
-			};
-			terMap = new Pixmap(gdx2d);
-		}else{
-			final int segment = config.segment;
-			final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
-			final Pixmap gPix1 = new Pixmap(Gdx.files.internal("paint/grass1.png"));
-			final Pixmap gPix2 = new Pixmap(Gdx.files.internal("paint/grass2.png"));
-			
-			terMap = new Pixmap(width, height, Format.RGBA8888);
-			//round one , to make a full pixmap
-			for(int i=0;i*bgPix.getWidth()< width;i++){
-				for(int j=0;j*bgPix.getHeight()<height;j++){
-					terMap.drawPixmap(bgPix, 
-							i*bgPix.getWidth(),
-							j*bgPix.getHeight(), 
-							0, 0, bgPix.getWidth(), bgPix.getHeight());
-				}
-			}
-			
-			if(segment>1){
-				Vector2[] controlPoints = new Vector2[segment];
-				controlPoints[0] = new Vector2(0,lineHeight);
-				for(int i=1;i<segment;i++){
-					controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(RND_Height)+lineHeight);
-				}
-				spline.set(controlPoints, true);
-
-				for(int i=0;i<width;i+=10){
-					spline.valueAt(tmpV, i/(float)width);
-					Pixmap.setBlending(Blending.SourceOver);
-					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
-				}
-				for(int i=0;i<width;i++){
-					spline.valueAt(tmpV, i/(float)width);
-					Pixmap.setBlending(Blending.None);
-					terMap.setColor(Color.CLEAR);
-					terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
-				}
-			}else{//draw directly 
-				for(int i=0;i<width;i+=20){
-					Pixmap.setBlending(Blending.SourceOver);
-					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
-				}
-				Pixmap.setBlending(Blending.None);
-				terMap.setColor(Color.CLEAR);
-				terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
-			}
-			
-			
-			bgPix.dispose();
-			gPix2.dispose();
-			gPix1.dispose();
-			
-			if(height<=Engine.getHeight()){
-				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
+//		if(config.surface.endsWith("svg")){
+//			SVGRootElement svgFile  = new SVGRootElement();
+//			svgFile.format = 4;
+//			svgFile.width = width;
+//			svgFile.height = height;
+//
+//			svgFile.min_x = 0;
+//			svgFile.min_y = 0;
+//			svgFile.max_x = 0;
+//			svgFile.max_y = 0;
+//
+//			svgFile.scale = 1f;
+//
+//			SVGParse parse = new SVGParse (Gdx.files.internal (config.surface));
+//
+//			parse.parse (svgFile);
+//			
+//			final SVGData data	   = new SVGData(svgFile);
+//			long[] nativeData  = new long[]{data.basePtr,svgFile.width,svgFile.height,svgFile.format};
+//			
+//			Gdx2DPixmap gdx2d  = new Gdx2DPixmap(data.svgData,nativeData){
+//				@Override
+//				public void dispose () {
+//					data.dispose();
+//				}
+//			};
+//			terMap = new Pixmap(gdx2d);
+//		}else{
+		final int segment = config.segment;
+		final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
+		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("paint/grass1.png"));
+		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("paint/grass2.png"));
+		
+		terMap = new Pixmap(width, height, Format.RGBA8888);
+		//round one , to make a full pixmap
+		for(int i=0;i*bgPix.getWidth()< width;i++){
+			for(int j=0;j*bgPix.getHeight()<height;j++){
+				terMap.drawPixmap(bgPix, 
+						i*bgPix.getWidth(),
+						j*bgPix.getHeight(), 
+						0, 0, bgPix.getWidth(), bgPix.getHeight());
 			}
 		}
+		
+		if(segment>1){
+			Vector2[] controlPoints = new Vector2[segment];
+			controlPoints[0] = new Vector2(0,lineHeight);
+			for(int i=1;i<segment;i++){
+				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(RND_Height)+lineHeight);
+			}
+			spline.set(controlPoints, true);
+
+			for(int i=0;i<width;i+=10){
+				spline.valueAt(tmpV, i/(float)width);
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
+			}
+			for(int i=0;i<width;i++){
+				spline.valueAt(tmpV, i/(float)width);
+				Pixmap.setBlending(Blending.None);
+				terMap.setColor(Color.CLEAR);
+				terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
+			}
+		}else{//draw directly 
+			for(int i=0;i<width;i+=20){
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
+			}
+			Pixmap.setBlending(Blending.None);
+			terMap.setColor(Color.CLEAR);
+			terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
+		}
+		
+		
+		bgPix.dispose();
+		gPix2.dispose();
+		gPix1.dispose();
+		
+		if(height<=Engine.getHeight()){
+			Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
+		}
+//		}
 		
 		
 		
