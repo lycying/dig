@@ -18,12 +18,12 @@ public class S1Lvl3 extends LevelConfig {
 	public S1Lvl3(){
 		this.surface = "vg/s1v3.svg";
 		this.width = (int)Engine.getWidth() ;
-		this.height = 800;
+		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.DARK_SLATE_GRAY.get();
 		this.topColor = WebColors.DARK_GREEN.get();
-		this.lineHeight = 800-130;
+		this.lineHeight = 300;
 		this.segment = 1;
-		
+		this.gold = 200;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

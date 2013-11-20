@@ -3,7 +3,7 @@ package info.u250.digs.scenes.game.dialog;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.GameScene;
-import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.level.LevelIdx;
 
 import com.badlogic.gdx.graphics.Color;
@@ -60,7 +60,6 @@ public class WinDialog extends Group {
 		
 		lblCoin = new Label("243", new LabelStyle(font,Color.YELLOW));
 		lblBBMan = new Label("50", new LabelStyle(font,Color.YELLOW));
-		lblBBManDead = new Label("25", new LabelStyle(font,Color.YELLOW));
 		lblTime = new Label("23:34", new LabelStyle(font,Color.YELLOW));
 		lblLvlIdx = new Label("Level 1:", new LabelStyle(font,WebColors.TEAL.get()));
 		lblLvlDesc = new Label("Rookie Training Ground", new LabelStyle(font,WebColors.DARK_SLATE_BLUE.get()));
@@ -76,20 +75,15 @@ public class WinDialog extends Group {
 		
 		
 		resultTable = new Table();
-//		NinePatch nine = new NinePatch(atlas.findRegion("color"));
 		NinePatch nine = atlas.createPatch("win-bg");
-//		nine.setColor(new Color(1,1,1,0.5f));
 		resultTable.setBackground(new NinePatchDrawable(nine));
 		resultTable.add(levelTableInfo).colspan(2).align(BaseTableLayout.CENTER);
 		resultTable.row();
-		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(450);
+		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(400);
 		resultTable.add(lblCoin);
 		resultTable.row();
-		resultTable.add(new Label("BBMan Born:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
+		resultTable.add(new Label("BBMan:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
 		resultTable.add(lblBBMan);
-		resultTable.row();
-		resultTable.add(new Label("BBMan Dead:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
-		resultTable.add(lblBBManDead);
 		resultTable.row();
 		resultTable.add(new Label("Time:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
 		resultTable.add(lblTime);
@@ -148,18 +142,16 @@ public class WinDialog extends Group {
 	Table resultTable = null;
 	Label lblCoin = null;
 	Label lblBBMan = null;
-	Label lblBBManDead = null;
 	Label lblTime = null;
 	Label lblLvlIdx = null;
 	Label lblLvlDesc = null;
 	final Image eye1,eye2;
-	public void show(LevelConfig config,int gold,int npc,int npcDead,int time){
-		lblLvlIdx.setText("Level "+(config.idx+1)+": ");
-		lblLvlDesc.setText(LevelIdx.getLevelName(config.pack, config.idx));
-		lblCoin.setText(gold+"");
-		lblBBMan.setText(npc+"");
-		lblBBManDead.setText(npcDead+"");
-		lblTime.setText(time+"");
+	public void show(Level level){
+		lblLvlIdx.setText("Level "+(level.config.idx+1)+": ");
+		lblLvlDesc.setText(LevelIdx.getLevelName(level.config.pack, level.config.idx));
+		lblCoin.setText(level.config.gold+"");
+		lblBBMan.setText(level.getNpcs().size +"/" + level.config.npc);
+		lblTime.setText((level.config.time-level.getGame().leastTime()) +"/" + level.config.time + "s");
 		resultTable.pack();
 		resultTable.setPosition(200, Engine.getHeight()-resultTable.getHeight()-60);
 		eye1.setPosition(resultTable.getX()+140, Engine.getHeight()-125);

@@ -1,7 +1,10 @@
-package info.u250.digs.scenes.game;
+package info.u250.digs.scenes.game.callback;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.LevelCompleteCallback;
 import info.u250.digs.scenes.game.dialog.FailDailog;
+import info.u250.digs.scenes.game.dialog.InfoDialogForWhoHasMostGoldLevelCompleteCallback;
 import info.u250.digs.scenes.game.dialog.WinDialog;
 import info.u250.digs.scenes.game.entity.AbstractMoveable;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -10,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Timer;
 
-public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
+public class WhoHasMostGoldLevelCompleteCallback extends LevelCompleteCallback {
 	/* if we arrived the win status */
 	int count = 0;
 	boolean win = false;
@@ -24,7 +27,7 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 				Timer.instance().clear();
 				Engine.getMusicManager().stopMusic("MusicTimer");
 				return true;
-			}else if(level.getGame().leastTime()<=5){
+			}else if(level.getGame().leastTime()<=10){
 				Engine.getMusicManager().playMusic("MusicTimer", true);
 			}
 		}
@@ -58,14 +61,16 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		return false;
 	}
 	void win(Level level){
+		level.getGame().getStatusPane().pauseCounter();
 		WinDialog winDialog = new WinDialog(level.getGame());
 		level.getGame().addActor(winDialog);
-		winDialog.show(level.config, count, 50, 30, 56);
+		winDialog.show(level);
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		Engine.getSoundManager().playSound("SoundWin");
 		win = true;
 	}
 	void fail(Level level){		
+		level.getGame().getStatusPane().pauseCounter();
 		Engine.getSoundManager().playSound("SoundFail");
 		FailDailog failDialog = new FailDailog(level.getGame());
 		failDialog.show();
@@ -106,6 +111,15 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		if(!fail){
 			fail(level);
 		}
+	}
+	InfoDialogForWhoHasMostGoldLevelCompleteCallback info;
+	@Override
+	public Actor infoBorad(Level level) {
+		if(null != info){
+			info = new InfoDialogForWhoHasMostGoldLevelCompleteCallback(level);
+		}
+		info.show();
+		return info;
 	}
 	
 

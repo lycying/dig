@@ -23,6 +23,7 @@ public class S1Lvl2 extends LevelConfig {
 		this.topColor = WebColors.ALICE_BLUE.get();
 		this.lineHeight = 250;
 		this.segment = 2;
+		this.gold = 200;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {

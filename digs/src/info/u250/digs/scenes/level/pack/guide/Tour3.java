@@ -35,6 +35,7 @@ public class Tour3 extends LevelConfig {
 		this.segment = 10;
 		this.gold = 5;
 		this.time = 3*60;
+		this.npc = 5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
@@ -71,7 +72,7 @@ public class Tour3 extends LevelConfig {
 				KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.WHITE);
 				level.addKillCircle(ray);
 				
-				for(int i=0;i<5;i++){
+				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(100+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);

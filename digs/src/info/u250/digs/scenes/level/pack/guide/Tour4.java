@@ -32,6 +32,7 @@ public class Tour4 extends LevelConfig {
 		this.segment = 20;
 		this.gold = 5;
 		this.time = 3*60;
+		this.npc = 5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
@@ -57,7 +58,7 @@ public class Tour4 extends LevelConfig {
 					level.addKillCircle(ray);
 					}
 				
-				for(int i=0;i<5;i++){
+				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);

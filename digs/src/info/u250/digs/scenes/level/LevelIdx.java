@@ -17,6 +17,8 @@ import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl4;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl5;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,10 +27,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.esotericsoftware.tablelayout.BaseTableLayout;
@@ -147,6 +149,12 @@ public class LevelIdx {
 		case 2:
 			config = new S1Lvl3();
 			break;
+		case 3:
+			config = new S1Lvl4();
+			break;
+		case 4:
+			config = new S1Lvl5();
+			break;
 		}
 		return config;
 	}
@@ -201,6 +209,33 @@ public class LevelIdx {
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(1);
+		BitmapFont font = Engine.resource("BigFont");
+		TextureAtlas atlas = Engine.resource("All");
+		{
+			Table tb = new Table();
+			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
+			tb.add(new Image(atlas.findRegion("lvl-mv-1")));
+			tb.add(new Label("I wakeup at somewhere...",new LabelStyle(font,Color.WHITE))).minWidth(500);
+			TextButtonStyle style = new TextButtonStyle(
+					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), 
+					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), null, font);
+			style.fontColor = Color.BLACK;
+			style.downFontColor = Color.RED;
+			final TextButton view = new TextButton("View",style);
+			view.pack();
+			view.padTop(20);
+			view.padBottom(20);
+			tb.add(view);
+			tb.pack();
+			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
+			view.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					Engine.setMainScene(new Mv1Scene(lvlSce));
+					super.clicked(event, x, y);
+				}
+			});
+		}
 		{
 			for(int i=0;i<Level_String[1].length;i++){
 				LevelItem item = new LevelItem(lvlSce,1,i,Level_String[1][i]);

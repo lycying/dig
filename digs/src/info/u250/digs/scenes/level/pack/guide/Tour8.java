@@ -30,12 +30,13 @@ public class Tour8 extends LevelConfig {
 		this.gold = 0;
 		this.ka = 10;
 		this.time = 3*60;
+		this.npc = 10;
 		
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
 			public void after(Level level) {
-				for(int i=0;i<10;i++){
+				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);

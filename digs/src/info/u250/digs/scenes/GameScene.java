@@ -11,7 +11,6 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.Level.FingerMode;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.dialog.FunctionPane;
-import info.u250.digs.scenes.game.dialog.InformationDialog;
 import info.u250.digs.scenes.game.dialog.PauseDialog;
 import info.u250.digs.scenes.game.dialog.StatusPane;
 import info.u250.digs.scenes.level.LevelIdx;
@@ -38,7 +37,6 @@ public class GameScene extends SceneStage {
 	public Level level = null;
 	int packIndex = 0;
 	int levelIndex = 0;
-	final InformationDialog informationDialog ;
 	final PauseDialog pauseDialog;
 
 	final Group functionGroup ;
@@ -69,7 +67,6 @@ public class GameScene extends SceneStage {
 		scroll.setScrollbarsOnTop(false);
 		scroll.setScrollBarPositions(true, false);
 		
-		informationDialog = new InformationDialog(this);
 		pauseButton = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));
 		pauseButton.setPosition(Engine.getWidth()-pauseButton.getWidth(), Engine.getHeight()- pauseButton.getHeight());
 		pauseButton.addListener(new ClickListener(){
@@ -125,16 +122,6 @@ public class GameScene extends SceneStage {
 		statusPane.setPosition(Engine.getWidth()-statusPane.getWidth(), 0);
 	}
 	private void configGame(LevelConfig config){
-		//rebuilt it
-		this.clear();
-		isShowAim = true;
-		this.addActor(scroll);
-		this.addActor(functionGroup);
-		this.addActor(statusPane);
-		this.addActor(informationDialog);
-		this.addActor(pauseButton);
-		statusPane.setVisible(false);
-		
 		if(config.pack == 0){
 			this.functionPane.basicButton();
 		}else{
@@ -154,7 +141,15 @@ public class GameScene extends SceneStage {
 		level = new Level(this,config);
 		scroll.setWidget(level);
 		
-		informationDialog.show();
+		//rebuilt it
+		this.clear();
+		isShowAim = true;
+		this.addActor(scroll);
+		this.addActor(functionGroup);
+		this.addActor(statusPane);
+		this.addActor(config.levelCompleteCallback.infoBorad(level));
+		this.addActor(pauseButton);
+		statusPane.setVisible(false);
 	} 
 	@Override
 	public void hide() {

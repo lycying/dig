@@ -31,6 +31,7 @@ public class Tour7 extends LevelConfig {
 		this.segment = 1;
 		this.gold = 10;
 		this.time = 3*60;
+		this.npc = 10;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
@@ -48,7 +49,7 @@ public class Tour7 extends LevelConfig {
 					level.addStepladder(ladder);
 				}
 				
-				for(int i=0;i<10;i++){
+				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
 					e.setPosition(100, Engine.getHeight()+ 400 + Digs.RND.nextFloat()*500);

@@ -121,8 +121,10 @@ public class LevelItem extends  Group{
 		this.addActor(levelNumber);
 	} 
 	public void refresh(){
-		int currentPack = IO.getPack();
-		int currentLevel = IO.getLevel();
+//		int currentPack = IO.getPack();
+//		int currentLevel = IO.getLevel();
+		int currentPack = 3;
+		int currentLevel = 99;//TODO
 		pass.remove();
 		lock.remove();
 		menu_play.remove();

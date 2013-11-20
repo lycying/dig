@@ -108,12 +108,10 @@ final class LevelPixmapMaker {
 			gPix2.dispose();
 			gPix1.dispose();
 			
+			if(height<=Engine.getHeight()){
+				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
+			}
 		}
-		if(height<=Engine.getHeight()){
-			Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
-		}
-		
-		
 		
 		
 		

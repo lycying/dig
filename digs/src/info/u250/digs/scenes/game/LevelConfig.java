@@ -2,6 +2,7 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
+import info.u250.digs.scenes.game.callback.DefaultLevelCompleteCallback;
 import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -20,6 +21,8 @@ public class LevelConfig {
 	
 	public int gold = -1;
 	public int ka = -1;
+	public int npc = -1;
+	public int enemy = -1;
 	//the second : time up !!!
 	public int time = -1; 
 	public String surface = "texs/purpl043.jpg";
