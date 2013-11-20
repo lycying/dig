@@ -55,7 +55,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("MenuFont", "data/fnt/menu.fnt");
 //		reg.font("PassFont", "data/fnt/pass.fnt");
 		
-		reg.particleEffect("Effect", "data/p.p");
+		reg.particleEffect("Effect", "data/all.pp");
 		
 //		reg.texture("Texture", FLAT);
 		reg.texture("Texture2", FLAT2);
