@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game.callback;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.IO;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelCompleteCallback;
 import info.u250.digs.scenes.game.dialog.FailDailog;
@@ -68,6 +69,11 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		Engine.getSoundManager().playSound("SoundWin");
 		win = true;
+		
+		int score = level.config.time - level.getGame().leastTime();
+		String handel = level.config.getGPSRId();
+		
+		IO.win(handel, score, false);
 	}
 	void fail(Level level){		
 		Engine.getSoundManager().playSound("SoundFail");

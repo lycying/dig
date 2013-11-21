@@ -25,9 +25,13 @@ public class DigsEngineDrive implements EngineDrive {
 		return opt;
 	}
 
+	//the startup scene 
 	StartUpScene startUpScene = null;
+	//the level scene to choose level
 	LevelScene levelScene = null;
+	//the about scene to show who make this game
 	AboutScene aboutScene = null;
+	//the really game scene 
 	GameScene gameScene = null;
 	
 	
@@ -39,6 +43,8 @@ public class DigsEngineDrive implements EngineDrive {
 		aboutScene = new AboutScene(this);
 		
 		Engine.setMainScene(startUpScene);
+		
+		Digs.delayPlayActorSound();
 	}
 
 	@Override
@@ -49,40 +55,66 @@ public class DigsEngineDrive implements EngineDrive {
 	@Override
 	public void onResourcesRegister(AliasResourceManager<String> reg) {
 		reg.textureAtlas("All", "data/all.atlas");
+		
+		//fonts, Font is the smallest 
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("BigFont", "data/fnt/big.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
 		
+		//the particle Effect
 		reg.particleEffect("Effect", "data/all.pp");
 		
+		//the front layer used to good look
 		reg.texture("Texture2", FLAT);
 		
 		reg.music("MusicBackground", "data/music/bg.ogg");
 		reg.music("MusicBattle", "data/music/battle.ogg");
 		reg.music("MusicCont", "data/music/cont.ogg");
+		
+		//when a level has time limit,the last 10 second will play this sound until zero
 		reg.music("MusicTimer", "data/music/timer.ogg");
 		
+		//used for level pack choose
 		reg.sound("SoundChoosePack1", "data/sounds/choose-pack1.ogg");
 		reg.sound("SoundChoosePack2", "data/sounds/choose-pack2.ogg");
 		reg.sound("SoundChooseGuide", "data/sounds/choose-guide.ogg");
+		
+		//sound for click the function pane , they have the same sound effect
 		reg.sound("SoundFunc", "data/sounds/func.ogg");
+		//the common click sound
 		reg.sound("SoundClick", "data/sounds/click.ogg");
+		//the sound when meet a dog friend
 		reg.sound("SoundMeet", "data/sounds/meetf.ogg");
-		reg.sound("SoundBossXO", "data/sounds/boss-xo.ogg");
-		reg.sound("SoundBossBreak", "data/sounds/boss-break.ogg");
+		//sound for ka land to home
 		reg.sound("SoundDockKa", "data/sounds/ka_dock.ogg");
+		
+		//the boss left and right his flag
+		reg.sound("SoundBossXO", "data/sounds/boss-xo.ogg");
+		//the boss break the ground
+		reg.sound("SoundBossBreak", "data/sounds/boss-break.ogg");
+		
+		//dig sound
 		reg.sound("SoundDig", "data/sounds/dig.ogg");
+		//common die sound , pilipapa
 		reg.sound("SoundDie", "data/sounds/die.ogg");
+		//die when contact the gas
 		reg.sound("SoundHurt", "data/sounds/hurt.ogg");
+		//move on transfer sound
 		reg.sound("SoundTrans", "data/sounds/trans.ogg");
+		//put the coin on the platform
 		reg.sound("SoundCoin", "data/sounds/coin.ogg");
+		//enemy shot shot shot sound
 		reg.sound("SoundShot", "data/sounds/shot.ogg");
+		
+		//the win sound
 		reg.sound("SoundWin", "data/sounds/win.ogg");
+		//fail sound
 		reg.sound("SoundFail", "data/sounds/fail.ogg");
+		//start a new level 
 		reg.sound("SoundNew", "data/sounds/new.ogg");
-		
+		//about screen , type text sound
 		reg.sound("SoundNewContrib", "data/sounds/newcon.ogg");
-		
+		//pack0.lvl5 used
 		reg.sound("SoundLvl5Bang", "data/sounds/lvl5-bang.ogg");
 	}
 

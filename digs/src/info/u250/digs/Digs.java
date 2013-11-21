@@ -31,17 +31,21 @@ public class Digs extends Engine {
 	public static AsyncExecutor getExecutor() {
 		return executor;
 	}
+	static String YEAP_SOUND_HANDEL = ""; //in order to solve the SoundPool bug at android~
 	//delay load the npc's sound , because its so many and is not needed at the boot time
 	public static void delayPlayActorSound(){
 		final int soundIdx = RND.nextInt(LINGO_SOUND)+1;
 		final String soundHandel = "SoundEnv"+soundIdx;
 		Sound sound = Engine.resource(soundHandel);
 		if(null == sound){
-			Engine.load(new String[]{"snd/lingo"+soundIdx+".ogg"},new LoadingComplete() {
+			Engine.load(new String[]{"sounds/lingo"+soundIdx+".ogg"},new LoadingComplete() {
 				@Override
 				public void onReady(AliasResourceManager<String> reg) {
-					reg.sound(soundHandel, "snd/lingo"+soundIdx+".ogg");
-					Engine.getSoundManager().playSound(soundHandel);
+					reg.sound(soundHandel, "sounds/lingo"+soundIdx+".ogg");
+					if(!YEAP_SOUND_HANDEL.equals("")){
+						Engine.getSoundManager().playSound(YEAP_SOUND_HANDEL);
+					}
+					YEAP_SOUND_HANDEL = soundHandel;
 				}
 			});
 		}else{
