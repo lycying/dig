@@ -73,10 +73,6 @@ public class IO {
 	//*******************************For Level**********************
 	public static void showLeaderboard(int pack,int idx){
 		String handel = "leaderboard_pack"+pack+"_lvl"+idx;
-		int pre_score = Engine.getPreferences().getInteger(handel);
-		if(0!=pre_score){
-			Digs.getGPSR().gpsSubmitScore(handel, pre_score);
-		}
 		Digs.getGPSR().gpsShowLeaderboard(handel);
 	}
 	public static void  win(String handel,int score,boolean desc){

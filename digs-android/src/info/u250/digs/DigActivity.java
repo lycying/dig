@@ -118,6 +118,9 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		setContentView(layout, adParamsMain);
 		
 		googlePlayServiceResolverAndroidImpl = new GooglePlayServiceResolverAndroidImpl(this);
+		if(!googlePlayServiceResolverAndroidImpl.getGameHelper().getGamesClient().isConnected()){
+			googlePlayServiceResolverAndroidImpl.getGameHelper().getGamesClient().connect();
+		}
 	}
 	
 	@Override
@@ -138,9 +141,14 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		googlePlayServiceResolverAndroidImpl.getGameHelper().onActivityResult(request, response, data);
 	}
 	protected String getStringResourceByName(String aString) {
-		String packageName = getPackageName();
-		int resId = getResources().getIdentifier(aString, "string", packageName);
-		return getString(resId);
+		try{
+			String packageName = getPackageName();
+			int resId = getResources().getIdentifier(aString, "string", packageName);
+			return getString(resId);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return "aaa";
+		}
 	}
 	
 	@Override
@@ -204,6 +212,56 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 			@Override
 			public void run() {
 				googlePlayServiceResolverAndroidImpl.gpsShowLeaderboard(getStringResourceByName(id));
+			}
+		});
+	}
+
+	@Override
+	public void shareOnGPlusplus() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.shareOnGPlusplus();
+			}
+		});
+	}
+
+	@Override
+	public void momentTour1Fail2Times() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.momentTour1Fail2Times();
+			}
+		});
+	}
+
+	@Override
+	public void momentCompleteTheTour() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.momentCompleteTheTour();
+			}
+		});
+	}
+
+	@Override
+	public void momentCompleteThePack2() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.momentCompleteThePack2();
+			}
+		});
+	}
+
+	@Override
+	public void momentLvlInfo(final int pack,final int level) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.momentLvlInfo(pack,level);
 			}
 		});
 	}
