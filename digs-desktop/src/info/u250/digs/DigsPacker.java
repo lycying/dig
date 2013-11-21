@@ -10,9 +10,9 @@ public class DigsPacker {
 		
 		TexturePacker2.Settings setting = new TexturePacker2.Settings();
 		setting.debug = false;
-		setting.stripWhitespaceX = true;
-		setting.stripWhitespaceY = true;
-		setting.maxWidth = 1024;
+		setting.stripWhitespaceX = false;
+		setting.stripWhitespaceY = false;
+		setting.maxWidth = 2048;
 		setting.maxHeight= 1024;
 		TexturePacker2.process(setting,input, output, "all");
 		

@@ -163,11 +163,16 @@ public class Level extends Group{
 		Digs.getExecutor().submit(new AsyncTask<Void>() {
 			@Override
 			public Void call() throws Exception {
-				Thread.sleep(200);
-				pip = LevelPixmapMaker.gen(config);
-				mapMaking = false;
-				mapTexturing = true;
-				return null;
+				try{
+					Thread.sleep(200);
+					pip = LevelPixmapMaker.gen(config);
+					mapMaking = false;
+					mapTexturing = true;
+					return null;
+				}catch(Exception ex){
+					ex.printStackTrace();
+					throw ex;
+				}
 			}
 		});
 	}
