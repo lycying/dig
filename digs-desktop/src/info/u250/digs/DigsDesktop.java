@@ -9,7 +9,7 @@ public class DigsDesktop {
 
 	
 	public static void main(String[] args) {
-		Digs game = new Digs();
+		Digs game = new Digs(new GooglePlayServiceResolverDesktop());
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = (int)Engine.getWidth();
 		config.height = (int)Engine.getHeight();

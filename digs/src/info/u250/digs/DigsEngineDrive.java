@@ -11,13 +11,12 @@ import info.u250.digs.scenes.StartUpScene;
 
 public class DigsEngineDrive implements EngineDrive {
 
-//	static final String FLAT = "texs/RockLayered.jpg";
-	static final String FLAT2 = "texs/S.png";
-	static public final int LINGO_SOUND = 43;
+	static final String FLAT = "texs/S.png";
+	
 	@Override
 	public EngineOptions onSetupEngine() {
 		EngineOptions opt = new EngineOptions(new String[]{
-				"data/",FLAT2}, 960, 540);
+				"data/",FLAT}, 960, 540);
 		opt.configFile = "info.u250.digs.cfg";
 		opt.useGL20 = true;
 		opt.autoResume = true;
@@ -53,12 +52,10 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("BigFont", "data/fnt/big.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
-//		reg.font("PassFont", "data/fnt/pass.fnt");
 		
 		reg.particleEffect("Effect", "data/all.pp");
 		
-//		reg.texture("Texture", FLAT);
-		reg.texture("Texture2", FLAT2);
+		reg.texture("Texture2", FLAT);
 		
 		reg.music("MusicBackground", "data/music/bg.ogg");
 		reg.music("MusicBattle", "data/music/battle.ogg");
@@ -87,10 +84,6 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundNewContrib", "data/sounds/newcon.ogg");
 		
 		reg.sound("SoundLvl5Bang", "data/sounds/lvl5-bang.ogg");
-	
-		for(int soundIdx=1;soundIdx<=LINGO_SOUND;soundIdx++){
-			reg.sound("SoundEnv"+soundIdx, "data/sounds/env/lingo"+soundIdx+".ogg");
-		}
 	}
 
 	public void setToStartUpScene(){

@@ -1,28 +1,74 @@
 package info.u250.digs;
 
-import java.util.Random;
-
-import com.badlogic.gdx.utils.async.AsyncExecutor;
-
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
+import info.u250.c2d.engine.load.Loading.LoadingComplete;
+import info.u250.c2d.engine.load.in.InGameLoading;
+import info.u250.c2d.engine.resources.AliasResourceManager;
+
+import java.util.Random;
+
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.async.AsyncExecutor;
 
 
 public class Digs extends Engine {
+	public static final Random RND = new Random();
+	private static final int LINGO_SOUND = 43;
+	private static AsyncExecutor executor = new AsyncExecutor(1);
+	private static GooglePlayServiceResolver googlePlayServiceResolver;
+	
+	
+	public Digs(GooglePlayServiceResolver googlePlayServiceResolver){
+		Digs.googlePlayServiceResolver = googlePlayServiceResolver;
+	}
 
+	//the google game play service interface 
+	public static GooglePlayServiceResolver getGPSR() {
+		return googlePlayServiceResolver;
+	}
+	//this is used for level load
+	public static AsyncExecutor getExecutor() {
+		return executor;
+	}
+	//delay load the npc's sound , because its so many and is not needed at the boot time
+	public static void delayPlayActorSound(){
+		final int soundIdx = RND.nextInt(LINGO_SOUND)+1;
+		final String soundHandel = "SoundEnv"+soundIdx;
+		Sound sound = Engine.resource(soundHandel);
+		if(null == sound){
+			Engine.load(new String[]{"snd/lingo"+soundIdx+".ogg"},new LoadingComplete() {
+				@Override
+				public void onReady(AliasResourceManager<String> reg) {
+					reg.sound(soundHandel, "snd/lingo"+soundIdx+".ogg");
+					Engine.getSoundManager().playSound(soundHandel);
+				}
+			});
+		}else{
+			Engine.getSoundManager().playSound(soundHandel);
+		}
+	}
+	///////////////////////////////////////////////////////////////////////////
 	@Override
 	protected EngineDrive onSetupEngineDrive() {
 		return new DigsEngineDrive();
 	}
-
+	//do nothing at in game loading
+	@Override
+	protected InGameLoading getInGameLoading(){
+		return new InGameLoading() {
+			@Override
+			protected void inLoadingRender(float delta) {				
+			}
+			@Override
+			protected void finishLoadingCleanup() {				
+			}
+		};
+	}
 	@Override
 	public void dispose() {
 		executor.dispose();
 		super.dispose();
 	}
-	static AsyncExecutor executor = new AsyncExecutor(1);
-	public static AsyncExecutor getExecutor() {
-		return executor;
-	}
-	public static final Random RND = new Random();
+	
 }

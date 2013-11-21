@@ -41,7 +41,7 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		layout = new RelativeLayout(this);
 		loadingView = LayoutInflater.from(this).inflate(R.layout.loading,null);
 		
-		ApplicationListener game = new Digs(){
+		ApplicationListener game = new Digs(this){
 			@Override
 			protected StartupLoading getStartupLoading() {
 				return new StartupLoading() {

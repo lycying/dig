@@ -2,7 +2,6 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
-import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.Proverb;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.Npc.NpcStatus;
@@ -64,7 +63,7 @@ public class FollowLabel extends Group{
 				npc = level.getRandomNpc();
 				if(null != npc){
 					npc.setVelocity(16);
-					Engine.getSoundManager().playSound("SoundEnv"+(Digs.RND.nextInt(DigsEngineDrive.LINGO_SOUND)+1));
+					Digs.delayPlayActorSound();
 				}
 			}
 		}
