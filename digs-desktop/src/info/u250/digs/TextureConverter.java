@@ -28,7 +28,7 @@ public class TextureConverter {
 					"\n" + 
 					"import com.badlogic.gdx.math.Polygon;\n" + 
 					"\n" + 
-					"public final class PolygonTable {\n");
+					"public final class PolygonTable {private PolygonTable(){}\n");
 
 			final String path = "E:\\codes\\dig\\digs-desktop\\polygon_shape";
 			@Override
@@ -55,13 +55,14 @@ public class TextureConverter {
 						Array<Vector2> outline = TextureConverter.createPolygon(array, w, h);
 						buffer.append("public static final Polygon ");
 						buffer.append(file.getName().split(".png")[0].toUpperCase());
-						buffer.append("=new Polygon(new float[]{");
+						buffer.append("(){");
+						buffer.append("return new Polygon(new float[]{");
 						for(Vector2 v:outline){
 							buffer.append(v.x+"f,");
 							buffer.append(v.y+"f,");
 						}
-						buffer.append("});\n");
-						
+						buffer.append("});");
+						buffer.append("}\n");
 
 						
 					}catch(Exception ex){

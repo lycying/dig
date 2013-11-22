@@ -53,7 +53,7 @@ public class Tour9 extends LevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 					gold.setColor(Color.CLEAR);
-					Polygon polygon =  PolygonTable.IMG_ISLAND2;
+					Polygon polygon =  PolygonTable.IMG_ISLAND2();
 					polygon.setScale(3f,1f);
 					polygon.setPosition(350, 50);
 					drawPolygon(polygon, terr);
@@ -61,7 +61,7 @@ public class Tour9 extends LevelConfig {
 				
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.CAKE_7;
+					Polygon polygon =  PolygonTable.CAKE_7();
 					polygon.setScale(0.5f,0.5f);
 					polygon.setPosition(700, 100);
 					drawPolygon(polygon, gold);

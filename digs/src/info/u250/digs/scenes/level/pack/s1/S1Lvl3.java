@@ -69,14 +69,14 @@ public class S1Lvl3 extends LevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 					terr.setColor(Color.CLEAR);
-					Polygon polygon =  PolygonTable.SPRITZ_128;
+					Polygon polygon =  PolygonTable.SPRITZ_128();
 					polygon.setScale(0.5f, 0.5f);
 					polygon.setPosition(150, 150);
 					drawPolygon(polygon, terr);
 				}
 				{
 					terr.setColor(Color.CLEAR);
-					Polygon polygon =  PolygonTable.SQUIDGE_128;
+					Polygon polygon =  PolygonTable.SQUIDGE_128();
 					polygon.setScale(0.5f, 0.5f);
 					polygon.setPosition(700, 150);
 					drawPolygon(polygon, terr);

@@ -46,13 +46,13 @@ public class Tour5 extends LevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{gold.setColor(Color.CYAN);
-				Polygon polygon =  PolygonTable.BLACK_CAT;
+				Polygon polygon =  PolygonTable.BLACK_CAT();
 				polygon.setScale(2f,2f);
 				polygon.setPosition(550, 100);
 				drawPolygon(polygon, gold);}
 				{
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.CAKE_7;
+				Polygon polygon =  PolygonTable.CAKE_7();
 				polygon.setScale(1f,1f);
 				polygon.setPosition(700, 100);
 				drawPolygon(polygon, gold);

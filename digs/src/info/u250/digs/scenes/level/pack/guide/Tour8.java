@@ -53,7 +53,7 @@ public class Tour8 extends LevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				gold.setColor(Color.CLEAR);
-				Polygon polygon =  PolygonTable.IMG_ISLAND1;
+				Polygon polygon =  PolygonTable.IMG_ISLAND1();
 				polygon.setScale(3f,1f);
 				polygon.setPosition(350, 50);
 				drawPolygon(polygon, terr);

@@ -56,21 +56,21 @@ public class S1Lvl5 extends LevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.WARRIOR_BY_ANIMATEDARCTICSTUDIO_D69O6JL;
+					Polygon polygon =  PolygonTable.WARRIOR_BY_ANIMATEDARCTICSTUDIO_D69O6JL();
 					polygon.setScale(0.4f, 0.4f);
 					polygon.setPosition(200, 100);
 					drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.PEOPLEXXXXX;
+					Polygon polygon =  PolygonTable.PEOPLEXXXXX();
 					polygon.setScale(1f, 1f);
 					polygon.setPosition(700, 50);
 					drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(Color.WHITE);
-					Polygon polygon =  PolygonTable.WONDER_PART_6;
+					Polygon polygon =  PolygonTable.WONDER_PART_6();
 					polygon.setScale(2f, 1f);
 					polygon.setPosition(500, 450);
 					drawPolygon(polygon, gold);

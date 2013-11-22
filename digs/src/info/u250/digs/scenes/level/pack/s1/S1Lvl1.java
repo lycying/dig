@@ -44,35 +44,35 @@ public class S1Lvl1 extends LevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.FROG;
+				Polygon polygon =  PolygonTable.FROG();
 				polygon.setScale(0.4f, 0.4f);
 				polygon.setPosition(400, 100);
 				drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.BABELFISH;
+					Polygon polygon =  PolygonTable.BABELFISH();
 					polygon.setScale(0.4f, 0.4f);
 					polygon.setPosition(800, 200);
 					drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.IMG_ISLAND8;
+					Polygon polygon =  PolygonTable.IMG_ISLAND8();
 					polygon.setScale(0.4f, 0.4f);
 					polygon.setPosition(600, 150);
 					drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(WebColors.DARK_SALMON.get());
-					Polygon polygon =  PolygonTable.CLIFFA_2;
+					Polygon polygon =  PolygonTable.CLIFFA_2();
 					polygon.setScale(2f, 2f);
 					polygon.setPosition(0, 0);
 					drawPolygon(polygon, gold);
 				}
 				{
 					gold.setColor(WebColors.DARK_GRAY.get());
-					Polygon polygon =  PolygonTable.WONDER_PART_2;
+					Polygon polygon =  PolygonTable.WONDER_PART_2();
 					polygon.setScale(3f, 1f);
 					polygon.setPosition(0, 0);
 					drawPolygon(polygon, gold);

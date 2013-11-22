@@ -79,7 +79,7 @@ public class Tour4 extends LevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.BLACK_CAT;
+				Polygon polygon =  PolygonTable.BLACK_CAT();
 				polygon.setScale(0.3f, 0.3f);
 				polygon.setPosition(750, 400);
 				drawPolygon(polygon, gold);
