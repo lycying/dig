@@ -9,19 +9,20 @@ import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.level.LevelPack;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -204,10 +205,25 @@ public class LevelScene extends SceneStage {
 		levelPack.setPosition(840, 100);
 		this.addActor(levelPack);
 		
-		final Image g_plus = new Image(atlas.findRegion("g+"));
-		g_plus.setPosition(50, 50);
-		this.addActor(g_plus);
+		KillCircleEntity kill = new KillCircleEntity(-80, -80, 120, Color.CYAN);
+		this.addActor(kill);
+		KillCircleEntity kill2 = new KillCircleEntity(0, 60, 60, Color.WHITE);
+		this.addActor(kill2);
+		KillCircleEntity kill3 = new KillCircleEntity(60, 60, 40, Color.YELLOW);
+		this.addActor(kill3);
 		
+		
+		Button button = new Button(new TextureRegionDrawable(atlas.findRegion("btn-achievements-1")), new TextureRegionDrawable(atlas.findRegion("btn-achievements-2")), null);
+		button.setPosition(0, 120);
+		button.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
+				Digs.getGPSR().gpsShowAchievement();
+				super.clicked(event, x, y);
+			}
+		});
+		this.addActor(button);
 	}
 	
 	public void startLevel(int pack,int level){

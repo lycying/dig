@@ -209,32 +209,9 @@ public class LevelIdx {
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){
 		RefreshableLevelTable table = new RefreshableLevelTable(1);
-		BitmapFont font = Engine.resource("BigFont");
-		TextureAtlas atlas = Engine.resource("All");
+		
 		{
-			Table tb = new Table();
-			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
-			tb.add(new Image(atlas.findRegion("lvl-mv-1")));
-			tb.add(new Label("I wakeup at somewhere...",new LabelStyle(font,Color.WHITE))).minWidth(500);
-			TextButtonStyle style = new TextButtonStyle(
-					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), 
-					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), null, font);
-			style.fontColor = Color.BLACK;
-			style.downFontColor = Color.RED;
-			final TextButton view = new TextButton("View",style);
-			view.pack();
-			view.padTop(20);
-			view.padBottom(20);
-			tb.add(view);
-			tb.pack();
-			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
-			view.addListener(new ClickListener(){
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					Engine.setMainScene(new Mv1Scene(lvlSce));
-					super.clicked(event, x, y);
-				}
-			});
+			table.add().align(BaseTableLayout.LEFT).padTop(60).row();
 		}
 		{
 			for(int i=0;i<Level_String[1].length;i++){

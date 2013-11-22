@@ -16,7 +16,7 @@ public class FireDeco extends Group{
 		
 		ParticleEffect e = Engine.resource("Effect");
 		ParticleEffectActor p = new ParticleEffectActor(e,"fire");
-		p.setPosition(15, 30);
+		p.setPosition(36, 40);
 		this.addActor(p);
 	}
 }

@@ -91,8 +91,4 @@ public class LevelConfig {
 			level.addGoldDock(dock);
 		}
 	};
-	
-	public String getGPSRId(){
-		return "leaderboard_pack"+pack+"_lvl"+idx;
-	}
 }

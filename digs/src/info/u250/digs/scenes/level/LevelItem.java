@@ -2,6 +2,7 @@ package info.u250.digs.scenes.level;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
+import info.u250.digs.Digs;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
@@ -25,9 +26,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 public class LevelItem extends  Group{
 	private int pack;
 	private int level;
-	Button menu_play;
-	Image lock,pass;
-	Label title;
+	final Button menu_play;
+	final Image lock,pass,leaderboard,bg;
+	final Label title,levelNumber;
 	static ParticleEffectActor current = null;
 	public LevelItem(final LevelScene levelScene,final int pack,final int level ,String levelName){
 		this.pack = pack;
@@ -36,7 +37,7 @@ public class LevelItem extends  Group{
 		this.setSize(680, 80);
 		TextureAtlas atlas = Engine.resource("All");
 		//background
-		final Image bg = new Image( atlas.createPatch("level-item-bg-3"));
+		bg = new Image( atlas.createPatch("level-item-bg-3"));
 		switch(pack){
 		case 0:
 			bg.setColor(WebColors.AQUA.get());
@@ -52,7 +53,6 @@ public class LevelItem extends  Group{
 		
 		//title
 		title = new Label(levelName,new LabelStyle(Engine.resource("MenuFont",BitmapFont.class),Color.YELLOW));
-		title.setPosition(90, 15);
 		
 		
 		
@@ -91,8 +91,16 @@ public class LevelItem extends  Group{
 		
 		lock = new Image(atlas.findRegion("lock"));
 		pass = new Image(atlas.findRegion("pass"));
-		lock.setPosition(45, 15);
-		pass.setPosition(45, 15);
+		leaderboard = new Image(atlas.findRegion("leaderboards"));
+		leaderboard.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
+				Digs.getGPSR().gpsShowLeaderboard(IO.getLeaderboardHandel(pack, level));
+				super.clicked(event, x, y);
+			}
+		});
+		
 		if(null == current){
 			ParticleEffect e = Engine.resource("Effect");
 			current = new ParticleEffectActor(e, "fire");
@@ -102,7 +110,7 @@ public class LevelItem extends  Group{
 		this.addActor(bg);
 		this.addActor(title);
 		
-		Label levelNumber = new Label(""+(level+1),new LabelStyle(bigFont,Color.WHITE));
+		levelNumber = new Label(""+(level+1),new LabelStyle(bigFont,Color.WHITE));
 		NinePatch  patch = atlas.createPatch("level-item-bg-4");
 		levelNumber.getStyle().background = new NinePatchDrawable(patch);
 		levelNumber.pack();
@@ -128,6 +136,8 @@ public class LevelItem extends  Group{
 		pass.remove();
 		lock.remove();
 		menu_play.remove();
+		leaderboard.remove();
+		
 		title.getStyle().fontColor = Color.YELLOW;
 		if(pack == 0 || currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
 			this.addActor(pass);
@@ -149,5 +159,24 @@ public class LevelItem extends  Group{
 		}else{
 			this.addActor(lock);
 		}
+		
+		title.setPosition(90, 15);
+		lock.setPosition(45, 15);
+		pass.setPosition(45, 15);
+		levelNumber.setPosition(0, 0);
+		bg.setPosition(0, 0);
+		bg.setSize(this.getWidth(), this.getHeight());
+		
+		if(pack>0){
+			title.setPosition(160, 15);
+			lock.setPosition(115, 15);
+			pass.setPosition(115, 15);
+			levelNumber.setPosition(70, 0);
+			leaderboard.setPosition(10, 10);
+//			bg.setPosition(70, 0);
+//			bg.setSize(this.getWidth()-70, this.getHeight());
+			this.addActor(leaderboard);
+		}
+		
 	}
 }

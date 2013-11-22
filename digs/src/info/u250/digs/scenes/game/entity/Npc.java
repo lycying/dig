@@ -36,7 +36,7 @@ public class Npc extends AbstractMoveable {
 	public static float TRANS_SOUND_CTL = 0;
 	public static float COIN_SOUND_CTL = 0;
 	
-	static final float N_WIDTH = 10.5f;
+	static final float N_WIDTH = 14f;
 	public Npc(){
 		int themeID = Digs.RND.nextInt(5)+1;
 		TextureAtlas atlas = Engine.resource("All");

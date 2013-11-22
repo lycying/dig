@@ -25,7 +25,7 @@ public class S1Lvl3 extends LevelConfig {
 		this.topColor = WebColors.BLACK.get();
 		this.lineHeight = 360;
 		this.segment = 10;
-		this.gold = 200;
+		this.gold = 0;
 		this.npc = 2;
 		this.ka = 30;
 		this.time = 60*5;

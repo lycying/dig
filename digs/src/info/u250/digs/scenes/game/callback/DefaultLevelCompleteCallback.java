@@ -71,7 +71,7 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		win = true;
 		
 		int score = level.config.time - level.getGame().leastTime();
-		String handel = level.config.getGPSRId();
+		String handel = IO.getLeaderboardHandel(level.config.pack, level.config.idx);
 		
 		IO.win(handel, score, false);
 	}
