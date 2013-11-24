@@ -70,10 +70,8 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		Engine.getSoundManager().playSound("SoundWin");
 		win = true;
 		
-		int score = level.config.time - level.getGame().leastTime();
-		String handel = IO.getLeaderboardHandel(level.config.pack, level.config.idx);
-		
-		IO.win(handel, score, false);
+		int score = level.config.time - level.getGame().leastTime();		
+		IO.win(level.config.pack,level.config.idx, score, false);
 	}
 	void fail(Level level){		
 		Engine.getSoundManager().playSound("SoundFail");

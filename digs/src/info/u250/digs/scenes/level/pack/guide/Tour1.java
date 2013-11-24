@@ -28,7 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  */
 public class Tour1 extends LevelConfig {
 	public Tour1(){
-		this.surface = "texs/brown091.png";
+		this.surface = "qvg/000.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
@@ -37,7 +37,7 @@ public class Tour1 extends LevelConfig {
 		this.segment = 1;
 		this.gold = 1;// once you got a gold , you win!
 		this.time = 3*60;
-		this.npc = 5;
+		this.npc = 1;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

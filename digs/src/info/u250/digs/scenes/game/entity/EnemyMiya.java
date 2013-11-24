@@ -2,6 +2,7 @@ package info.u250.digs.scenes.game.entity;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
+import info.u250.digs.scenes.game.Level.FingerMode;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -41,7 +42,7 @@ public class EnemyMiya extends AbstractMoveable {
 		if (x < 8) direction = 1;//edge
 		if (x > level.getWidth() - 10) direction = -1;//edge
 		if (y < 8){
-			y = Engine.getHeight()+100;//reborn , never try to kill a enemy , you cann't
+			y = level.getHeight()+100;//reborn , never try to kill a enemy , you cann't
 			//not die
 		}
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
@@ -95,9 +96,29 @@ public class EnemyMiya extends AbstractMoveable {
 				}
 			}
 		}
+		if(-1==preX){
+			preX = x;
+			preY = y;
+		}else{
+			if(x == preX && y == preY){
+				noChangeTime++;
+				if(noChangeTime>50){//woo this number is so magic , but i donot want to change it to static
+					Engine.getSoundManager().playSound("SoundBossBreak");
+					level.fillTerrain(getX(), getY()+(Digs.RND.nextBoolean()?Digs.RND.nextFloat()*20:-Digs.RND.nextFloat()*5), 12, FingerMode.Clear);
+					noChangeTime = 0;
+					preX = -1;
+					preY = -1;
+				}
+			}else{
+				noChangeTime = 0;
+				preX = -1;
+				preY = -1;
+			}
+		}
 		sync();
 	}
-
+	int noChangeTime = 0;
+	float preX = -1,preY = -1;
 	final Vector2 tmp = new Vector2();
 	boolean tryKillNpcAndKa(){
 		for(Npc e:level.getNpcs()){

@@ -286,81 +286,7 @@ public class StartUpScene extends SceneStage{
 //		for(String s:file.list()){
 //			System.out.println("texs.add(\"texs/"+s+"\");");
 //		}
-		texs.add("texs/ALIN.png");
-		texs.add("texs/BrickRound.jpg");
-		texs.add("texs/brown002.jpg");
-		texs.add("texs/brown063.jpg");
-		texs.add("texs/brown091.png");
-		texs.add("texs/brown094.jpg");
-		texs.add("texs/brown096.jpg");
-		texs.add("texs/brown138.jpg");
-		texs.add("texs/brown155.jpg");
-		texs.add("texs/brown156.jpg");
-		texs.add("texs/brown169.gif");
-		texs.add("texs/brown178.png");
-		texs.add("texs/checker-mush.jpg");
-		texs.add("texs/cobblestonesDepth.gif");
-		texs.add("texs/cobblestonesDiffuse.gif");
-		texs.add("texs/dgrey038.jpg");
-		texs.add("texs/Dirt.png");
-		texs.add("texs/DirtGrass.png");
-		texs.add("texs/DSRT.png");
-		texs.add("texs/flower.png");
-		texs.add("texs/fluorescent-infection.jpg");
-		texs.add("texs/frog-land.jpg");
-		texs.add("texs/green-monkeyskin.jpg");
-		texs.add("texs/green013.jpg");
-		texs.add("texs/green020.jpg");
-		texs.add("texs/green035.gif");
-		texs.add("texs/green057.jpg");
-		texs.add("texs/green058.jpg");
-		texs.add("texs/green073.jpg");
-		texs.add("texs/green080.jpg");
-		texs.add("texs/green090.jpg");
-		texs.add("texs/green092.png");
-		texs.add("texs/Leather.jpg");
-		texs.add("texs/lgren008.jpg");
-		texs.add("texs/lgrey014.jpg");
-		texs.add("texs/lgrey027.jpg");
-		texs.add("texs/lgrey030.jpg");
-		texs.add("texs/lgrey046.jpg");
-		texs.add("texs/lgrey062.jpg");
-		texs.add("texs/lgrey074.jpg");
-		texs.add("texs/lgrey087.gif");
-		texs.add("texs/lgrey089.gif");
-		texs.add("texs/lgrey127.gif");
-		texs.add("texs/lgrey133.jpg");
-		texs.add("texs/LoamWalls.jpg");
-		texs.add("texs/MetalGalvanized.jpg");
-		texs.add("texs/micro-clorophyl.jpg");
-		texs.add("texs/multi035.jpg");
-		texs.add("texs/multi270.jpg");
-		texs.add("texs/multi272.jpg");
-		texs.add("texs/pink020.jpg");
-		texs.add("texs/pink029.jpg");
-		texs.add("texs/pink076.jpg");
-		texs.add("texs/pink079.gif");
-		texs.add("texs/pink095.jpg");
-		texs.add("texs/pink101.jpg");
-		texs.add("texs/planet-gravel.jpg");
-		texs.add("texs/purpl043.jpg");
-		texs.add("texs/purpl045.gif");
-		texs.add("texs/purpl046.gif");
-		texs.add("texs/purpl053.gif");
-		texs.add("texs/purpl055.gif");
-		texs.add("texs/purpl075.jpg");
-		texs.add("texs/purpl192.jpg");
-		texs.add("texs/RockLayered.jpg");
-		texs.add("texs/Rust.jpg");
-		texs.add("texs/simple-greenish.jpg");
-		texs.add("texs/skinny-reptile.jpg");
-		texs.add("texs/solitary-moss.jpg");
-		texs.add("texs/Stone.jpg");
-		texs.add("texs/stone57.gif");
-		texs.add("texs/stonewallDepth.gif");
-		texs.add("texs/trigger-turf.jpg");
-		texs.add("texs/water-sheets.jpg");
-		texs.add("texs/wood-emboss.jpg");
+		texs.add("qvg/000.png");
 	}
 	int texs_index = -1;
 	void genTerrain(){
@@ -405,7 +331,7 @@ public class StartUpScene extends SceneStage{
 			}
 		};
 		if(-1==texs_index){
-			config.surface = "texs/brown063.jpg";
+			config.surface = "qvg/0.jpg";
 			texs_index++;
 		}else{
 			config.surface = texs.get(new java.util.Random().nextInt(texs.size()));

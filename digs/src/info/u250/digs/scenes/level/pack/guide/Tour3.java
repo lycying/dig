@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  */
 public class Tour3 extends LevelConfig {
 	public Tour3(){
-		this.surface = "texs/Leather.jpg";
+		this.surface = "qvg/002.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();

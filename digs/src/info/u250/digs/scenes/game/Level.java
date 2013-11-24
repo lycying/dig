@@ -150,7 +150,7 @@ public class Level extends Group{
 		this.addActor(new FollowLabel(this));
 		
 		if(null!=game){
-			this.addActor(new WaterActor(24, new Color(1,0,0,0.4f), new Color(1,0,0,0.4f)));
+			this.addActor(new WaterActor(24, new Color(1,0,0,0.6f), new Color(1,0,0,0.6f)));
 			game.levelCallback();
 		}
 	}
@@ -401,6 +401,7 @@ public class Level extends Group{
 	}
 	/* dispose everything to clear the memory */
 	public void dispose(){
+		if(null!=config)config.levelMakeCallback.dispose();
 		if(null!=goldTerrain)goldTerrain.dispose();
 		if(null!=terrain)terrain.dispose();
 		mapMaking = true;

@@ -11,7 +11,7 @@ import info.u250.digs.scenes.StartUpScene;
 
 public class DigsEngineDrive implements EngineDrive {
 
-	static final String FLAT = "texs/S.png";
+	static final String FLAT = "paint/S.png";
 	
 	@Override
 	public EngineOptions onSetupEngine() {
@@ -43,8 +43,9 @@ public class DigsEngineDrive implements EngineDrive {
 		aboutScene = new AboutScene(this);
 		
 		Engine.setMainScene(startUpScene);
-		
-		Digs.delayPlayActorSound();
+//		gameScene.startLevel(1, 2);
+//		Engine.setMainScene(gameScene);
+//		Digs.delayPlayActorSound();
 	}
 
 	@Override

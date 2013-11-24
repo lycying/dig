@@ -47,6 +47,7 @@ public class Ka extends AbstractMoveable {
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
+		tryGoldDock();
 	
 		// when the NPC is jumping
 		if (velocity > 1) { 
@@ -102,6 +103,14 @@ public class Ka extends AbstractMoveable {
 			}
 		}
 		return false;
+	}
+	void tryGoldDock(){
+		for(GoldTowerEntity dock:level.getDocks()){
+			if(dock.getRect().overlaps(this.drawable.getBoundingRectangle())){
+				direction*=-1;
+				break;
+			}
+		}
 	}
 	@Override
 	public void die() {

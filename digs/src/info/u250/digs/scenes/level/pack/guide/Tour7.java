@@ -22,10 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
  */
 public class Tour7 extends LevelConfig {
 	public Tour7(){
-		this.surface = "texs/baobao2.jpg";
+		this.surface = "qvg/006.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight()+400;
-		this.bottomColor = WebColors.LIME_GREEN.get();
+		this.bottomColor = WebColors.SEA_GREEN.get();
 		this.topColor = WebColors.BLACK.get();
 		this.lineHeight = 300+400;
 		this.segment = 1;

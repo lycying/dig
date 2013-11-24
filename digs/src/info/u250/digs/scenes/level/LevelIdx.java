@@ -15,10 +15,15 @@ import info.u250.digs.scenes.level.pack.guide.Tour7;
 import info.u250.digs.scenes.level.pack.guide.Tour8;
 import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl10;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl4;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl5;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl6;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl7;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl8;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl9;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -154,6 +159,21 @@ public class LevelIdx {
 			break;
 		case 4:
 			config = new S1Lvl5();
+			break;
+		case 5:
+			config = new S1Lvl6();
+			break;
+		case 6:
+			config = new S1Lvl7();
+			break;
+		case 7:
+			config = new S1Lvl8();
+			break;
+		case 8:
+			config = new S1Lvl9();
+			break;
+		case 9:
+			config = new S1Lvl10();
 			break;
 		}
 		return config;

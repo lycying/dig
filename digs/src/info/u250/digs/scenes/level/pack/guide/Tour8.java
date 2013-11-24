@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class Tour8 extends LevelConfig {
 	public Tour8(){
-		this.surface = "texs/aiji.jpg";
+		this.surface = "qvg/007.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.DARK_CYAN.get();

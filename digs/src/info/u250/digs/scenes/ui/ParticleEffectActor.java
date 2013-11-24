@@ -2,6 +2,7 @@ package info.u250.digs.scenes.ui;
 
 import info.u250.c2d.engine.Engine;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
@@ -19,6 +20,20 @@ public class ParticleEffectActor extends Actor {
 		}
 	}
 
+	@Override
+	public void setColor(Color color) {
+		for(ParticleEmitter e:this.emitter.getEmitters()){
+			if(e.getTint().getColors().length != 3)return;
+			float[] colors = new float[e.getTint().getColors().length];
+			for(int i=0;i<colors.length;i+=3){
+				colors[i] = color.r;
+				colors[i+1] = color.g;
+				colors[i+2] = color.b;
+			}
+			e.getTint().setColors(colors);
+		}
+		super.setColor(color);
+	}
 	public ParticleEffect getEmitter() {
 		return emitter;
 	}

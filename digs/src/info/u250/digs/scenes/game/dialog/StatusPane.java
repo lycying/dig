@@ -61,13 +61,21 @@ public class StatusPane extends Table{
 		timer.setPause(false);
 	}
 	public void update(Level level){
-		if(level.config.ka>0)this.lblKa.setText(level.getKas().size+"");
+		if(level.config.ka>0){
+			count = 0;
+			for(GoldTowerEntity dock:level.getDocks()){
+				count+=dock.getKaNumber();
+			}
+			this.lblKa.setText(count+"/"+level.config.ka);
+		}
 		this.lblNpc.setText(level.getNpcs().size+"");
 		count = 0;
 		for(GoldTowerEntity dock:level.getDocks()){
 			count+=dock.getNumber();
 		}
-		this.lblGold.setText(count+"");
+		if(level.config.gold>0){
+			this.lblGold.setText(level.config.gold+"("+count+")");
+		}
 	}
 	public void show(Level level){
 		this.clear();

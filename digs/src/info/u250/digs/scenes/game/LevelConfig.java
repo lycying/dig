@@ -25,7 +25,7 @@ public class LevelConfig {
 	public int enemy = -1;
 	//the second : time up !!!
 	public int time = -1; 
-	public String surface = "texs/purpl043.jpg";
+	public String surface = "qvg/000.png";
 	public Color bottomColor = null;
 	public Color topColor = null;
 	
@@ -34,6 +34,7 @@ public class LevelConfig {
 	
 	public int lineHeight = 450;
 	public int segment = 8;
+	public int ascent = 50;
 	
 	public LevelCompleteCallback levelCompleteCallback = new DefaultLevelCompleteCallback();
 	public LevelMakeCallBack levelMakeCallback = new LevelMakeCallBack() {

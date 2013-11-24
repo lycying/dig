@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.Vector2;
 
 final class LevelPixmapMaker {
 	static final Vector2 tmpV = new Vector2();
-	static final int RND_Height  = 50;
 	static final CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();
 	
 	public static final Pixmap[] gen(LevelConfig config){
@@ -77,7 +76,7 @@ final class LevelPixmapMaker {
 			Vector2[] controlPoints = new Vector2[segment];
 			controlPoints[0] = new Vector2(0,lineHeight);
 			for(int i=1;i<segment;i++){
-				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(RND_Height)+lineHeight);
+				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(config.ascent)+lineHeight);
 			}
 			spline.set(controlPoints, true);
 
@@ -112,11 +111,9 @@ final class LevelPixmapMaker {
 		}
 //		}
 		
-		
-		
 		/////////////////////////////////////////////////////////////////////////////////////
 		Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);
-		Pixmap.setBlending(Blending.None);
+		
 		if(null!=config.levelMakeCallback){
 			config.levelMakeCallback.mapMaker(terMap, gdMap);
 		}

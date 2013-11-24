@@ -19,12 +19,13 @@ public class WaterActor extends Actor{
 		accum += delta;
 		if(accum>0.5f){
 			accum -=0.5f;
-			water.splash(Engine.getWidth()*Digs.RND.nextFloat(), 30f*Digs.RND.nextFloat());
+			water.splash(Engine.getWidth()*Digs.RND.nextFloat(), 80f*Digs.RND.nextFloat());
 		}
 		water.update(delta);
 	}
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		water.setyOffset(this.getParent().getY());
 		batch.end();
 		water.draw();
 		batch.begin();

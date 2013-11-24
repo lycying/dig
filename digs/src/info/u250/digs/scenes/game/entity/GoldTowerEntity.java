@@ -40,6 +40,7 @@ public class GoldTowerEntity extends Group{
 		this.addActor(dock);
 		
 		this.gold = new Sprite(Engine.resource("All",TextureAtlas.class).findRegion("gold"));
+		this.gold.setSize(8, 8);
 		this.max = (int)((dock.getWidth()-8)/(this.gold.getWidth()));
 	}
 	@Override
@@ -60,7 +61,7 @@ public class GoldTowerEntity extends Group{
 					break;
 				}
 			}
-			gold.setPosition(2*j+this.getX()+i*gold.getWidth()+4, this.getY()+dock.getHeight()+dock.getY()+gold.getHeight()*j-8);
+			gold.setPosition(4*j+this.getX()+i*gold.getWidth()+4, this.getY()+dock.getHeight()+dock.getY()+gold.getHeight()*j-8);
 			gold.draw(batch);
 			bak--;
 			i++;

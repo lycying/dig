@@ -64,7 +64,7 @@ public class GameScene extends SceneStage {
 		scroll.setFlickScroll(false);
 		scroll.setFadeScrollBars(false);
 		scroll.setOverscroll(false, false);
-		scroll.setScrollbarsOnTop(false);
+		scroll.setScrollbarsOnTop(true);
 		scroll.setScrollBarPositions(true, false);
 		
 		pauseButton = new Image(new TextureRegionDrawable(atlas.findRegion("pause")));

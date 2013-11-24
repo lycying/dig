@@ -71,7 +71,8 @@ public class IO {
 		Engine.getPreferences().flush();
 	}
 	//*******************************For Level**********************
-	public static void  win(String handel,int score,boolean desc){
+	public static void  win(int pack,int level,int score,boolean desc){
+		final String handel = getLeaderboardHandel(pack, level);
 		int pre_score = Engine.getPreferences().getInteger(handel);
 		if(desc){
 			if(pre_score<score){

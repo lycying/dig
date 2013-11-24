@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class Water {
+	float yOffset = 0;
 	static final class WaterColumn {
 		public float TargetHeight;
 		public float Height;
@@ -78,6 +79,10 @@ public class Water {
 		}
 
 	}
+	Vector2 p1 = new Vector2();
+	Vector2 p2 = new Vector2();
+	Vector2 p3 = new Vector2();
+	Vector2 p4 = new Vector2();
 	
 	public void draw() {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -85,10 +90,10 @@ public class Water {
 		Engine.getShapeRenderer().begin(ShapeType.Filled);
 		for (int i = 1; i < columns.length; i++) {
 
-			Vector2 p1 = new Vector2((i - 1) * scale, 0);
-			Vector2 p2 = new Vector2((i - 1) * scale, columns[i - 1].Height);
-			Vector2 p3 = new Vector2(i * scale, columns[i].Height);
-			Vector2 p4 = new Vector2(i * scale, 0);
+			p1.set((i - 1) * scale, yOffset);
+			p2.set((i - 1) * scale, columns[i - 1].Height+yOffset);
+			p3.set(i * scale, columns[i].Height+yOffset);
+			p4.set(i * scale, yOffset);
 
 			renderer.color(color1.r, color1.g, color1.b, color1.a);
 			renderer.vertex(p1.x, p1.y, 0);
@@ -140,4 +145,13 @@ public class Water {
 			deltaAppend -= ACC;
 		}
 	}
+
+	public float getyOffset() {
+		return yOffset;
+	}
+
+	public void setyOffset(float yOffset) {
+		this.yOffset = yOffset;
+	}
+	
 }

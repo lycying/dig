@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class Tour9 extends LevelConfig {
 	public Tour9(){
-		this.surface = "texs/pink029.jpg";
+		this.surface = "qvg/008.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.LIGHT_CORAL.get();

@@ -24,6 +24,9 @@ public class TeleportEntity extends Actor{
 	Path<Vector2> path = null;
 	float len = 0;
 	public TeleportEntity(float inx,float iny,float outx,float outy){
+		this(inx, iny, outx, outy, new Color(1, 1, 1, 0.5f), new Color(0, 1, 0, 0.5f));
+	}
+	public TeleportEntity(float inx,float iny,float outx,float outy,Color color1,Color color2){
 		TextureAtlas atlas = Engine.resource("All",TextureAtlas.class);
 		in = new Animation(0.1f,atlas.findRegion("in1"),
 				atlas.findRegion("in2"),
@@ -58,13 +61,16 @@ public class TeleportEntity extends Actor{
 		
 		path = new Bezier<Vector2>(vpath);
 		last.set(this.getWidth()+8, this.getHeight()+20);
+		
+		this.color1.set(color1);
+		this.color2.set(color2);
 	}
 	Vector2 tmpV1 = new Vector2(Integer.MAX_VALUE,0);
 	Vector2 tmpV2 = new Vector2();
 	Vector2 last = new Vector2();
 	int index =0 ;
-	static final Color COLOR1 = new Color(1, 1, 1, 0.5f);
-	static final Color COLOR2 = new Color(0, 1, 0, 0.5f);
+	final Color color1 = new Color(1, 1, 1, 0.5f);
+	final Color color2 = new Color(0, 1, 0, 0.5f);
 	void renderPath(float delta){
 		index = 0;
 		Gdx.gl.glEnable(GL10.GL_BLEND);
@@ -72,9 +78,9 @@ public class TeleportEntity extends Actor{
 		Engine.getShapeRenderer().begin(ShapeType.Line);
 		for(float t = 0;t<this.getWidth();t+=6+(stateTime%1)*6,index++){
 			if(index%2==0){
-				Engine.getShapeRenderer().setColor(COLOR1);
+				Engine.getShapeRenderer().setColor(color1);
 			}else{
-				Engine.getShapeRenderer().setColor(COLOR2);
+				Engine.getShapeRenderer().setColor(color2);
 			}
 			
 			path.valueAt(tmpV2, t/len);

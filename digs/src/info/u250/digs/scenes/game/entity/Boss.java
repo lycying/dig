@@ -96,7 +96,7 @@ public class Boss extends AbstractMoveable {
 			return;
 		}
 		if(tryKillNpc())return;
-		if(tryKillEnemy())return;
+//		if(tryKillEnemy())return; // do not kill enemy
 		if(tryKillKa())return;
 		delayCount++;
 		// when the NPC is jumping
@@ -197,25 +197,25 @@ public class Boss extends AbstractMoveable {
 		}
 		return false;
 	}
-	boolean tryKillEnemy(){
-		if(delayCount<100) return false;
-		for(EnemyMiya e:level.getEnemyMyiyas()){
-			if(e.readyToDie)continue;
-			if(e.drawable.getBoundingRectangle().overlaps(drawable.getBoundingRectangle())){
-				killWho = KillWho.Enemy;
-				regions = destroyRegions;
-				stopAllDestoryEverything = true;
-				regionsIndex = 0;
-				count = 0;
-				e.readyToDie = true;
-				kill = e;
-				delayCount = 0;
-				kill.addAction(Actions.forever(Actions.sequence(Actions.moveBy(2, 0,0.03f),Actions.moveBy(-2, 0,0.03f))));
-				return true;
-			}
-		}
-		return false;
-	}
+//	boolean tryKillEnemy(){
+//		if(delayCount<100) return false;
+//		for(EnemyMiya e:level.getEnemyMyiyas()){
+//			if(e.readyToDie)continue;
+//			if(e.drawable.getBoundingRectangle().overlaps(drawable.getBoundingRectangle())){
+//				killWho = KillWho.Enemy;
+//				regions = destroyRegions;
+//				stopAllDestoryEverything = true;
+//				regionsIndex = 0;
+//				count = 0;
+//				e.readyToDie = true;
+//				kill = e;
+//				delayCount = 0;
+//				kill.addAction(Actions.forever(Actions.sequence(Actions.moveBy(2, 0,0.03f),Actions.moveBy(-2, 0,0.03f))));
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	public void setBossLandHeight(float bossLandHeight) {
 		this.bossLandHeight = bossLandHeight;
 	}
