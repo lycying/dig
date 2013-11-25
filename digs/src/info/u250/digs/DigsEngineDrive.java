@@ -94,6 +94,8 @@ public class DigsEngineDrive implements EngineDrive {
 		//the boss break the ground
 		reg.sound("SoundBossBreak", "data/sounds/boss-break.ogg");
 		
+		//coins collection
+		reg.sound("SoundCollection", "data/sounds/collection.ogg");
 		//dig sound
 		reg.sound("SoundDig", "data/sounds/dig.ogg");
 		//common die sound , pilipapa

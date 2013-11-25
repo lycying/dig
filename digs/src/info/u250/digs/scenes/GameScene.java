@@ -209,6 +209,9 @@ public class GameScene extends SceneStage {
 		super.draw();
 	}
 	
+	public ScrollPane getScroll() {
+		return scroll;
+	}
 	@Override
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {

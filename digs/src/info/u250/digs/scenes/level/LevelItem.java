@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -22,12 +23,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class LevelItem extends  Group{
 	private int pack;
 	private int level;
-	final Button menu_play;
-	final Image lock,pass,leaderboard,bg;
+	final Button menu_play,leaderboard;
+	final Image lock,pass,bg;
 	final Label title,levelNumber;
 	static ParticleEffectActor current = null;
 	public LevelItem(final LevelScene levelScene,final int pack,final int level ,String levelName){
@@ -91,7 +93,13 @@ public class LevelItem extends  Group{
 		
 		lock = new Image(atlas.findRegion("lock"));
 		pass = new Image(atlas.findRegion("pass"));
-		leaderboard = new Image(atlas.findRegion("leaderboards"));
+		
+		Sprite leaderboardDisabled = atlas.createSprite("leaderboards");
+		leaderboardDisabled.setColor(Color.YELLOW);
+		leaderboard = new Button(
+				new SpriteDrawable(atlas.createSprite("leaderboards")),
+				new SpriteDrawable(leaderboardDisabled));
+		
 		leaderboard.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

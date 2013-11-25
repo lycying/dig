@@ -57,7 +57,17 @@ public class GoldTowerEntity extends Group{
 				j++;
 				i=0;
 				if(j == max){
-					//TODO: collection
+					number = 0;
+					Engine.getSoundManager().playSound("SoundCollection");
+					ParticleEffect e = Engine.resource("Effect");
+					final ParticleEffectActor p = new ParticleEffectActor(e,"golds");
+					p.setPosition(this.getWidth()/2-p.getWidth()/2, 15);
+					p.addAction(Actions.delay(1,Actions.run(new Runnable() {
+						@Override
+						public void run() {
+							p.remove();
+						}
+					})));
 					break;
 				}
 			}

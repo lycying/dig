@@ -144,7 +144,13 @@ public class Npc extends AbstractMoveable {
 								direction *= -1;
 							}
 						}
-						if(Digs.RND.nextInt(3)!=0)velocity = 16;
+						if(Digs.RND.nextInt(3)!=0){
+							if(Digs.RND.nextBoolean()){
+								velocity = 16;
+							}else{
+								velocity = 32;
+							}
+						}
 					}
 				}
 			}
@@ -162,7 +168,7 @@ public class Npc extends AbstractMoveable {
 			break;
 		}
 		
-		switch(level.tryDig(NpcStatus.HoldGold == status)){
+		switch(level.tryDig(NpcStatus.Free == status)){
 		case None:break;
 		case Bomb:
 			die();	
@@ -225,7 +231,7 @@ public class Npc extends AbstractMoveable {
 	boolean tryClampLadder(){
 		for(StepladderEntity ladder:level.getLadders()){
 			if(ladder.getRect().contains(x, y)){
-				if(y>ladder.getRect().y+ladder.getRect().height-10){
+				if(y>ladder.getRect().y+ladder.getRect().height-2){
 					if(velocity==-1){
 						velocity = 16;
 					}

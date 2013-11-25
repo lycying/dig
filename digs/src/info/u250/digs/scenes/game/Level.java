@@ -56,7 +56,6 @@ public class Level extends Group{
 	/*===================For level draw ==================================*/
 	
 	private final Vector2 projPos = new Vector2(); // for pixmap to screen coors
-	private final Vector2 prePos = new Vector2();  // for touch event position
 	
 	public LevelConfig config = null;
 	private GameScene game = null;
@@ -85,41 +84,58 @@ public class Level extends Group{
 	}
 	//fix the multi finger press 
 	private InputListener terrainInput = new InputListener(){
+		Vector2 position = new Vector2();
+		Vector2 posPre = new Vector2();
+		Vector2 vtmp = new Vector2();
+		public void followParentScroll(float yTouchPos,float yAmount){
+			if(null == game) return;
+			if(getHeight()<=Engine.getHeight())return;
+			if(yTouchPos<100 || yTouchPos>Engine.getHeight()-100){
+				game.getScroll().scrollTo(
+						0, 
+						game.getScroll().getScrollY()+yAmount, 
+						game.getScroll().getWidth(),
+						game.getScroll().getHeight());
+			}
+			//OK , scroll it to center
+		}
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
 			if(pointer!=0) return true;
 			if(getTouchable() == Touchable.disabled) return true;
-			prePos.set(x,y);
+			posPre.set(x,y);
+			followParentScroll(y,0);
 			return true;
 		}
 		public void touchDragged(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer) {
 			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
 			
-			Vector2 position = new Vector2();
 			position.set(x,y);
 			
-			float distance = position.dst(prePos);
+			float distance = position.dst(posPre);
 			float step = RADIUS;
 			if (distance>step) {
 				double count = Math.ceil((double) (distance / (step))) - 1;
-				Vector2 vtmp = position.cpy();
-				vtmp.sub(prePos);
+				vtmp.set(position);
+				vtmp.sub(posPre);
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
-					prePos.add(vtmp);
-					fillTerrain(prePos.x-getX(),prePos.y, RADIUS,getFingerMode());
+					posPre.add(vtmp);
+					fillTerrain(posPre.x-getX(),posPre.y, RADIUS,getFingerMode());
+					followParentScroll(y,position.y-posPre.y);
 				}
 			}
 			fillTerrain(position.x-getX(),position.y, RADIUS,getFingerMode());
+			followParentScroll(y,position.y-posPre.y);
 
 			position.set(x,y);
-			prePos.x = position.x;
-			prePos.y = position.y;
+			posPre.x = position.x;
+			posPre.y = position.y;
 		};
 		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
-			prePos.set(0, 0);
+			posPre.set(0, 0);
 		};
 	};
 	
@@ -150,7 +166,7 @@ public class Level extends Group{
 		this.addActor(new FollowLabel(this));
 		
 		if(null!=game){
-			this.addActor(new WaterActor(24, new Color(1,0,0,0.6f), new Color(1,0,0,0.6f)));
+			this.addActor(new WaterActor(24, new Color(1,0,0,0.4f), new Color(1,0,0,0.4f)));
 			game.levelCallback();
 		}
 	}
@@ -297,7 +313,7 @@ public class Level extends Group{
 	}
 	
 	//try dig with a dig result 
-	public DigResult tryDig(boolean holdGold){
+	public DigResult tryDig(boolean isFree){
 		int key = Digs.RND.nextInt(4*11);
 		int ax = key%4*(Digs.RND.nextBoolean()?1:-1);
 		int ay = key%11-2;
@@ -306,7 +322,7 @@ public class Level extends Group{
 		ag = ( goldTerrain.getPixel(projPos.x, projPos.y));
 		if(ag != 0){
 			if(ag == MASK_GOLD){
-				if(!holdGold){
+				if(isFree){
 					dig(2,px+ax,py+ay);
 					return DigResult.Gold;
 				}

@@ -6,12 +6,15 @@ import info.u250.digs.Digs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class WaterActor extends Actor{
 	Water water ;
 	public WaterActor(float height,Color topColor,Color endColor ){
 		water = new Water( 201, height, topColor, endColor);
 		this.setSize(Engine.getWidth(), height);
+		this.clearListeners();
+		this.setTouchable(Touchable.disabled);
 	}
 	float accum = 0;
 	@Override
