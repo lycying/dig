@@ -23,13 +23,13 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl10 extends LevelConfig {
-	public S1Lvl10(){
-		this.surface = "qvg/109.png";
+public class S1Lvl11 extends LevelConfig {
+	public S1Lvl11(){
+		this.surface = "qvg/110.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.DIM_GRAY.get();
-		this.topColor = WebColors.DARK_SLATE_GRAY.get();
+		this.bottomColor = WebColors.DARK_BLUE.get();
+		this.topColor = WebColors.DODGER_BLUE.get();
 		this.lineHeight = 360;
 		this.segment = 40;
 		this.ascent = 20;
@@ -38,7 +38,7 @@ public class S1Lvl10 extends LevelConfig {
 		this.time = 60*5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture bgTexture = new Texture(Gdx.files.internal("wb/island2.png"));
+			final Texture bgTexture = new Texture(Gdx.files.internal("wb/round.png"));
 			@Override
 			public void dispose() {
 				bgTexture.dispose();
@@ -64,11 +64,6 @@ public class S1Lvl10 extends LevelConfig {
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				{
-				
-					drawPixmapDeco(gold, "stone5", 300, 300,0.5f);
-					
-				}
 				{
 					gold.setColor(Color.YELLOW);
 					Polygon polygon =  PolygonTable.IMG_ISLAND6();
@@ -108,8 +103,21 @@ public class S1Lvl10 extends LevelConfig {
 			@Override
 			public void before(Level level) {
 				{
-					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-30,0));
-					pbg.addActor(new ParallaxLayer(pbg, new Image(bgTexture), new Vector2(1f,1), new Vector2(440,1000), new Vector2(0,400)));
+					final Image img1 = new Image(bgTexture);
+					final Image img2 = new Image(bgTexture);
+					final Image img3 = new Image(bgTexture);
+					final Image img4 = new Image(bgTexture);
+					img1.setColor(Color.YELLOW);
+					img2.setColor(Color.GREEN);
+					img3.setColor(Color.PINK);
+					img4.setColor(Color.RED);
+					
+					
+					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(25,50));
+					pbg.addActor(new ParallaxLayer(pbg,img1, new Vector2(1f,1), new Vector2(940,600), new Vector2(100,0)));
+					pbg.addActor(new ParallaxLayer(pbg,img2 , new Vector2(1f,2.2f), new Vector2(940,270), new Vector2(150,0)));
+					pbg.addActor(new ParallaxLayer(pbg,img3 , new Vector2(1f,1.5f), new Vector2(700,560), new Vector2(200,0)));
+					pbg.addActor(new ParallaxLayer(pbg,img4 , new Vector2(1f,2f), new Vector2(600,560), new Vector2(100,0)));
 					level.addActor(pbg);
 				}
 				{

@@ -36,7 +36,7 @@ public class S1Lvl4 extends LevelConfig {
 		this.gold = 50;
 		this.npc = 30;
 		this.ka = 10;
-		this.time = 60*3;
+		this.time = 60*4;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

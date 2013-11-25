@@ -28,7 +28,7 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 				Timer.instance().clear();
 				Engine.getMusicManager().stopMusic("MusicTimer");
 				return true;
-			}else if(level.getGame().leastTime()<=10){
+			}else if(level.getGame().leastTime()<=15){
 				Engine.getMusicManager().playMusic("MusicTimer", true);
 			}
 		}

@@ -16,6 +16,7 @@ import info.u250.digs.scenes.level.pack.guide.Tour8;
 import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl10;
+import info.u250.digs.scenes.level.pack.s1.S1Lvl11;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl4;
@@ -174,6 +175,9 @@ public class LevelIdx {
 			break;
 		case 9:
 			config = new S1Lvl10();
+			break;
+		case 10:
+			config = new S1Lvl11();
 			break;
 		}
 		return config;
