@@ -83,6 +83,7 @@ public class Npc extends AbstractMoveable {
 		}
 		super.die();
 	}
+	boolean justJumpDown = false; //if the npc is jump down just now
 	
 	public void tick(){
 		if(null == level)return ;
@@ -121,6 +122,7 @@ public class Npc extends AbstractMoveable {
 					y--;
 				}
 				velocity = 0;
+				justJumpDown = true;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
 				if (Digs.RND.nextInt(DELAY_RANDOM) != 0) {
@@ -136,22 +138,15 @@ public class Npc extends AbstractMoveable {
 							break;
 						}
 					}
-					if (Digs.RND.nextInt(hit ? 10 : 8000) == 0) {
-						if(hit){
-							direction *= -1;
-						}else{
-							if(NpcStatus.Free == status){//if hold gold , not change its direction
-								direction *= -1;
-							}
-						}
-						if(Digs.RND.nextInt(3)!=0){
-							if(Digs.RND.nextBoolean()){
-								velocity = 16;
-							}else{
-								velocity = 32;
-							}
+					
+					if (hit && Digs.RND.nextInt(10) == 0) {
+						direction *= -1;
+						if(!justJumpDown && Digs.RND.nextInt(5)!=0){
+							velocity = 16;
 						}
 					}
+					justJumpDown = false;
+					
 				}
 			}
 		}
@@ -193,9 +188,10 @@ public class Npc extends AbstractMoveable {
 			if(ka.drawable.getBoundingRectangle().overlaps(this.drawable.getBoundingRectangle())){
 				Engine.getSoundManager().playSound("SoundMeet");
 				status = NpcStatus.WithKa;
+				regions = npcRegions;
 				withKa = ka;
 				level.removeKa(ka);//ok ok ok , i have catch ka
-				this.direction = -withKa.direction*this.direction;
+				this.addAction(Actions.delay(Digs.RND.nextFloat()));// random delay...
 				break;
 			}
 		}
@@ -203,9 +199,10 @@ public class Npc extends AbstractMoveable {
 	void tryGoldDock(){
 		for(GoldTowerEntity dock:level.getDocks()){
 			if(this.drawable.getBoundingRectangle().overlaps(dock.getRect())){
+				if(!dock.isReady())return;
 				if(status==NpcStatus.HoldGold){
 					this.direction *= -1;
-					dock.number++;
+					dock.addNumber();
 					regions = npcRegions;
 					if(COIN_SOUND_CTL>0.2f){
 						Engine.getSoundManager().playSound("SoundCoin");

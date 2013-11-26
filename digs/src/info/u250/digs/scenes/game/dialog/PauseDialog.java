@@ -52,22 +52,22 @@ public class PauseDialog extends Group {
 		btnExit.setSize(btnExit.getPrefWidth(), btnExit.getPrefHeight());
 		btnExit.setPosition(mainGroup.getWidth()/2-btnExit.getWidth()/2,100);
 	
-		Table goldTable = new Table();
-		goldTable.add(new Image(atlas.findRegion("flag-gold"))).spaceRight(5);
-		goldTable.add(lblGold).width(100);
-		goldTable.row();
-		goldTable.add(new Image(atlas.findRegion("flag-white-gold"))).spaceRight(5);
-		goldTable.add(lblWhiteGold).width(100);
-		goldTable.pack();
-		goldTable.setWidth(btnExit.getWidth());
-		goldTable.setPosition(mainGroup.getWidth()/2-goldTable.getWidth()/2,btnExit.getHeight()+btnExit.getY()+20);
+//		Table goldTable = new Table();
+//		goldTable.add(new Image(atlas.findRegion("flag-gold"))).spaceRight(5);
+//		goldTable.add(lblGold).width(100);
+//		goldTable.row();
+//		goldTable.add(new Image(atlas.findRegion("flag-white-gold"))).spaceRight(5);
+//		goldTable.add(lblWhiteGold).width(100);
+//		goldTable.pack();
+//		goldTable.setWidth(btnExit.getWidth());
+//		goldTable.setPosition(mainGroup.getWidth()/2-goldTable.getWidth()/2,btnExit.getHeight()+btnExit.getY()+20);
 		
 		btnRestart = new Button(new TextureRegionDrawable(atlas.findRegion("restart")), new TextureRegionDrawable(atlas.findRegion("restart")));
 		btnRestart.setPosition(mainGroup.getWidth()/2-btnRestart.getWidth()/2, 300);
 		mainGroup.addActor(table);
 		mainGroup.addActor(btnBack);
 		mainGroup.addActor(btnExit);
-		mainGroup.addActor(goldTable);
+//		mainGroup.addActor(goldTable);
 		mainGroup.addActor(btnRestart);
 
 		
@@ -110,6 +110,7 @@ public class PauseDialog extends Group {
 	}
 	public void show(){
 		game.getStatusPane().pauseCounter();
+		Engine.getMusicManager().stopMusic("MusicCollection");
 	}
 	public void close(){
 		game.getStatusPane().resumeCounter();

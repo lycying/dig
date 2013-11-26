@@ -90,18 +90,29 @@ public class Level extends Group{
 		public void followParentScroll(float yTouchPos,float yAmount){
 			if(null == game) return;
 			if(getHeight()<=Engine.getHeight())return;
-			if(yTouchPos<100 || yTouchPos>Engine.getHeight()-100){
+			
+			
+			float realY = yTouchPos-(getHeight()-Engine.getHeight())+game.getScroll().getScrollY();
+			if(realY<=150 && yAmount<0){
 				game.getScroll().scrollTo(
 						0, 
-						game.getScroll().getScrollY()+yAmount, 
-						game.getScroll().getWidth(),
-						game.getScroll().getHeight());
+						getHeight()-Engine.getHeight()-game.getScroll().getScrollY()+yAmount, 
+						Engine.getWidth(),
+						Engine.getHeight());
+			}else if(realY>=Engine.getHeight()-150 && yAmount>0){
+				game.getScroll().scrollTo(
+						0, 
+						getHeight()-Engine.getHeight()-game.getScroll().getScrollY()+yAmount, 
+						Engine.getWidth(),
+						Engine.getHeight());
 			}
 			//OK , scroll it to center
 		}
 		public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
 			if(pointer!=0) return true;
 			if(getTouchable() == Touchable.disabled) return true;
+			if(null!=game && game.getFingerMode()!=FingerMode.Clear && game.getFingerMode()!=FingerMode.Fill)return true;
+			
 			posPre.set(x,y);
 			followParentScroll(y,0);
 			return true;
@@ -109,9 +120,10 @@ public class Level extends Group{
 		public void touchDragged(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer) {
 			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
+			if(null!=game && game.getFingerMode()!=FingerMode.Clear && game.getFingerMode()!=FingerMode.Fill)return;
 			
 			position.set(x,y);
-			
+			followParentScroll(y,position.y-posPre.y);
 			float distance = position.dst(posPre);
 			float step = RADIUS;
 			if (distance>step) {
@@ -122,11 +134,10 @@ public class Level extends Group{
 				for (int i = 0; i < count; i++) {
 					posPre.add(vtmp);
 					fillTerrain(posPre.x-getX(),posPre.y, RADIUS,getFingerMode());
-					followParentScroll(y,position.y-posPre.y);
 				}
 			}
 			fillTerrain(position.x-getX(),position.y, RADIUS,getFingerMode());
-			followParentScroll(y,position.y-posPre.y);
+			
 
 			position.set(x,y);
 			posPre.x = position.x;
@@ -135,6 +146,13 @@ public class Level extends Group{
 		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
+			if(null!=game && game.getFingerMode()==FingerMode.Npc){
+				Npc e = new Npc();
+				e.init(Level.this);
+				e.setPosition(x, y);
+				addNpc(e);
+				Engine.getSoundManager().playSound("SoundNewNpc");
+			}
 			posPre.set(0, 0);
 		};
 	};

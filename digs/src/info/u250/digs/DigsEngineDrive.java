@@ -74,6 +74,7 @@ public class DigsEngineDrive implements EngineDrive {
 		
 		//when a level has time limit,the last 10 second will play this sound until zero
 		reg.music("MusicTimer", "data/music/timer.ogg");
+		reg.music("MusicCollection", "data/music/collection-pre.ogg");
 		
 		//used for level pack choose
 		reg.sound("SoundChoosePack1", "data/sounds/choose-pack1.ogg");
@@ -108,7 +109,8 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.sound("SoundCoin", "data/sounds/coin.ogg");
 		//enemy shot shot shot sound
 		reg.sound("SoundShot", "data/sounds/shot.ogg");
-		
+		//new npc
+		reg.sound("SoundNewNpc", "data/sounds/newnpc.ogg");
 		//the win sound
 		reg.sound("SoundWin", "data/sounds/win.ogg");
 		//fail sound

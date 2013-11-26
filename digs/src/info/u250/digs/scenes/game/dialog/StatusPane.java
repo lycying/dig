@@ -8,6 +8,7 @@ import info.u250.digs.scenes.ui.CountDownTimer;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -45,6 +46,9 @@ public class StatusPane extends Table{
 		lblTitle = new Label("Level 1:Walking In The Cloud",new LabelStyle(font, WebColors.WHEAT.get()));
 		lblTime = new Label("00:00",new LabelStyle(font, WebColors.BLACK.get()));
 		timer = new CountDownTimer(lblTime);
+		
+		this.clearListeners();
+		this.setTouchable(Touchable.disabled);
 	}
 	
 	public void startCounter(Level level){

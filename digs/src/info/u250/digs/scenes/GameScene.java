@@ -155,6 +155,7 @@ public class GameScene extends SceneStage {
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		Engine.getMusicManager().stopMusic("MusicTimer");
+		Engine.getMusicManager().stopMusic("MusicCollection");
 		Timer.instance().clear();
 		super.hide();
 	}

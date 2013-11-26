@@ -33,7 +33,7 @@ public class FailDailog extends Group {
 		table.setPosition(200,Engine.getHeight()/2-table.getHeight()/2);
 		this.addActor(table);
 		Label lbl = new Label("Touch screen to continue", new Label.LabelStyle(font,Color.WHITE));
-		lbl.setPosition(500, 220);
+		lbl.setPosition(460, 220);
 		this.addActor(lbl);
 		
 		this.addListener(new ClickListener(){
@@ -43,6 +43,18 @@ public class FailDailog extends Group {
 				super.clicked(event, x, y);
 			}
 		});
+		
+		final Image restart = new Image(atlas.findRegion("restart"));
+		this.addActor(restart);
+		restart.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				game.restart();
+				super.clicked(event, x, y);
+			}
+		});
+		restart.setPosition(Engine.getWidth()-restart.getWidth()+15, 220);
+		this.addActor(restart);
 	}
 	public void show(){
 		this.getColor().a = 0;

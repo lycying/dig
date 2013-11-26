@@ -15,10 +15,13 @@ import com.badlogic.gdx.utils.Array;
 
 public class GoldTowerEntity extends Group{
 	int max ;
-	int number = 0;
+	private final int FULL = 55;
+	private int number = 0;
+	private int temp = 0;
 	private Rectangle rect = new Rectangle();
 	Image dock;
 	Sprite gold;
+	boolean ready = true;
 	private final Array<Ka> kas = new Array<Ka>();
 	
 	public GoldTowerEntity(){
@@ -50,28 +53,17 @@ public class GoldTowerEntity extends Group{
 			ka.draw(batch, parentAlpha);
 		}
 		super.draw(batch, parentAlpha);
-		int bak = number;
+		int bak = temp;
 		int i = 0,j=0;
 		while(bak>0){
 			if(i%(max-j)==0){
 				j++;
 				i=0;
 				if(j == max){
-					number = 0;
-					Engine.getSoundManager().playSound("SoundCollection");
-					ParticleEffect e = Engine.resource("Effect");
-					final ParticleEffectActor p = new ParticleEffectActor(e,"golds");
-					p.setPosition(this.getWidth()/2-p.getWidth()/2, 15);
-					p.addAction(Actions.delay(1,Actions.run(new Runnable() {
-						@Override
-						public void run() {
-							p.remove();
-						}
-					})));
 					break;
 				}
 			}
-			gold.setPosition(4*j+this.getX()+i*gold.getWidth()+4, this.getY()+dock.getHeight()+dock.getY()+gold.getHeight()*j-8);
+			gold.setPosition(4*j+this.getX()+dock.getX()+i*gold.getWidth()+4, this.getY()+dock.getHeight()+dock.getY()+gold.getHeight()*j-8);
 			gold.draw(batch);
 			bak--;
 			i++;
@@ -87,16 +79,47 @@ public class GoldTowerEntity extends Group{
 	public int getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
-		this.number = number;
-	}
+	
 	public void addNumber(){
 		this.number++;
+		this.temp++;
+		if(FULL==temp && ready){
+			dock.clearActions();
+			dock.setPosition(0, 0);
+			ready = false;
+			float direction = this.getX()<=Engine.getWidth()/2?1f:-1f;
+			Engine.getMusicManager().playMusic("MusicCollection", true);
+			dock.addAction(Actions.sequence(
+					Actions.moveBy(-100*direction, 0,1.5f),
+					Actions.run(new Runnable() {
+						@Override
+						public void run() {
+							Engine.getSoundManager().playSound("SoundCollection");
+							temp = 0;
+						}
+					}),
+					Actions.delay(0.5f),
+					Actions.moveBy(100*direction, 0,1.5f),
+					Actions.run(new Runnable() {
+						@Override
+						public void run() {
+							Engine.getMusicManager().stopMusic("MusicCollection");
+							ready = true;
+							dock.addAction(Actions.forever(Actions.sequence(
+									Actions.moveBy(0, 10,0.5f),
+									Actions.moveBy(0, -10,0.5f)
+									)));
+						}
+					})));
+		}
 	}
 	public void addKa(Ka ka){
 		this.kas.add(ka);
 	}
 	public int getKaNumber(){
 		return this.kas.size;
+	}
+	public boolean isReady(){
+		return ready;
 	}
 }

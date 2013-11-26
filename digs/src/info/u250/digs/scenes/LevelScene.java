@@ -246,6 +246,9 @@ public class LevelScene extends SceneStage {
 	@Override
 	public void hide() {
 		Engine.getMusicManager().pauseMusic("MusicBackground");
+		Engine.getMusicManager().stopMusic("MusicBattle");
+		Engine.getMusicManager().stopMusic("MusicTimer");
+		Engine.getMusicManager().stopMusic("MusicCollection");
 		super.hide();
 	}
 	
