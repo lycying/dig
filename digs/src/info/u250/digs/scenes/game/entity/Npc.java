@@ -31,11 +31,6 @@ public class Npc extends AbstractMoveable {
 	public Ka withKa = null;//with ka
 	private NpcStatus status = NpcStatus.Free;
 	
-	public static float DIE_SOUND_CTL = 0;
-	public static float HURT_SOUND_CTL = 0;
-	public static float TRANS_SOUND_CTL = 0;
-	public static float COIN_SOUND_CTL = 0;
-	
 	static final float N_WIDTH = 14f;
 	
 	boolean downDownDown = false;
@@ -264,71 +259,8 @@ public class Npc extends AbstractMoveable {
 						y++;
 					}
 				}
-//				if(y>ladder.getRect().y+ladder.getRect().height-2){
-//					if(velocity==-1){
-//						velocity = 16;
-//					}
-//					return false;
-//				}else if(y<ladder.getRect().y+1){
-//					if(velocity>-1){
-//						if(level.tryMove(x, y-1)){
-//							y+=1;
-//							velocity = -1;
-//						}else{
-//							y-=1;
-//						}
-//						sync();
-//						return true;
-//					}
-//				}
-//				if(velocity<0){ //is try to move to the high position
-//					y+=1;
-//				}else{
-//					y-=1;
-//				}
 				x = ladder.getRect().x + (ladder.getPrefWidth())/2;
 				sync();
-				return true;
-			}
-		}
-		return false;
-	}
-	boolean tryTransPort(){		
-		for(final TeleportEntity inout:level.getInouts()){
-			if(inout.getRect().contains(x,y)){
-				x = inout.getRect().x+37;
-				y = inout.getRect().y+20;
-				sync();
-				if(TRANS_SOUND_CTL>0.2f){
-					Engine.getSoundManager().playSound("SoundTrans");
-					TRANS_SOUND_CTL = 0;
-				}
-				this.addAction(Actions.sequence(Actions.moveTo(
-						inout.getTransX()+15+15*Digs.RND.nextFloat(), 
-						inout.getTransY()+15+15*Digs.RND.nextFloat(),
-						0.8f),Actions.run(new Runnable() {
-					@Override
-					public void run() {
-						sync();
-					}
-				})));
-				if(!inout.isClear()){
-					inout.setClear(true);
-					level.clearTransPort(inout.getTransX()+5, inout.getTransY()+40-5, 30);
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-	boolean tryKillRay(){
-		for(KillCircleEntity kill:level.getKillrays()){
-			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
-				die();
-				if(DIE_SOUND_CTL>0.2f){
-					Engine.getSoundManager().playSound("SoundDie");
-					DIE_SOUND_CTL = 0;
-				}
 				return true;
 			}
 		}

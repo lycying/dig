@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
 import info.u250.digs.PixmapHelper;
 import info.u250.digs.scenes.GameScene;
+import info.u250.digs.scenes.game.entity.AbstractMoveable;
 import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -264,10 +265,10 @@ public class Level extends Group{
 		}
 		
 		//in order to play the sound more accepted
-		Npc.COIN_SOUND_CTL += delta;
-		Npc.HURT_SOUND_CTL += delta;
-		Npc.TRANS_SOUND_CTL += delta;
-		Npc.DIE_SOUND_CTL += delta;
+		AbstractMoveable.COIN_SOUND_CTL += delta;
+		AbstractMoveable.HURT_SOUND_CTL += delta;
+		AbstractMoveable.TRANS_SOUND_CTL += delta;
+		AbstractMoveable.DIE_SOUND_CTL += delta;
 	}
 	/* when the phone switch to another app and resume it , we must reload it */
 	public void reload(){

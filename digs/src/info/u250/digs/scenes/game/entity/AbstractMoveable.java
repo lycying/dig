@@ -21,11 +21,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  * it will move a step forward 
  */
 public abstract class AbstractMoveable extends Actor{
+	public static float HURT_SOUND_CTL = 0;
+	public static float COIN_SOUND_CTL = 0;
+	public static float DIE_SOUND_CTL = 0;
+	public static float TRANS_SOUND_CTL = 0;
+	
 	protected Level level;
 	//a copy of the actor's getX(),getY() in order to make use of the advantage 
 	protected float x ,y ;
 
+	//for x
 	protected int direction = Digs.RND.nextBoolean()?1:-1;
+	//for y
 	protected int velocity = 1;
 	//the drawable item to received region
 	protected Sprite drawable = new Sprite();
@@ -106,4 +113,46 @@ public abstract class AbstractMoveable extends Actor{
 			level.removeBoss(Boss.class.cast(this));
 		}
 	}
+	boolean tryTransPort(){		
+		for(final TeleportEntity inout:level.getInouts()){
+			if(inout.getRect().contains(x,y)){
+				x = inout.getRect().x+37;
+				y = inout.getRect().y+20;
+				sync();
+				if(TRANS_SOUND_CTL>0.2f){
+					Engine.getSoundManager().playSound("SoundTrans");
+					TRANS_SOUND_CTL = 0;
+				}
+				this.addAction(Actions.sequence(Actions.moveTo(
+						inout.getTransX()+15+15*Digs.RND.nextFloat(), 
+						inout.getTransY()+15+15*Digs.RND.nextFloat(),
+						0.8f),Actions.run(new Runnable() {
+					@Override
+					public void run() {
+						sync();
+					}
+				})));
+				if(!inout.isClear()){
+					inout.setClear(true);
+					level.clearTransPort(inout.getTransX()+5, inout.getTransY()+40-5, 30);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	boolean tryKillRay(){
+		for(KillCircleEntity kill:level.getKillrays()){
+			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
+				die();
+				if(DIE_SOUND_CTL>0.2f){
+					Engine.getSoundManager().playSound("SoundDie");
+					DIE_SOUND_CTL = 0;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

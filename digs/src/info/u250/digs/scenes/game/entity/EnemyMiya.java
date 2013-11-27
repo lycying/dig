@@ -46,6 +46,8 @@ public class EnemyMiya extends AbstractMoveable {
 			//not die
 		}
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
+		//enemy is not afraid of killRay
+		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
 		accum++;
 		if(accum>30){
 			if(tryKillNpcAndKa()){

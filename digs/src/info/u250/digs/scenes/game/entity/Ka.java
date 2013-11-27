@@ -47,6 +47,7 @@ public class Ka extends AbstractMoveable {
 		
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
+		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
 		tryGoldDock();
 	
 		// when the NPC is jumping
@@ -94,16 +95,6 @@ public class Ka extends AbstractMoveable {
 		sync();
 	}
 	
-	boolean tryKillRay(){
-		for(KillCircleEntity kill:level.getKillrays()){
-			if(kill.overlaps(x, y) || kill.overlaps(x, y+8)){//the bottom and top
-				die();
-				Engine.getSoundManager().playSound("SoundDie");//TODO : the sound for the Kaka...
-				return true;
-			}
-		}
-		return false;
-	}
 	void tryGoldDock(){
 		for(GoldTowerEntity dock:level.getDocks()){
 			if(dock.getRect().overlaps(this.drawable.getBoundingRectangle())){
