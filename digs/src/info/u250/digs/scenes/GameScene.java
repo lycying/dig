@@ -123,7 +123,11 @@ public class GameScene extends SceneStage {
 	}
 	private void configGame(LevelConfig config){
 		if(config.pack == 0){
-			this.functionPane.basicButton();
+			if(config.idx == 0){
+				this.functionPane.tour1Button();
+			}else{
+				this.functionPane.basicButton();
+			}
 		}else{
 			this.functionPane.fullButton();
 		}

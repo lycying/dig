@@ -37,6 +37,9 @@ public class Npc extends AbstractMoveable {
 	public static float COIN_SOUND_CTL = 0;
 	
 	static final float N_WIDTH = 14f;
+	
+	boolean downDownDown = false;
+	
 	public Npc(){
 		int themeID = Digs.RND.nextInt(5)+1;
 		TextureAtlas atlas = Engine.resource("All");
@@ -83,7 +86,6 @@ public class Npc extends AbstractMoveable {
 		}
 		super.die();
 	}
-	boolean justJumpDown = false; //if the npc is jump down just now
 	
 	public void tick(){
 		if(null == level)return ;
@@ -109,6 +111,7 @@ public class Npc extends AbstractMoveable {
 				y += velocity / 4;
 				velocity--;
 				regionsIndex++;
+				downDownDown = false;
 			} else {
 				// Stop jumping
 				velocity = 0;
@@ -122,7 +125,7 @@ public class Npc extends AbstractMoveable {
 					y--;
 				}
 				velocity = 0;
-				justJumpDown = true;
+				downDownDown = true;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
 				if (Digs.RND.nextInt(DELAY_RANDOM) != 0) {
@@ -135,17 +138,23 @@ public class Npc extends AbstractMoveable {
 							hit = false;
 							regionsIndex++;
 							velocity = -1;
+							downDownDown = false;
 							break;
 						}
 					}
 					
-					if (hit && Digs.RND.nextInt(10) == 0) {
-						direction *= -1;
-						if(!justJumpDown && Digs.RND.nextInt(5)!=0){
-							velocity = 16;
+					if(hit){
+						if(level.tryMove(x+direction, y)){
+							x += direction;
+							hit = false;
+							regionsIndex++;
 						}
 					}
-					justJumpDown = false;
+					
+					if (hit) {
+						direction *= -1;
+						if(Digs.RND.nextBoolean())velocity = 16;
+					}
 					
 				}
 			}
@@ -228,28 +237,55 @@ public class Npc extends AbstractMoveable {
 	boolean tryClampLadder(){
 		for(StepladderEntity ladder:level.getLadders()){
 			if(ladder.getRect().contains(x, y)){
-				if(y>ladder.getRect().y+ladder.getRect().height-2){
-					if(velocity==-1){
-						velocity = 16;
-					}
-					return false;
-				}else if(y<ladder.getRect().y+1){
-					if(velocity>-1){
+				//justJumpDown==true is the NPC is clamp down or it is clamp up
+				if(downDownDown){
+					if(y+this.getHeight()<ladder.getRect().y+1){
+						//judge if the bellow is empty
 						if(level.tryMove(x, y-1)){
-							y+=1;
-							velocity = -1;
+							y--;
 						}else{
-							y-=1;
+							downDownDown = false;
+							y+=2;
 						}
-						sync();
-						return true;
+					}else{
+						y--;
+					}
+				}else{
+					if(y>ladder.getRect().y+ladder.getRect().height-1){
+						//judge if the top is empty
+						if(level.tryMove(x, y+1)){
+							y++;
+							velocity = 16;
+						}else{
+							downDownDown = true;
+							y-=2;
+						}
+					}else{
+						y++;
 					}
 				}
-				if(velocity<0){ //is try to move to the high position
-					y+=1;
-				}else{
-					y-=1;
-				}
+//				if(y>ladder.getRect().y+ladder.getRect().height-2){
+//					if(velocity==-1){
+//						velocity = 16;
+//					}
+//					return false;
+//				}else if(y<ladder.getRect().y+1){
+//					if(velocity>-1){
+//						if(level.tryMove(x, y-1)){
+//							y+=1;
+//							velocity = -1;
+//						}else{
+//							y-=1;
+//						}
+//						sync();
+//						return true;
+//					}
+//				}
+//				if(velocity<0){ //is try to move to the high position
+//					y+=1;
+//				}else{
+//					y-=1;
+//				}
 				x = ladder.getRect().x + (ladder.getPrefWidth())/2;
 				sync();
 				return true;

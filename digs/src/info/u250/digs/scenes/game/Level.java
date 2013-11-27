@@ -32,6 +32,7 @@ public class Level extends Group{
 
 	
 	public enum FingerMode{
+		None,
 		Fill,
 		Clear,
 		Npc,

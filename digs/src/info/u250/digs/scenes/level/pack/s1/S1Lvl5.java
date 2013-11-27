@@ -33,7 +33,7 @@ public class S1Lvl5 extends LevelConfig {
 		this.ascent = 25;
 		this.segment = 20;
 		this.gold = 150;
-		this.npc = 20;
+		this.npc = 1;
 		this.ka = 5;
 		this.time = 60*5;
 		

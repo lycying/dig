@@ -63,6 +63,7 @@ public class FunctionPane extends Table{
 	public FingerMode getFingerMode() {
 		return fingerMode;
 	}
+	
 	public void fullButton(){
 		this.clear();
 		this.add(btn_home).spaceRight(5);
@@ -75,6 +76,15 @@ public class FunctionPane extends Table{
 		this.clear();
 		this.add(btn_fill).spaceRight(5);
 		this.add(btn_dig).spaceRight(5);
+		if(fingerMode!=FingerMode.Fill && fingerMode!=FingerMode.Clear){
+			btn_dig.setChecked(true);
+			this.fingerMode = FingerMode.Clear;
+		}
+		this.pack();
+	}
+	public void tour1Button(){
+		this.clear();
+		this.add(btn_fill).spaceRight(5);
 		if(fingerMode!=FingerMode.Fill && fingerMode!=FingerMode.Clear){
 			btn_dig.setChecked(true);
 			this.fingerMode = FingerMode.Clear;

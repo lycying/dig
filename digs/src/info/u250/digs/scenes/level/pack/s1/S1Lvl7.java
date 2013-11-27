@@ -89,8 +89,6 @@ public class S1Lvl7 extends LevelConfig {
 					e.setPosition(860, 350);
 					level.addEnemyMiya(e);
 				}
-				
-				
 			}
 			
 			@Override

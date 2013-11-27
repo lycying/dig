@@ -40,25 +40,25 @@ public class Tour1 extends LevelConfig {
 		this.npc = 1;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
+			final TextureAtlas atlas = Engine.resource("All");
+			final Image finger = new Image(atlas.findRegion("finger"));
+			final Npc e = new Npc();
+			public void upAndDown(){
+				finger.clearActions();
+				finger.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, -20,0.2f),Actions.moveBy(0, 20,0.2f))));
+			}
+			public void drawLine(){
+				finger.clearActions();
+				finger.addAction(Actions.forever(Actions.sequence(Actions.moveTo(250, lineHeight),Actions.moveTo(500, 230,2f))));
+			}
 			@Override
 			public void after(Level level) {
-
+				e.init(level);
+				e.setPosition(200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+				e.setDirection(1);
+				level.addNpc(e);
 				
-				for(int i=0;i<npc;i++){
-					Npc e = new Npc();
-					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
-					e.setDirection(1);
-					level.addNpc(e);
-				}
 				
-				{
-					HintOnScreen hint = new HintOnScreen("Bring the gold home!","hint4",Color.BLACK,100);
-					hint.pack();
-					hint.setPosition(520, 200);
-					hint.setColor(new Color(1,1,1,0.8f));
-					level.addActor(hint);
-					}
 			}
 			
 			@Override
