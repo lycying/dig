@@ -33,7 +33,9 @@ public class Npc extends AbstractMoveable {
 	
 	static final float N_WIDTH = 14f;
 	
-	boolean downDownDown = false;
+	
+	
+	float yOffsetPre = Integer.MAX_VALUE;
 	
 	public Npc(){
 		int themeID = Digs.RND.nextInt(5)+1;
@@ -148,7 +150,10 @@ public class Npc extends AbstractMoveable {
 					
 					if (hit) {
 						direction *= -1;
-						if(Digs.RND.nextBoolean())velocity = 16;
+						if(y>yOffsetPre){
+							velocity = 16;
+						}
+						yOffsetPre = y;
 					}
 					
 				}
@@ -229,43 +234,7 @@ public class Npc extends AbstractMoveable {
 			}
 		}
 	}
-	boolean tryClampLadder(){
-		for(StepladderEntity ladder:level.getLadders()){
-			if(ladder.getRect().contains(x, y)){
-				//justJumpDown==true is the NPC is clamp down or it is clamp up
-				if(downDownDown){
-					if(y+this.getHeight()<ladder.getRect().y+1){
-						//judge if the bellow is empty
-						if(level.tryMove(x, y-1)){
-							y--;
-						}else{
-							downDownDown = false;
-							y+=2;
-						}
-					}else{
-						y--;
-					}
-				}else{
-					if(y>ladder.getRect().y+ladder.getRect().height-1){
-						//judge if the top is empty
-						if(level.tryMove(x, y+1)){
-							y++;
-							velocity = 16;
-						}else{
-							downDownDown = true;
-							y-=2;
-						}
-					}else{
-						y++;
-					}
-				}
-				x = ladder.getRect().x + (ladder.getPrefWidth())/2;
-				sync();
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	public NpcStatus getStatus() {
 		return status;
 	}

@@ -129,15 +129,17 @@ public class S1Lvl6 extends LevelConfig {
 					drawPixmapDeco(gold, "stone5", -20, 00,0.7f);
 					drawPixmapDeco(gold, "stone5", -20, 100,0.6f);
 					drawPixmapDeco(gold, "stone5", -20, 200,0.5f);
-					drawPixmapDeco(gold, "stone5", -20, 300,0.4f);
+					drawPixmapDeco(gold, "stone5", -20, 280,0.4f);
 					drawPixmapDeco(gold, "stone2", 80, -30);
 					
 					drawPixmapDeco(gold, "stone5", 900, 00,0.7f);
 					drawPixmapDeco(gold, "stone5", 900, 100,0.6f);
 					drawPixmapDeco(gold, "stone5", 900, 200,0.5f);
-					drawPixmapDeco(gold, "stone5", 900, 300,0.4f);
+					drawPixmapDeco(gold, "stone5", 900, 280,0.4f);
 					drawPixmapDeco(gold, "stone2", 800, -30);
-					
+					drawPixmapDeco(gold, "deco1", 850, 50,1f);
+					drawPixmapDeco(gold, "deco1", 120, 0,1f);
+					drawPixmapDeco(gold, "deco1", 90, 0,1f);
 				}
 				
 			}

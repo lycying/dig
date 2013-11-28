@@ -29,7 +29,8 @@ public abstract class AbstractMoveable extends Actor{
 	protected Level level;
 	//a copy of the actor's getX(),getY() in order to make use of the advantage 
 	protected float x ,y ;
-
+	//used for ladder
+	boolean downDownDown = true;
 	//for x
 	protected int direction = Digs.RND.nextBoolean()?1:-1;
 	//for y
@@ -154,5 +155,41 @@ public abstract class AbstractMoveable extends Actor{
 		}
 		return false;
 	}
-	
+	boolean tryClampLadder(){
+		for(StepladderEntity ladder:level.getLadders()){
+			if(ladder.getRect().contains(x, y)){
+				//justJumpDown==true is the NPC is clamp down or it is clamp up
+				if(downDownDown){
+					if(y+this.getHeight()<ladder.getRect().y+1){
+						//judge if the bellow is empty
+						if(level.tryMove(x, y-1)){
+							y--;
+						}else{
+							downDownDown = false;
+							y+=2;
+						}
+					}else{
+						y--;
+					}
+				}else{
+					if(y>ladder.getRect().y+ladder.getRect().height-1){
+						//judge if the top is empty
+						if(level.tryMove(x, y+1)){
+							y++;
+							velocity = 16;
+						}else{
+							downDownDown = true;
+							y-=2;
+						}
+					}else{
+						y++;
+					}
+				}
+				x = ladder.getRect().x + (ladder.getPrefWidth())/2;
+				sync();
+				return true;
+			}
+		}
+		return false;
+	}
 }

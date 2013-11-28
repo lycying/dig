@@ -44,19 +44,7 @@ public class Tour4 extends LevelConfig {
 					hint.setColor(new Color(1,1,1,0.6f));
 					level.addActor(hint);
 				}
-				{
-				KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.BLUE);
-				level.addKillCircle(ray);
-				}
 				
-				{
-					KillCircleEntity ray = new KillCircleEntity(300, 200, 150,Color.WHITE);
-					level.addKillCircle(ray);
-					}
-				{
-					KillCircleEntity ray = new KillCircleEntity(350, 180, 50,Color.PINK);
-					level.addKillCircle(ray);
-					}
 				
 				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
@@ -65,9 +53,28 @@ public class Tour4 extends LevelConfig {
 					level.addNpc(e);
 				}
 				
-				TeleportEntity inout = new TeleportEntity(150,250,700,500);
-				level.addInOutTrans(inout);
+				{
+					TeleportEntity inout = new TeleportEntity(150,250,700,500);
+					level.addInOutTrans(inout);
+				}
+				{
+					TeleportEntity inout = new TeleportEntity(700,200,100,340,Color.YELLOW,Color.MAGENTA);
+					level.addInOutTrans(inout);
+				}
 				
+				{
+					KillCircleEntity ray = new KillCircleEntity(400, 150, 100,Color.BLUE);
+					level.addKillCircle(ray);
+					}
+					
+					{
+						KillCircleEntity ray = new KillCircleEntity(300, 200, 150,Color.WHITE);
+						level.addKillCircle(ray);
+						}
+					{
+						KillCircleEntity ray = new KillCircleEntity(350, 180, 50,Color.PINK);
+						level.addKillCircle(ray);
+						}
 				ParticleEffect e = Engine.resource("Effect");
 				ParticleEffectActor p = new ParticleEffectActor(e,"smoke");
 				p.setPosition(450, 250);

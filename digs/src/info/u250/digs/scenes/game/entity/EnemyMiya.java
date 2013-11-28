@@ -48,6 +48,7 @@ public class EnemyMiya extends AbstractMoveable {
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		//enemy is not afraid of killRay
 		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
+		//enemy can not clamp ladder too
 		accum++;
 		if(accum>30){
 			if(tryKillNpcAndKa()){
@@ -63,6 +64,7 @@ public class EnemyMiya extends AbstractMoveable {
 				y += velocity / 4;
 				velocity--;
 				regionsIndex++;
+				downDownDown = false;
 			} else {
 				// Stop jumping
 				velocity = 0;
@@ -75,6 +77,7 @@ public class EnemyMiya extends AbstractMoveable {
 				if (level.tryMove(x , y-1)) {
 					y--;
 				}
+				downDownDown = true;
 				velocity = 0;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
@@ -88,6 +91,7 @@ public class EnemyMiya extends AbstractMoveable {
 							hit = false;
 							regionsIndex++;
 							velocity = -1;
+							downDownDown = false;
 							break;
 						}
 					}

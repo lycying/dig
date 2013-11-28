@@ -33,7 +33,7 @@ public class S1Lvl5 extends LevelConfig {
 		this.ascent = 25;
 		this.segment = 20;
 		this.gold = 150;
-		this.npc = 1;
+		this.npc = 20;
 		this.ka = 5;
 		this.time = 60*5;
 		
@@ -99,6 +99,7 @@ public class S1Lvl5 extends LevelConfig {
 					drawPixmapDeco(gold, "stone6", 100, 20);
 					drawPixmapDeco(gold, "stone4", 660, 130);
 					drawPixmapDeco(gold, "stone4", 750, 150,0.8f);
+					drawPixmapDeco(gold, "deco2", 850, 0,1f);
 					
 					terr.setColor(WebColors.KHAKI.get());
 					fillRect(terr, 380, 300, 140, 80);

@@ -48,6 +48,7 @@ public class Ka extends AbstractMoveable {
 		if(userDefAction()) return;	//when the addActions run , block everything until the action done
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
 		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
+		if(tryClampLadder()) return;//if the npc touch the clamp ladder , then go with the logic
 		tryGoldDock();
 	
 		// when the NPC is jumping
@@ -57,6 +58,7 @@ public class Ka extends AbstractMoveable {
 				y += velocity / 4;
 				velocity--;
 				regionsIndex++;
+				downDownDown = false;
 			} else {
 				// Stop jumping
 				velocity = 0;
@@ -70,6 +72,7 @@ public class Ka extends AbstractMoveable {
 					y--;
 				}
 				velocity = 0;
+				downDownDown = true;
 			} else	{
 				//try move up , the npc can clamp as high as 5 pixels
 				if (Digs.RND.nextInt(DELAY_RANDOM) != 0) {
@@ -82,6 +85,7 @@ public class Ka extends AbstractMoveable {
 							hit = false;
 							regionsIndex++;
 							velocity = -1;
+							downDownDown = false;
 							break;
 						}
 					}

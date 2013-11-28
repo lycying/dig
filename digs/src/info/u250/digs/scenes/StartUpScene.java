@@ -76,34 +76,7 @@ public class StartUpScene extends SceneStage{
 //		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
 //		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(30,1000), new Vector2(0,320)));
 //		this.addActor(pbg);
-		
-//		final SurfaceData data = new SurfaceData();
-//		data.primitiveType = GL10.GL_TRIANGLE_STRIP;
-//		data.texture="Texture";
-//		data.points = new Array<Vector2>(){{
-//			add(new Vector2(-27.005554f,300f));
-//			add(new Vector2(-20,-4));
-//			add(new Vector2(119,250));
-//			add(new Vector2(200.99362f,-14f));
-//			add(new Vector2(293.00104f,300));
-//			add(new Vector2(356f,-9f));
-//			add(new Vector2(360f,310));
-//			add(new Vector2(380,-9f));
-//			add(new Vector2(400,300));
-//			add(new Vector2(458f,-9f));
-//			add(new Vector2(510f,250));
-//			add(new Vector2(556.0f,-7f));
-//			add(new Vector2(593f,250));
-//			add(new Vector2(650f,-53f));
-//			add(new Vector2(700f,290));
-//			add(new Vector2(735f,-53f));
-//			add(new Vector2(800f,290));
-//			add(new Vector2(850f,0));
-//			add(new Vector2(900f,290));
-//			add(new Vector2(960f,0));
-//			add(new Vector2(1024,350));
-//		}};
-//		surface  = new TriangleSurfaces(data);
+
 		final SurfaceData data2 = new SurfaceData();
 		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";

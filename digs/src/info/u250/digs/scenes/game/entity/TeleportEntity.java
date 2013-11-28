@@ -66,6 +66,8 @@ public class TeleportEntity extends Actor{
 		
 		this.color1.set(color1);
 		this.color2.set(color2);
+		this.color1.a = 0.5f;
+		this.color2.a = 0.5f;
 		
 		percentStep = WWWWW/new Vector2(inx,iny).dst(outx, outy);
 		

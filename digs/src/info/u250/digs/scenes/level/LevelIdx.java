@@ -25,6 +25,14 @@ import info.u250.digs.scenes.level.pack.s1.S1Lvl6;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl7;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl8;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl9;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl1;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl2;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl3;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl4;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl5;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl6;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl7;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl8;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -92,11 +100,14 @@ public class LevelIdx {
 		LevelConfig config = null;
 		switch(pack){
 			case 0:
-			config = getGuideLevelConfig(level);
-			break;
+				config = getGuideLevelConfig(level);
+				break;
 			case 1:
-			config = getS1LevelConfig(level);
-			break;
+				config = getS1LevelConfig(level);
+				break;
+			case 2:
+				config = getS2LevelConfig(level);
+				break;
 		}
 		if(null == config){
 			config = new LevelConfig();
@@ -178,6 +189,36 @@ public class LevelIdx {
 			break;
 		case 10:
 			config = new S1Lvl11();
+			break;
+		}
+		return config;
+	}
+	private static LevelConfig getS2LevelConfig(int level){
+		LevelConfig config = null;
+		switch(level){
+		case 0:
+			config = new S2Lvl1();
+			break;
+		case 1:
+			config = new S2Lvl2();
+			break;
+		case 2:
+			config = new S2Lvl3();
+			break;
+		case 3:
+			config = new S2Lvl4();
+			break;
+		case 4:
+			config = new S2Lvl5();
+			break;
+		case 5:
+			config = new S2Lvl6();
+			break;
+		case 6:
+			config = new S2Lvl7();
+			break;
+		case 7:
+			config = new S2Lvl8();
 			break;
 		}
 		return config;

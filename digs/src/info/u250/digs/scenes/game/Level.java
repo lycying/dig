@@ -260,6 +260,7 @@ public class Level extends Group{
 					e.tick();
 				}
 				accum -= ACC;
+//				ACC = 0.3f;
 				ACC = Gdx.graphics.getFramesPerSecond()/5400f;//this method keep the npcs move at the same speed what ever the device is 
 			}
 		}
