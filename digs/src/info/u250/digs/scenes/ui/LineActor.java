@@ -24,6 +24,7 @@ public class LineActor extends Actor{
 	}
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		sprite.setColor(this.getColor());
 		sprite.draw(batch);
 	}
 }

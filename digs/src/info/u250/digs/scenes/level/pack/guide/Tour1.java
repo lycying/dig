@@ -4,29 +4,46 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
-import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.callback.DefaultLevelCompleteCallback;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.HintOnScreen;
+import info.u250.digs.scenes.ui.InnerMask;
+import info.u250.digs.scenes.ui.LineActor;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /*
  * this tour show the basic operation that we should 
  * carry one gold to home.
  */
 public class Tour1 extends LevelConfig {
+	final int TYPE_INF_DOCK = 0;
+	final int TYPE_INF_GOLD = 2;
+	final int TYPE_INF_PATH = 3;
+	final int TYPE_INF_BUTTON = 4;
+	final int TYPE_INF_NPC = 5;
+	final int TYPE_INF_DONE = 6;
+	final int TYPE_INF_YOURTURN = 7;
+	int type = TYPE_INF_GOLD;
 	public Tour1(){
 		this.surface = "qvg/000.png";
 		this.width = (int)Engine.getWidth() ;
@@ -38,27 +55,100 @@ public class Tour1 extends LevelConfig {
 		this.gold = 1;// once you got a gold , you win!
 		this.time = 3*60;
 		this.npc = 1;
-		
+		levelCompleteCallback = new DefaultLevelCompleteCallback(){
+			@Override
+			public Actor infoBorad(Level level) {
+				return new Group();
+			}
+		};
 		levelMakeCallback = new LevelMakeCallBack() {
+			final Pixmap pixmap = new Pixmap(width, height, Format.RGBA8888);
+			@Override
+			public void dispose() {
+				pixmap.dispose();
+			}
+			
 			final TextureAtlas atlas = Engine.resource("All");
 			final Image finger = new Image(atlas.findRegion("finger"));
-			final Npc e = new Npc();
+			final LineActor line = new LineActor(200, 298, 504, 234);
 			public void upAndDown(){
 				finger.clearActions();
 				finger.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, -20,0.2f),Actions.moveBy(0, 20,0.2f))));
 			}
 			public void drawLine(){
 				finger.clearActions();
-				finger.addAction(Actions.forever(Actions.sequence(Actions.moveTo(250, lineHeight),Actions.moveTo(500, 230,2f))));
+				finger.addAction(Actions.forever(Actions.sequence(Actions.moveTo(200, lineHeight-50),Actions.moveTo(500, 180,2f))));
 			}
 			@Override
-			public void after(Level level) {
+			public void after(final Level level) {
+				{
+					HintOnScreen hint = new HintOnScreen("Bring the gold home!","hint3",Color.BLACK,100);
+					hint.pack();
+					hint.setPosition(475, 135);
+					hint.setColor(new Color(1,1,1,0.8f));
+					level.addActor(hint);
+					}
+				
+				final InnerMask mask = new InnerMask(width, height);
+				mask.addListener(new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						if(type == TYPE_INF_GOLD){
+							mask.setRect(new Rectangle(496,225,32,32));
+							type = TYPE_INF_DOCK;
+							level.getGame().addActor(finger);
+							finger.setPosition(500, 180);
+							upAndDown();
+						}else if(type == TYPE_INF_DOCK){
+							mask.setRect(new Rectangle(0,300,100,20));
+							type = TYPE_INF_NPC;
+							level.getGame().addActor(finger);
+							finger.setPosition(40, 250);
+							upAndDown();
+						}else if(type==TYPE_INF_NPC){
+							level.getGame().reallyStartLevel();
+							type = TYPE_INF_BUTTON;
+							finger.remove();
+						}else if(type==TYPE_INF_BUTTON){
+							mask.setRect(new Rectangle(80,460,80,80));
+							type = TYPE_INF_PATH;
+							level.getGame().addActor(finger);
+							finger.setPosition(120, 400);
+							upAndDown();
+						}else if(type==TYPE_INF_PATH){
+							mask.setRect(new Rectangle(80,230,500,150));
+							type=TYPE_INF_DONE;
+							level.getGame().addActor(line);
+							line.setColor(Color.BLACK);
+							level.getGame().addActor(finger);
+							drawLine();
+						}else if(type==TYPE_INF_DONE){
+							mask.remove();
+							finger.remove();
+							line.remove();
+							type = TYPE_INF_YOURTURN;
+						}
+						super.clicked(event, x, y);
+					}
+				});
+				
+				level.getGame().addActor(mask);
+				
+				final Npc e = new Npc(){
+					@Override
+					public void draw(Batch batch, float parentAlpha) {
+						if(type==TYPE_INF_BUTTON){
+							mask.setRect(new Rectangle(this.getX()-this.getWidth()/2-10,this.getY()-10,this.getWidth()+20,this.getHeight()+20));
+						}else if(type==TYPE_INF_DONE){
+							this.setPosition(100, 300);
+						}
+						super.draw(batch, parentAlpha);
+					}
+				};
 				e.init(level);
-				e.setPosition(200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+				e.setPosition(200, 450);
 				e.setDirection(1);
 				level.addNpc(e);
-				
-				
 			}
 			
 			@Override
@@ -94,6 +184,13 @@ public class Tour1 extends LevelConfig {
 					hint.pack();
 					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(10, 0,0.2f),Actions.moveBy(-10, 0,0.2f))));
 					hint.setPosition(90, 320);
+					level.addActor(hint);
+					}
+				{
+					HintOnScreen hint = new HintOnScreen("Home!","hint5",Color.BLACK,60);
+					hint.pack();
+					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(-10, 0,0.2f),Actions.moveBy(10, 0,0.2f))));
+					hint.setPosition(800, 320);
 					level.addActor(hint);
 					}
 				

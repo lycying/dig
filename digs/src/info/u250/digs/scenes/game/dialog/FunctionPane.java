@@ -84,7 +84,7 @@ public class FunctionPane extends Table{
 	}
 	public void tour1Button(){
 		this.clear();
-		this.add(btn_fill).spaceRight(5);
+		this.add(btn_dig).spaceRight(5);
 		if(fingerMode!=FingerMode.Fill && fingerMode!=FingerMode.Clear){
 			btn_dig.setChecked(true);
 			this.fingerMode = FingerMode.Clear;
