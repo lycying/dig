@@ -24,9 +24,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl3 extends LevelConfig {
-	public S1Lvl3(){
-		this.surface = "qvg/102.png";
+public class Pack1V5 extends LevelConfig {
+	public Pack1V5(){
+		this.surface = "qvg/104.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BISQUE.get();

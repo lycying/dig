@@ -11,20 +11,25 @@ import info.u250.digs.scenes.level.pack.guide.Tour3;
 import info.u250.digs.scenes.level.pack.guide.Tour4;
 import info.u250.digs.scenes.level.pack.guide.Tour5;
 import info.u250.digs.scenes.level.pack.guide.Tour6;
-import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.guide.Tour7;
 import info.u250.digs.scenes.level.pack.guide.Tour8;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl10;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl11;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl2;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl3;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl4;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl5;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl6;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl7;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl8;
-import info.u250.digs.scenes.level.pack.s1.S1Lvl9;
+import info.u250.digs.scenes.level.pack.guide.Tour9;
+import info.u250.digs.scenes.level.pack.s1.Pack1V1;
+import info.u250.digs.scenes.level.pack.s1.Pack1V10;
+import info.u250.digs.scenes.level.pack.s1.Pack1V11;
+import info.u250.digs.scenes.level.pack.s1.Pack1V12;
+import info.u250.digs.scenes.level.pack.s1.Pack1V13;
+import info.u250.digs.scenes.level.pack.s1.Pack1V7;
+import info.u250.digs.scenes.level.pack.s1.Pack1V14;
+import info.u250.digs.scenes.level.pack.s1.Pack1V15;
+import info.u250.digs.scenes.level.pack.s1.Pack1V16;
+import info.u250.digs.scenes.level.pack.s1.Pack1V2;
+import info.u250.digs.scenes.level.pack.s1.Pack1V3;
+import info.u250.digs.scenes.level.pack.s1.Pack1V4;
+import info.u250.digs.scenes.level.pack.s1.Pack1V5;
+import info.u250.digs.scenes.level.pack.s1.Pack1V6;
+import info.u250.digs.scenes.level.pack.s1.Pack1V8;
+import info.u250.digs.scenes.level.pack.s1.Pack1V9;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl1;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl2;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl3;
@@ -74,6 +79,11 @@ public class LevelIdx {
 		"Nature's Forest",
 		"Heroic Temple",
 		"Dusk City",
+		"Door of Darkness",
+		"City of Titans",
+		"Molten Lands",
+		"Abyssal Maze",
+		"Nether Jungle",
 		},
 		new String[]{
 		"Dusk City",
@@ -158,37 +168,52 @@ public class LevelIdx {
 		LevelConfig config = null;
 		switch(level){
 		case 0:
-			config = new S1Lvl1();
+			config = new Pack1V1();
 			break;
 		case 1:
-			config = new S1Lvl2();
+			config = new Pack1V2();
 			break;
 		case 2:
-			config = new S1Lvl3();
+			config = new Pack1V3();
 			break;
 		case 3:
-			config = new S1Lvl4();
+			config = new Pack1V4();
 			break;
 		case 4:
-			config = new S1Lvl5();
+			config = new Pack1V5();
 			break;
 		case 5:
-			config = new S1Lvl6();
+			config = new Pack1V6();
 			break;
 		case 6:
-			config = new S1Lvl7();
+			config = new Pack1V7();
 			break;
 		case 7:
-			config = new S1Lvl8();
+			config = new Pack1V8();
 			break;
 		case 8:
-			config = new S1Lvl9();
+			config = new Pack1V9();
 			break;
 		case 9:
-			config = new S1Lvl10();
+			config = new Pack1V10();
 			break;
 		case 10:
-			config = new S1Lvl11();
+			config = new Pack1V11();
+			break;
+		case 11:
+			config = new Pack1V12();
+			break;
+		case 12:
+			config = new Pack1V13();
+			break;
+		case 13:
+			config = new Pack1V14();
+			break;
+		case 14:
+			config = new Pack1V15();
+			break;
+		case 15:
+			config = new Pack1V16();
 			break;
 		}
 		return config;

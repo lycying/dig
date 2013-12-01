@@ -10,84 +10,68 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.ui.FireDeco;
-import info.u250.digs.scenes.ui.ParticleEffectActor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl4 extends LevelConfig {
-	public S1Lvl4(){
-		this.surface = "qvg/103.jpg";
+public class Pack1V1 extends LevelConfig {
+	public Pack1V1(){
+		this.surface = "qvg/100.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.SPRING_GREEN.get();
-		this.topColor = WebColors.DARK_GREEN.get();
-		this.lineHeight = 400;
-		this.ascent = 20;
-		this.segment = 80;
-		this.gold = 50;
-		this.npc = 30;
-		this.ka = 10;
-		this.time = 60*4;
+		this.bottomColor = WebColors.KHAKI.get();
+		this.topColor = WebColors.DARK_KHAKI.get();
+		this.lineHeight = 360;
+		this.ascent = 25;
+		this.segment = 20;
+		this.gold = 100;
+		this.npc = 20;
+		this.time = 60*5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
+			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship3.png"));
+			@Override
+			public void dispose() {
+				ship1.dispose();
+			}
 			@Override
 			public void after(Level level) {
+				
 				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(140,100);
+					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
 				}
-				for(int i=0;i<ka;i++){
-					Ka e = new Ka();
-					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
-					level.addKa(e);
-				}
+				
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.XUANYUNBUFF();
-					polygon.setScale(0.6f, 0.6f);
-					polygon.setPosition(600, 200);
-					drawPolygon(polygon, gold);
-				}
-				{
-					gold.setColor(Color.CLEAR);
-					fillCircle(terr, 140, 100, 25);
-					fillRect(terr, 140, 80, 400, 10);
+				gold.setColor(Color.YELLOW);
+				Polygon polygon =  PolygonTable.EGAME_LOADING_REGISTER_AVATAR_MALE();
+				polygon.setScale(1f, 1f);
+				polygon.setPosition(700, 100);
+				drawPolygon(polygon, gold);
 				}
 			}
+
 			@Override
 			public void before(Level level) {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,430)));
+				
 				level.addActor(pbg);
-				
-				
-				{
-					ParticleEffect e = Engine.resource("Effect");
-					ParticleEffectActor p = new ParticleEffectActor(e,"balloon");
-					p.setColor(WebColors.GREEN_YELLOW.get());
-					p.setPosition(100, 0);
-					level.addActor(p);
-				}
-				FireDeco deco = new FireDeco();
-				deco.setPosition(100, 50);
-				level.addActor(deco);
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);

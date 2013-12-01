@@ -12,7 +12,6 @@ import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 
 import com.badlogic.gdx.Gdx;
@@ -23,17 +22,17 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl11 extends LevelConfig {
-	public S1Lvl11(){
+public class Pack1V11 extends LevelConfig {
+	public Pack1V11(){
 		this.surface = "qvg/110.jpg";
 		this.width = (int)Engine.getWidth() ;
-		this.height = (int)Engine.getHeight();
+		this.height = 840;
 		this.bottomColor = WebColors.DARK_BLUE.get();
 		this.topColor = WebColors.DODGER_BLUE.get();
-		this.lineHeight = 360;
+		this.lineHeight = 660;
 		this.segment = 40;
 		this.ascent = 20;
-		this.gold = 500;
+		this.gold = 200;
 		this.npc = 30;
 		this.time = 60*5;
 		
@@ -56,48 +55,34 @@ public class S1Lvl11 extends LevelConfig {
 				boss.init(level);
 				boss.setPosition(800, 240);
 				level.addBoss(boss);
-				{
-					KillCircleEntity e = new KillCircleEntity(300,-100 ,100, Color.BLACK);
-					level.addKillCircle(e);
-				}
+				
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.IMG_ISLAND6();
-					polygon.setScale(0.2f, 0.2f);
-					polygon.setPosition(700, 200);
-					drawPolygon(polygon, gold);
+					fillRect(gold, 100, 400, 300, 2);
+					fillRect(gold, 300, 560, 300, 2);
 				}
 				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.IMG_ISLAND6();
-					polygon.setScale(0.2f, 0.2f);
-					polygon.setPosition(100, 200);
-					drawPolygon(polygon, gold);
+					int w = 100;
+					while(w<width){
+						gold.setColor(Color.YELLOW);
+						Polygon polygon =  PolygonTable.FORMPOLYGON_128();
+						polygon.setScale(0.5f, 0.5f);
+						polygon.setPosition(w, 80);
+						drawPolygon(polygon, gold);
+						w+=150;
+					}
 				}
 				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
-//					polygon.setScale(0.2f, 0.2f);
-					polygon.setPosition(600, 20);
-					drawPolygon(polygon, gold);
-				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
-					polygon.setScale(0.5f, 0.5f);
-					polygon.setPosition(200, 20);
-					drawPolygon(polygon, gold);
-				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
-					polygon.setScale(0.5f, 0.5f);
-					polygon.setPosition(900, 20);
-					drawPolygon(polygon, gold);
+					int w = 100;
+					while(w<width){
+						drawPixmapDeco(gold, "stone5", w, 100,0.3f);
+						w+=150;
+					}
+					
 				}
 			}
 			@Override
@@ -118,6 +103,7 @@ public class S1Lvl11 extends LevelConfig {
 					pbg.addActor(new ParallaxLayer(pbg,img2 , new Vector2(1f,2.2f), new Vector2(940,270), new Vector2(150,0)));
 					pbg.addActor(new ParallaxLayer(pbg,img3 , new Vector2(1f,1.5f), new Vector2(700,560), new Vector2(200,0)));
 					pbg.addActor(new ParallaxLayer(pbg,img4 , new Vector2(1f,2f), new Vector2(600,560), new Vector2(100,0)));
+					pbg.setY(300);
 					level.addActor(pbg);
 				}
 				{

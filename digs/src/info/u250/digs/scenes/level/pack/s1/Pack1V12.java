@@ -22,9 +22,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl5 extends LevelConfig {
-	public S1Lvl5(){
-		this.surface = "qvg/104.png";
+public class Pack1V12 extends LevelConfig {
+	public Pack1V12(){
+		this.surface = "qvg/111.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = 840;
 		this.bottomColor = WebColors.STEEL_BLUE.get();

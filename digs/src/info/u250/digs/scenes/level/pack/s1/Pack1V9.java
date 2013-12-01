@@ -23,9 +23,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class S1Lvl10 extends LevelConfig {
-	public S1Lvl10(){
-		this.surface = "qvg/109.png";
+public class Pack1V9 extends LevelConfig {
+	public Pack1V9(){
+		this.surface = "qvg/108.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.DIM_GRAY.get();
@@ -33,7 +33,7 @@ public class S1Lvl10 extends LevelConfig {
 		this.lineHeight = 360;
 		this.segment = 40;
 		this.ascent = 20;
-		this.gold = 500;
+		this.gold = 300;
 		this.npc = 30;
 		this.time = 60*5;
 		
