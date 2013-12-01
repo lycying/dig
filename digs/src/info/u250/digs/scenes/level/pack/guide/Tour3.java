@@ -75,7 +75,8 @@ public class Tour3 extends LevelConfig {
 				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(100+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					e.setDirection(1);
+					e.setPosition(100,height + Digs.RND.nextFloat()*300);
 					level.addNpc(e);
 				}
 			}

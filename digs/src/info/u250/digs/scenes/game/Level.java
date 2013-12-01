@@ -14,6 +14,7 @@ import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.Npc.DigResult;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
+import info.u250.digs.scenes.ui.CommonDialog;
 import info.u250.digs.scenes.ui.WaterActor;
 
 import com.badlogic.gdx.Gdx;
@@ -145,15 +146,30 @@ public class Level extends Group{
 			posPre.x = position.x;
 			posPre.y = position.y;
 		};
-		public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+		public void touchUp(InputEvent event,final float x,final float y, int pointer, int button) {
 			if(pointer!=0)return;
 			if(getTouchable() == Touchable.disabled) return;
-			if(null!=game && game.getFingerMode()==FingerMode.Npc){
-				Npc e = new Npc();
-				e.init(Level.this);
-				e.setPosition(x, y);
-				addNpc(e);
-				Engine.getSoundManager().playSound("SoundNewNpc");
+			if(null!=game){
+				if(game.getFingerMode()==FingerMode.Npc){
+					Npc e = new Npc();
+					e.init(Level.this);
+					e.setPosition(x, y);
+					addNpc(e);
+					Engine.getSoundManager().playSound("SoundNewNpc");
+				}else if(game.getFingerMode()==FingerMode.Home){
+					game.addActor(new CommonDialog(new String[]{
+							"Move all BBMans to you touch point",
+							"Note:Every Touch will cost your 100 sprites",
+							"Are you sure?"
+					},new Runnable() {
+						@Override
+						public void run() {
+							for(Npc e:npcs){
+								e.setPosition(x,y);
+							}
+						}
+					}));
+				}
 			}
 			posPre.set(0, 0);
 		};

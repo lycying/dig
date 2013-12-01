@@ -187,6 +187,9 @@ public class GameScene extends SceneStage {
 	public FingerMode getFingerMode(){
 		return this.functionPane.getFingerMode();
 	}
+	public void setFingerMode(FingerMode mode){
+		this.functionPane.setFingerMode(mode);
+	}
 	
 	public StatusPane getStatusPane() {
 		return statusPane;

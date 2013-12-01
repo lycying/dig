@@ -3,6 +3,7 @@ package info.u250.digs.scenes.game.dialog;
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.Level.FingerMode;
+import info.u250.digs.scenes.ui.CommonDialog;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,12 +37,20 @@ public class FunctionPane extends Table{
 			public void clicked(InputEvent event, float x, float y) {
 				fingerMode = FingerMode.Home;
 				Engine.getSoundManager().playSound("SoundFunc");
+//				gameScene.addActor(new CommonDialog(new String[]{
+//						"Move all BBMans to you touch point",
+//						"Note:Every Touch will cost your 100 sprites"
+//				}));
 				super.clicked(event, x, y);
 			}});
 		btn_npc.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y) {
 				fingerMode = FingerMode.Npc;
 				Engine.getSoundManager().playSound("SoundFunc");
+				gameScene.addActor(new CommonDialog(new String[]{
+						"Touch the screen to add new BBMan ",
+						"Note:Every BBMan will cost your 10 sprites"
+				}));
 				super.clicked(event, x, y);
 			}});
 		btn_fill.addListener(new ClickListener(){
@@ -62,6 +71,26 @@ public class FunctionPane extends Table{
 
 	public FingerMode getFingerMode() {
 		return fingerMode;
+	}
+	public void setFingerMode(FingerMode mode){
+		this.fingerMode = mode;
+		switch(mode){
+		case Clear:
+			btn_dig.setChecked(true);
+			break;
+		case Fill:
+			btn_fill.setChecked(true);
+			break;
+		case Home:
+			btn_home.setChecked(true);
+			break;
+		case Npc:
+			btn_npc.setChecked(true);
+			break;
+		default:
+			break;
+			
+		}
 	}
 	
 	public void fullButton(){

@@ -42,9 +42,9 @@ public class DigsEngineDrive implements EngineDrive {
 		levelScene = new LevelScene(this);
 		aboutScene = new AboutScene(this);
 		
-//		Engine.setMainScene(startUpScene);
-		gameScene.startLevel(0, 0);
-		Engine.setMainScene(gameScene);
+		Engine.setMainScene(startUpScene);
+//		gameScene.startLevel(0, 1);
+//		Engine.setMainScene(gameScene);
 		Digs.delayPlayActorSound();
 	}
 
@@ -61,6 +61,7 @@ public class DigsEngineDrive implements EngineDrive {
 		reg.font("Font", "data/fnt/foot.fnt");
 		reg.font("BigFont", "data/fnt/big.fnt");
 		reg.font("MenuFont", "data/fnt/menu.fnt");
+		reg.font("FxFont", "data/fnt/fx.fnt");
 		
 		//the particle Effect
 		reg.particleEffect("Effect", "data/all.pp");

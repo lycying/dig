@@ -6,6 +6,7 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
+import info.u250.digs.scenes.game.Level.FingerMode;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.callback.DefaultLevelCompleteCallback;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
@@ -30,6 +32,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /*
  * this tour show the basic operation that we should 
@@ -71,6 +75,8 @@ public class Tour1 extends LevelConfig {
 			final TextureAtlas atlas = Engine.resource("All");
 			final Image finger = new Image(atlas.findRegion("finger"));
 			final LineActor line = new LineActor(200, 298, 504, 234);
+			final BitmapFont font = Engine.resource("FxFont");
+			final Label lblText = new Label("", new LabelStyle(font, Color.YELLOW));
 			public void upAndDown(){
 				finger.clearActions();
 				finger.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, -20,0.2f),Actions.moveBy(0, 20,0.2f))));
@@ -99,22 +105,34 @@ public class Tour1 extends LevelConfig {
 							level.getGame().addActor(finger);
 							finger.setPosition(500, 180);
 							upAndDown();
+							lblText.setPosition(400, 120);
+							lblText.setText("This is gold");
+							level.getGame().addActor(lblText);
 						}else if(type == TYPE_INF_DOCK){
 							mask.setRect(new Rectangle(0,300,100,20));
 							type = TYPE_INF_NPC;
 							level.getGame().addActor(finger);
 							finger.setPosition(40, 250);
 							upAndDown();
+							lblText.setPosition(160, 280);
+							lblText.setText("You need bring the gold  home");
+							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_NPC){
 							level.getGame().reallyStartLevel();
 							type = TYPE_INF_BUTTON;
 							finger.remove();
+							lblText.setPosition(100, 150);
+							lblText.setText("I'll do the work");
+							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_BUTTON){
 							mask.setRect(new Rectangle(80,460,80,80));
 							type = TYPE_INF_PATH;
 							level.getGame().addActor(finger);
 							finger.setPosition(120, 400);
 							upAndDown();
+							lblText.setPosition(200, 460);
+							lblText.setText("This tool used to dig");
+							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_PATH){
 							mask.setRect(new Rectangle(80,230,500,150));
 							type=TYPE_INF_DONE;
@@ -122,11 +140,18 @@ public class Tour1 extends LevelConfig {
 							line.setColor(Color.BLACK);
 							level.getGame().addActor(finger);
 							drawLine();
+							lblText.setPosition(100, 180);
+							lblText.setText("Dig using with your finger");
+							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_DONE){
 							mask.remove();
 							finger.remove();
 							line.remove();
 							type = TYPE_INF_YOURTURN;
+							lblText.setPosition(100, 120);
+							lblText.setText("Ok it's your turn");
+							level.getGame().addActor(lblText);
+							lblText.getStyle().fontColor = Color.BLUE;
 						}
 						super.clicked(event, x, y);
 					}
@@ -140,6 +165,7 @@ public class Tour1 extends LevelConfig {
 						if(type==TYPE_INF_BUTTON){
 							mask.setRect(new Rectangle(this.getX()-this.getWidth()/2-10,this.getY()-10,this.getWidth()+20,this.getHeight()+20));
 						}else if(type==TYPE_INF_DONE){
+							this.direction = 1;
 							this.setPosition(100, 300);
 						}
 						super.draw(batch, parentAlpha);
@@ -202,6 +228,8 @@ public class Tour1 extends LevelConfig {
 				dock2.setY(lineHeight);
 				dock2.setX(Engine.getWidth()-dock2.getWidth());
 				level.addGoldDock(dock2);
+				
+				level.getGame().setFingerMode(FingerMode.Clear);
 				
 			}
 		};

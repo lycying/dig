@@ -7,8 +7,8 @@ import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.LevelConfig;
+import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.HintOnScreen;
 
@@ -16,22 +16,21 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Polygon;
 /*
- * You can find 10 ka in this tour
+ * show that the enemy will kill you , but it can not be killed!
  */
 public class Tour8 extends LevelConfig {
 	public Tour8(){
-		this.surface = "qvg/007.png";
+		this.surface = "qvg/007.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.DARK_CYAN.get();
-		this.topColor = WebColors.DARK_BLUE.get();
+		this.bottomColor = WebColors.LIGHT_CORAL.get();
+		this.topColor = WebColors.AQUA.get();
 		this.lineHeight = 300;
 		this.segment = 1;
-		this.gold = 0;
-		this.ka = 10;
+		this.gold = 10;
 		this.time = 3*60;
 		this.npc = 10;
-		
+		this.enemy = 5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
@@ -42,21 +41,31 @@ public class Tour8 extends LevelConfig {
 					e.setPosition(100, Engine.getHeight() + Digs.RND.nextFloat()*500);
 					level.addNpc(e);
 				}
-				for(int i=0;i<ka;i++){
-					Ka e = new Ka();
+				for(int i=0;i<enemy;i++){
+					EnemyMiya e = new EnemyMiya();
 					e.init(level);
-					e.setPosition(380 + Digs.RND.nextFloat()*100, 70);
-					level.addKa(e);
+					e.setPosition(430 + Digs.RND.nextFloat()*100, 100);
+					level.addEnemyMiya(e);
 				}
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				gold.setColor(Color.CLEAR);
-				Polygon polygon =  PolygonTable.IMG_ISLAND1();
-				polygon.setScale(3f,1f);
-				polygon.setPosition(350, 50);
-				drawPolygon(polygon, terr);
+				{
+					gold.setColor(Color.CLEAR);
+					Polygon polygon =  PolygonTable.IMG_ISLAND2();
+					polygon.setScale(3f,1f);
+					polygon.setPosition(350, 50);
+					drawPolygon(polygon, terr);
+				}
+				
+				{
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.CAKE_7();
+					polygon.setScale(0.5f,0.5f);
+					polygon.setPosition(700, 100);
+					drawPolygon(polygon, gold);
+					}
 			}
 
 			@Override
@@ -66,9 +75,9 @@ public class Tour8 extends LevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("seem to have met before","hint2",Color.WHITE,200);
+					HintOnScreen hint = new HintOnScreen("never try to kill a enemy , you cann't","hint2",Color.WHITE,120);
 					hint.pack();
-					hint.setPosition(400, 70);
+					hint.setPosition(400, 60);
 					level.addActor(hint);
 					}
 			}

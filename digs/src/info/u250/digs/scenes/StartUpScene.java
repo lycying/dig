@@ -1,3 +1,4 @@
+
 package info.u250.digs.scenes;
 
 import info.u250.c2d.engine.CoreProvider.CoreEvents;
@@ -312,7 +313,8 @@ public class StartUpScene extends SceneStage{
 		if(texs_index>texs.size()-1){
 			texs_index = 0;
 		}
-		config.segment = 8;
+		config.ascent = 25;
+		config.segment = 30;
 		config.lineHeight = 200;
 		config.width = (int)Engine.getWidth();
 		level = new Level(null,config);

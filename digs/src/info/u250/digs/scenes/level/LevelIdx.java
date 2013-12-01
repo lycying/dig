@@ -11,9 +11,9 @@ import info.u250.digs.scenes.level.pack.guide.Tour3;
 import info.u250.digs.scenes.level.pack.guide.Tour4;
 import info.u250.digs.scenes.level.pack.guide.Tour5;
 import info.u250.digs.scenes.level.pack.guide.Tour6;
+import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.guide.Tour7;
 import info.u250.digs.scenes.level.pack.guide.Tour8;
-import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl1;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl10;
 import info.u250.digs.scenes.level.pack.s1.S1Lvl11;
@@ -57,10 +57,10 @@ public class LevelIdx {
 		"First Blood",							
 		"As Time Goes By",						
 		"Embrace The Death",					
-		"Got No Place To Go",					
-		"Deeper And Deeper",					
+		"Got No Place To Go",										
 		"Meet A Friend",						
-		"Enemy Appear",							
+		"Enemy Appear",		
+		"Deeper And Deeper",
 		},
 		new String[]{
 		"Volcano Foot",
