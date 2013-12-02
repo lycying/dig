@@ -5,16 +5,21 @@ Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
   <string name="app_id">140872131536</string>
-  <string name="achievement_whats_the_fuck">CgkI0MeI5YwEEAIQCA</string>
-  <string name="achievement_wwwwwwwwwwwwwwwwwwwwwwwfsddfs">CgkI0MeI5YwEEAIQCQ</string>
-  <string name="achievement_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">CgkI0MeI5YwEEAIQCg</string>
-  <string name="achievement_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb">CgkI0MeI5YwEEAIQCw</string>
-  <string name="achievement_cccccccccccccccccccccccccccccc">CgkI0MeI5YwEEAIQDA</string>
-  <string name="achievement_dddddddddddddddddddddddddddddddddddddddd">CgkI0MeI5YwEEAIQDQ</string>
   <string name="leaderboard_pack1_lvl0">CgkI0MeI5YwEEAIQAQ</string>
   <string name="leaderboard_pack1_lvl1">CgkI0MeI5YwEEAIQAg</string>
   <string name="leaderboard_pack1_lvl2">CgkI0MeI5YwEEAIQAw</string>
   <string name="leaderboard_pack1_lvl3">CgkI0MeI5YwEEAIQBA</string>
   <string name="leaderboard_pack1_lvl4">CgkI0MeI5YwEEAIQBQ</string>
   <string name="leaderboard_pack1_lvl5">CgkI0MeI5YwEEAIQBg</string>
+  <string name="leaderboard_pack1_lvl6">CgkI0MeI5YwEEAIQDg</string>
+  <string name="leaderboard_pack1_lvl7">CgkI0MeI5YwEEAIQDw</string>
+  <string name="leaderboard_pack1_lvl8">CgkI0MeI5YwEEAIQEA</string>
+  <string name="leaderboard_pack1_lvl9">CgkI0MeI5YwEEAIQEQ</string>
+  <string name="leaderboard_pack1_lvl10">CgkI0MeI5YwEEAIQEg</string>
+  <string name="leaderboard_pack1_lvl11">CgkI0MeI5YwEEAIQEw</string>
+  <string name="leaderboard_pack1_lvl12">CgkI0MeI5YwEEAIQFA</string>
+  <string name="leaderboard_pack1_lvl13">CgkI0MeI5YwEEAIQFQ</string>
+  <string name="leaderboard_pack1_lvl14">CgkI0MeI5YwEEAIQFg</string>
+  <string name="leaderboard_pack1_lvl15">CgkI0MeI5YwEEAIQFw</string>
+  <string name="leaderboard_pack1_lvl16">CgkI0MeI5YwEEAIQGA</string>
 </resources>

@@ -34,7 +34,7 @@ public class Pack1V4 extends LevelConfig {
 		this.segment = 30;
 		this.gold = 200;
 		this.npc = 30;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

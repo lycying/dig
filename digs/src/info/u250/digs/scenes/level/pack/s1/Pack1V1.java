@@ -33,7 +33,7 @@ public class Pack1V1 extends LevelConfig {
 		this.segment = 20;
 		this.gold = 100;
 		this.npc = 20;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship3.png"));

@@ -111,6 +111,7 @@ public class PauseDialog extends Group {
 	public void show(){
 		game.getStatusPane().pauseCounter();
 		Engine.getMusicManager().stopMusic("MusicCollection");
+		Engine.getMusicManager().stopMusic("MusicTimer");
 	}
 	public void close(){
 		game.getStatusPane().resumeCounter();

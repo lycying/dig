@@ -42,14 +42,18 @@ public class AboutScene extends SceneStage{
 //	boolean buildSuccess = false;
 	String[] contributes = new String[]{
 			"--Credits--",
-			"Programming: Lycying",
-			"Artwork and Graphics: Anny",
-			"Music: Anyone?",
-			"Sound Effects: Lycying",
-			"Story: Lycying",
+			"Design: Lycying@gmail.com" ,
+			"Programming:  Lycying@gmail.com",
+			"Artwork and Graphics: Annie",
+			"Music: Tyler Johnson (Casualties of War)",
+			"Sound Effects: Lycying@gmail.com",
+			"Story: Annie",
 			"Idea: Miner4k \n https://mojang.com/notch/j4k2k6/miners4k/",
-			"Engine: Libgdx,C2d-engine",
-			"Blog: http://www.u250.info"
+			"Engine: C2d-engine,Libgdx",
+			"Blog: http://www.u250.info",
+			"--Thanks--",
+			"Thanks: Zhaoyunhello@gmail.com",
+			"Thanks: Yadongx@gmail.com"
 	};
 	public AboutScene(final DigsEngineDrive drive){
 		this.drive = drive;

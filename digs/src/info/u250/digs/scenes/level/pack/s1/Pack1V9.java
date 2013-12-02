@@ -35,7 +35,7 @@ public class Pack1V9 extends LevelConfig {
 		this.ascent = 20;
 		this.gold = 300;
 		this.npc = 30;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/island2.png"));

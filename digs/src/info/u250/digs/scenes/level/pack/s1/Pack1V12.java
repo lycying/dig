@@ -35,7 +35,7 @@ public class Pack1V12 extends LevelConfig {
 		this.gold = 150;
 		this.npc = 20;
 		this.ka = 5;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/rocket.png"));

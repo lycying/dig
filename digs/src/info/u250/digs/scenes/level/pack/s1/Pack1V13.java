@@ -38,7 +38,7 @@ public class Pack1V13 extends LevelConfig {
 		this.ka = 5;
 		this.ascent = 30;
 		this.enemy = 8;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/yh.png"));

@@ -68,13 +68,19 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		level.getGame().getStatusPane().pauseCounter();
 		Engine.getMusicManager().stopMusic("MusicBattle");
 		Engine.getSoundManager().playSound("SoundWin");
+		Engine.getMusicManager().stopMusic("MusicTimer");
+		Engine.getMusicManager().stopMusic("MusicCollection");
 		win = true;
 		
-		int score = level.config.time - level.getGame().leastTime();		
-		IO.win(level.config.pack,level.config.idx, score, false);
+		int time = level.config.time - level.getGame().leastTime();	//time	80%
+		int npc = level.getNpcs().size;//NPC 20%
+		int score = time*800+npc*200;
+		IO.win(level.config.pack,level.config.idx, score, true);
 	}
 	void fail(Level level){		
 		Engine.getSoundManager().playSound("SoundFail");
+		Engine.getMusicManager().stopMusic("MusicTimer");
+		Engine.getMusicManager().stopMusic("MusicCollection");
 		level.getGame().getStatusPane().pauseCounter();
 		FailDailog failDialog = new FailDailog(level.getGame());
 		failDialog.show();

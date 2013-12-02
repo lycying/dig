@@ -37,7 +37,7 @@ public class Pack1V5 extends LevelConfig {
 		this.npc = 2;
 		this.ka = 30;
 		this.enemy = 5;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override
