@@ -34,7 +34,7 @@ public class Pack1V5 extends LevelConfig {
 		this.lineHeight = 360;
 		this.segment = 10;
 		this.gold = 0;
-		this.npc = 2;
+		this.npc = 5;
 		this.ka = 30;
 		this.enemy = 5;
 		this.time = 600;
@@ -104,7 +104,8 @@ public class Pack1V5 extends LevelConfig {
 					drawPolygon(polygon, terr);
 				}
 				{
-					drawPixmapDeco(gold, "stone6", 470, 50);
+					drawPixmapDeco(terr, "deco3", 450, 150);
+					drawPixmapDeco(gold, "stone6", 570, 50);
 					drawPixmapDeco(gold, "stone3", 400, 0);
 					drawPixmapDeco(gold, "stone2", 350, -30);
 				}

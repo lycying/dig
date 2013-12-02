@@ -159,6 +159,9 @@ public class Tour2 extends LevelConfig {
 				polygon.setScale(1f, 1f);
 				polygon.setPosition(650, 400);
 				drawPolygon(polygon, gold);
+				
+				drawPixmapDeco(terr, "tree", 800, lineHeight-2);
+				drawPixmapDeco(terr, "tree", 900, lineHeight-2,0.5f);
 			}
 
 			@Override

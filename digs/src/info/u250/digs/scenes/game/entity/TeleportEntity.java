@@ -71,10 +71,10 @@ public class TeleportEntity extends Actor{
 		
 		percentStep = WWWWW/new Vector2(inx,iny).dst(outx, outy);
 		
-		rect.x = inx+8;
-		rect.y = iny+8;
-		rect.width = 24;
-		rect.height = 24;
+		rect.x = inx;
+		rect.y = iny;
+		rect.width = 40;
+		rect.height = 40;
 		
 		this.setSize(Math.max(inx, outx)+40, Math.max(iny, outy)+40);
 		

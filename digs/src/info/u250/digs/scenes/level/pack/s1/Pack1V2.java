@@ -57,15 +57,24 @@ public class Pack1V2 extends LevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
-				polygon.setScale(1f, 1f);
-				polygon.setPosition(700, 100);
-				drawPolygon(polygon, gold);
-				}
+					gold.setColor(Color.CYAN);
+					Polygon polygon =  PolygonTable.CLIFFA_2();
+					polygon.setScale(3f, 2f);
+					polygon.setPosition(0, 0);
+					drawPolygon(polygon, gold);
+					}
 				{
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
+					polygon.setScale(1f, 1f);
+					polygon.setPosition(700, 100);
+					drawPolygon(polygon, gold);
+					}
+				{
+					drawPixmapDeco(terr, "tree4", 10, 80);
 					drawPixmapDeco(gold, "stone1", -20, -50);
 					drawPixmapDeco(terr, "deco3", 900, lineHeight-ascent*2);
+					drawPixmapDeco(terr, "deco3", 850, lineHeight-ascent*2);
 				}
 			}
 

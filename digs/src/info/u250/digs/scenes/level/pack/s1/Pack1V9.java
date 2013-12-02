@@ -65,11 +65,18 @@ public class Pack1V9 extends LevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-				
+					drawPixmapDeco(terr, "tree3", 400, 340);
+					drawPixmapDeco(terr, "tree3", 480, 340,0.3f);
 					drawPixmapDeco(gold, "stone5", 300, 300,0.5f);
 					
 				}
 				{
+					gold.setColor(Color.CYAN);
+					Polygon polygon =  PolygonTable.IMG_ISLAND4();
+					polygon.setScale(1f, 1f);
+					polygon.setPosition(750, 100);
+					drawPolygon(polygon, gold);
+				}{
 					gold.setColor(Color.YELLOW);
 					Polygon polygon =  PolygonTable.IMG_ISLAND6();
 					polygon.setScale(0.2f, 0.2f);
@@ -104,6 +111,7 @@ public class Pack1V9 extends LevelConfig {
 					polygon.setPosition(900, 20);
 					drawPolygon(polygon, gold);
 				}
+				
 			}
 			@Override
 			public void before(Level level) {

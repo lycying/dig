@@ -9,129 +9,158 @@ import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
+import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V16 extends LevelConfig {
 	public Pack1V16(){
-		this.surface = "qvg/115.png";
+		this.surface = "qvg/115.jpg";
 		this.width = (int)Engine.getWidth() ;
-		this.height = 2048;
-		this.bottomColor = WebColors.INDIAN_RED.get();
-		this.topColor = WebColors.DARK_RED.get();
-		this.lineHeight = 360+2048-540;
-		this.ascent = 25;
-		this.segment = 20;
-		this.enemy = 3;
-		this.gold = 50;
-		this.npc = 20;
+		this.height = 1024;
+		this.bottomColor = WebColors.FOREST_GREEN.get();
+		this.topColor = WebColors.DARK_SEA_GREEN.get();
+		this.lineHeight = 260+1024-540;
+		this.ascent = 15;
+		this.segment = 40;
+		this.gold = 150;
+		this.npc = 15;
+		this.enemy = 5;
 		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture bgTexture = new Texture(Gdx.files.internal("wb/bg2.png"));
+			final Texture bgTexture = new Texture(Gdx.files.internal("wb/ship8.png"));
 			@Override
 			public void dispose() {
 				bgTexture.dispose();
 			}
 			@Override
 			public void after(Level level) {
+				{
+					StepladderEntity e = new StepladderEntity(10, 500, 550);
+					level.addStepladder(e);
+				}
+				{
+					StepladderEntity e = new StepladderEntity(5, 500, 360);
+					level.addStepladder(e);
+				}
+				{
+					StepladderEntity e = new StepladderEntity(15, 800, 160);
+					level.addStepladder(e);
+				}
 				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(200+Digs.RND.nextFloat()*200, height + Digs.RND.nextFloat()*100);
+					e.setPosition(310+Digs.RND.nextFloat()*200, 520);
 					level.addNpc(e);
 				}
-				{
-					TeleportEntity inout = new TeleportEntity(280, 600, 700, 1020);
-					level.addInOutTrans(inout);
-				}
-				{
-					EnemyMiya e = new EnemyMiya();
-					e.init(level);
-					e.setPosition(180, 600);
-					level.addEnemyMiya(e);
-				}
-				{
-					EnemyMiya e = new EnemyMiya();
-					e.init(level);
-					e.setPosition(800, 1020);
-					level.addEnemyMiya(e);
-				}
-				{
-					EnemyMiya e = new EnemyMiya();
-					e.init(level);
-					e.setPosition(380, 1450);
-					level.addEnemyMiya(e);
-				}
 				
+				{
+					Boss boss = new Boss();
+					boss.setBossLandHeight(300);
+					boss.init(level);
+					boss.setPosition(860, 350);
+					level.addBoss(boss);
+					for(int i=0;i<enemy;i++){
+						EnemyMiya e = new EnemyMiya();
+						e.init(level);
+						e.setPosition(300+Digs.RND.nextFloat()*400, 320);
+						level.addEnemyMiya(e);
+					}
+				}
+				{
+					KillCircleEntity e = new KillCircleEntity(640, 900, 30, Color.RED);
+					level.addKillCircle(e);
+				}
+				{
+					TeleportEntity e = new TeleportEntity(300, 500, 700, 500);
+					level.addInOutTrans(e);
+				}
+				{
+					TeleportEntity e = new TeleportEntity(200, 300, 800, 300,Color.WHITE,Color.BLUE);
+					level.addInOutTrans(e);
+				}
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.COLLECTION_DOODLE_4();
-					polygon.setScale(1f, 1f);
-					polygon.setPosition(300, 50);
-					drawPolygon(polygon, gold);
+					terr.setColor(Color.CLEAR);
+					fillRect(terr, 200, 300, 660, 40);
+					fillRect(terr, 300, 500, 460, 40);
 				}
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.COLLECTION_DOODLE_4();
-					polygon.setScale(1f, 1f);
-					polygon.setRotation(180);
-					polygon.setPosition(800, 50);
+					Polygon polygon =  PolygonTable.TOAST();
+					polygon.setScale(4f, 2f);
+					polygon.setPosition(10, 30);
+					drawPolygon(polygon, gold);
+				}
+
+				{
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.COVERSCENE8();
+					polygon.setScale(0.4f, 0.4f);
+					polygon.setPosition(50, 330);
 					drawPolygon(polygon, gold);
 				}
 				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.D_EAST_A();
-					polygon.setScale(1f, 1f);
-					polygon.setPosition(200, 550);
+					gold.setColor(Color.WHITE);
+					Polygon polygon =  PolygonTable.SQUIDGE_128();
+					polygon.setScale(2, 2);
+					polygon.setPosition(500, 730);
 					drawPolygon(polygon, gold);
 				}
 				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.D_EAST_A();
-					polygon.setScale(1f, 1f);
-					polygon.setRotation(180);
-					polygon.setPosition(800, 850);
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
+					polygon.setScale(0.2f, 0.2f);
+					polygon.setPosition(750, 880);
 					drawPolygon(polygon, gold);
 				}
 				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.CRISTAL_HD();
-					polygon.setScale(1f, 1f);
-					polygon.setRotation(180);
-					polygon.setPosition(500, 1250);
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.LIZARD0010();
+					polygon.setScale(0.5f, 0.5f);
+					polygon.setPosition(720, 850);
 					drawPolygon(polygon, gold);
+				}
+				{
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.IMG_ISLAND5();
+					polygon.setScale(0.6f, 0.6f);
+					polygon.setPosition(500, 750);
+					drawPolygon(polygon, gold);
+				}
+				{
+					drawPixmapDeco(gold, "stone5", 720, 520);
 				}
 				
-				{
-					int h = 0;
-					while(h<1600){
-						drawPixmapDeco(gold, "stone2", -20, h);
-						drawPixmapDeco(gold, "stone2", 860, h);
-						h+=100;
-					}
-				}
 			}
 			@Override
 			public void before(Level level) {
 				{
-					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(30,0));
-					pbg.addActor(new ParallaxLayer(pbg, new Image(bgTexture), new Vector2(1f,1), new Vector2(0,10000), new Vector2(0,0)));
-					pbg.setY(2048-540+420);
+					TextureAtlas atlas = Engine.resource("All");
+					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
+					pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,1024-540+350)));
+					Image shipImage2 = new Image(bgTexture);
+					shipImage2.addAction(Actions.forever(Actions.sequence(Actions.rotateTo(-10,2),Actions.rotateTo(10,2))));
+					pbg.addActor(new ParallaxLayer(pbg, shipImage2, new Vector2(2.5f,1), new Vector2(1000,20000), new Vector2(900,1024-540+260)));
+			
 					level.addActor(pbg);
 				}
 				{

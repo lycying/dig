@@ -57,6 +57,8 @@ public class Tour5 extends LevelConfig {
 				polygon.setPosition(700, 100);
 				drawPolygon(polygon, gold);
 				}
+				drawPixmapDeco(terr, "tree2", 800, lineHeight-2);
+				drawPixmapDeco(terr, "tree2", 900, lineHeight-2,0.4f);
 			}
 
 			@Override

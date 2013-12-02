@@ -32,7 +32,7 @@ public class Pack1V12 extends LevelConfig {
 		this.lineHeight = 360+300;
 		this.ascent = 25;
 		this.segment = 20;
-		this.gold = 150;
+		this.gold = 100;
 		this.npc = 20;
 		this.ka = 5;
 		this.time = 600;

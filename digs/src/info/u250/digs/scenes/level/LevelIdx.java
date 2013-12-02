@@ -19,15 +19,17 @@ import info.u250.digs.scenes.level.pack.s1.Pack1V10;
 import info.u250.digs.scenes.level.pack.s1.Pack1V11;
 import info.u250.digs.scenes.level.pack.s1.Pack1V12;
 import info.u250.digs.scenes.level.pack.s1.Pack1V13;
-import info.u250.digs.scenes.level.pack.s1.Pack1V7;
 import info.u250.digs.scenes.level.pack.s1.Pack1V14;
 import info.u250.digs.scenes.level.pack.s1.Pack1V15;
 import info.u250.digs.scenes.level.pack.s1.Pack1V16;
+import info.u250.digs.scenes.level.pack.s1.Pack1V17;
+import info.u250.digs.scenes.level.pack.s1.Pack1V18;
 import info.u250.digs.scenes.level.pack.s1.Pack1V2;
 import info.u250.digs.scenes.level.pack.s1.Pack1V3;
 import info.u250.digs.scenes.level.pack.s1.Pack1V4;
 import info.u250.digs.scenes.level.pack.s1.Pack1V5;
 import info.u250.digs.scenes.level.pack.s1.Pack1V6;
+import info.u250.digs.scenes.level.pack.s1.Pack1V7;
 import info.u250.digs.scenes.level.pack.s1.Pack1V8;
 import info.u250.digs.scenes.level.pack.s1.Pack1V9;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl1;
@@ -84,6 +86,8 @@ public class LevelIdx {
 		"Molten Lands",
 		"Abyssal Maze",
 		"Nether Jungle",
+		"Pantheon of the Gods",
+		"Door of Darkness",
 		},
 		new String[]{
 		"Dusk City",
@@ -214,6 +218,12 @@ public class LevelIdx {
 			break;
 		case 15:
 			config = new Pack1V16();
+			break;
+		case 16:
+			config = new Pack1V17();
+			break;
+		case 17:
+			config = new Pack1V18();
 			break;
 		}
 		return config;

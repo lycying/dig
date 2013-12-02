@@ -33,7 +33,7 @@ public class Pack1V13 extends LevelConfig {
 		this.topColor = WebColors.INDIGO.get();
 		this.lineHeight = 360+1024-540;
 		this.segment = 30;
-		this.gold = 200;
+		this.gold = 150;
 		this.npc = 15;
 		this.ka = 5;
 		this.ascent = 30;

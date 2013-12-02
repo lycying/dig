@@ -48,6 +48,14 @@ public class Pack1V4 extends LevelConfig {
 					level.addKillCircle(kill);
 				}
 				{
+					KillCircleEntity kill = new KillCircleEntity(820, 100, 30, Color.BLUE);
+					level.addKillCircle(kill);
+				}
+				{
+					KillCircleEntity kill = new KillCircleEntity(710, 150, 30, Color.WHITE);
+					level.addKillCircle(kill);
+				}
+				{
 					KillCircleEntity kill = new KillCircleEntity(750, 100, 200, Color.BLUE);
 					level.addKillCircle(kill);
 				}
@@ -69,6 +77,13 @@ public class Pack1V4 extends LevelConfig {
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
+				{
+					gold.setColor(Color.CYAN);
+					Polygon polygon =  PolygonTable.CLIFFA_2();
+					polygon.setScale(3f, 2f);
+					polygon.setPosition(-50, 0);
+					drawPolygon(polygon, gold);
+					}
 				{
 					gold.setColor(Color.YELLOW);
 					Polygon polygon =  PolygonTable.WARRIOR_BY_ANIMATEDARCTICSTUDIO_D69O6JL();

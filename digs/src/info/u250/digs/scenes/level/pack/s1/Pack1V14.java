@@ -33,7 +33,7 @@ public class Pack1V14 extends LevelConfig {
 		this.lineHeight = 360+1024-540;
 		this.ascent = 25;
 		this.segment = 20;
-		this.gold = 200;
+		this.gold = 150;
 		this.npc = 15;
 		this.enemy = 2;
 		this.time = 600;

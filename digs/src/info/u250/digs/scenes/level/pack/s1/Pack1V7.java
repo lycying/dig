@@ -95,7 +95,9 @@ public class Pack1V7 extends LevelConfig {
 				drawPolygon(polygon, gold);
 				}
 				
-				
+				{
+					drawPixmapDeco(terr, "tree2", 800, lineHeight-2*ascent);
+				}
 			
 			}
 

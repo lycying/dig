@@ -24,6 +24,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V8 extends LevelConfig {
@@ -41,7 +42,7 @@ public class Pack1V8 extends LevelConfig {
 		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship5.png"));
+			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship6.png"));
 			
 			@Override
 			public void dispose() {
@@ -52,6 +53,10 @@ public class Pack1V8 extends LevelConfig {
 			public void after(Level level) {
 				{
 					StepladderEntity e = new StepladderEntity(10, 900, 60);
+					level.addStepladder(e);
+				}
+				{
+					StepladderEntity e = new StepladderEntity(10, 80, 60);
 					level.addStepladder(e);
 				}
 				for(int i=0;i<npc;i++){
@@ -70,7 +75,11 @@ public class Pack1V8 extends LevelConfig {
 					level.addKillCircle(e);
 				}
 				{
-					KillCircleEntity e = new KillCircleEntity(400,300, 220, Color.YELLOW);
+					KillCircleEntity e = new KillCircleEntity(430,300, 100, Color.WHITE);
+					level.addKillCircle(e);
+				}
+				{
+					KillCircleEntity e = new KillCircleEntity(630,200, 50, Color.WHITE);
 					level.addKillCircle(e);
 				}
 				{
@@ -101,8 +110,13 @@ public class Pack1V8 extends LevelConfig {
 					drawPolygon(polygon, gold);
 					}
 				
+				{
+					gold.setColor(Color.CYAN);
+					fillRect(gold, 100, 50, 2, 100);
+					fillRect(gold, 400, 50, 2, 100);
+					fillRect(gold, 700, 50, 2, 100);
+				}
 				
-			
 			}
 
 			@Override
@@ -110,7 +124,9 @@ public class Pack1V8 extends LevelConfig {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,450)));
+				Image shipImage2 = new Image(ship1);
+				shipImage2.addAction(Actions.forever(Actions.sequence(Actions.rotateTo(-10,2),Actions.rotateTo(10,2))));
+				pbg.addActor(new ParallaxLayer(pbg, shipImage2, new Vector2(2.5f,1), new Vector2(1000,20000), new Vector2(900,350)));
 		
 				level.addActor(pbg);
 				
