@@ -4,9 +4,9 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
  * this tour show the lager map
  *
  */
-public class Tour9 extends HookLevelConfig {
+public class Tour9 extends LineLevelConfig {
 	public Tour9(){
 		this.surface = "qvg/008.png";
 		this.width = (int)Engine.getWidth() ;
@@ -28,7 +28,7 @@ public class Tour9 extends HookLevelConfig {
 		this.bottomColor = WebColors.SEA_GREEN.get();
 		this.topColor = WebColors.BLACK.get();
 		this.lineHeight = 300+400;
-		this.segment = 1;
+		
 		this.gold = 10;
 		this.time = 3*60;
 		this.npc = 10;

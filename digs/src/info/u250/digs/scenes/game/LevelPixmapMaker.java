@@ -46,36 +46,48 @@ final class LevelPixmapMaker {
 							0, 0, bgPix.getWidth(), bgPix.getHeight());
 				}
 			}
-			
-			if(segment>1){
-				Vector2[] controlPoints = new Vector2[segment];
-				controlPoints[0] = new Vector2(0,lineHeight);
-				for(int i=1;i<segment;i++){
-					controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(configReal.ascent)+lineHeight);
-				}
-				spline.set(controlPoints, true);
+			Vector2[] controlPoints = new Vector2[segment];
+			controlPoints[0] = new Vector2(0,lineHeight);
+			for(int i=1;i<segment;i++){
+				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(configReal.ascent)+lineHeight);
+			}
+			spline.set(controlPoints, true);
 
-				for(int i=0;i<width;i+=10){
-					spline.valueAt(tmpV, i/(float)width);
-					Pixmap.setBlending(Blending.SourceOver);
-					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
-				}
-				for(int i=0;i<width;i++){
-					spline.valueAt(tmpV, i/(float)width);
-					Pixmap.setBlending(Blending.None);
-					terMap.setColor(Color.CLEAR);
-					terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
-				}
-			}else{
-				//draw directly 
-				for(int i=0;i<width;i+=20){
-					Pixmap.setBlending(Blending.SourceOver);
-					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
-				}
+			for(int i=0;i<width;i+=10){
+				spline.valueAt(tmpV, i/(float)width);
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
+			}
+			for(int i=0;i<width;i++){
+				spline.valueAt(tmpV, i/(float)width);
 				Pixmap.setBlending(Blending.None);
 				terMap.setColor(Color.CLEAR);
-				terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
+				terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
 			}
+			if(height<=Engine.getHeight()){
+				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
+			}
+		}else if(config instanceof  LineLevelConfig){
+			final LineLevelConfig configReal = LineLevelConfig.class.cast(config);
+			final int lineHeight = configReal.lineHeight;
+			Pixmap.setBlending(Blending.SourceOver);
+			//round one , to make a full pixmap
+			for(int i=0;i*bgPix.getWidth()< width;i++){
+				for(int j=0;j*bgPix.getHeight()<height;j++){
+					terMap.drawPixmap(bgPix, 
+							i*bgPix.getWidth(),
+							j*bgPix.getHeight(), 
+							0, 0, bgPix.getWidth(), bgPix.getHeight());
+				}
+			}
+			//draw directly 
+			for(int i=0;i<width;i+=20){
+				Pixmap.setBlending(Blending.SourceOver);
+				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
+			}
+			Pixmap.setBlending(Blending.None);
+			terMap.setColor(Color.CLEAR);
+			terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
 			if(height<=Engine.getHeight()){
 				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
 			}
@@ -93,17 +105,28 @@ final class LevelPixmapMaker {
 							0, 0, bgPix.getWidth(), bgPix.getHeight());
 				}
 			}
+			Color grassColor = Color.valueOf("00a100");
 			for(int fi=1;fi<faces.length;fi++){
 				final Vector2 faceIsub = faces[fi-1];
 				final Vector2 faceI = faces[fi];
 				//draw directly 
-				for(int i=(int)faceIsub.x;i<faceI.x;i+=20){
+				for(int i=(int)faceIsub.x;i<faceI.x-100;i+=20){
 					Pixmap.setBlending(Blending.SourceOver);
 					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()- (int)faceIsub.y - (int)(10+20*Digs.RND.nextFloat()));
 				}
 				Pixmap.setBlending(Blending.None);
+				terMap.setColor(grassColor);
+				if(faceI.y>faceIsub.y){
+					terMap.fillRectangle( (int)faceI.x , 0 , 20 , terMap.getHeight()-(int)faceIsub.y+20);
+				}else{
+					terMap.fillRectangle( (int)faceI.x-20 , 0 , 20 , terMap.getHeight()-(int)faceI.y+20);
+				}
+				terMap.fillRectangle( (int)faceIsub.x , terMap.getHeight()-(int)faceIsub.y , (int)(faceI.x-faceIsub.x) ,20);
 				terMap.setColor(Color.CLEAR);
-				terMap.fillRectangle( (int)faceIsub.x , (int)faceIsub.y , (int)(faceI.x-faceIsub.x) , terMap.getHeight()-(int)faceIsub.y);
+				terMap.fillRectangle( (int)faceIsub.x , 0 , (int)(faceI.x-faceIsub.x) , terMap.getHeight()-(int)faceIsub.y);
+			}
+			if(height<=Engine.getHeight()){
+				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-configReal.lightLine/512f, 0.5f, 0.6f, 10, 10);
 			}
 		}
 		

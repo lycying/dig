@@ -4,9 +4,9 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 /*
  * this tour show how to use the stepladder
  */
-public class Tour6 extends HookLevelConfig {
+public class Tour6 extends LineLevelConfig {
 	public Tour6(){
 		this.surface = "qvg/005.jpg";
 		this.width = (int)Engine.getWidth() ;
@@ -26,7 +26,6 @@ public class Tour6 extends HookLevelConfig {
 		this.bottomColor = WebColors.DARK_SLATE_GRAY.get();
 		this.topColor = WebColors.DARK_GREEN.get();
 		this.lineHeight = 300;
-		this.segment = 1;
 		this.gold = 10;
 		this.time = 3*60;
 		this.npc = 10;

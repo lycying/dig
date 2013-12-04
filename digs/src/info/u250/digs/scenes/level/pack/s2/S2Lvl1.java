@@ -6,7 +6,7 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
+import info.u250.digs.scenes.game.FaceLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -20,16 +20,25 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 //carry as many of gold in center time
-public class S2Lvl1 extends HookLevelConfig {
+public class S2Lvl1 extends FaceLevelConfig {
 	public S2Lvl1(){
+		this.faces = new Vector2[]{
+				new Vector2(0,370),
+				new Vector2(50,350),
+				new Vector2(100,300),
+				new Vector2(150,350),
+				new Vector2(350,320),
+				new Vector2(600,200),
+				new Vector2(710,430),
+				new Vector2(960,400)
+		};
+		this.lightLine = 300;
 		this.surface = "qvg/200.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.DARK_GREEN.get();
-		this.lineHeight = 360;
-		this.ascent = 25;
-		this.segment = 1;
+		
 		this.gold = 100;
 		this.npc = 50;
 		this.time = 60*5;
@@ -79,7 +88,7 @@ public class S2Lvl1 extends HookLevelConfig {
 				level.addActor(pbg);
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
-				dock.setY(lineHeight);
+				dock.setY(380);
 				level.addGoldDock(dock);
 			}
 		};

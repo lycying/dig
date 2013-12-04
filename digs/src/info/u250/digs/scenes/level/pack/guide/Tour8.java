@@ -4,9 +4,9 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 /*
  * show that the enemy will kill you , but it can not be killed!
  */
-public class Tour8 extends HookLevelConfig {
+public class Tour8 extends LineLevelConfig {
 	public Tour8(){
 		this.surface = "qvg/007.jpg";
 		this.width = (int)Engine.getWidth() ;
@@ -26,7 +26,7 @@ public class Tour8 extends HookLevelConfig {
 		this.bottomColor = WebColors.LIGHT_CORAL.get();
 		this.topColor = WebColors.AQUA.get();
 		this.lineHeight = 300;
-		this.segment = 1;
+		
 		this.gold = 10;
 		this.time = 3*60;
 		this.npc = 10;

@@ -3,9 +3,9 @@ package info.u250.digs.scenes.level.pack.s1;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
-public class Pack1V18 extends HookLevelConfig {
+public class Pack1V18 extends LineLevelConfig {
 	public Pack1V18(){
 		this.surface = "qvg/117.png";
 		this.width = (int)Engine.getWidth()-SCROLL_WIDTH ;
@@ -22,8 +22,7 @@ public class Pack1V18 extends HookLevelConfig {
 		this.bottomColor = WebColors.WHEAT.get();
 		this.topColor = WebColors.FOREST_GREEN.get();
 		this.lineHeight = 320+300;
-		this.ascent = 25;
-		this.segment = 1;
+		
 		this.gold = 100;
 		this.npc = 20;
 		this.time = 600;

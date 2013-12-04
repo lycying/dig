@@ -4,9 +4,9 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Ka;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 /*
  * You can find 10 ka in this tour
  */
-public class Tour7 extends HookLevelConfig {
+public class Tour7 extends LineLevelConfig {
 	public Tour7(){
 		this.surface = "qvg/006.png";
 		this.width = (int)Engine.getWidth() ;
@@ -26,7 +26,7 @@ public class Tour7 extends HookLevelConfig {
 		this.bottomColor = WebColors.DARK_CYAN.get();
 		this.topColor = WebColors.DARK_BLUE.get();
 		this.lineHeight = 300;
-		this.segment = 1;
+		
 		this.gold = 0;
 		this.ka = 10;
 		this.time = 3*60;
