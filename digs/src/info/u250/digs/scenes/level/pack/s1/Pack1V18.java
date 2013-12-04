@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 public class Pack1V18 extends LevelConfig {
 	public Pack1V18(){
 		this.surface = "qvg/117.png";
-		this.width = (int)Engine.getWidth() ;
+		this.width = (int)Engine.getWidth()-SCROLL_WIDTH ;
 		this.height = 840;
 		this.bottomColor = WebColors.WHEAT.get();
 		this.topColor = WebColors.FOREST_GREEN.get();
@@ -48,19 +48,19 @@ public class Pack1V18 extends LevelConfig {
 				{
 					for(int i=0;i<80;i++){
 						gold.setColor(Color.YELLOW);
-						fillCircle(gold,(int)(100+Digs.RND.nextFloat()*800), (int)(100+Digs.RND.nextFloat()*500), 3);
+						fillCircle(gold,(int)(60+Digs.RND.nextFloat()*800), (int)(100+Digs.RND.nextFloat()*500), 3);
 					}
 					for(int i=0;i<20;i++){
 						gold.setColor(Color.CYAN);
-						fillCircle(gold,(int)(100+Digs.RND.nextFloat()*800), (int)(100+Digs.RND.nextFloat()*500), 2);
+						fillCircle(gold,(int)(60+Digs.RND.nextFloat()*800), (int)(100+Digs.RND.nextFloat()*500), 2);
 					}
 				}
 				
 				{
-					int w = 100;
+					int w = 150;
 					while(w<900){
-						drawPixmapDeco(terr, "tree2", w, lineHeight-2,0.5f+0.5f*Digs.RND.nextFloat());
-						w +=150;
+						drawPixmapDeco(terr, "tree7", w, lineHeight-2,0.5f+0.5f*Digs.RND.nextFloat());
+						w +=200;
 					}
 				}
 			}

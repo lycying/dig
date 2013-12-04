@@ -25,7 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class Pack1V12 extends LevelConfig {
 	public Pack1V12(){
 		this.surface = "qvg/111.png";
-		this.width = (int)Engine.getWidth() ;
+		this.width = (int)Engine.getWidth()-SCROLL_WIDTH ;
 		this.height = 840;
 		this.bottomColor = WebColors.STEEL_BLUE.get();
 		this.topColor = WebColors.ROYAL_BLUE.get();

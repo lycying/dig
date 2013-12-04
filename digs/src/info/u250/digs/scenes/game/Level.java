@@ -136,10 +136,10 @@ public class Level extends Group{
 				vtmp.scl(step/vtmp.len());
 				for (int i = 0; i < count; i++) {
 					posPre.add(vtmp);
-					fillTerrain(posPre.x-getX(),posPre.y, RADIUS,getFingerMode());
+					fillTerrain(posPre.x,posPre.y, RADIUS,getFingerMode());
 				}
 			}
-			fillTerrain(position.x-getX(),position.y, RADIUS,getFingerMode());
+			fillTerrain(position.x,position.y, RADIUS,getFingerMode());
 			
 
 			position.set(x,y);
@@ -184,6 +184,7 @@ public class Level extends Group{
 		
 	}
 	void assembleToPixmapHelper(){
+		setSize(config.width,config.height);
 		clear();
 		terrain = new PixmapHelper(pip[0]);
 		goldTerrain = new PixmapHelper(pip[1]);
@@ -231,7 +232,7 @@ public class Level extends Group{
 	// loading.....................................
 	void drawLoading(Batch batch){
 		batch.setColor(new Color(1,1,1,.5f));
-		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,config.width,Engine.getHeight());
+		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("color"), 0,0,Engine.getWidth(),Engine.getHeight());
 		batch.setColor(Color.WHITE);
 		batch.draw(Engine.resource("All",TextureAtlas.class).findRegion("loading"),(Engine.getWidth()-300)/2,240);
 	}
@@ -310,7 +311,6 @@ public class Level extends Group{
 	/* clear or fill terrain */
 	public void fillTerrain(float x,float y,final float radius,FingerMode mode){
 		if(terrain == null )return;
-		x += getX();
 		terrain.project(projPos, x, y);
 		if(mode == FingerMode.Fill){
 			terrain.eraseCircle(projPos.x, projPos.y, radius, FILL_COLOR);
@@ -324,7 +324,6 @@ public class Level extends Group{
 	/* remvoe a rect of the transport aim in order to store the npcs */
 	public void clearTransPort(float x,float y,final float radius){
 		if(terrain == null )return;
-		x += getX();
 		terrain.project(projPos, x, y);
 		terrain.eraseRectangle(projPos.x, projPos.y, radius ,Color.CLEAR);
 		terrain.update();

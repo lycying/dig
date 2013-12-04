@@ -42,9 +42,9 @@ public class DigsEngineDrive implements EngineDrive {
 		levelScene = new LevelScene(this);
 		aboutScene = new AboutScene(this);
 		
-		Engine.setMainScene(startUpScene);
-//		gameScene.startLevel(1, 10);
-//		Engine.setMainScene(gameScene);
+//		Engine.setMainScene(startUpScene);
+		gameScene.startLevel(1, 10);
+		Engine.setMainScene(gameScene);
 		Digs.delayPlayActorSound();
 	}
 

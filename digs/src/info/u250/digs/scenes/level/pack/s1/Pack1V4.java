@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V4 extends LevelConfig {
 	public Pack1V4(){
-		this.surface = "qvg/103.jpg";
+		this.surface = "qvg/103.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.LIGHT_PINK.get();
@@ -105,6 +105,8 @@ public class Pack1V4 extends LevelConfig {
 					polygon.setPosition(500, 450);
 					drawPolygon(polygon, gold);
 				}
+				drawPixmapDeco(terr, "tree7", 800, lineHeight-2*ascent);
+				drawPixmapDeco(gold, "stone5", 820, lineHeight-130,0.5f);
 			}
 			@Override
 			public void before(Level level) {

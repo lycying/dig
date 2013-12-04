@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 
 public class LevelConfig {
+	public static final int SCROLL_WIDTH = 30;
 	//for level information auto make
 	public int pack = 0;
 	public int idx  = 0;

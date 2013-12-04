@@ -62,7 +62,7 @@ public class Pack1V1 extends LevelConfig {
 				polygon.setPosition(700, 100);
 				drawPolygon(polygon, gold);
 				}
-				drawPixmapDeco(terr, "tree",800, lineHeight-ascent*2);
+				drawPixmapDeco(terr, "tree6",770, lineHeight-ascent*2);
 				drawPixmapDeco(gold, "stone2",775, lineHeight-ascent*4,0.5f);
 			}
 

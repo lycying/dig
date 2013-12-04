@@ -30,7 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class Pack1V16 extends LevelConfig {
 	public Pack1V16(){
 		this.surface = "qvg/115.jpg";
-		this.width = (int)Engine.getWidth() ;
+		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;
 		this.height = 1024;
 		this.bottomColor = WebColors.FOREST_GREEN.get();
 		this.topColor = WebColors.DARK_SEA_GREEN.get();
@@ -83,7 +83,11 @@ public class Pack1V16 extends LevelConfig {
 					}
 				}
 				{
-					KillCircleEntity e = new KillCircleEntity(640, 900, 30, Color.RED);
+					KillCircleEntity e = new KillCircleEntity(680, 900, 30, Color.RED);
+					level.addKillCircle(e);
+				}
+				{
+					KillCircleEntity e = new KillCircleEntity(570, 680, 60, Color.GREEN);
 					level.addKillCircle(e);
 				}
 				{
@@ -120,32 +124,20 @@ public class Pack1V16 extends LevelConfig {
 				}
 				{
 					gold.setColor(Color.WHITE);
-					Polygon polygon =  PolygonTable.SQUIDGE_128();
-					polygon.setScale(2, 2);
-					polygon.setPosition(500, 730);
+					Polygon polygon =  PolygonTable.A11949861321737044813PEAR_01();
+					polygon.setScale(1, 1);
+					polygon.setPosition(520, 630);
 					drawPolygon(polygon, gold);
 				}
+				
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.LL_GIRL_IN_A_BOX();
-					polygon.setScale(0.2f, 0.2f);
-					polygon.setPosition(750, 880);
+					Polygon polygon =  PolygonTable.A1194991237523065600CHESSPIECED();
+					polygon.setScale(0.3f, 0.3f);
+					polygon.setPosition(680, 930);
 					drawPolygon(polygon, gold);
 				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.LIZARD0010();
-					polygon.setScale(0.5f, 0.5f);
-					polygon.setPosition(720, 850);
-					drawPolygon(polygon, gold);
-				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.IMG_ISLAND5();
-					polygon.setScale(0.6f, 0.6f);
-					polygon.setPosition(500, 750);
-					drawPolygon(polygon, gold);
-				}
+				
 				{
 					drawPixmapDeco(gold, "stone5", 720, 520);
 				}

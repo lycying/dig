@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 public class Pack1V17 extends LevelConfig {
 	public Pack1V17(){
 		this.surface = "qvg/116.jpg";
-		this.width = (int)Engine.getWidth() ;
+		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;
 		this.height = 840;
 		this.bottomColor = WebColors.DARK_SLATE_BLUE.get();
 		this.topColor = WebColors.BLACK.get();
