@@ -4,8 +4,8 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.EnemyMiya;
@@ -24,7 +24,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V13 extends LevelConfig {
+public class Pack1V13 extends HookLevelConfig {
 	public Pack1V13(){
 		this.surface = "qvg/112.jpg";
 		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;

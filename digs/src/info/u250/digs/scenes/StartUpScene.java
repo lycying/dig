@@ -13,8 +13,8 @@ import info.u250.c2d.graphic.surfaces.TriangleSurfaces;
 import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.IO;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -271,7 +271,7 @@ public class StartUpScene extends SceneStage{
 		}
 		level = null;
 		wmr.remove();
-		final LevelConfig config = new LevelConfig();
+		final HookLevelConfig config = new HookLevelConfig();
 		config.levelMakeCallback = new LevelMakeCallBack() {
 			Random random = new Random();
 			@Override
@@ -317,6 +317,7 @@ public class StartUpScene extends SceneStage{
 		config.segment = 30;
 		config.lineHeight = 200;
 		config.width = (int)Engine.getWidth();
+		config.height = (int)Engine.getHeight();
 		level = new Level(null,config);
 		terrainContainer.addActor(level);
 	}

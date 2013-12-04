@@ -6,9 +6,9 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
-import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 
@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 //carry as many of gold in center time
 //全部是梯子
-public class S2Lvl3 extends LevelConfig {
+public class S2Lvl3 extends HookLevelConfig {
 	public S2Lvl3(){
 		this.surface = "qvg/202.png";
 		this.width = (int)Engine.getWidth() ;

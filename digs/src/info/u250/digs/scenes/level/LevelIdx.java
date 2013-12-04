@@ -4,6 +4,7 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.Mv1Scene;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.level.pack.guide.Tour1;
 import info.u250.digs.scenes.level.pack.guide.Tour2;
@@ -124,10 +125,11 @@ public class LevelIdx {
 				break;
 		}
 		if(null == config){
-			config = new LevelConfig();
-			config.bottomColor = WebColors.BLACK.get();
-			config.topColor = WebColors.CADET_BLUE.get();
-			config.lineHeight = 380;
+			HookLevelConfig configx = new HookLevelConfig();
+			configx.bottomColor = WebColors.BLACK.get();
+			configx.topColor = WebColors.CADET_BLUE.get();
+			configx.lineHeight = 380;
+			config = configx;
 		}
 		config.idx = level;
 		config.pack = pack;

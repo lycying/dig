@@ -4,9 +4,9 @@ import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
-import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.ui.HintOnScreen;
@@ -19,7 +19,7 @@ import com.badlogic.gdx.math.Polygon;
 /* 
  * we called this Gas, npc who touch it will die and expose
  */
-public class Tour5 extends LevelConfig {
+public class Tour5 extends HookLevelConfig {
 	public Tour5(){
 		this.surface = "qvg/004.jpg";
 		this.width = (int)Engine.getWidth() ;

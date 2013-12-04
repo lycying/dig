@@ -3,10 +3,10 @@ package info.u250.digs.scenes.level.pack.guide;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.PolygonTable;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelConfig;
-import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.Level.FingerMode;
+import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.callback.DefaultLevelCompleteCallback;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -35,7 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * this tour will guide you to make a path for your npc to the sky
  * then carry golds to home
  */
-public class Tour2 extends LevelConfig {
+public class Tour2 extends HookLevelConfig {
 	final int TYPE_INF_GOLD = 1;
 	final int TYPE_INF_BUTTON = 2;
 	final int TYPE_INF_PATH = 3;

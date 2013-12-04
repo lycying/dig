@@ -19,100 +19,100 @@ final class LevelPixmapMaker {
 	static final Vector2 tmpV = new Vector2();
 	static final CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();
 	
-	public static final Pixmap[] gen(LevelConfig config){
-		Pixmap[] maps = new Pixmap[2];
-		Pixmap terMap  = null;
-		
+	public static final Pixmap[] gen(final LevelConfig config){
+		Pixmap[] maps = new Pixmap[2];		
 		final int width = config.width;
 		final int height = config.height;
-		final int lineHeight = config.lineHeight;
 		
-		
-//		if(config.surface.endsWith("svg")){
-//			SVGRootElement svgFile  = new SVGRootElement();
-//			svgFile.format = 4;
-//			svgFile.width = width;
-//			svgFile.height = height;
-//
-//			svgFile.min_x = 0;
-//			svgFile.min_y = 0;
-//			svgFile.max_x = 0;
-//			svgFile.max_y = 0;
-//
-//			svgFile.scale = 1f;
-//
-//			SVGParse parse = new SVGParse (Gdx.files.internal (config.surface));
-//
-//			parse.parse (svgFile);
-//			
-//			final SVGData data	   = new SVGData(svgFile);
-//			long[] nativeData  = new long[]{data.basePtr,svgFile.width,svgFile.height,svgFile.format};
-//			
-//			Gdx2DPixmap gdx2d  = new Gdx2DPixmap(data.svgData,nativeData){
-//				@Override
-//				public void dispose () {
-//					data.dispose();
-//				}
-//			};
-//			terMap = new Pixmap(gdx2d);
-//		}else{
-		final int segment = config.segment;
 		final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
 		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("paint/grass1.png"));
 		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("paint/grass2.png"));
 		
-		terMap = new Pixmap(width, height, Format.RGBA8888);
-		//round one , to make a full pixmap
-		for(int i=0;i*bgPix.getWidth()< width;i++){
-			for(int j=0;j*bgPix.getHeight()<height;j++){
-				terMap.drawPixmap(bgPix, 
-						i*bgPix.getWidth(),
-						j*bgPix.getHeight(), 
-						0, 0, bgPix.getWidth(), bgPix.getHeight());
-			}
-		}
+		final Pixmap terMap = new Pixmap(width, height, Format.RGBA8888);
+		final Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);
 		
-		if(segment>1){
-			Vector2[] controlPoints = new Vector2[segment];
-			controlPoints[0] = new Vector2(0,lineHeight);
-			for(int i=1;i<segment;i++){
-				controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(config.ascent)+lineHeight);
+		if(config instanceof HookLevelConfig){
+			final HookLevelConfig configReal = HookLevelConfig.class.cast(config);
+			final int lineHeight = configReal.lineHeight;
+			final int segment = configReal.segment;
+			
+			Pixmap.setBlending(Blending.SourceOver);
+			//round one , to make a full pixmap
+			for(int i=0;i*bgPix.getWidth()< width;i++){
+				for(int j=0;j*bgPix.getHeight()<height;j++){
+					terMap.drawPixmap(bgPix, 
+							i*bgPix.getWidth(),
+							j*bgPix.getHeight(), 
+							0, 0, bgPix.getWidth(), bgPix.getHeight());
+				}
 			}
-			spline.set(controlPoints, true);
+			
+			if(segment>1){
+				Vector2[] controlPoints = new Vector2[segment];
+				controlPoints[0] = new Vector2(0,lineHeight);
+				for(int i=1;i<segment;i++){
+					controlPoints[i] = new Vector2(i,(Digs.RND.nextBoolean()?1:-1)*Digs.RND.nextInt(configReal.ascent)+lineHeight);
+				}
+				spline.set(controlPoints, true);
 
-			for(int i=0;i<width;i+=10){
-				spline.valueAt(tmpV, i/(float)width);
-				Pixmap.setBlending(Blending.SourceOver);
-				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
-			}
-			for(int i=0;i<width;i++){
-				spline.valueAt(tmpV, i/(float)width);
+				for(int i=0;i<width;i+=10){
+					spline.valueAt(tmpV, i/(float)width);
+					Pixmap.setBlending(Blending.SourceOver);
+					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)tmpV.y - (int)(10+20*Digs.RND.nextFloat()));
+				}
+				for(int i=0;i<width;i++){
+					spline.valueAt(tmpV, i/(float)width);
+					Pixmap.setBlending(Blending.None);
+					terMap.setColor(Color.CLEAR);
+					terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
+				}
+			}else{
+				//draw directly 
+				for(int i=0;i<width;i+=20){
+					Pixmap.setBlending(Blending.SourceOver);
+					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
+				}
 				Pixmap.setBlending(Blending.None);
 				terMap.setColor(Color.CLEAR);
-				terMap.fillRectangle(i , 0 , 1, terMap.getHeight()-(int)tmpV.y);
+				terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
 			}
-		}else{//draw directly 
-			for(int i=0;i<width;i+=20){
-				Pixmap.setBlending(Blending.SourceOver);
-				terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()-(int)lineHeight - (int)(10+20*Digs.RND.nextFloat()));
+			if(height<=Engine.getHeight()){
+				Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
 			}
-			Pixmap.setBlending(Blending.None);
-			terMap.setColor(Color.CLEAR);
-			terMap.fillRectangle(0 , 0 , width, terMap.getHeight()-(int)lineHeight);
+		}else if(config instanceof  FaceLevelConfig){
+			final FaceLevelConfig configReal = FaceLevelConfig.class.cast(config);
+			final Vector2[] faces = configReal.faces;
+			
+			Pixmap.setBlending(Blending.SourceOver);
+			//round one , to make a full pixmap
+			for(int i=0;i*bgPix.getWidth()< width;i++){
+				for(int j=0;j*bgPix.getHeight()<height;j++){
+					terMap.drawPixmap(bgPix, 
+							i*bgPix.getWidth(),
+							j*bgPix.getHeight(), 
+							0, 0, bgPix.getWidth(), bgPix.getHeight());
+				}
+			}
+			for(int fi=1;fi<faces.length;fi++){
+				final Vector2 faceIsub = faces[fi-1];
+				final Vector2 faceI = faces[fi];
+				//draw directly 
+				for(int i=(int)faceIsub.x;i<faceI.x;i+=20){
+					Pixmap.setBlending(Blending.SourceOver);
+					terMap.drawPixmap(Digs.RND.nextBoolean()?gPix2:gPix1, i, terMap.getHeight()- (int)faceIsub.y - (int)(10+20*Digs.RND.nextFloat()));
+				}
+				Pixmap.setBlending(Blending.None);
+				terMap.setColor(Color.CLEAR);
+				terMap.fillRectangle( (int)faceIsub.x , (int)faceIsub.y , (int)(faceI.x-faceIsub.x) , terMap.getHeight()-(int)faceIsub.y);
+			}
 		}
 		
 		
 		bgPix.dispose();
 		gPix2.dispose();
 		gPix1.dispose();
-		
-		if(height<=Engine.getHeight()){
-			Glow.generate(terMap, Color.WHITE, 0.2f, 1.0f-lineHeight/512f, 0.5f, 0.6f, 10, 10);
-		}
-//		}
-		
+
 		/////////////////////////////////////////////////////////////////////////////////////
-		Pixmap gdMap =  new Pixmap(width, height, Format.RGBA8888);
 		
 		if(null!=config.levelMakeCallback){
 			config.levelMakeCallback.mapMaker(terMap, gdMap);

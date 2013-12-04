@@ -3,8 +3,8 @@ package info.u250.digs.scenes.level.pack.s1;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.Digs;
+import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
-import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Ka;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
-public class Pack1V17 extends LevelConfig {
+public class Pack1V17 extends HookLevelConfig {
 	public Pack1V17(){
 		this.surface = "qvg/116.jpg";
 		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;
