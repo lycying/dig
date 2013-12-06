@@ -19,15 +19,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V1 extends HookLevelConfig {
-	public Pack1V1(){
-		this.surface = "qvg/100.png";
+public class Pack1V__03 extends HookLevelConfig {
+	public Pack1V__03(){
+		this.surface = "qvg/102.jpg";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.KHAKI.get();
-		this.topColor = WebColors.DARK_KHAKI.get();
+		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();
+		this.topColor = WebColors.STEEL_BLUE.get();
 		this.lineHeight = 360;
 		this.ascent = 25;
 		this.segment = 20;
@@ -36,10 +37,12 @@ public class Pack1V1 extends HookLevelConfig {
 		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship3.png"));
+			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship.png"));
+			final Texture ship2 = new Texture(Gdx.files.internal("wb/ship2.png"));
 			@Override
 			public void dispose() {
 				ship1.dispose();
+				ship2.dispose();
 			}
 			@Override
 			public void after(Level level) {
@@ -57,13 +60,29 @@ public class Pack1V1 extends HookLevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.EGAME_LOADING_REGISTER_AVATAR_MALE();
-				polygon.setScale(1f, 1f);
-				polygon.setPosition(700, 100);
+				Polygon polygon =  PolygonTable.FROG();
+				polygon.setScale(0.4f, 0.4f);
+				polygon.setPosition(400, 100);
 				drawPolygon(polygon, gold);
 				}
-				drawPixmapDeco(terr, "tree6",770, lineHeight-ascent*2);
-				drawPixmapDeco(gold, "stone2",775, lineHeight-ascent*4,0.5f);
+				{
+					gold.setColor(Color.YELLOW);
+					Polygon polygon =  PolygonTable.BABELFISH();
+					polygon.setScale(0.4f, 0.4f);
+					polygon.setPosition(800, 200);
+					drawPolygon(polygon, gold);
+				}
+				{
+					gold.setColor(Color.CYAN);
+					Polygon polygon =  PolygonTable.IMG_ISLAND8();
+					polygon.setScale(0.8f, 0.3f);
+					polygon.setPosition(440, 170);
+					drawPolygon(polygon, gold);
+				}
+				{
+					drawPixmapDeco(gold, "stone2", 0, -50);
+					drawPixmapDeco(gold, "stone5", 300, 110);
+				}
 			}
 
 			@Override
@@ -71,7 +90,10 @@ public class Pack1V1 extends HookLevelConfig {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,430)));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,450)));
+				Image shipImage2 = new Image(ship2);
+				shipImage2.addAction(Actions.forever(Actions.sequence(Actions.rotateBy(10,2),Actions.rotateBy(-10,2))));
+				pbg.addActor(new ParallaxLayer(pbg,shipImage2 ,new Vector2(0.5f,1), new Vector2(500,2000), new Vector2(0,400)));
 				
 				level.addActor(pbg);
 				

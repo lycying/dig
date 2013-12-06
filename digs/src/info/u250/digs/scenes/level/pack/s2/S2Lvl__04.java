@@ -1,4 +1,4 @@
-package info.u250.digs.scenes.level.pack.s1;
+package info.u250.digs.scenes.level.pack.s2;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
@@ -6,52 +6,51 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
+import info.u250.digs.scenes.game.FaceLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
-import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V7 extends HookLevelConfig {
-	public Pack1V7(){
-		this.surface = "qvg/106.gif";
+//carry as many of gold in center time
+public class S2Lvl__04 extends FaceLevelConfig {
+	public S2Lvl__04(){
+		this.faces = new Vector2[]{
+				new Vector2(0,400),
+				new Vector2(100,380),
+				new Vector2(200,360),
+				new Vector2(300,340),
+				new Vector2(400,300),
+				new Vector2(500,200),
+				new Vector2(600,300),
+				new Vector2(700,340),
+				new Vector2(800,360),
+				new Vector2(900,380),
+				new Vector2(960,380),
+		};
+		this.lightLine = 360;
+		this.surface = "qvg/203.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();
-		this.topColor = WebColors.STEEL_BLUE.get();
-		this.lineHeight = 360;
-		this.ascent = 25;
-		this.segment = 20;
+		this.bottomColor = WebColors.SEASHELL.get();
+		this.topColor = WebColors.INDIGO.get();
+		
 		this.gold = 100;
 		this.npc = 20;
-		this.time = 600;
+		this.time = 60*5;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship5.png"));
-			
-			@Override
-			public void dispose() {
-				ship1.dispose();
-				
-			}
 			@Override
 			public void after(Level level) {
-				{
-					StepladderEntity e = new StepladderEntity(12, 80, 80);
-					level.addStepladder(e);
-				}
+				
 				for(int i=0;i<npc;i++){
 					Npc e = new Npc();
 					e.init(level);
@@ -59,28 +58,28 @@ public class Pack1V7 extends HookLevelConfig {
 					level.addNpc(e);
 				}
 				{
-					TeleportEntity e = new TeleportEntity(200, lineHeight, 200, 60);
+					TeleportEntity e = new TeleportEntity(30, 30, 500, 300,Color.ORANGE,Color.WHITE);
 					level.addInOutTrans(e);
 				}
 				{
-					TeleportEntity e = new TeleportEntity(600, lineHeight, 600, 60);
+					TeleportEntity e = new TeleportEntity( 500, 200,130, 30,Color.ORANGE,Color.WHITE);
 					level.addInOutTrans(e);
 				}
 				{
-					TeleportEntity e = new TeleportEntity(800, lineHeight/3f, 100, lineHeight/3f);
+					TeleportEntity e = new TeleportEntity( 150, 200,400, 200,Color.BLUE,Color.WHITE);
 					level.addInOutTrans(e);
 				}
 				{
-					TeleportEntity e = new TeleportEntity(100, 2*lineHeight/3f, 800, 2*lineHeight/3f);
+					TeleportEntity e = new TeleportEntity( 900, 200,550, 200,Color.BLUE,Color.WHITE);
 					level.addInOutTrans(e);
 				}
 				{
-					KillCircleEntity e = new KillCircleEntity(800, 2*lineHeight/3f-50, 60, Color.WHITE);
-					level.addKillCircle(e);
+					TeleportEntity e = new TeleportEntity( 250, 300,400, 300,Color.MAGENTA,Color.WHITE);
+					level.addInOutTrans(e);
 				}
 				{
-					KillCircleEntity e = new KillCircleEntity(800, 2*lineHeight/3f-80, 20, Color.WHITE);
-					level.addKillCircle(e);
+					TeleportEntity e = new TeleportEntity( 800, 300,550, 300,Color.MAGENTA,Color.WHITE);
+					level.addInOutTrans(e);
 				}
 				
 			}
@@ -90,13 +89,9 @@ public class Pack1V7 extends HookLevelConfig {
 				{
 				gold.setColor(Color.YELLOW);
 				Polygon polygon =  PolygonTable.FROG();
-				polygon.setScale(0.8f, 0.8f);
+				polygon.setScale(0.4f, 0.4f);
 				polygon.setPosition(400, 100);
 				drawPolygon(polygon, gold);
-				}
-				
-				{
-					drawPixmapDeco(terr, "tree2", 800, lineHeight-2*ascent);
 				}
 			
 			}
@@ -105,13 +100,12 @@ public class Pack1V7 extends HookLevelConfig {
 			public void before(Level level) {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,450)));
-		
+				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(0,1000), new Vector2(300,350)));
+				
 				level.addActor(pbg);
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
-				dock.setY(lineHeight);
+				dock.setY(lightLine);
 				level.addGoldDock(dock);
 			}
 		};

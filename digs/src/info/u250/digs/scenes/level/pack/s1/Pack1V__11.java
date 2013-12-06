@@ -18,18 +18,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V10 extends HookLevelConfig {
-	public Pack1V10(){
-		this.surface = "qvg/109.jpg";
-		this.width = (int)Engine.getWidth() ;
-		this.height = (int)Engine.getHeight();
+public class Pack1V__11 extends HookLevelConfig {
+	public Pack1V__11(){
+		this.surface = "qvg/110.jpg";
+		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;
+		this.height = 840;
 		this.bottomColor = WebColors.DARK_BLUE.get();
 		this.topColor = WebColors.DODGER_BLUE.get();
-		this.lineHeight = 360;
+		this.lineHeight = 660;
 		this.segment = 40;
 		this.ascent = 20;
 		this.gold = 200;
@@ -37,7 +39,7 @@ public class Pack1V10 extends HookLevelConfig {
 		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture bgTexture = new Texture(Gdx.files.internal("wb/round.png"));
+			final Texture bgTexture = new Texture(Gdx.files.internal("wb/ship7.png"));
 			@Override
 			public void dispose() {
 				bgTexture.dispose();
@@ -61,11 +63,17 @@ public class Pack1V10 extends HookLevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
+					gold.setColor(Color.YELLOW);
+					fillRect(gold, 100, 300, 200, 2);
+					fillRect(gold, 600, 300, 200, 2);
+					fillRect(gold, 300, 460, 200, 2);
+				}
+				{
 					int w = 100;
 					while(w<width){
 						gold.setColor(Color.YELLOW);
 						Polygon polygon =  PolygonTable.FORMPOLYGON_128();
-						polygon.setScale(0.4f, 0.4f);
+						polygon.setScale(0.5f, 0.5f);
 						polygon.setPosition(w, 80);
 						drawPolygon(polygon, gold);
 						w+=150;
@@ -93,11 +101,14 @@ public class Pack1V10 extends HookLevelConfig {
 					img4.setColor(Color.RED);
 					
 					
-					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(25,50));
-					pbg.addActor(new ParallaxLayer(pbg,img1, new Vector2(1f,1), new Vector2(940,600), new Vector2(100,0)));
-					pbg.addActor(new ParallaxLayer(pbg,img2 , new Vector2(1f,2.2f), new Vector2(940,270), new Vector2(150,0)));
-					pbg.addActor(new ParallaxLayer(pbg,img3 , new Vector2(1f,1.5f), new Vector2(700,560), new Vector2(200,0)));
-					pbg.addActor(new ParallaxLayer(pbg,img4 , new Vector2(1f,2f), new Vector2(600,560), new Vector2(100,0)));
+					TextureAtlas atlas = Engine.resource("All");
+					final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
+					pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
+					Image shipImage2 = new Image(bgTexture);
+					shipImage2.addAction(Actions.forever(Actions.sequence(Actions.rotateTo(-10,2),Actions.rotateTo(10,2))));
+					pbg.addActor(new ParallaxLayer(pbg, shipImage2, new Vector2(2.5f,1), new Vector2(1000,20000), new Vector2(900,320)));
+			
+					pbg.setY(300);
 					level.addActor(pbg);
 				}
 				{

@@ -15,28 +15,28 @@ import info.u250.digs.scenes.level.pack.guide.Tour6;
 import info.u250.digs.scenes.level.pack.guide.Tour7;
 import info.u250.digs.scenes.level.pack.guide.Tour8;
 import info.u250.digs.scenes.level.pack.guide.Tour9;
-import info.u250.digs.scenes.level.pack.s1.Pack1V1;
-import info.u250.digs.scenes.level.pack.s1.Pack1V10;
-import info.u250.digs.scenes.level.pack.s1.Pack1V11;
-import info.u250.digs.scenes.level.pack.s1.Pack1V12;
-import info.u250.digs.scenes.level.pack.s1.Pack1V13;
-import info.u250.digs.scenes.level.pack.s1.Pack1V14;
-import info.u250.digs.scenes.level.pack.s1.Pack1V15;
-import info.u250.digs.scenes.level.pack.s1.Pack1V16;
-import info.u250.digs.scenes.level.pack.s1.Pack1V17;
-import info.u250.digs.scenes.level.pack.s1.Pack1V18;
-import info.u250.digs.scenes.level.pack.s1.Pack1V2;
-import info.u250.digs.scenes.level.pack.s1.Pack1V3;
-import info.u250.digs.scenes.level.pack.s1.Pack1V4;
-import info.u250.digs.scenes.level.pack.s1.Pack1V5;
-import info.u250.digs.scenes.level.pack.s1.Pack1V6;
-import info.u250.digs.scenes.level.pack.s1.Pack1V7;
-import info.u250.digs.scenes.level.pack.s1.Pack1V8;
-import info.u250.digs.scenes.level.pack.s1.Pack1V9;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl1;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl2;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl3;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl4;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__01;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__10;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__11;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__12;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__13;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__14;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__15;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__16;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__17;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__18;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__02;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__03;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__04;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__05;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__06;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__07;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__08;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__09;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__01;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__02;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__03;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__04;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl5;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl6;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl7;
@@ -174,58 +174,58 @@ public class LevelIdx {
 		LevelConfig config = null;
 		switch(level){
 		case 0:
-			config = new Pack1V1();
+			config = new Pack1V__01();
 			break;
 		case 1:
-			config = new Pack1V2();
+			config = new Pack1V__02();
 			break;
 		case 2:
-			config = new Pack1V3();
+			config = new Pack1V__03();
 			break;
 		case 3:
-			config = new Pack1V4();
+			config = new Pack1V__04();
 			break;
 		case 4:
-			config = new Pack1V5();
+			config = new Pack1V__05();
 			break;
 		case 5:
-			config = new Pack1V6();
+			config = new Pack1V__06();
 			break;
 		case 6:
-			config = new Pack1V7();
+			config = new Pack1V__07();
 			break;
 		case 7:
-			config = new Pack1V8();
+			config = new Pack1V__08();
 			break;
 		case 8:
-			config = new Pack1V9();
+			config = new Pack1V__09();
 			break;
 		case 9:
-			config = new Pack1V10();
+			config = new Pack1V__10();
 			break;
 		case 10:
-			config = new Pack1V11();
+			config = new Pack1V__11();
 			break;
 		case 11:
-			config = new Pack1V12();
+			config = new Pack1V__12();
 			break;
 		case 12:
-			config = new Pack1V13();
+			config = new Pack1V__13();
 			break;
 		case 13:
-			config = new Pack1V14();
+			config = new Pack1V__14();
 			break;
 		case 14:
-			config = new Pack1V15();
+			config = new Pack1V__15();
 			break;
 		case 15:
-			config = new Pack1V16();
+			config = new Pack1V__16();
 			break;
 		case 16:
-			config = new Pack1V17();
+			config = new Pack1V__17();
 			break;
 		case 17:
-			config = new Pack1V18();
+			config = new Pack1V__18();
 			break;
 		}
 		return config;
@@ -234,16 +234,16 @@ public class LevelIdx {
 		LevelConfig config = null;
 		switch(level){
 		case 0:
-			config = new S2Lvl1();
+			config = new S2Lvl__01();
 			break;
 		case 1:
-			config = new S2Lvl2();
+			config = new S2Lvl__02();
 			break;
 		case 2:
-			config = new S2Lvl3();
+			config = new S2Lvl__03();
 			break;
 		case 3:
-			config = new S2Lvl4();
+			config = new S2Lvl__04();
 			break;
 		case 4:
 			config = new S2Lvl5();

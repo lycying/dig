@@ -22,8 +22,8 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V12 extends HookLevelConfig {
-	public Pack1V12(){
+public class Pack1V__12 extends HookLevelConfig {
+	public Pack1V__12(){
 		this.surface = "qvg/111.png";
 		this.width = (int)Engine.getWidth()-SCROLL_WIDTH ;
 		this.height = 840;

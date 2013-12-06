@@ -27,8 +27,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V16 extends HookLevelConfig {
-	public Pack1V16(){
+public class Pack1V__16 extends HookLevelConfig {
+	public Pack1V__16(){
 		this.surface = "qvg/115.jpg";
 		this.width = (int)Engine.getWidth() -SCROLL_WIDTH;
 		this.height = 1024;

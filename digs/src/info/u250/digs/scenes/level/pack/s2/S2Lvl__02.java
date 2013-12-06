@@ -6,7 +6,7 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
+import info.u250.digs.scenes.game.FaceLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
@@ -21,16 +21,27 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 //carry as many of gold in center time
-public class S2Lvl2 extends HookLevelConfig {
-	public S2Lvl2(){
+public class S2Lvl__02 extends FaceLevelConfig {
+	public S2Lvl__02(){
+		this.faces = new Vector2[]{
+				new Vector2(0,370),
+				new Vector2(50,350),
+				new Vector2(100,300),
+				new Vector2(150,350),
+				new Vector2(350,320),
+				new Vector2(600,200),
+				new Vector2(660,320),
+				new Vector2(710,300),
+				new Vector2(750,350),
+				new Vector2(850,430),
+				new Vector2(960,430)
+		};
+		this.lightLine = 360;
 		this.surface = "qvg/201.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();
 		this.topColor = WebColors.STEEL_BLUE.get();
-		this.lineHeight = 360;
-		this.ascent = 25;
-		this.segment = 20;
 		this.gold = 100;
 		this.npc = 20;
 		this.time = 60*5;
@@ -62,24 +73,7 @@ public class S2Lvl2 extends HookLevelConfig {
 				polygon.setPosition(400, 100);
 				drawPolygon(polygon, gold);
 				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.BABELFISH();
-					polygon.setScale(0.4f, 0.4f);
-					polygon.setPosition(800, 200);
-					drawPolygon(polygon, gold);
-				}
-				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.IMG_ISLAND8();
-					polygon.setScale(0.8f, 0.3f);
-					polygon.setPosition(440, 170);
-					drawPolygon(polygon, gold);
-				}
-				{
-					drawPixmapDeco(gold, "stone2", 0, -50);
-					drawPixmapDeco(gold, "stone5", 300, 110);
-				}
+			
 			}
 
 			@Override
@@ -90,7 +84,7 @@ public class S2Lvl2 extends HookLevelConfig {
 				level.addActor(pbg);
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
-				dock.setY(lineHeight);
+				dock.setY(lightLine);
 				level.addGoldDock(dock);
 			}
 		};

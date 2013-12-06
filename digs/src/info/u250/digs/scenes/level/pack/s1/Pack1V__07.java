@@ -14,22 +14,19 @@ import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.game.entity.StepladderEntity;
 import info.u250.digs.scenes.game.entity.TeleportEntity;
-import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V8 extends HookLevelConfig {
-	public Pack1V8(){
-		this.surface = "qvg/107.png";
+public class Pack1V__07 extends HookLevelConfig {
+	public Pack1V__07(){
+		this.surface = "qvg/106.gif";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();
@@ -42,7 +39,7 @@ public class Pack1V8 extends HookLevelConfig {
 		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
-			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship6.png"));
+			final Texture ship1 = new Texture(Gdx.files.internal("wb/ship5.png"));
 			
 			@Override
 			public void dispose() {
@@ -52,11 +49,7 @@ public class Pack1V8 extends HookLevelConfig {
 			@Override
 			public void after(Level level) {
 				{
-					StepladderEntity e = new StepladderEntity(10, 900, 60);
-					level.addStepladder(e);
-				}
-				{
-					StepladderEntity e = new StepladderEntity(10, 80, 60);
+					StepladderEntity e = new StepladderEntity(12, 80, 80);
 					level.addStepladder(e);
 				}
 				for(int i=0;i<npc;i++){
@@ -65,58 +58,47 @@ public class Pack1V8 extends HookLevelConfig {
 					e.setPosition(200+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addNpc(e);
 				}
-				
 				{
-					KillCircleEntity e = new KillCircleEntity(-120,-100, 120, Color.WHITE);
-					level.addKillCircle(e);
-				}
-				{
-					KillCircleEntity e = new KillCircleEntity(960-120,-100, 120, Color.WHITE);
-					level.addKillCircle(e);
-				}
-				{
-					KillCircleEntity e = new KillCircleEntity(430,300, 100, Color.WHITE);
-					level.addKillCircle(e);
-				}
-				{
-					KillCircleEntity e = new KillCircleEntity(630,200, 50, Color.WHITE);
-					level.addKillCircle(e);
-				}
-				{
-					TeleportEntity e = new TeleportEntity(400, 350, 900, 420);
+					TeleportEntity e = new TeleportEntity(200, lineHeight, 200, 60);
 					level.addInOutTrans(e);
 				}
+				{
+					TeleportEntity e = new TeleportEntity(600, lineHeight, 600, 60);
+					level.addInOutTrans(e);
+				}
+				{
+					TeleportEntity e = new TeleportEntity(800, lineHeight/3f, 100, lineHeight/3f);
+					level.addInOutTrans(e);
+				}
+				{
+					TeleportEntity e = new TeleportEntity(100, 2*lineHeight/3f, 800, 2*lineHeight/3f);
+					level.addInOutTrans(e);
+				}
+				{
+					KillCircleEntity e = new KillCircleEntity(800, 2*lineHeight/3f-50, 60, Color.WHITE);
+					level.addKillCircle(e);
+				}
+				{
+					KillCircleEntity e = new KillCircleEntity(800, 2*lineHeight/3f-80, 20, Color.WHITE);
+					level.addKillCircle(e);
+				}
+				
 			}
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-					
-					drawPixmapDeco(gold, "stone3", 850, 260);
-					drawPixmapDeco(gold, "stone2", 400, 300);
-				}
-				{
-					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.NOLA_128();
-					polygon.setScale(0.8f, 0.8f);
-					polygon.setPosition(800, 250);
-					drawPolygon(polygon, gold);
-					}
-				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.IMG_ISLAND5();
-					polygon.setScale(3f, 3f);
-					polygon.setPosition(800, -100);
-					drawPolygon(polygon, gold);
-					}
-				
-				{
-					gold.setColor(Color.CYAN);
-					fillRect(gold, 100, 50, 2, 100);
-					fillRect(gold, 400, 50, 2, 100);
-					fillRect(gold, 700, 50, 2, 100);
+				gold.setColor(Color.YELLOW);
+				Polygon polygon =  PolygonTable.FROG();
+				polygon.setScale(0.8f, 0.8f);
+				polygon.setPosition(400, 100);
+				drawPolygon(polygon, gold);
 				}
 				
+				{
+					drawPixmapDeco(terr, "tree2", 800, lineHeight-2*ascent);
+				}
+			
 			}
 
 			@Override
@@ -124,20 +106,13 @@ public class Pack1V8 extends HookLevelConfig {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
 				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
-				Image shipImage2 = new Image(ship1);
-				shipImage2.addAction(Actions.forever(Actions.sequence(Actions.rotateTo(-10,2),Actions.rotateTo(10,2))));
-				pbg.addActor(new ParallaxLayer(pbg, shipImage2, new Vector2(2.5f,1), new Vector2(1000,20000), new Vector2(900,350)));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,450)));
 		
 				level.addActor(pbg);
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
 				level.addGoldDock(dock);
-				
-				ParticleEffect e = Engine.resource("Effect");
-				ParticleEffectActor p = new ParticleEffectActor(e,"smoke");
-				p.setPosition(470, 410);
-				level.addActor(p);
 			}
 		};
 	}
