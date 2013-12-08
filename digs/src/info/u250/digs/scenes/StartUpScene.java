@@ -20,9 +20,10 @@ import info.u250.digs.scenes.game.entity.Boss;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.start.Finger;
+import info.u250.digs.scenes.ui.CommonDialog;
 import info.u250.digs.scenes.ui.ParticleEffectActor;
 import info.u250.digs.scenes.ui.SpineActor;
-import info.u250.digs.scenes.ui.Water;
+import info.u250.digs.scenes.ui.WaterActor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,10 +60,8 @@ public class StartUpScene extends SceneStage{
 	final TriangleSurfaces surface3;
 	final SpineActor wmr;
 	float time;
-
-	public Water water = new Water( 201, 130, 
-			new Color(151f/255f,196f/255f,188f/255f,0.5f),
-			new Color(1,1,1,0.5f));
+	public WaterActor water;
+	private CommonDialog quitDialog ;
 	public StartUpScene(final DigsEngineDrive drive){
 		loadTextures();
 		
@@ -72,12 +71,6 @@ public class StartUpScene extends SceneStage{
 		atlas = Engine.resource("All");
 		
 		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),WebColors.CADET_BLUE.get());
-
-		
-//		final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(-50,0));
-//		pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(30,1000), new Vector2(0,320)));
-//		this.addActor(pbg);
-
 		final SurfaceData data2 = new SurfaceData();
 		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";
@@ -176,13 +169,6 @@ public class StartUpScene extends SceneStage{
 		Button play = new Button(new TextureRegionDrawable(atlas.findRegion("btn-play")), new TextureRegionDrawable(atlas.findRegion("btn-play")));
 		play.setSize(play.getPrefWidth(), play.getPrefHeight());
 		play.setPosition(Engine.getWidth()-play.getWidth(), 260);
-
-		
-		Finger finger = new Finger(atlas.findRegion("finger"), this);
-		this.addActor(finger);
-	
-		
-		
 		play.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -191,50 +177,6 @@ public class StartUpScene extends SceneStage{
 				super.clicked(event, x, y);
 			}
 		});
-		
-		
-		final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
-		final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
-		final Image sound_flag ; 
-		if(IO.soundOn()){
-			sound_flag = new Image(sound_flag_on);
-			IO.enableSound();
-		}else{
-			sound_flag = new Image(sound_flag_off);
-			IO.disableSound();
-		}
-		sound_flag.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if(sound_flag.getDrawable() == sound_flag_off){
-					sound_flag.setDrawable(sound_flag_on);
-					Engine.getSoundManager().playSound("SoundClick");
-					IO.enableSound();
-				}else{
-					sound_flag.setDrawable(sound_flag_off);
-					Engine.getSoundManager().playSound("SoundClick");
-					IO.disableSound();
-				}
-				super.clicked(event, x, y);
-			}
-		});
-		sound_flag.setPosition(20, 130);
-		this.addActor(sound_flag);
-		
-		final Image about = new Image(atlas.findRegion("about"));
-		about.setPosition(860, 440);
-		about.addAction(Actions.forever(Actions.sequence(Actions.alpha(0.6f,0.5f),Actions.alpha(1f,0.5f))));
-		about.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Engine.getSoundManager().playSound("SoundClick");
-				drive.setToAboutScene();
-				super.clicked(event, x, y);
-			}
-		});
-		this.addActor(about);
-		
-		
 		
 		
 		
@@ -252,6 +194,82 @@ public class StartUpScene extends SceneStage{
 				if(null!=level)level.reload();
 			}
 		});
+		
+		water = new WaterActor(130, new Color(151f/255f,196f/255f,188f/255f,0.5f), new Color(1,1,1,0.5f));
+		this.addActor(water);
+		Finger finger = new Finger(atlas.findRegion("finger"), this);
+		this.addActor(finger);
+		
+		
+		{
+			final TextureRegionDrawable sound_flag_on = new TextureRegionDrawable(atlas.findRegion("sound-on"));
+			final TextureRegionDrawable sound_flag_off = new TextureRegionDrawable(atlas.findRegion("sound-off"));
+			final Image sound_flag ; 
+			if(IO.soundOn()){
+				sound_flag = new Image(sound_flag_on);
+				IO.enableSound();
+			}else{
+				sound_flag = new Image(sound_flag_off);
+				IO.disableSound();
+			}
+			sound_flag.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					if(sound_flag.getDrawable() == sound_flag_off){
+						sound_flag.setDrawable(sound_flag_on);
+						Engine.getSoundManager().playSound("SoundClick");
+						IO.enableSound();
+					}else{
+						sound_flag.setDrawable(sound_flag_off);
+						Engine.getSoundManager().playSound("SoundClick");
+						IO.disableSound();
+					}
+					super.clicked(event, x, y);
+				}
+			});
+			sound_flag.setPosition(770, 150);
+			this.addActor(sound_flag);	
+		}
+		{
+			final TextureRegionDrawable muisc_flag_on = new TextureRegionDrawable(atlas.findRegion("music-on"));
+			final TextureRegionDrawable muisc_flag_off = new TextureRegionDrawable(atlas.findRegion("music-off"));
+			final Image music_flag ; 
+			if(IO.muiscOn()){
+				music_flag = new Image(muisc_flag_on);
+				IO.enableMuisc();
+			}else{
+				music_flag = new Image(muisc_flag_off);
+				IO.disableMuisc();
+			}
+			music_flag.addListener(new ClickListener(){
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					if(music_flag.getDrawable() == muisc_flag_off){
+						music_flag.setDrawable(muisc_flag_on);
+						Engine.getSoundManager().playSound("SoundClick");
+						IO.enableMuisc();
+					}else{
+						music_flag.setDrawable(muisc_flag_off);
+						Engine.getSoundManager().playSound("SoundClick");
+						IO.disableMuisc();
+					}
+					super.clicked(event, x, y);
+				}
+			});
+			music_flag.setPosition(830, 150);
+			this.addActor(music_flag);	
+		}
+		final Image about = new Image(atlas.findRegion("about"));
+		about.setPosition(890, 150);
+		about.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Engine.getSoundManager().playSound("SoundClick");
+				drive.setToAboutScene();
+				super.clicked(event, x, y);
+			}
+		});
+		this.addActor(about);
 	}
 	
 	List<String> texs = new ArrayList<String>();
@@ -320,6 +338,12 @@ public class StartUpScene extends SceneStage{
 		config.height = (int)Engine.getHeight();
 		level = new Level(null,config);
 		terrainContainer.addActor(level);
+		
+		quitDialog = new CommonDialog(new String[]{"Are you sure you want to leave the game?"}, new Runnable() {
+			public void run() {
+				System.exit(0);
+			}
+		});
 	}
 	@Override
 	public void act(float delta) {
@@ -329,14 +353,12 @@ public class StartUpScene extends SceneStage{
 			deltaAppend = 0;
 		}
 		super.act(delta);
-		water.update(delta);
 	}
 	@Override
 	public void draw() {
 		meshBackground.render(Engine.getDeltaTime());
 //		surface.render(Engine.getDeltaTime());
 		super.draw();
-		water.draw();
 		surface2.render(Engine.getDeltaTime());
 		surface3.render(Engine.getDeltaTime());
 	}
@@ -344,11 +366,11 @@ public class StartUpScene extends SceneStage{
 	public boolean keyDown(int keycode) {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			if (keycode == Keys.BACK) {
-				System.exit(0);
+				this.addActor(quitDialog);
 			}
 		} else {
 			if (keycode == Keys.DEL) {
-				System.exit(0);
+				this.addActor(quitDialog);
 			}
 		}
 		return super.keyDown(keycode);

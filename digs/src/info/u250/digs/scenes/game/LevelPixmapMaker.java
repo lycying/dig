@@ -94,6 +94,7 @@ final class LevelPixmapMaker {
 		}else if(config instanceof  FaceLevelConfig){
 			final FaceLevelConfig configReal = FaceLevelConfig.class.cast(config);
 			final Vector2[] faces = configReal.faces;
+			final int lineWidth = configReal.lineWidth;
 			
 			Pixmap.setBlending(Blending.SourceOver);
 			//round one , to make a full pixmap
@@ -117,11 +118,11 @@ final class LevelPixmapMaker {
 				Pixmap.setBlending(Blending.None);
 				terMap.setColor(grassColor);
 				if(faceI.y>faceIsub.y){
-					terMap.fillRectangle( (int)faceI.x , 0 , 20 , terMap.getHeight()-(int)faceIsub.y+20);
+					terMap.fillRectangle( (int)faceI.x , 0 , lineWidth , terMap.getHeight()-(int)faceIsub.y+lineWidth);
 				}else{
-					terMap.fillRectangle( (int)faceI.x-20 , 0 , 20 , terMap.getHeight()-(int)faceI.y+20);
+					terMap.fillRectangle( (int)faceI.x-lineWidth , 0 , lineWidth , terMap.getHeight()-(int)faceI.y+lineWidth);
 				}
-				terMap.fillRectangle( (int)faceIsub.x , terMap.getHeight()-(int)faceIsub.y , (int)(faceI.x-faceIsub.x) ,20);
+				terMap.fillRectangle( (int)faceIsub.x , terMap.getHeight()-(int)faceIsub.y , (int)(faceI.x-faceIsub.x) ,lineWidth);
 				terMap.setColor(Color.CLEAR);
 				terMap.fillRectangle( (int)faceIsub.x , 0 , (int)(faceI.x-faceIsub.x) , terMap.getHeight()-(int)faceIsub.y);
 			}

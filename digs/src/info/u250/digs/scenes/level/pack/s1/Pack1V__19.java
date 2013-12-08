@@ -22,9 +22,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V__20 extends HookLevelConfig {
-	public Pack1V__20(){
-		this.surface = "qvg/119.png";
+public class Pack1V__19 extends HookLevelConfig {
+	public Pack1V__19(){
+		this.surface = "qvg/118.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = 2048;
 		this.bottomColor = WebColors.INDIAN_RED.get();
@@ -35,7 +35,7 @@ public class Pack1V__20 extends HookLevelConfig {
 		this.enemy = 3;
 		this.gold = 50;
 		this.npc = 20;
-		this.time = 600;
+		this.time = 1200;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/bg2.png"));

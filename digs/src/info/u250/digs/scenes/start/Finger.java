@@ -34,7 +34,7 @@ public class Finger extends Image{
 		if(timeDelta>0.2f){
 			timeDelta = 0;
 			direction.set(Digs.RND.nextFloat()*Digs.RND.nextFloat(),Digs.RND.nextFloat()).nor();
-			start.water.splash(this.getX(), 20+100*Digs.RND.nextFloat());
+			start.water.getWater().splash(this.getX(), 20+100*Digs.RND.nextFloat());
 		}
 		
 		if(getX()+30>start.level.getWidth()){

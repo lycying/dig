@@ -6,9 +6,9 @@ import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
 import info.u250.digs.PolygonTable;
-import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
+import info.u250.digs.scenes.game.LineLevelConfig;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
@@ -27,7 +27,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Pack1V__08 extends HookLevelConfig {
+public class Pack1V__08 extends LineLevelConfig {
 	public Pack1V__08(){
 		this.surface = "qvg/107.png";
 		this.width = (int)Engine.getWidth() ;
@@ -35,8 +35,6 @@ public class Pack1V__08 extends HookLevelConfig {
 		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();
 		this.topColor = WebColors.STEEL_BLUE.get();
 		this.lineHeight = 360;
-		this.ascent = 25;
-		this.segment = 20;
 		this.gold = 100;
 		this.npc = 20;
 		this.time = 600;
@@ -83,6 +81,10 @@ public class Pack1V__08 extends HookLevelConfig {
 					level.addKillCircle(e);
 				}
 				{
+					KillCircleEntity e = new KillCircleEntity(330,100, 50, Color.WHITE);
+					level.addKillCircle(e);
+				}
+				{
 					TeleportEntity e = new TeleportEntity(400, 350, 900, 420);
 					level.addInOutTrans(e);
 				}
@@ -110,12 +112,6 @@ public class Pack1V__08 extends HookLevelConfig {
 					drawPolygon(polygon, gold);
 					}
 				
-				{
-					gold.setColor(Color.CYAN);
-					fillRect(gold, 100, 50, 2, 100);
-					fillRect(gold, 400, 50, 2, 100);
-					fillRect(gold, 700, 50, 2, 100);
-				}
 				
 			}
 

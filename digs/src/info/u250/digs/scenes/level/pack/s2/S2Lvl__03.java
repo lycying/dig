@@ -5,7 +5,6 @@ import info.u250.c2d.graphic.WebColors;
 import info.u250.c2d.graphic.parallax.ParallaxGroup;
 import info.u250.c2d.graphic.parallax.ParallaxLayer;
 import info.u250.digs.Digs;
-import info.u250.digs.PolygonTable;
 import info.u250.digs.scenes.game.FaceLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
@@ -19,7 +18,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -91,10 +89,8 @@ public class S2Lvl__03 extends FaceLevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon = PolygonTable.A11949839942140777322SCISSORS();
-					polygon.setPosition(580, 400);
-					polygon.setScale(0.3f, 0.3f);
-					drawPolygon(polygon, gold);
+					fillCircle(gold, 450, 20, 30);
+					fillCircle(gold, 500, 20, 30);
 				}
 			}
 

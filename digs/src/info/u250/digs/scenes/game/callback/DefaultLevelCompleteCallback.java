@@ -72,7 +72,7 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		Engine.getMusicManager().stopMusic("MusicCollection");
 		win = true;
 		
-		int time = level.config.time - level.getGame().leastTime();	//time	80%
+		int time = level.getGame().leastTime();	//time	80%
 		int npc = level.getNpcs().size;//NPC 20%
 		int score = time*800+npc*200;
 		IO.win(level.config.pack,level.config.idx, score, true);

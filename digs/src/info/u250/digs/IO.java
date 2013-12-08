@@ -5,6 +5,7 @@ import info.u250.c2d.engine.Engine;
 public class IO {
 	//*******************************For SOUND**********************
 	private static final String SOUND_HANDEL = "info.u250.dig._sound";
+	private static final String MUSIC_HANDEL = "info.u250.dig._muisc";
 	private static final String ON = "on";
 	private static final String OFF ="off";
 	//off == false
@@ -16,12 +17,23 @@ public class IO {
 		Engine.getPreferences().putString(SOUND_HANDEL, ON);
 		Engine.getPreferences().flush();
 		Engine.getSoundManager().setVolume(1);
-		Engine.getMusicManager().setVolume(1);
 	}
 	public static void disableSound(){
 		Engine.getPreferences().putString(SOUND_HANDEL, OFF);
 		Engine.getPreferences().flush();
 		Engine.getSoundManager().setVolume(0);
+	}
+	public static boolean muiscOn(){
+		return !OFF.equals(Engine.getPreferences().getString(MUSIC_HANDEL));
+	}
+	public static void enableMuisc(){
+		Engine.getPreferences().putString(MUSIC_HANDEL, ON);
+		Engine.getPreferences().flush();
+		Engine.getMusicManager().setVolume(1);
+	}
+	public static void disableMuisc(){
+		Engine.getPreferences().putString(MUSIC_HANDEL, OFF);
+		Engine.getPreferences().flush();
 		Engine.getMusicManager().setVolume(0);
 	}
 	//*******************************For SOUND**********************

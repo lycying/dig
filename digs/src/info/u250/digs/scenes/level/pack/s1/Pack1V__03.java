@@ -59,18 +59,10 @@ public class Pack1V__03 extends HookLevelConfig {
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				{
-				gold.setColor(Color.YELLOW);
-				Polygon polygon =  PolygonTable.FROG();
-				polygon.setScale(0.4f, 0.4f);
-				polygon.setPosition(400, 100);
-				drawPolygon(polygon, gold);
-				}
-				{
 					gold.setColor(Color.YELLOW);
-					Polygon polygon =  PolygonTable.BABELFISH();
-					polygon.setScale(0.4f, 0.4f);
-					polygon.setPosition(800, 200);
-					drawPolygon(polygon, gold);
+					fillCircle(gold, 800, 200, 20);
+					fillCircle(gold, 400, 100, 20);
+					fillCircle(gold, 100, 100, 20);
 				}
 				{
 					gold.setColor(Color.CYAN);

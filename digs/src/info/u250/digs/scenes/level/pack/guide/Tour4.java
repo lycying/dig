@@ -59,7 +59,7 @@ public class Tour4 extends HookLevelConfig {
 					level.addInOutTrans(inout);
 				}
 				{
-					TeleportEntity inout = new TeleportEntity(700,200,100,340,Color.YELLOW,Color.MAGENTA);
+					TeleportEntity inout = new TeleportEntity(700,200,100,340);
 					level.addInOutTrans(inout);
 				}
 				
@@ -88,8 +88,8 @@ public class Tour4 extends HookLevelConfig {
 			public void mapMaker(Pixmap terr, Pixmap gold) {
 				gold.setColor(Color.YELLOW);
 				Polygon polygon =  PolygonTable.BLACK_CAT();
-				polygon.setScale(0.3f, 0.3f);
-				polygon.setPosition(750, 400);
+				polygon.setScale(0.6f, 0.6f);
+				polygon.setPosition(650, 300);
 				drawPolygon(polygon, gold);
 			}
 

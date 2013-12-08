@@ -74,7 +74,7 @@ public class Tour1 extends LineLevelConfig {
 			final TextureAtlas atlas = Engine.resource("All");
 			final Image finger = new Image(atlas.findRegion("finger"));
 			final LineActor line = new LineActor(200, 298, 504, 234);
-			final BitmapFont font = Engine.resource("FxFont");
+			final BitmapFont font = Engine.resource("MenuFont");
 			final Label lblText = new Label("", new LabelStyle(font, Color.YELLOW));
 			public void upAndDown(){
 				finger.clearActions();
@@ -94,6 +94,9 @@ public class Tour1 extends LineLevelConfig {
 					level.addActor(hint);
 					}
 				
+				lblText.setText("Welcome to \"Fool Dig\", \nI will guide you through some basic operation.");
+				lblText.setPosition(200, 330);
+				level.getGame().addActor(lblText);
 				final InnerMask mask = new InnerMask(width, height);
 				mask.addListener(new ClickListener(){
 					@Override
@@ -104,7 +107,7 @@ public class Tour1 extends LineLevelConfig {
 							level.getGame().addActor(finger);
 							finger.setPosition(500, 180);
 							upAndDown();
-							lblText.setPosition(400, 120);
+							lblText.setPosition(450, 120);
 							lblText.setText("This is gold");
 							level.getGame().addActor(lblText);
 						}else if(type == TYPE_INF_DOCK){
@@ -139,7 +142,7 @@ public class Tour1 extends LineLevelConfig {
 							line.setColor(Color.BLACK);
 							level.getGame().addActor(finger);
 							drawLine();
-							lblText.setPosition(100, 180);
+							lblText.setPosition(150, 180);
 							lblText.setText("Dig using with your finger");
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_DONE){
@@ -148,7 +151,7 @@ public class Tour1 extends LineLevelConfig {
 							line.remove();
 							type = TYPE_INF_YOURTURN;
 							lblText.setPosition(100, 120);
-							lblText.setText("Ok it's your turn");
+							lblText.setText("Alright, let's try it out.");
 							level.getGame().addActor(lblText);
 							lblText.getStyle().fontColor = Color.BLUE;
 						}

@@ -33,4 +33,8 @@ public class WaterActor extends Actor{
 		water.draw();
 		batch.begin();
 	}
+	public Water getWater() {
+		return water;
+	}
+	
 }

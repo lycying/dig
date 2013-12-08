@@ -11,20 +11,18 @@ import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V__02 extends HookLevelConfig {
 	public Pack1V__02(){
-		this.surface = "qvg/101.jpg";
+		this.surface = "qvg/101.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.MEDIUM_ORCHID.get();
@@ -74,24 +72,16 @@ public class Pack1V__02 extends HookLevelConfig {
 					drawPixmapDeco(terr, "tree4", 10, 80);
 					drawPixmapDeco(gold, "stone1", -20, -50);
 					drawPixmapDeco(terr, "deco3", 900, lineHeight-ascent*2);
-					drawPixmapDeco(terr, "deco3", 850, lineHeight-ascent*2);
+					
 				}
 			}
 
 			@Override
 			public void before(Level level) {
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(100,0));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(2000,20000), new Vector2(900,430)));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(ship1), new Vector2(2.5f,1), new Vector2(1000,20000), new Vector2(900,430)));
 				
 				level.addActor(pbg);
-				
-				{
-					ParticleEffect e = Engine.resource("Effect");
-					ParticleEffectActor p = new ParticleEffectActor(e,"balloon");
-					p.setColor(WebColors.YELLOW.get());
-					p.setPosition(100, 0);
-					level.addActor(p);
-				}
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);

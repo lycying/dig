@@ -63,7 +63,7 @@ public class Tour2 extends LineLevelConfig {
 			final TextureAtlas atlas = Engine.resource("All");
 			final Image finger = new Image(atlas.findRegion("finger"));
 			final LineActor line = new LineActor(200, 300, 685, 416);
-			final BitmapFont font = Engine.resource("FxFont");
+			final BitmapFont font = Engine.resource("MenuFont");
 			final Label lblText = new Label("", new LabelStyle(font, Color.YELLOW));
 			public void upAndDown(){
 				finger.clearActions();
@@ -96,7 +96,7 @@ public class Tour2 extends LineLevelConfig {
 							finger.setPosition(680, 340);
 							upAndDown();
 							type = TYPE_INF_BUTTON;
-							lblText.setPosition(570, 290);
+							lblText.setPosition(600, 290);
 							lblText.setText("This is gold");
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_BUTTON){
@@ -116,7 +116,7 @@ public class Tour2 extends LineLevelConfig {
 							line.setColor(new Color(199/255f,140/255f,50f/255,1.0f));
 							level.getGame().addActor(finger);
 							drawLine();
-							lblText.setPosition(180, 160);
+							lblText.setPosition(220, 160);
 							lblText.setText("Fill using with your finger");
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_DONE){
@@ -125,7 +125,7 @@ public class Tour2 extends LineLevelConfig {
 							line.remove();
 							type = TYPE_INF_YOURTURN;
 							lblText.setPosition(100, 120);
-							lblText.setText("Ok it's your turn");
+							lblText.setText("Alright, let's try it out.");
 							level.getGame().addActor(lblText);
 							lblText.getStyle().fontColor = Color.BLUE;
 						}

@@ -60,8 +60,6 @@ public class CommonDialog extends Group{
 			}
 		});
 		this.addActor(table);
-		
-		Engine.doPause();
 	}
 	public CommonDialog(String str){
 		this(new String[]{str});
@@ -125,7 +123,5 @@ public class CommonDialog extends Group{
 			}
 		});
 		this.addActor(table);
-		
-		Engine.doPause();
 	}
 }

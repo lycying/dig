@@ -16,6 +16,14 @@ import info.u250.digs.scenes.level.pack.guide.Tour7;
 import info.u250.digs.scenes.level.pack.guide.Tour8;
 import info.u250.digs.scenes.level.pack.guide.Tour9;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__01;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__02;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__03;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__04;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__05;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__06;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__07;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__08;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__09;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__10;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__11;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__12;
@@ -25,22 +33,16 @@ import info.u250.digs.scenes.level.pack.s1.Pack1V__15;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__16;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__17;
 import info.u250.digs.scenes.level.pack.s1.Pack1V__18;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__02;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__03;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__04;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__05;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__06;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__07;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__08;
-import info.u250.digs.scenes.level.pack.s1.Pack1V__09;
+import info.u250.digs.scenes.level.pack.s1.Pack1V__19;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__01;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__02;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__03;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__04;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl5;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl6;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl7;
-import info.u250.digs.scenes.level.pack.s2.S2Lvl8;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__05;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__06;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__07;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__08;
+import info.u250.digs.scenes.level.pack.s2.S2Lvl__09;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -89,6 +91,7 @@ public class LevelIdx {
 		"Nether Jungle",
 		"Pantheon of the Gods",
 		"Door of Darkness",
+		"Ok OK OK"
 		},
 		new String[]{
 		"Dusk City",
@@ -99,13 +102,7 @@ public class LevelIdx {
 		"Pantheon of the Gods",
 		"Door of Darkness",
 		"Hell Chasm",
-		"Gonryun Shrine",
-		"Ruins of Grandeur",
-		"Wild Sacred Peak",
-		"Divine Tomb",
-		"Scorched Lands",
-		"Aquatic Domain",
-		"Verdant Lush",
+		"Nothing Here",
 		},
 	};
 	public static String getLevelName(int pack,int level){
@@ -227,6 +224,9 @@ public class LevelIdx {
 		case 17:
 			config = new Pack1V__18();
 			break;
+		case 18:
+			config = new Pack1V__19();
+			break;
 		}
 		return config;
 	}
@@ -246,16 +246,19 @@ public class LevelIdx {
 			config = new S2Lvl__04();
 			break;
 		case 4:
-			config = new S2Lvl5();
+			config = new S2Lvl__05();
 			break;
 		case 5:
-			config = new S2Lvl6();
+			config = new S2Lvl__06();
 			break;
 		case 6:
-			config = new S2Lvl7();
+			config = new S2Lvl__07();
 			break;
 		case 7:
-			config = new S2Lvl8();
+			config = new S2Lvl__08();
+			break;
+		case 8:
+			config = new S2Lvl__09();
 			break;
 		}
 		return config;

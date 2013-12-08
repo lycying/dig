@@ -34,7 +34,7 @@ public class Pack1V__11 extends HookLevelConfig {
 		this.lineHeight = 660;
 		this.segment = 40;
 		this.ascent = 20;
-		this.gold = 200;
+		this.gold = 100;
 		this.npc = 30;
 		this.time = 600;
 		

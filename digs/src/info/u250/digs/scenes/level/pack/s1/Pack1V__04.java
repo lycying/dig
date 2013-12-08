@@ -12,11 +12,9 @@ import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.KillCircleEntity;
 import info.u250.digs.scenes.game.entity.Npc;
-import info.u250.digs.scenes.ui.ParticleEffectActor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -27,7 +25,7 @@ public class Pack1V__04 extends HookLevelConfig {
 		this.surface = "qvg/103.png";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
-		this.bottomColor = WebColors.LIGHT_PINK.get();
+		this.bottomColor = WebColors.BLACK.get();
 		this.topColor = WebColors.DEEP_PINK.get();
 		this.lineHeight = 380;
 		this.ascent = 25;
@@ -56,7 +54,7 @@ public class Pack1V__04 extends HookLevelConfig {
 					level.addKillCircle(kill);
 				}
 				{
-					KillCircleEntity kill = new KillCircleEntity(750, 100, 200, Color.BLUE);
+					KillCircleEntity kill = new KillCircleEntity(750, 100, 200, Color.WHITE);
 					level.addKillCircle(kill);
 				}
 				for(int i=0;i<npc;i++){
@@ -77,13 +75,6 @@ public class Pack1V__04 extends HookLevelConfig {
 			
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				{
-					gold.setColor(Color.CYAN);
-					Polygon polygon =  PolygonTable.CLIFFA_2();
-					polygon.setScale(3f, 2f);
-					polygon.setPosition(-50, 0);
-					drawPolygon(polygon, gold);
-					}
 				{
 					gold.setColor(Color.YELLOW);
 					Polygon polygon =  PolygonTable.WARRIOR_BY_ANIMATEDARCTICSTUDIO_D69O6JL();
@@ -112,16 +103,8 @@ public class Pack1V__04 extends HookLevelConfig {
 			public void before(Level level) {
 				TextureAtlas atlas = Engine.resource("All");
 				final ParallaxGroup pbg = new ParallaxGroup(Engine.getWidth(), Engine.getHeight(), new Vector2(50,0));
-				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(500,1000), new Vector2(300,350)));
+				pbg.addActor(new ParallaxLayer(pbg, new Image(atlas.findRegion("cloud")), new Vector2(1,1), new Vector2(100,1000), new Vector2(300,350)));
 				level.addActor(pbg);
-				
-				{
-					ParticleEffect e = Engine.resource("Effect");
-					ParticleEffectActor p = new ParticleEffectActor(e,"balloon");
-					p.setColor(WebColors.TOMATO.get());
-					p.setPosition(100, 100);
-					level.addActor(p);
-				}
 				
 				GoldTowerEntity dock = new GoldTowerEntity();
 				dock.setY(lineHeight);
