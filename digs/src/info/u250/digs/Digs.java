@@ -17,12 +17,15 @@ public class Digs extends Engine {
 	private static final int LINGO_SOUND = 43;
 	private static AsyncExecutor executor = new AsyncExecutor(1);
 	private static GooglePlayServiceResolver googlePlayServiceResolver;
+	private static Admob admob;
 	
-	
-	public Digs(GooglePlayServiceResolver googlePlayServiceResolver){
+	public Digs(GooglePlayServiceResolver googlePlayServiceResolver,Admob admob){
 		Digs.googlePlayServiceResolver = googlePlayServiceResolver;
+		Digs.admob = admob;
 	}
-
+	public static Admob getAdmob(){
+		return admob;
+	}
 	//the google game play service interface 
 	public static GooglePlayServiceResolver getGPSR() {
 		return googlePlayServiceResolver;

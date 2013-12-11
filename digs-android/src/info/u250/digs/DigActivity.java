@@ -28,7 +28,8 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 	protected RelativeLayout layout;
 	protected View loadingView;
 	protected View gameView;
-
+	protected AdmobAdControlImpl admob;
+	
 	GooglePlayServiceResolverAndroidImpl googlePlayServiceResolverAndroidImpl;
 
 	public void onCreate (Bundle bundle) {
@@ -40,8 +41,8 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		
 		layout = new RelativeLayout(this);
 		loadingView = LayoutInflater.from(this).inflate(R.layout.loading,null);
-		
-		ApplicationListener game = new Digs(this){
+		admob = new AdmobAdControlImpl(this);
+		ApplicationListener game = new Digs(this,admob){
 			@Override
 			protected StartupLoading getStartupLoading() {
 				return new StartupLoading() {
