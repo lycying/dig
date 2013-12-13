@@ -23,7 +23,7 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class Tour4 extends HookLevelConfig {
 	public Tour4(){
-		this.surface = "qvg/003.jpg";
+		this.surface = "003";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();

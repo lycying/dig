@@ -37,7 +37,7 @@ public class S2Lvl__03 extends FaceLevelConfig {
 				new Vector2(960,120),
 		};
 		this.lightLine = 360;
-		this.surface = "qvg/202.png";
+		this.surface = "202";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.LIGHT_SALMON.get();

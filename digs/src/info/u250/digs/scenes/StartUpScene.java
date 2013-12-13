@@ -323,7 +323,7 @@ public class StartUpScene extends SceneStage{
 			}
 		};
 		if(-1==texs_index){
-			config.surface = "qvg/0.jpg";
+			config.surface = "0";
 			texs_index++;
 		}else{
 			config.surface = texs.get(new java.util.Random().nextInt(texs.size()));

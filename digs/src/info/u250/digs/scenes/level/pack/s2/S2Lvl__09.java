@@ -31,7 +31,7 @@ public class S2Lvl__09 extends FaceLevelConfig {
 		}
 		this.lightLine = 360+2048-540;
 		this.lineWidth = 10;
-		this.surface = "qvg/208.png";
+		this.surface = "208";
 		this.width = (int)Engine.getWidth() ;
 		this.height = 2048;
 		this.bottomColor = WebColors.ROYAL_BLUE.get();

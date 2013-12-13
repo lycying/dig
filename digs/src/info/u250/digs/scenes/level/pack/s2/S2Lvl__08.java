@@ -24,7 +24,7 @@ public class S2Lvl__08 extends FaceLevelConfig {
 				new Vector2(900,100),
 				new Vector2(960,100)
 		};
-		this.surface = "qvg/207.png";
+		this.surface = "207";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.NAVY.get();

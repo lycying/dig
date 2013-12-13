@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V__03 extends HookLevelConfig {
 	public Pack1V__03(){
-		this.surface = "qvg/102.jpg";
+		this.surface = "102";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();

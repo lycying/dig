@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 public class Pack1V__18 extends LineLevelConfig {
 	public Pack1V__18(){
-		this.surface = "qvg/117.png";
+		this.surface = "117";
 		this.width = (int)Engine.getWidth()-SCROLL_WIDTH ;
 		this.height = 840;
 		this.bottomColor = WebColors.WHEAT.get();

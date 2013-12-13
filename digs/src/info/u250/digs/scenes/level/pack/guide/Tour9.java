@@ -22,7 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
  */
 public class Tour9 extends LineLevelConfig {
 	public Tour9(){
-		this.surface = "qvg/008.png";
+		this.surface = "008";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight()+400;
 		this.bottomColor = WebColors.SEA_GREEN.get();

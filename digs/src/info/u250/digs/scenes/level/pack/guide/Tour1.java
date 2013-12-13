@@ -49,7 +49,7 @@ public class Tour1 extends LineLevelConfig {
 	final int TYPE_INF_YOURTURN = 7;
 	int type = TYPE_INF_GOLD;
 	public Tour1(){
-		this.surface = "qvg/000.png";
+		this.surface = "000";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.BLACK.get();

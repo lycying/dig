@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Pack1V__08 extends LineLevelConfig {
 	public Pack1V__08(){
-		this.surface = "qvg/107.png";
+		this.surface = "107";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.CORNFLOWER_BLUE.get();

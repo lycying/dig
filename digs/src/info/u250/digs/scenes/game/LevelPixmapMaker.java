@@ -2,6 +2,7 @@ package info.u250.digs.scenes.game;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.digs.Digs;
+import info.u250.digs.gdx_encrypt.QvgEncryptPixmap;
 //import info.u250.svg.SVGParse;
 //import info.u250.svg.elements.SVGRootElement;
 //import info.u250.svg.glutils.SVGData;
@@ -24,7 +25,7 @@ final class LevelPixmapMaker {
 		final int width = config.width;
 		final int height = config.height;
 		
-		final Pixmap bgPix = new Pixmap(Gdx.files.internal(config.surface));
+		final Pixmap bgPix = new QvgEncryptPixmap(config.surface);
 		final Pixmap gPix1 = new Pixmap(Gdx.files.internal("paint/grass1.png"));
 		final Pixmap gPix2 = new Pixmap(Gdx.files.internal("paint/grass2.png"));
 		

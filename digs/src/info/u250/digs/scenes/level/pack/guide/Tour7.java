@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class Tour7 extends LineLevelConfig {
 	public Tour7(){
-		this.surface = "qvg/006.png";
+		this.surface = "006";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.DARK_CYAN.get();

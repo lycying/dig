@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 public class S2Lvl__02 extends LineLevelConfig {
 	public S2Lvl__02(){
 		this.lineHeight = 360;
-		this.surface = "qvg/201.png";
+		this.surface = "201";
 		this.width = (int)Engine.getWidth() ;
 		this.height = (int)Engine.getHeight();
 		this.bottomColor = WebColors.WHITE.get();
