@@ -240,6 +240,7 @@ public class LevelScene extends SceneStage {
 	@Override
 	public void show() {
 		super.show();
+		Digs.getAdmob().showInterstitial();
 		this.levelPack.refresh();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
 	}

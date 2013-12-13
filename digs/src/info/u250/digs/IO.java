@@ -90,13 +90,17 @@ public class IO {
 			if(pre_score<score){
 				Engine.getPreferences().putInteger(handel, score);
 				Engine.getPreferences().flush();
-				Digs.getGPSR().gpsSubmitScore(handel, score);
+				if(pack>0){
+					Digs.getGPSR().gpsSubmitScore(handel, score);
+				}
 			}
 		}else{
 			if(pre_score == 0 || pre_score>score){
 				Engine.getPreferences().putInteger(handel, score);
 				Engine.getPreferences().flush();
-				Digs.getGPSR().gpsSubmitScore(handel, score);
+				if(pack>0){
+					Digs.getGPSR().gpsSubmitScore(handel, score);
+				}
 			}
 		}
 	}

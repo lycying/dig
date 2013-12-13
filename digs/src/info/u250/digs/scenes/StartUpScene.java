@@ -380,5 +380,6 @@ public class StartUpScene extends SceneStage{
 	public void show() {
 		super.show();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
+		Digs.getAdmob().show();
 	}
 }

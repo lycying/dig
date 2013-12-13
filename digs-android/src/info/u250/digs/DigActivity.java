@@ -122,6 +122,7 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		if(!googlePlayServiceResolverAndroidImpl.getGameHelper().getGamesClient().isConnected()){
 			googlePlayServiceResolverAndroidImpl.getGameHelper().getGamesClient().connect();
 		}
+		admob.attach();
 	}
 	
 	@Override
@@ -266,4 +267,5 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 			}
 		});
 	}
+
 }
