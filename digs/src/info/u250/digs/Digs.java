@@ -1,13 +1,17 @@
 package info.u250.digs;
 
+import info.u250.c2d.engine.DefaultEngineCallback;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.EngineDrive;
 import info.u250.c2d.engine.load.Loading.LoadingComplete;
 import info.u250.c2d.engine.load.in.InGameLoading;
 import info.u250.c2d.engine.resources.AliasResourceManager;
+import info.u250.digs.gdx_encrypt.EncryptOggRule;
+import info.u250.digs.gdx_encrypt.Wahaha;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.async.AsyncExecutor;
 
@@ -22,6 +26,17 @@ public class Digs extends Engine {
 	public Digs(GooglePlayServiceResolver googlePlayServiceResolver,Admob admob){
 		Digs.googlePlayServiceResolver = googlePlayServiceResolver;
 		Digs.admob = admob;
+		
+		Engine.setEngineCallback(new DefaultEngineCallback(){
+			@Override
+			public void preLoad(DisplayMode mode, String[] assets) {
+				//the texture
+				Engine.getAliasResourceManager().addRule(new EncryptOggRule());
+				//the texture atlas
+				super.preLoad(mode, assets);
+			}
+		});
+
 	}
 	public static Admob getAdmob(){
 		return admob;
@@ -39,12 +54,13 @@ public class Digs extends Engine {
 	public static void delayPlayActorSound(){
 		final int soundIdx = RND.nextInt(LINGO_SOUND)+1;
 		final String soundHandel = "SoundEnv"+soundIdx;
+		final String dst = Wahaha.wahaha("lingo"+soundIdx)+".ogg";
 		Sound sound = Engine.resource(soundHandel);
 		if(null == sound){
-			Engine.load(new String[]{"sounds/lingo"+soundIdx+".ogg"},new LoadingComplete() {
+			Engine.load(new String[]{dst,},new LoadingComplete() {
 				@Override
 				public void onReady(AliasResourceManager<String> reg) {
-					reg.sound(soundHandel, "sounds/lingo"+soundIdx+".ogg");
+					reg.sound(soundHandel, dst);
 					if(!YEAP_SOUND_HANDEL.equals("")){
 						Engine.getSoundManager().playSound(YEAP_SOUND_HANDEL);
 					}

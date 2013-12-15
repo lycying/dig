@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 
 public class QvgEncryptPixmap extends Pixmap{
 	public QvgEncryptPixmap(String file){
-		this(new EncryptPixmapKalasx(Gdx.files.internal("qvg/"+Des.encryptDES(file.getBytes(), "fuckyoua").replace("/", "@@@@")+".dc")));
+		this(new EncryptPixmapKalasx(Gdx.files.internal(Wahaha.wahaha(file)+".dc")));
 	}
 	private QvgEncryptPixmap(EncryptPixmapKalasx kalasx) {
 		super(kalasx.bytes, 0, kalasx.bytes.length);

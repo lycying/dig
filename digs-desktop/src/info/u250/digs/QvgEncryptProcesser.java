@@ -1,8 +1,8 @@
 package info.u250.digs;
 
-import java.io.File;
+import info.u250.digs.gdx_encrypt.Wahaha;
 
-import info.u250.digs.gdx_encrypt.Des;
+import java.io.File;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -23,7 +23,13 @@ public class QvgEncryptProcesser {
 				}
 				return bytes;
 			}
-			void processFile(String fileName, String output) {
+			void processSoundFile(String fileName, String output) {
+				System.out.println("Input:" + fileName + "\nOutput:" + output + "\n");
+				FileHandle file = Gdx.files.absolute(fileName);
+				FileHandle fileOutput = Gdx.files.absolute(output);
+				fileOutput.writeBytes(file.readBytes(), false);
+			}
+			void processQvgFile(String fileName, String output) {
 				System.out.println("Input:" + fileName + "\nOutput:" + output + "\n");
 				FileHandle file = Gdx.files.absolute(fileName);
 				int seek = file.readBytes().length%100+100;;//random confuse
@@ -33,14 +39,28 @@ public class QvgEncryptProcesser {
 			@Override
 			public void create() {
 				super.create();
-				String inputdir = "qvg/";
-				String outputdir = "assets/qvg/";
-				File dir = new File(inputdir);
-				if(dir.isDirectory()){
-					for(String s:dir.list()){
-						String fileName = s.split("\\.")[0];
-						String name = Des.encryptDES(fileName.getBytes(), "fuckyoua").replace("/", "@@@@");
-						processFile(inputdir + s, outputdir + name +".dc");
+				{
+					String inputdir = "qvg/";
+					String outputdir = "assets/";
+					File dir = new File(inputdir);
+					if(dir.isDirectory()){
+						for(String s:dir.list()){
+							String fileName = s.split("\\.")[0];
+							String name = Wahaha.wahaha(fileName);
+							processQvgFile(inputdir + s, outputdir + name +".dc");
+						}
+					}
+				}
+				{
+					String inputdir = "sounds/";
+					String outputdir = "assets/";
+					File dir = new File(inputdir);
+					if(dir.isDirectory()){
+						for(String s:dir.list()){
+							String fileName = s.split("\\.")[0];
+							String name = Wahaha.wahaha(fileName);
+							processSoundFile(inputdir + s, outputdir + name +".ogg");
+						}
 					}
 				}
 				
