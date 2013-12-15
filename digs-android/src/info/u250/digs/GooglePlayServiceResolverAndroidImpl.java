@@ -1,18 +1,24 @@
 package info.u250.digs;
 
+import info.u250.c2d.engine.Engine;
 import info.u250.digs.GameHelper.GameHelperListener;
+
+import java.net.URL;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
-import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.moments.ItemScope;
 import com.google.android.gms.plus.model.moments.Moment;
 
 public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceResolver,GameHelperListener {
 	private GameHelper gameHelper;
-	private Activity activity;
+	Activity activity;
 	public GooglePlayServiceResolverAndroidImpl(final Activity activity){
 		this.activity = activity;
 		
@@ -168,6 +174,25 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 		    .build();
 			gameHelper.getPlusClient().writeMoment(moment);
 		}
+	}
+
+	@Override
+	public void openHelperWebDialog() {
+		final WebDialog dlg = new WebDialog(activity,"https://showcase-demos.googlecode.com/svn/trunk/fooldig-help/index.html"){
+			@Override
+			protected void initWebView(WebView webView) {
+				WebSettings webSettings = webView.getSettings();
+				button.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dismiss();
+					}
+				});
+				mTitle.setText("Help");
+			}
+		};
+		dlg.show();
+
 	}
 
 	

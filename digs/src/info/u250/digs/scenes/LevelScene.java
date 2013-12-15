@@ -241,6 +241,7 @@ public class LevelScene extends SceneStage {
 	public void show() {
 		super.show();
 		Digs.getAdmob().showInterstitial();
+		Digs.getAdmob().hide();
 		this.levelPack.refresh();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
 	}

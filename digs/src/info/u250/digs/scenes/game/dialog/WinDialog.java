@@ -2,6 +2,7 @@ package info.u250.digs.scenes.game.dialog;
 
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
+import info.u250.digs.Digs;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.level.LevelIdx;
@@ -157,8 +158,11 @@ public class WinDialog extends Group {
 		eye1.setPosition(resultTable.getX()+140, Engine.getHeight()-125);
 		eye2.setPosition(resultTable.getX()+180, Engine.getHeight()-123);
 		functionTable.setPosition(200+170, Engine.getHeight()-functionTable.getHeight()-174);
+		
+		Digs.getAdmob().show();
 	}
 	public void close(){
 		this.remove();
+		Digs.getAdmob().hide();
 	}
 }

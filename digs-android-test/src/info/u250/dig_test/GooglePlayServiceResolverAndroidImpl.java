@@ -75,12 +75,16 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 
 	@Override
 	public void shareOnGPlusplus() {
-		Intent shareIntent = new PlusShare.Builder(activity)
-        .setType("text/plain")
-        .setText("I found a very good game for android, come to download it.")
-        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
-        .getIntent();
-		activity.startActivityForResult(shareIntent, 0);
+		if(gpsIsLogin()){
+			Intent shareIntent = new PlusShare.Builder(activity)
+	        .setType("text/plain")
+	        .setText("I found a very good game for android, come to download it.")
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			gpsLogin();
+		}
 	}
 	
 	@Override

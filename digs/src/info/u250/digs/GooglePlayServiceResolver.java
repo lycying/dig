@@ -15,4 +15,6 @@ public interface GooglePlayServiceResolver {
 	void momentCompleteThePack2();//pack2
 	
 	void momentLvlInfo(final int pack,final int level);//share the info on g+ of every level
+	
+	void openHelperWebDialog();
 }

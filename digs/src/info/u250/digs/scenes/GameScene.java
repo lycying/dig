@@ -6,6 +6,7 @@ import info.u250.c2d.engine.SceneStage;
 import info.u250.c2d.engine.events.Event;
 import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
+import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.Level.FingerMode;
@@ -156,6 +157,11 @@ public class GameScene extends SceneStage {
 		statusPane.setVisible(false);
 		this.scroll.setScrollY(0);
 	} 
+	@Override
+	public void show() {
+		Digs.getAdmob().hide();
+		super.show();
+	}
 	@Override
 	public void hide() {
 		Engine.getMusicManager().stopMusic("MusicBattle");

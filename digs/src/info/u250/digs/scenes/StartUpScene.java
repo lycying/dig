@@ -278,7 +278,7 @@ public class StartUpScene extends SceneStage{
 //		for(String s:file.list()){
 //			System.out.println("texs.add(\"texs/"+s+"\");");
 //		}
-		texs.add("qvg/000.png");
+		texs.add("000");
 	}
 	int texs_index = -1;
 	void genTerrain(){
@@ -380,6 +380,5 @@ public class StartUpScene extends SceneStage{
 	public void show() {
 		super.show();
 		Engine.getMusicManager().playMusic("MusicBackground", true);
-		Digs.getAdmob().show();
 	}
 }

@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game.dialog;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.ui.FireDeco;
 
@@ -59,8 +60,10 @@ public class FailDailog extends Group {
 	public void show(){
 		this.getColor().a = 0;
 		this.addAction(Actions.fadeIn(1f));
+		Digs.getAdmob().show();
 	}
 	public void close(){
 		this.remove();
+		Digs.getAdmob().hide();
 	}
 }

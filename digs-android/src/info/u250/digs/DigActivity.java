@@ -268,4 +268,14 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		});
 	}
 
+	@Override
+	public void openHelperWebDialog() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.openHelperWebDialog();
+			}
+		});
+	}
+
 }

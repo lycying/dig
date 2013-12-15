@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game.dialog;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 import info.u250.digs.scenes.GameScene;
 
 import com.badlogic.gdx.graphics.Color;
@@ -50,7 +51,7 @@ public class PauseDialog extends Group {
 		btnBack.setSize(btnBack.getPrefWidth(), btnBack.getPrefHeight());
 		btnBack.setPosition(mainGroup.getWidth()/2-btnBack.getWidth()/2, Engine.getHeight()-btnBack.getHeight()-30);
 		btnExit.setSize(btnExit.getPrefWidth(), btnExit.getPrefHeight());
-		btnExit.setPosition(mainGroup.getWidth()/2-btnExit.getWidth()/2,100);
+		btnExit.setPosition(mainGroup.getWidth()/2-btnExit.getWidth()/2,80);
 	
 //		Table goldTable = new Table();
 //		goldTable.add(new Image(atlas.findRegion("flag-gold"))).spaceRight(5);
@@ -112,10 +113,14 @@ public class PauseDialog extends Group {
 		game.getStatusPane().pauseCounter();
 		Engine.getMusicManager().stopMusic("MusicCollection");
 		Engine.getMusicManager().stopMusic("MusicTimer");
+		
+		Digs.getAdmob().show();
 	}
 	public void close(){
 		game.getStatusPane().resumeCounter();
 		this.remove();
+		
+		Digs.getAdmob().hide();
 	}
 	
 }

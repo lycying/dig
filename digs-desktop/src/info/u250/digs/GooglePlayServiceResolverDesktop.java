@@ -66,4 +66,9 @@ public class GooglePlayServiceResolverDesktop implements GooglePlayServiceResolv
 		Gdx.app.log("GPS", "Do momentLvlInfo");
 	}
 
+	@Override
+	public void openHelperWebDialog() {
+		
+	}
+
 }
