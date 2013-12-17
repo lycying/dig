@@ -12,6 +12,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.moments.ItemScope;
 import com.google.android.gms.plus.model.moments.Moment;
@@ -19,6 +21,11 @@ import com.google.android.gms.plus.model.moments.Moment;
 public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceResolver,GameHelperListener {
 	private GameHelper gameHelper;
 	Activity activity;
+	
+	boolean isAvia(){
+		return GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity) == ConnectionResult.SUCCESS;
+	}
+	
 	public GooglePlayServiceResolverAndroidImpl(final Activity activity){
 		this.activity = activity;
 		
@@ -29,7 +36,9 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 
 	@Override
 	public void gpsLogin() {
-		gameHelper.beginUserInitiatedSignIn();
+		if(isAvia()){
+			gameHelper.beginUserInitiatedSignIn();
+		}
 	}
 
 	@Override
@@ -82,99 +91,99 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 
 	@Override
 	public void shareOnGPlusplus() {
-		Intent shareIntent = new PlusShare.Builder(activity)
-        .setType("text/plain")
-        .setText("I found a very good game for android, come to download it.")
-        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
-        .getIntent();
-		activity.startActivityForResult(shareIntent, 0);
+		if(this.gpsIsLogin()){
+			Intent shareIntent = new PlusShare.Builder(activity)
+			.setType("image/png")
+	        .setText(activity.getString(R.string.share_on_g_plus))
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentDeepLinkId("id",
+	                    "Fool Dig",
+	                    activity.getString(R.string.share_desc),
+	                    Uri.parse(activity.getString(R.string.icon_url)))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			this.gpsIsLogin();
+		}
 	}
 	
 	@Override
-	public void onSignInFailed() {
-		//TODO
-	}
+	public void onSignInFailed() {}
 
 	@Override
-	public void onSignInSucceeded() {
-		//TODO
-	}
+	public void onSignInSucceeded() {}
 
 	@Override
-	public void momentTour1Fail2Times() {
+	public void shareTour1Fail2Times() {
 		if(this.gpsIsLogin()){
-			ItemScope target = new ItemScope.Builder()
-		    .setId("myuniqueidforthissong")
-		    .setName("When Johnny Comes Marching Home")
-		    .setDescription("A song about missing one's family members fighting in the American Civil War")
-		    .setImage("http://example.com/images/albumThumb.png")
-		    .setType("http://schema.org/MusicRecording")
-		    .build();
-
-			Moment moment = new Moment.Builder()
-		    .setType("http://schemas.google.com/ListenActivity")
-		    .setTarget(target)
-		    .build();
-			gameHelper.getPlusClient().writeMoment(moment);
+			Intent shareIntent = new PlusShare.Builder(activity)
+			.setType("image/png")
+	        .setText(activity.getString(R.string.share_momentTour1Fail2Times))
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentDeepLinkId("id",
+	                    "Fool Dig",
+	                    activity.getString(R.string.share_desc),
+	                    Uri.parse(activity.getString(R.string.icon_url)))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			this.gpsIsLogin();
 		}
 	}
 
 	@Override
-	public void momentCompleteTheTour() {
+	public void shareCompleteTheTour() {
 		if(this.gpsIsLogin()){
-			ItemScope target = new ItemScope.Builder()
-		    .setId("myuniqueidforthissong")
-		    .setName("When Johnny Comes Marching Home")
-		    .setDescription("A song about missing one's family members fighting in the American Civil War")
-		    .setImage("http://example.com/images/albumThumb.png")
-		    .setType("http://schema.org/MusicRecording")
-		    .build();
-
-			Moment moment = new Moment.Builder()
-		    .setType("http://schemas.google.com/ListenActivity")
-		    .setTarget(target)
-		    .build();
-			gameHelper.getPlusClient().writeMoment(moment);
+			Intent shareIntent = new PlusShare.Builder(activity)
+			.setType("image/png")
+	        .setText(activity.getString(R.string.share_momentCompleteTheTour))
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentDeepLinkId("id",
+	                    "Fool Dig",
+	                    activity.getString(R.string.share_desc),
+	                    Uri.parse(activity.getString(R.string.icon_url)))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			this.gpsIsLogin();
+		}
+	}
+	@Override
+	public void shareCompleteThePack1() {
+		if(this.gpsIsLogin()){
+			Intent shareIntent = new PlusShare.Builder(activity)
+			.setType("image/png")
+	        .setText(activity.getString(R.string.momentCompleteThePack1))
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentDeepLinkId("id",
+	                    "Fool Dig",
+	                    activity.getString(R.string.share_desc),
+	                    Uri.parse(activity.getString(R.string.icon_url)))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			this.gpsIsLogin();
 		}
 	}
 
 	@Override
-	public void momentCompleteThePack2() {
+	public void shareCompleteThePack2() {
 		if(this.gpsIsLogin()){
-			ItemScope target = new ItemScope.Builder()
-		    .setId("myuniqueidforthissong")
-		    .setName("When Johnny Comes Marching Home")
-		    .setDescription("A song about missing one's family members fighting in the American Civil War")
-		    .setImage("http://example.com/images/albumThumb.png")
-		    .setType("http://schema.org/MusicRecording")
-		    .build();
-
-			Moment moment = new Moment.Builder()
-		    .setType("http://schemas.google.com/ListenActivity")
-		    .setTarget(target)
-		    .build();
-			gameHelper.getPlusClient().writeMoment(moment);
+			Intent shareIntent = new PlusShare.Builder(activity)
+			.setType("image/png")
+	        .setText(activity.getString(R.string.momentCompleteThePack2))
+	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentDeepLinkId("id",
+	                    "Fool Dig",
+	                    activity.getString(R.string.share_desc),
+	                    Uri.parse(activity.getString(R.string.icon_url)))
+	        .getIntent();
+			activity.startActivityForResult(shareIntent, 0);
+		}else{
+			this.gpsIsLogin();
 		}
 	}
 
-	@Override
-	public void momentLvlInfo(final int pack,final int level) {
-		if(this.gpsIsLogin()){
-			ItemScope target = new ItemScope.Builder()
-		    .setId("myuniqueidforthissong")
-		    .setName("When Johnny Comes Marching Home")
-		    .setDescription("A song about missing one's family members fighting in the American Civil War")
-		    .setImage("http://example.com/images/albumThumb.png")
-		    .setType("http://schema.org/MusicRecording")
-		    .build();
-
-			Moment moment = new Moment.Builder()
-		    .setType("http://schemas.google.com/ListenActivity")
-		    .setTarget(target)
-		    .build();
-			gameHelper.getPlusClient().writeMoment(moment);
-		}
-	}
 
 	@Override
 	public void openHelperWebDialog() {
@@ -195,6 +204,13 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 
 	}
 
+	@Override
+	public void openUrl(String url) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		activity.startActivity(browserIntent);
+	}
+
+	
 	
 
 }

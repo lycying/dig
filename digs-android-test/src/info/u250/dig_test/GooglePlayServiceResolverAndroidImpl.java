@@ -89,12 +89,12 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 	
 	@Override
 	public void onSignInFailed() {
-		//TODO
+		//
 	}
 
 	@Override
 	public void onSignInSucceeded() {
-		//TODO
+		//
 	}
 
 	@Override

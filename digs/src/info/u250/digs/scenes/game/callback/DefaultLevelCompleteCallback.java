@@ -1,6 +1,7 @@
 package info.u250.digs.scenes.game.callback;
 
 import info.u250.c2d.engine.Engine;
+import info.u250.digs.Digs;
 import info.u250.digs.IO;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelCompleteCallback;
@@ -9,6 +10,8 @@ import info.u250.digs.scenes.game.dialog.InfoDialogForDefaultLevelCompleteCallba
 import info.u250.digs.scenes.game.dialog.WinDialog;
 import info.u250.digs.scenes.game.entity.AbstractMoveable;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
+import info.u250.digs.scenes.level.LevelIdx;
+import info.u250.digs.scenes.ui.CommonDialog;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -76,6 +79,30 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		int npc = level.getNpcs().size;//NPC 20%
 		int score = time*800+npc*200;
 		IO.win(level.config.pack,level.config.idx, score, true);
+		
+		if(level.config.pack == 0 ){
+			if(level.config.idx == 4){//review
+				CommonDialog dlg = new CommonDialog(new String[]{"Like it? If so, please rate 5 stars so we can keep the free updates coming . Thank you."},new Runnable() {
+					@Override
+					public void run() {
+						Digs.getGPSR().openUrl("https://play.google.com/store/apps/details?id=info.u250.dig");
+					}
+				});
+				level.getGame().addActor(dlg);
+			}else if(level.config.idx == LevelIdx.Level_String[0].length-1){
+				Digs.getGPSR().shareCompleteTheTour();
+			}
+		}else if(level.config.pack == 1){
+			if(level.config.idx == LevelIdx.Level_String[1].length-1){
+				Digs.getGPSR().shareCompleteThePack1();
+			}else if(level.config.idx == 10){
+				Digs.getGPSR().shareOnGPlusplus();
+			}
+		}else if(level.config.pack == 2){
+			if(level.config.idx == LevelIdx.Level_String[2].length-1){
+				Digs.getGPSR().shareCompleteThePack2();
+			}
+		}
 	}
 	void fail(Level level){		
 		Engine.getSoundManager().playSound("SoundFail");
@@ -106,6 +133,11 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 				}
 			}
 			
+		}
+		if(level.config.pack == 0 ){
+			if(level.config.idx == 0 || level.config.idx == 1){//share fail information
+				Digs.getGPSR().shareTour1Fail2Times();
+			}
 		}
 	}
 	@Override

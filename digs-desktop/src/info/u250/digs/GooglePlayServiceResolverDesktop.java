@@ -47,28 +47,34 @@ public class GooglePlayServiceResolverDesktop implements GooglePlayServiceResolv
 	}
 
 	@Override
-	public void momentTour1Fail2Times() {
+	public void shareTour1Fail2Times() {
 		Gdx.app.log("GPS", "Do momentTour1Fail2Times");
 	}
 
 	@Override
-	public void momentCompleteTheTour() {
+	public void shareCompleteTheTour() {
 		Gdx.app.log("GPS", "Do momentCompleteTheTour");
 	}
 
 	@Override
-	public void momentCompleteThePack2() {
+	public void shareCompleteThePack2() {
 		Gdx.app.log("GPS", "Do momentCompleteThePack2");
 	}
 
-	@Override
-	public void momentLvlInfo(int pack, int level) {
-		Gdx.app.log("GPS", "Do momentLvlInfo");
-	}
 
 	@Override
 	public void openHelperWebDialog() {
 		
+	}
+
+	@Override
+	public void shareCompleteThePack1() {
+		Gdx.app.log("GPS", "Do momentCompleteThePack1");
+	}
+
+	@Override
+	public void openUrl(String url) {
+		Gdx.app.log("GPS", "Do openURL:"+url);
 	}
 
 }

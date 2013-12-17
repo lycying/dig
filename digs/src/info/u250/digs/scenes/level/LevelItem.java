@@ -149,7 +149,7 @@ public class LevelItem extends  Group{
 		title.getStyle().fontColor = Color.YELLOW;
 		if(pack == 0 || currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
 			this.addActor(pass);
-			this.addActor(menu_play);
+			this.addActor(menu_play);//TODO
 			this.setColor(Color.WHITE);
 		}else if(currentPack==pack){
 			if(currentLevel>level){//i have complete the level

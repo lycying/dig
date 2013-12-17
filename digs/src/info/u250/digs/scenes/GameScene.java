@@ -8,6 +8,7 @@ import info.u250.c2d.engine.events.EventListener;
 import info.u250.c2d.graphic.background.SimpleMeshBackground;
 import info.u250.digs.Digs;
 import info.u250.digs.DigsEngineDrive;
+import info.u250.digs.IO;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.Level.FingerMode;
 import info.u250.digs.scenes.game.LevelConfig;
@@ -15,6 +16,7 @@ import info.u250.digs.scenes.game.dialog.FunctionPane;
 import info.u250.digs.scenes.game.dialog.PauseDialog;
 import info.u250.digs.scenes.game.dialog.StatusPane;
 import info.u250.digs.scenes.level.LevelIdx;
+import info.u250.digs.scenes.ui.CommonDialog;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -96,7 +98,18 @@ public class GameScene extends SceneStage {
 		setupPauseResume();
 	}
 	public void nextLevel(){
-		startLevel(this.packIndex,this.levelIndex+1);
+		if(packIndex==0 && levelIndex==LevelIdx.Level_String[0].length-1){//next scene
+			startLevel(++this.packIndex,0);
+			IO.savePackScroll(packIndex);
+		}else if(packIndex==1 && levelIndex==LevelIdx.Level_String[1].length-1){//next scene
+			startLevel(++this.packIndex,0);
+			IO.savePackScroll(packIndex);
+		}else if(packIndex==2 && levelIndex==LevelIdx.Level_String[2].length-1){//no more level
+			CommonDialog dlg = new CommonDialog("No more levels, waiting...");
+			this.addActor(dlg);
+		}else{
+			startLevel(this.packIndex,this.levelIndex+1);
+		}
 	}
 	public void restart(){
 		startLevel(this.packIndex,this.levelIndex);

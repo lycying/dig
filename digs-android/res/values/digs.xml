@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_on_g_plus">I found a very good game for android, come to download it.</string>
+    <string name="share_desc">The goal of Fool Dig is to dig tunnels or makes road that lead the BBMan to the gold and his friends(Named "Ka"), then back to the tower platform.</string>
+    <string name="share_momentTour1Fail2Times">Wow....The game really needs smart brains and high performance devices.</string>
+    <string name="share_momentCompleteTheTour">I had finish the tour, come to play the "Fool Dig" together</string>
+    <string name="momentCompleteThePack1">I had finish the season one, come to play the "Fool Dig" together</string>
+    <string name="momentCompleteThePack2">I had finish the season two, come to play the "Fool Dig" together</string>
+    <string name="icon_url">https://developers.google.com/+/images/interactive-post-android.png</string>
+</resources>

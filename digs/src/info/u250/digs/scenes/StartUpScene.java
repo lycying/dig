@@ -17,6 +17,7 @@ import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.Level;
 import info.u250.digs.scenes.game.LevelMakeCallBack;
 import info.u250.digs.scenes.game.entity.Boss;
+import info.u250.digs.scenes.game.entity.EnemyMiya;
 import info.u250.digs.scenes.game.entity.GoldTowerEntity;
 import info.u250.digs.scenes.game.entity.Npc;
 import info.u250.digs.scenes.start.Finger;
@@ -274,11 +275,47 @@ public class StartUpScene extends SceneStage{
 	
 	List<String> texs = new ArrayList<String>();
 	void loadTextures(){
-//		java.io.File file = new java.io.File("assets/texs");
+//		java.io.File file = new java.io.File("qvg");
 //		for(String s:file.list()){
-//			System.out.println("texs.add(\"texs/"+s+"\");");
+//			System.out.println("texs.add(\""+s.split("\\.")[0]+"\");");
 //		}
 		texs.add("000");
+		texs.add("001");
+		texs.add("002");
+		texs.add("003");
+		texs.add("004");
+		texs.add("005");
+		texs.add("006");
+		texs.add("007");
+		texs.add("008");
+		texs.add("100");
+		texs.add("101");
+		texs.add("102");
+		texs.add("103");
+		texs.add("104");
+		texs.add("105");
+		texs.add("106");
+		texs.add("107");
+		texs.add("108");
+		texs.add("109");
+		texs.add("110");
+		texs.add("111");
+		texs.add("112");
+		texs.add("113");
+		texs.add("114");
+		texs.add("115");
+		texs.add("116");
+		texs.add("117");
+		texs.add("118");
+		texs.add("200");
+		texs.add("201");
+		texs.add("202");
+		texs.add("203");
+		texs.add("204");
+		texs.add("205");
+		texs.add("206");
+		texs.add("207");
+		texs.add("208");
 	}
 	int texs_index = -1;
 	void genTerrain(){
@@ -294,17 +331,23 @@ public class StartUpScene extends SceneStage{
 			Random random = new Random();
 			@Override
 			public void after(Level level) {
-				for(int i=0;i<1;i++){
+				{
 					Boss e = new Boss();
 					e.setBossLandHeight(50);
 					e.init(level);
 					e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
 					level.addBoss(e);
 				}
-				for(int i=0;i<20;i++){
+				{
+					EnemyMiya e = new EnemyMiya();
+					e.init(level);
+					e.setPosition(500+Digs.RND.nextFloat()*200, Engine.getHeight() + Digs.RND.nextFloat()*100);
+					level.addEnemyMiya(e);
+				}
+				for(int i=0;i<15;i++){
 					Npc e = new Npc();
 					e.init(level);
-					e.setPosition(400+random.nextFloat()*50, Engine.getHeight() + random.nextFloat()*300);
+					e.setPosition(300, Engine.getHeight() + random.nextFloat()*400);
 					level.addNpc(e);
 				}
 				

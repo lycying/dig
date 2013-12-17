@@ -3,6 +3,7 @@ package info.u250.digs;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.engine.load.startup.StartupLoading;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -229,41 +230,40 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 	}
 
 	@Override
-	public void momentTour1Fail2Times() {
+	public void shareTour1Fail2Times() {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				googlePlayServiceResolverAndroidImpl.momentTour1Fail2Times();
+				googlePlayServiceResolverAndroidImpl.shareTour1Fail2Times();
 			}
 		});
 	}
 
 	@Override
-	public void momentCompleteTheTour() {
+	public void shareCompleteTheTour() {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				googlePlayServiceResolverAndroidImpl.momentCompleteTheTour();
+				googlePlayServiceResolverAndroidImpl.shareCompleteTheTour();
+			}
+		});
+	}
+	@Override
+	public void shareCompleteThePack1() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.shareCompleteThePack1();
 			}
 		});
 	}
 
 	@Override
-	public void momentCompleteThePack2() {
+	public void shareCompleteThePack2() {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				googlePlayServiceResolverAndroidImpl.momentCompleteThePack2();
-			}
-		});
-	}
-
-	@Override
-	public void momentLvlInfo(final int pack,final int level) {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				googlePlayServiceResolverAndroidImpl.momentLvlInfo(pack,level);
+				googlePlayServiceResolverAndroidImpl.shareCompleteThePack2();
 			}
 		});
 	}
@@ -278,4 +278,15 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 		});
 	}
 
+	public void openUrl(final String url) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				googlePlayServiceResolverAndroidImpl.openUrl(url);
+			}
+		});
+	}
+
+
+	
 }
