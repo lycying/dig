@@ -46,7 +46,7 @@ public class S2Lvl__03 extends FaceLevelConfig {
 		this.gold = 100;
 		this.npc = 20;
 		this.enemy = 2;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture ship2 = new Texture(Gdx.files.internal("wb/ship9.png"));

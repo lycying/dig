@@ -28,7 +28,7 @@ public class S2Lvl__06 extends LineLevelConfig {
 		this.lineHeight = 100;
 		this.gold = 200;
 		this.npc = 20;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

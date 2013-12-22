@@ -31,7 +31,7 @@ public class S2Lvl__08 extends FaceLevelConfig {
 		this.topColor = WebColors.BLACK.get();
 		this.gold = 100;
 		this.npc = 20;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			@Override

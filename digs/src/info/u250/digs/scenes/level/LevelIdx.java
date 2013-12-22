@@ -3,7 +3,6 @@ package info.u250.digs.scenes.level;
 import info.u250.c2d.engine.Engine;
 import info.u250.c2d.graphic.WebColors;
 import info.u250.digs.scenes.LevelScene;
-import info.u250.digs.scenes.Mv1Scene;
 import info.u250.digs.scenes.game.HookLevelConfig;
 import info.u250.digs.scenes.game.LevelConfig;
 import info.u250.digs.scenes.level.pack.guide.Tour1;
@@ -43,19 +42,17 @@ import info.u250.digs.scenes.level.pack.s2.S2Lvl__06;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__07;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__08;
 import info.u250.digs.scenes.level.pack.s2.S2Lvl__09;
+import info.u250.digs.scenes.ui.HintOnScreen;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.esotericsoftware.tablelayout.BaseTableLayout;
 
@@ -94,14 +91,14 @@ public class LevelIdx {
 		"Find My Way Home",
 		},
 		new String[]{
-		"Dusk City",
+		"God So Loved The World",
 		"City of Titans",
-		"Molten Lands",
-		"Abyssal Maze",
-		"Nether Jungle",
-		"Pantheon of the Gods",
-		"Door of Darkness",
+		"I Can Fly",
+		"Ugly Basin",
+		"Tears In Heaven",
+		"Gold World",
 		"Hell Chasm",
+		"Be Quick",
 		"Nothing Here",
 		},
 	};
@@ -272,26 +269,26 @@ public class LevelIdx {
 			Table tb = new Table();
 			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
 			tb.add(new Image(atlas.findRegion("lvl-mv-1")));
-			tb.add(new Label("I wakeup at somewhere...",new LabelStyle(font,Color.WHITE))).minWidth(500);
+			tb.add(new Label("I M In Here...",new LabelStyle(font,Color.WHITE))).minWidth(570);
 			TextButtonStyle style = new TextButtonStyle(
 					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), 
 					new NinePatchDrawable(atlas.createPatch("level-item-bg-2")), null, font);
 			style.fontColor = Color.BLACK;
 			style.downFontColor = Color.RED;
-			final TextButton view = new TextButton("View",style);
-			view.pack();
-			view.padTop(20);
-			view.padBottom(20);
-			tb.add(view);
+//			final TextButton view = new TextButton("View",style);
+//			view.pack();
+//			view.padTop(20);
+//			view.padBottom(20);
+//			tb.add(view);
 			tb.pack();
 			table.add(tb).align(BaseTableLayout.LEFT).padTop(40).row();
-			view.addListener(new ClickListener(){
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					Engine.setMainScene(new Mv1Scene(lvlSce));
-					super.clicked(event, x, y);
-				}
-			});
+//			view.addListener(new ClickListener(){
+//				@Override
+//				public void clicked(InputEvent event, float x, float y) {
+//					Engine.setMainScene(new Mv1Scene(lvlSce));
+//					super.clicked(event, x, y);
+//				}
+//			});
 		}
 		{
 			for(int i=0;i<Level_String[0].length;i++){
@@ -300,6 +297,18 @@ public class LevelIdx {
 				table.row();
 			}
 		}
+		HintOnScreen hint = new HintOnScreen("* BBMan will walk straight forward until they hit a wall .\r\n" + 
+				"* When a BBMan hits gold, he will pick up a chunk of the gold, but only if he isn't already carrying some gold.\r\n" + 
+				"* If a BBMan carrying gold enters either starting platform, he will drop the gold there. You got a gold.\r\n" + 
+				"* When a BBMan hit a wall,  he will turn around and jump over it only he is clamping up.\r\n" + 
+				"* BBMan will sacrifice himself to make a circle tunnel when he touch the gas.\r\n" + 
+				"* The enemys will kill you, even if you have a chance to escape.\r\n" + 
+				"* Bosses will kill the BBMan too ,they are strong and powerfull, and they will destroy everything when getting bored.\r\n" + 
+				"* A BBMan that enter the kill eara will die.\r\n" + 
+				"* A BBMan that falls in the magma will die.\r\n" + 
+				"* If all BBMan die, you lose.\r\n" + 
+				"* If any Ka die, you lose.", "level-item-bg-3", Color.WHITE, 650);
+		table.add(hint).row();
 		{
 			Table tb = new Table();
 			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
@@ -308,11 +317,12 @@ public class LevelIdx {
 			tb.pack();
 			table.add(tb).align(BaseTableLayout.LEFT).row();
 		}
-		table.add(new Image(atlas.findRegion("finger")));
 		table.pack();
 		return table;
 	}
 	public static RefreshableLevelTable getPack1Table(final LevelScene lvlSce){
+		TextureAtlas atlas = Engine.resource("All");
+		BitmapFont font = Engine.resource("BigFont");
 		RefreshableLevelTable table = new RefreshableLevelTable(1);
 		
 		{
@@ -325,18 +335,40 @@ public class LevelIdx {
 				table.row();
 			}
 		}
+		table.add(new Image(atlas.findRegion("pack1-bellow"))).row();
+		{
+			Table tb = new Table();
+			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
+			tb.add(new Image(atlas.findRegion("guide-icon")));
+			tb.add(new Label("Advanced Levels",new LabelStyle(font,Color.WHITE))).minWidth(580);
+			tb.pack();
+			table.add(tb).align(BaseTableLayout.LEFT).row();
+		}
 		table.pack();
 		return table;
 	}
 	public static RefreshableLevelTable getPack2Table(final LevelScene lvlSce){
+		TextureAtlas atlas = Engine.resource("All");
+		BitmapFont font = Engine.resource("BigFont");
 		RefreshableLevelTable table = new RefreshableLevelTable(2);
-		table.add(new LevelItemTextTable("Choose Level")).row();
+		{
+			table.add().align(BaseTableLayout.LEFT).padTop(60).row();
+		}
 		{
 			for(int i=0;i<Level_String[2].length;i++){
 				LevelItem item = new LevelItem(lvlSce,2,i,Level_String[2][i]);
 				table.add(item).spaceBottom(10);
 				table.row();
 			}
+		}
+		table.add(new Image(atlas.findRegion("pack2-bellow"))).row();
+		{
+			Table tb = new Table();
+			tb.setBackground(new NinePatchDrawable( atlas.createPatch("level-item-bg-3")));
+			tb.add(new Image(atlas.findRegion("guide-icon")));
+			tb.add(new Label("More Levels Comming Soon...",new LabelStyle(font,Color.WHITE))).minWidth(580);
+			tb.pack();
+			table.add(tb).align(BaseTableLayout.LEFT).row();
 		}
 		table.pack();
 		return table;

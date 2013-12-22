@@ -548,7 +548,7 @@ public class Proverb {
 		"Who save me ..",
 		"My girl",
 		"Random",
-		"XXXXXXXXXXXOOOOOOOOOO",
+		"XXOO",
 		"Survival",
 		"Love!",
 		"My last chance",

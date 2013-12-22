@@ -28,7 +28,7 @@ public class Pack1V__17 extends LineLevelConfig {
 		this.gold = 100;
 		this.npc = 20;
 		this.ka = 10;
-		this.time = 600;
+		this.time = 600*2;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			

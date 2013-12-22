@@ -34,7 +34,7 @@ public class Pack1V__10 extends HookLevelConfig {
 		this.ascent = 20;
 		this.gold = 200;
 		this.npc = 30;
-		this.time = 600;
+		this.time = 900;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/round.png"));

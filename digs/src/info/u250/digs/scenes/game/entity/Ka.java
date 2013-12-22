@@ -49,7 +49,7 @@ public class Ka extends AbstractMoveable {
 		if(tryKillRay()) return;	//if the npc touch the kill circle , then kill it , block
 		if(tryTransPort()) return;	//if the npc touch the teleport, transfer it , block
 		if(tryClampLadder()) return;//if the npc touch the clamp ladder , then go with the logic
-		tryGoldDock();
+		
 	
 		// when the NPC is jumping
 		if (velocity > 1) { 
@@ -99,14 +99,6 @@ public class Ka extends AbstractMoveable {
 		sync();
 	}
 	
-	void tryGoldDock(){
-		for(GoldTowerEntity dock:level.getDocks()){
-			if(dock.getRect().overlaps(this.drawable.getBoundingRectangle())){
-				direction*=-1;
-				break;
-			}
-		}
-	}
 	@Override
 	public void die() {
 		super.die();

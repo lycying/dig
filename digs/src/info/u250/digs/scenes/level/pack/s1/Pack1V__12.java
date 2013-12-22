@@ -35,7 +35,7 @@ public class Pack1V__12 extends HookLevelConfig {
 		this.gold = 100;
 		this.npc = 20;
 		this.ka = 5;
-		this.time = 600;
+		this.time = 600*2;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/rocket.png"));

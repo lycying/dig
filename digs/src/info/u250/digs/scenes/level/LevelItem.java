@@ -112,7 +112,6 @@ public class LevelItem extends  Group{
 		if(null == current){
 			ParticleEffect e = Engine.resource("Effect");
 			current = new ParticleEffectActor(e, "fire");
-			current.setPosition(60, 30);
 		}
 		
 		this.addActor(bg);
@@ -137,26 +136,28 @@ public class LevelItem extends  Group{
 		this.addActor(levelNumber);
 	} 
 	public void refresh(){
-//		int currentPack = IO.getPack();
-//		int currentLevel = IO.getLevel();
-		int currentPack = 3;
-		int currentLevel = 99;//TODO
+		int currentPack = IO.getPack();
+		int currentLevel = IO.getLevel();
+//		int currentPack = 3;
+//		int currentLevel = 99;
 		pass.remove();
 		lock.remove();
 		menu_play.remove();
 		leaderboard.remove();
-		
 		title.getStyle().fontColor = Color.YELLOW;
-		if(pack == 0 || currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
+		if(currentPack>pack){//i have complete the level pack, the guide pack is public to everyone
 			this.addActor(pass);
-			this.addActor(menu_play);//TODO
+			this.addActor(menu_play);
 			this.setColor(Color.WHITE);
 		}else if(currentPack==pack){
-			if(currentLevel>level){//i have complete the level
+			if(currentLevel>=level){//i have complete the level
 				this.addActor(pass);
 				this.addActor(menu_play);
 				this.setColor(Color.WHITE);
-			}else if( (0==level&&currentLevel==0) || (currentLevel!=0&&currentLevel==level-1)){// i will play this level
+			}else if( 
+					(0==level&&currentLevel==0) || //first play the game
+					(currentLevel==level-1)){ // i will play this level
+				current.setPosition(60, 30);
 				this.addActor(current);
 				this.addActor(menu_play);
 				title.getStyle().fontColor = Color.MAGENTA;
@@ -165,7 +166,19 @@ public class LevelItem extends  Group{
 				this.setColor(Color.WHITE);
 			}
 		}else{
-			this.addActor(lock);
+			if(pack-currentPack==1){
+				if(level==0 && currentLevel==LevelIdx.Level_String[currentPack].length-1 ){
+					current.setPosition(130, 30);
+					this.addActor(current);
+					this.addActor(menu_play);
+					title.getStyle().fontColor = Color.MAGENTA;
+				}else{
+					this.addActor(lock);
+				}
+			}else{
+				this.addActor(lock);
+			}
+			
 		}
 		
 		title.setPosition(90, 15);
@@ -175,14 +188,13 @@ public class LevelItem extends  Group{
 		bg.setPosition(0, 0);
 		bg.setSize(this.getWidth(), this.getHeight());
 		
+		
 		if(pack>0){
 			title.setPosition(160, 15);
 			lock.setPosition(115, 15);
 			pass.setPosition(115, 15);
 			levelNumber.setPosition(70, 0);
 			leaderboard.setPosition(10, 10);
-//			bg.setPosition(70, 0);
-//			bg.setSize(this.getWidth()-70, this.getHeight());
 			this.addActor(leaderboard);
 		}
 		

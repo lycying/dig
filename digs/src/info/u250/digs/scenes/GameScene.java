@@ -118,6 +118,7 @@ public class GameScene extends SceneStage {
 		this.packIndex = pack;
 		this.levelIndex = level;
 		configGame(LevelIdx.getLevelConfig(pack,level));
+		Digs.getAdmob().hide();//hide the ad currently
 	}
 	
 	public boolean isShowAim(){

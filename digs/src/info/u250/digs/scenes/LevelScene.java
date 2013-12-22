@@ -213,17 +213,18 @@ public class LevelScene extends SceneStage {
 		this.addActor(kill3);
 		
 		
-		Button button = new Button(new TextureRegionDrawable(atlas.findRegion("btn-achievements-1")), new TextureRegionDrawable(atlas.findRegion("btn-achievements-2")), null);
-		button.setPosition(0, 120);
-		button.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Engine.getSoundManager().playSound("SoundClick");
-				Digs.getGPSR().gpsShowAchievement();
-				super.clicked(event, x, y);
-			}
-		});
-		this.addActor(button);
+//		Button button = new Button(new TextureRegionDrawable(atlas.findRegion("btn-achievements-1")), new TextureRegionDrawable(atlas.findRegion("btn-achievements-2")), null);
+//		button.setPosition(0, 120);
+//		button.addListener(new ClickListener(){
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				Engine.getSoundManager().playSound("SoundClick");
+//				Digs.getGPSR().gpsShowAchievement();
+//				super.clicked(event, x, y);
+//			}
+//		});
+//		this.addActor(button);
+		//TODO achievements will be added on XXXX
 	}
 	
 	public void startLevel(int pack,int level){
@@ -240,7 +241,7 @@ public class LevelScene extends SceneStage {
 	@Override
 	public void show() {
 		super.show();
-		Digs.getAdmob().showInterstitial();
+		//Digs.getAdmob().showInterstitial(); FIXME: I Do not want show the ad in the first free version!!!
 		Digs.getAdmob().hide();
 		this.levelPack.refresh();
 		Engine.getMusicManager().playMusic("MusicBackground", true);

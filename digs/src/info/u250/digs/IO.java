@@ -69,7 +69,7 @@ public class IO {
 		int pack = Engine.getPreferences().getInteger(PACK_HANDEL);
 		return pack;
 	}
-	public static void savePack(int pack){
+	private static void savePack(int pack){
 		Engine.getPreferences().putInteger(PACK_HANDEL, pack);
 		Engine.getPreferences().flush();
 	}
@@ -78,7 +78,7 @@ public class IO {
 	public static int getLevel(){
 		return Engine.getPreferences().getInteger(LEVEL_HANDEL);
 	}
-	public static void saveLevel(int level){
+	private static void saveLevel(int level){
 		Engine.getPreferences().putInteger(LEVEL_HANDEL, level);
 		Engine.getPreferences().flush();
 	}
@@ -101,6 +101,22 @@ public class IO {
 				if(pack>0){
 					Digs.getGPSR().gpsSubmitScore(handel, score);
 				}
+			}
+		}
+		int currentPack = IO.getPack();
+		int currentLevel = IO.getLevel();
+		if(pack<currentPack){
+			//break;
+		}else{
+			savePack(pack);
+			if(pack==currentPack){
+				if(level<=currentLevel){
+					//break;
+				}else{
+					saveLevel(level);
+				}
+			}else{
+				saveLevel(level);
 			}
 		}
 	}

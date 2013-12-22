@@ -22,9 +22,9 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 	private GameHelper gameHelper;
 	Activity activity;
 	
-	boolean isAvia(){
-		return GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity) == ConnectionResult.SUCCESS;
-	}
+//	boolean isAvia(){
+//		return GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity) == ConnectionResult.SUCCESS;
+//	}
 	
 	public GooglePlayServiceResolverAndroidImpl(final Activity activity){
 		this.activity = activity;
@@ -36,9 +36,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 
 	@Override
 	public void gpsLogin() {
-		if(isAvia()){
-			gameHelper.beginUserInitiatedSignIn();
-		}
+		gameHelper.beginUserInitiatedSignIn();
 	}
 
 	@Override

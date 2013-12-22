@@ -36,7 +36,7 @@ public class Pack1V__14 extends HookLevelConfig {
 		this.gold = 150;
 		this.npc = 15;
 		this.enemy = 2;
-		this.time = 600;
+		this.time = 600*2;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			final Texture bgTexture = new Texture(Gdx.files.internal("wb/island.png"));

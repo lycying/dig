@@ -361,8 +361,7 @@ public class StartUpScene extends SceneStage{
 			}
 			@Override
 			public void mapMaker(Pixmap terr, Pixmap gold) {
-				// TODO Auto-generated method stub
-				
+				//Nothing add here !!!
 			}
 		};
 		if(-1==texs_index){

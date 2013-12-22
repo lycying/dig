@@ -45,7 +45,7 @@ public class S2Lvl__07 extends FaceLevelConfig {
 		this.gold = 100;
 		this.npc = 20;
 		this.enemy = 6;
-		this.time = 60*5;
+		this.time = 600;
 		
 		levelMakeCallback = new LevelMakeCallBack() {
 			
