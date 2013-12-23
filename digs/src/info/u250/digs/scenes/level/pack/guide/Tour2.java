@@ -90,6 +90,7 @@ public class Tour2 extends LineLevelConfig {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						if(type == TYPE_INF_GOLD){
+							Engine.getMusicManager().playMusic("MusicBattle", true);//play the battle music here
 							mask.setRect(new Rectangle(650,390,110,110));
 							level.getGame().reallyStartLevel();
 							level.getGame().addActor(finger);
