@@ -85,7 +85,7 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 				CommonDialog dlg = new CommonDialog(new String[]{"Like it? If so, please rate 5 stars so we can keep the free updates coming . Thank you."},new Runnable() {
 					@Override
 					public void run() {
-						Digs.getGPSR().openUrl("https://play.google.com/store/apps/details?id=info.u250.dig");
+						Digs.getGPSR().openUrl("https://play.google.com/store/apps/details?id=info.u250.digs");
 					}
 				});
 				level.getGame().addActor(dlg);

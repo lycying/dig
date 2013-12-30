@@ -93,7 +93,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 			Intent shareIntent = new PlusShare.Builder(activity)
 			.setType("image/png")
 	        .setText(activity.getString(R.string.share_on_g_plus))
-	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentUrl(Uri.parse("http://goo.gl/ttVpxX"))
 	        .setContentDeepLinkId("id",
 	                    "Fool Dig",
 	                    activity.getString(R.string.share_desc),
@@ -117,7 +117,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 			Intent shareIntent = new PlusShare.Builder(activity)
 			.setType("image/png")
 	        .setText(activity.getString(R.string.share_momentTour1Fail2Times))
-	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentUrl(Uri.parse("http://goo.gl/ttVpxX"))
 	        .setContentDeepLinkId("id",
 	                    "Fool Dig",
 	                    activity.getString(R.string.share_desc),
@@ -135,7 +135,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 			Intent shareIntent = new PlusShare.Builder(activity)
 			.setType("image/png")
 	        .setText(activity.getString(R.string.share_momentCompleteTheTour))
-	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentUrl(Uri.parse("http://goo.gl/ttVpxX"))
 	        .setContentDeepLinkId("id",
 	                    "Fool Dig",
 	                    activity.getString(R.string.share_desc),
@@ -152,7 +152,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 			Intent shareIntent = new PlusShare.Builder(activity)
 			.setType("image/png")
 	        .setText(activity.getString(R.string.momentCompleteThePack1))
-	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentUrl(Uri.parse("http://goo.gl/ttVpxX"))
 	        .setContentDeepLinkId("id",
 	                    "Fool Dig",
 	                    activity.getString(R.string.share_desc),
@@ -170,7 +170,7 @@ public class GooglePlayServiceResolverAndroidImpl implements GooglePlayServiceRe
 			Intent shareIntent = new PlusShare.Builder(activity)
 			.setType("image/png")
 	        .setText(activity.getString(R.string.momentCompleteThePack2))
-	        .setContentUrl(Uri.parse("http://goo.gl/XZOMHz"))
+	        .setContentUrl(Uri.parse("http://goo.gl/ttVpxX"))
 	        .setContentDeepLinkId("id",
 	                    "Fool Dig",
 	                    activity.getString(R.string.share_desc),

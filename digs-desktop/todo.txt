@@ -1,0 +1,95 @@
+
+The newest and most interesting game is here! ! !
+The goal of Fool Dig is to dig tunnels or makes road that lead the BBMan to the gold and his friends(Named "Ka"), then back to the tower platform.
+
+★ Rule.
+- BBMan will walk straight forward until they hit a wall .
+- When a BBMan hits gold, he will pick up a chunk of the gold, but only if he isn't already carrying some gold.
+- If a BBMan carrying gold enters either starting platform, he will drop the gold there. You got a gold.
+- When a BBMan hit a wall,  he will turn around and jump over it only he is clamping up.
+- BBMan will sacrifice himself to make a circle tunnel when he touch the gas.
+- The enemys will kill you, even if you have a chance to escape.
+- Bosses will kill the BBMan too ,they are strong and powerfull, and they will destroy everything when getting bored.
+- A BBMan that enter the kill eara will die.
+- A BBMan that falls in the magma will die.
+- If all BBMan die, you lose.
+- If any Ka die, you lose.
+
+★ Features.
+- Sweet pixely arts!
+- Cool scenes!
+- Smooth tilt controls!
+- Easy to learn but hard to game master!
+- Google+ leaderboards to racing with your friends!
+- Many challenging levels to make the game more addictive!
+
+Who am I, why I still exist. The vague memory that accidentally triggered,still makes me feel dejected.
+Dawn comes, began to repeat the exhaustion of a day. Then I was busy, and also forgot to think about these things.This is my world, this is not my world. For I am with you, and no one is going to attack and harm you.  Come to me, all you who are weary and burdened, and I will give you rest. With my robes float in the sky,i lost myself again...
+
+The game really needs smart brains and high performance devices.
+
+
+Get it while it's free!  Enjoy and challenge yourself in this game.
+
+
+
+http://youtu.be/r7uXBz3V80Y
+
+
+
+
+
+
+
+
+##########Done暂停时时间停止
+##########向导要更加详细，详细//加入了线指引
+##########Done工具栏要按照进行的顺序显示
+##########Done接入google平台
+##########Done--名称改为fool dig
+##########Done别忘了各个平台不同尺寸的图标
+##########Done各种宣传图片(至少5张)
+##########Donegoogle play service的gdx端接入
+###飞艇
+###树根
+####货币系统,去掉
+过场动画
+###主游戏音乐:pass,level2
+####版权信息修改
+各种成就
+#########梯子算法
+#########两个工具
+#########Done捉到卡就游戏结束的bug
+########Done暂停页面的冗余信息
+#########Done排行榜图标
+########Done带着ka挖金子的bug
+########Done金子满了动画//需要验证
+########Done滚动条跟随手势滚动//需要验证
+########Donewater的点击//需要验证//验证通过
+########Done失败页面的重新开始按钮//需要验证
+########Done岩浆的同步
+##########初始工具条
+######地形生成算法(矩形块）
+#######广告.完成
+
+save me,i cannot give up!
+why!why!
+Help me,i must try again!
+i can still fight. please give me a chance!
+hatefull!
+
+
+offline文档
+html帮助文档撰写
+游戏介绍撰写
+游戏玩法撰写
+游戏故事情节
+分享信息撰写
+
+
+U250 Studios
+
+Game Features:
+我是谁，我为什么会存在。偶然间触发出模糊的记忆，依然使我黯然神伤。
+晨曦来临，又开始重复一天的疲惫。然后我就忙碌起来，也就忘记了去想这些东西。这是属于我的世界，这不是属于我的世界。我只想机械的活下去。我就是愚蠢的挖掘者，只为了那永不停息的重复来磨平记忆的伤痛，为了微不足道的目标来维持未知的等待...
+

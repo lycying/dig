@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="preferExternal"
     package="info.u250.digs"
-    android:versionCode="2"
-    android:versionName="1.1" >
+    android:versionCode="3"
+    android:versionName="1.1.1" >
 	<supports-screens
 	        android:anyDensity="true"
 	        android:largeScreens="true"
