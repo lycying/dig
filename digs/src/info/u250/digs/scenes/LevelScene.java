@@ -146,7 +146,7 @@ public class LevelScene extends SceneStage {
 						speed.y = SPEED ;
 					}
 					
-					this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
+					this.moveBy(direction.x*speed.x*delta,direction.y*speed.y*delta);
 				}
 			};
 			p.setPosition(100, 370);

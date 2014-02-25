@@ -1,6 +1,5 @@
 package info.u250.digs.scenes.about;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
 import info.u250.c2d.engine.Engine;
 
 import com.badlogic.gdx.graphics.Color;
@@ -46,7 +45,7 @@ public class StepInfo extends Group {
 			this.setOrigin(this.getWidth() / 2, this.getHeight()/2);
 			this.setScale(0);
 			this.addAction(Actions.sequence(Actions.scaleTo(1, 1,1f,Interpolation.swingOut),Actions.forever(
-					Actions.sequence(moveBy(0, 60, 0.5f, Interpolation.pow2Out),moveBy(0, -60, 0.5f, Interpolation.pow2In))
+					Actions.sequence(Actions.moveBy(0, 60, 0.5f, Interpolation.pow2Out),Actions.moveBy(0, -60, 0.5f, Interpolation.pow2In))
 			)));
 			this.addActor(battleLabel);
 			}break;

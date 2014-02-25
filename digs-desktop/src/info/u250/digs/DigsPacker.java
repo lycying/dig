@@ -1,6 +1,7 @@
 package info.u250.digs;
 
-import com.badlogic.gdx.tools.imagepacker.TexturePacker2;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+
 
 public class DigsPacker {
 
@@ -8,13 +9,13 @@ public class DigsPacker {
 		String input = "raw/";
 		String output = "assets/data/";
 		
-		TexturePacker2.Settings setting = new TexturePacker2.Settings();
+		TexturePacker.Settings setting = new TexturePacker.Settings();
 		setting.debug = false;
 		setting.stripWhitespaceX = false;
 		setting.stripWhitespaceY = false;
 		setting.maxWidth = 2048;
 		setting.maxHeight= 1024;
-		TexturePacker2.process(setting,input, output, "all");
+		TexturePacker.process(setting,input, output, "all");
 		
 	}
 

@@ -177,7 +177,7 @@ class EnemyBombo extends Image {
 			return;
 		}
 		target_direction.set(target.getX()+target.drawable.getWidth()/2,target.getY()+target.drawable.getHeight()/2).sub(this.getX(),this.getY()).nor();
-		translate(delta*SPEED*target_direction.x, delta*SPEED*target_direction.y);
+		moveBy(delta*SPEED*target_direction.x, delta*SPEED*target_direction.y);
 		if(target.drawable.getBoundingRectangle().contains(getX(), getY())){
 			this.remove();
 			target.die();

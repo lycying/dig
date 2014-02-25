@@ -63,6 +63,6 @@ public class Finger extends Image{
 		}else{
 			start.level.fillTerrain(getX()+16,getY()-BASE_LINE+50, Level.RADIUS,FingerMode.Clear);
 		}
-		this.translate(direction.x*speed.x*delta,direction.y*speed.y*delta);
+		this.moveBy(direction.x*speed.x*delta,direction.y*speed.y*delta);
 	}
 }
