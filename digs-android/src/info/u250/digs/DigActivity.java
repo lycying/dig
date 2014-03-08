@@ -97,7 +97,6 @@ public class DigActivity extends AndroidApplication implements GooglePlayService
 			}
 		};
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		config.useGL20 = true;
 //		config.resolutionStrategy = new FixedResolutionStrategy((int)Engine.getWidth(), (int)Engine.getHeight());
 		config.resolutionStrategy = new RatioResolutionStrategy(Engine.getWidth(), Engine.getHeight());
 		gameView = initializeForView(game, config);

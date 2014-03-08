@@ -64,25 +64,23 @@ public class S2Lvl__09 extends LineLevelConfig {
 					level.addBoss(boss);
 				}
 				{
-					HintOnScreen hint = new HintOnScreen("Who am I, why I still exist. The vague memory that accidentally triggered,still makes me feel dejected.\r\n" + 
-							"Dawn comes, began to repeat the exhaustion of a day. Then I was busy, and also forgot to think about these things.This is my world, this is not my world. For I am with you, and no one is going to attack and harm you.  Come to me, all you who are weary and burdened, and I will give you rest. With my robes float in the sky,i lost myself again...\r\n" + 
-							"", "hint1", Color.WHITE, 400);
+					HintOnScreen hint = new HintOnScreen( Engine.getLanguagesManager().getString("java.s2_09.hint1"), "hint1", Color.WHITE, 400);
 					hint.pack();
 					hint.setPosition(200, 1400);
 					level.addActor(hint);
 				}
 				{
-					HintOnScreen hint = new HintOnScreen("The enemy looks very fierce", "hint1", Color.WHITE, 300);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.s2_09.hint2"), "hint1", Color.WHITE, 300);
 					hint.setPosition(200, 1100);
 					level.addActor(hint);
 				}
 				{
-					HintOnScreen hint = new HintOnScreen("Friend always stayed with you", "hint1", Color.WHITE, 300);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.s2_09.hint3"), "hint1", Color.WHITE, 300);
 					hint.setPosition(200, 800);
 					level.addActor(hint);
 				}
 				{
-					HintOnScreen hint = new HintOnScreen("More Levels Comming Soon .........Thank You!!!", "dialog-bg", Color.RED, 300);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.s2_09.hint4"), "dialog-bg", Color.RED, 300);
 					hint.setPosition(200, 500);
 					level.addActor(hint);
 				}

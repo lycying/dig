@@ -38,7 +38,7 @@ public class Tour4 extends HookLevelConfig {
 			@Override
 			public void after(Level level) {
 				{
-					HintOnScreen hint = new HintOnScreen("If you must wear your tech, try not to look like an idiot ,follow me.","hint3",Color.BLACK,250);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level4.hint"),"hint3",Color.BLACK,250);
 					hint.pack();
 					hint.setPosition(130, 150);
 					hint.setColor(new Color(1,1,1,0.6f));

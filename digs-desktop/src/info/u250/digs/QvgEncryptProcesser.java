@@ -66,6 +66,6 @@ public class QvgEncryptProcesser {
 				
 				System.exit(-1);
 			}
-		}, "Encry", 100, 100, false);
+		}, "Encry", 100, 100);
 	}
 }

@@ -50,7 +50,7 @@ public class Tour3 extends HookLevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("Death is not so terrible... sometimes... But wait!!","hint2",Color.WHITE,250);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level3.hint"),"hint2",Color.WHITE,250);
 					hint.pack();
 					hint.setPosition(350, 350);
 					level.addActor(hint);

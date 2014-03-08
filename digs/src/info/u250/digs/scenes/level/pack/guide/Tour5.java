@@ -88,7 +88,7 @@ public class Tour5 extends LineLevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("How to tell if your cat is plotting to kill you? Is it or is it?","hint2",Color.WHITE,250);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level5.hint"),"hint2",Color.WHITE,250);
 					hint.pack();
 					hint.setPosition(530, 350);
 					level.addActor(hint);

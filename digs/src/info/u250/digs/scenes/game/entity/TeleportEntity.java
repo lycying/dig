@@ -5,7 +5,7 @@ import info.u250.digs.Digs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -87,7 +87,7 @@ public class TeleportEntity extends Actor{
 	final Color color2 = new Color(0, 1, 0, 0.5f);
 	void renderPath(float delta){
 		index = 0;
-		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glLineWidth(5);
 		Engine.getShapeRenderer().begin(ShapeType.Line);
 		

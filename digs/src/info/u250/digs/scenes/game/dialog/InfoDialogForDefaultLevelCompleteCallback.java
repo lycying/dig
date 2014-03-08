@@ -46,15 +46,15 @@ public class InfoDialogForDefaultLevelCompleteCallback extends Group{
 		
 		lblLevelName = new Label("",new LabelStyle(bigFont, Color.BLACK));
 		lblGoldValue = new Label("",new LabelStyle(font, Color.valueOf("7fa400")));
-		lblVictory = new Label("Victory:",new LabelStyle(font, Color.BLACK));
-		lblGold = new Label("   Gold:",new LabelStyle(font, Color.valueOf("102c13")));
-		lblMeetKa = new Label("   Meet Ka:",new LabelStyle(font, Color.valueOf("082a67")));
+		lblVictory = new Label(Engine.getLanguagesManager().getString("java.victory"),new LabelStyle(font, Color.BLACK));
+		lblGold = new Label("   "+Engine.getLanguagesManager().getString("java.gold"),new LabelStyle(font, Color.valueOf("102c13")));
+		lblMeetKa = new Label("   "+Engine.getLanguagesManager().getString("java.meetka"),new LabelStyle(font, Color.valueOf("082a67")));
 		lblMeetKaValue = new Label("10",new LabelStyle(font, Color.valueOf("6e9039")));
-		lblDefeat = new Label("Defeat:",new LabelStyle(font, Color.BLACK));
-		lblDefeatKaDie = new Label("   Any ka die...",new LabelStyle(font, Color.valueOf("650051")));
-		lblDefeatNpcDie = new Label("   All of your npc die",new LabelStyle(font, Color.valueOf("650051")));
-		lblDefeatTimeUp = new Label("   Time up",new LabelStyle(font, Color.valueOf("650051")));
-		lblTimeCost = new Label("   Within Time:",new LabelStyle(font, Color.valueOf("102c13")));
+		lblDefeat = new Label(Engine.getLanguagesManager().getString("java.defeat"),new LabelStyle(font, Color.BLACK));
+		lblDefeatKaDie = new Label("   "+Engine.getLanguagesManager().getString("java.kadie"),new LabelStyle(font, Color.valueOf("650051")));
+		lblDefeatNpcDie = new Label("   "+Engine.getLanguagesManager().getString("java.alldie"),new LabelStyle(font, Color.valueOf("650051")));
+		lblDefeatTimeUp = new Label("   "+Engine.getLanguagesManager().getString("java.timeup"),new LabelStyle(font, Color.valueOf("650051")));
+		lblTimeCost = new Label("   "+Engine.getLanguagesManager().getString("java.intime"),new LabelStyle(font, Color.valueOf("102c13")));
 		lblTimeCostValue = new Label("",new LabelStyle(font, Color.valueOf("7fa400")));
 		
 		deco1 = new Image(atlas.findRegion("fire-bottom"));

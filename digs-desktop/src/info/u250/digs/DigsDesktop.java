@@ -15,7 +15,7 @@ public class DigsDesktop {
 		config.height = (int)Engine.getHeight();
 //		config.width = 10;
 //		config.height =10;
-		config.useGL20 = true;
+		config.useGL30 = false;
 		
 		
 		new LwjglApplication(game,config);

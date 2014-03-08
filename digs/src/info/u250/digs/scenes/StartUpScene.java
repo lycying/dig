@@ -34,7 +34,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -73,7 +73,7 @@ public class StartUpScene extends SceneStage{
 		
 		meshBackground = new SimpleMeshBackground(new Color(1, 1, 1, 1f),WebColors.CADET_BLUE.get());
 		final SurfaceData data2 = new SurfaceData();
-		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data2.primitiveType = GL20.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";
 		data2.points = new Array<Vector2>(){{
 			add(new Vector2(-27.005554f,660f));
@@ -111,7 +111,7 @@ public class StartUpScene extends SceneStage{
 		surface2  = new TriangleSurfaces(data2);
 		
 		final SurfaceData data3 = new SurfaceData();
-		data3.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data3.primitiveType = GL20.GL_TRIANGLE_STRIP;
 		data3.texture="Texture2";
 		data3.points = new Array<Vector2>(){{
 			add(new Vector2(-27.005554f,-100));
@@ -381,7 +381,7 @@ public class StartUpScene extends SceneStage{
 		level = new Level(null,config);
 		terrainContainer.addActor(level);
 		
-		quitDialog = new CommonDialog(new String[]{"Are you sure you want to leave the game?"}, new Runnable() {
+		quitDialog = new CommonDialog(new String[]{Engine.getLanguagesManager().getString("java.quit")}, new Runnable() {
 			public void run() {
 				System.exit(0);
 			}

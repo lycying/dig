@@ -36,7 +36,7 @@ package com.esotericsoftware.spine;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
 
-import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -49,8 +49,8 @@ public class SkeletonRenderer {
 
 	public void draw (PolygonSpriteBatch batch, Skeleton skeleton) {
 		boolean premultipliedAlpha = this.premultipliedAlpha;
-		int srcFunc = premultipliedAlpha ? GL11.GL_ONE : GL11.GL_SRC_ALPHA;
-		batch.setBlendFunction(srcFunc, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		int srcFunc = premultipliedAlpha ? GL20.GL_ONE : GL20.GL_SRC_ALPHA;
+		batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		boolean additive = false;
 
@@ -73,9 +73,9 @@ public class SkeletonRenderer {
 			if (slot.data.getAdditiveBlending() != additive) {
 				additive = !additive;
 				if (additive)
-					batch.setBlendFunction(srcFunc, GL11.GL_ONE);
+					batch.setBlendFunction(srcFunc, GL20.GL_ONE);
 				else
-					batch.setBlendFunction(srcFunc, GL11.GL_ONE_MINUS_SRC_ALPHA);
+					batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			}
 
 			batch.draw(texture, vertices, 0, vertices.length, triangles, 0, triangles.length);
@@ -84,8 +84,8 @@ public class SkeletonRenderer {
 
 	public void draw (SpriteBatch batch, Skeleton skeleton) {
 		boolean premultipliedAlpha = this.premultipliedAlpha;
-		int srcFunc = premultipliedAlpha ? GL11.GL_ONE : GL11.GL_SRC_ALPHA;
-		batch.setBlendFunction(srcFunc, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		int srcFunc = premultipliedAlpha ? GL20.GL_ONE : GL20.GL_SRC_ALPHA;
+		batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
 		boolean additive = false;
 
@@ -100,9 +100,9 @@ public class SkeletonRenderer {
 				if (slot.data.getAdditiveBlending() != additive) {
 					additive = !additive;
 					if (additive)
-						batch.setBlendFunction(srcFunc, GL11.GL_ONE);
+						batch.setBlendFunction(srcFunc, GL20.GL_ONE);
 					else
-						batch.setBlendFunction(srcFunc, GL11.GL_ONE_MINUS_SRC_ALPHA);
+						batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 				}
 				batch.draw(regionAttachment.getRegion().getTexture(), vertices, 0, 20);
 			}

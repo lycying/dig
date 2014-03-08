@@ -58,49 +58,9 @@ import com.esotericsoftware.tablelayout.BaseTableLayout;
 
 public class LevelIdx {
 	public static final String[][] Level_String = {
-		new String[]{
-		"The First Gold",						
-		"Walking In The Cloud",					
-		"First Blood",							
-		"As Time Goes By",						
-		"Embrace The Death",					
-		"Got No Place To Go",										
-		"Meet A Friend",						
-		"Enemy Rise",		
-		"Deeper And Deeper",
-		},
-		new String[]{
-		"Forest Border",
-		"From Natural Step Closer",
-		"Ocean Scales",
-		"Temple Outskirts",
-		"Mirage Swamp",
-		"The Light Of Memory",
-		"Curse of the Time",
-		"Stone City Cry",
-		"The Original Memory",
-		"The Sunset,Magic Land",
-		"Jungle Depths",
-		"Do Not Tease Me",
-		"Door of Darkness",
-		"Abyssal Maze",
-		"Save Me",
-		"More Gold,More Dangerous",
-		"Canopy Of Stars",
-		"Canopy Of Tears",
-		"Find My Way Home",
-		},
-		new String[]{
-		"God So Loved The World",
-		"City of Titans",
-		"I Can Fly",
-		"Ugly Basin",
-		"Tears In Heaven",
-		"Gold World",
-		"Hell Chasm",
-		"Be Quick",
-		"Nothing Here",
-		},
+		new String[9],
+		new String[19],
+		new String[9],
 	};
 	public static String getLevelName(int pack,int level){
 		return Level_String[pack][level];
@@ -297,17 +257,7 @@ public class LevelIdx {
 				table.row();
 			}
 		}
-		HintOnScreen hint = new HintOnScreen("* BBMan will walk straight forward until they hit a wall .\r\n" + 
-				"* When a BBMan hits gold, he will pick up a chunk of the gold, but only if he isn't already carrying some gold.\r\n" + 
-				"* If a BBMan carrying gold enters either starting platform, he will drop the gold there. You got a gold.\r\n" + 
-				"* When a BBMan hit a wall,  he will turn around and jump over it only he is clamping up.\r\n" + 
-				"* BBMan will sacrifice himself to make a circle tunnel when he touch the gas.\r\n" + 
-				"* The enemys will kill you, even if you have a chance to escape.\r\n" + 
-				"* Bosses will kill the BBMan too ,they are strong and powerfull, and they will destroy everything when getting bored.\r\n" + 
-				"* A BBMan that enter the kill eara will die.\r\n" + 
-				"* A BBMan that falls in the magma will die.\r\n" + 
-				"* If all BBMan die, you lose.\r\n" + 
-				"* If any Ka die, you lose.", "level-item-bg-3", Color.WHITE, 650);
+		HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.longhelp"), "level-item-bg-3", Color.WHITE, 650);
 		table.add(hint).row();
 		{
 			Table tb = new Table();

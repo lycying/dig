@@ -37,7 +37,7 @@ public class Tour9 extends LineLevelConfig {
 			@Override
 			public void after(Level level) {
 				{
-					HintOnScreen hint = new HintOnScreen("OK , you find me","hint5",Color.BLACK,150);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level9.hint"),"hint5",Color.BLACK,150);
 					hint.pack();
 					hint.setColor(new Color(1,1,1,0.8f));
 					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(10, 0,0.2f),Actions.moveBy(-10, 0,0.2f))));

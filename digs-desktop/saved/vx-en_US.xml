@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+    <lang name="java.longhelp">* BBMan will walk straight forward until they hit a wall .
+				* When a BBMan hits gold, he will pick up a chunk of the gold, but only if he isn't already carrying some gold.
+				* If a BBMan carrying gold enters either starting platform, he will drop the gold there. You got a gold.
+				* When a BBMan hit a wall,  he will turn around and jump over it only he is clamping up.
+				* BBMan will sacrifice himself to make a circle tunnel when he touch the gas.
+				* The enemys will kill you, even if you have a chance to escape.
+				* Bosses will kill the BBMan too ,they are strong and powerfull, and they will destroy everything when getting bored.
+				* A BBMan that enter the kill eara will die.
+				* A BBMan that falls in the magma will die. 
+				* If all BBMan die, you lose.
+				* If any Ka die, you lose.</lang>
+	<lang name="java.play">play</lang>
+	<lang name="java.die">BBMan:</lang>
+	<lang name="java.victory">Victory:</lang>
+	<lang name="java.gold">Gold:</lang>
+	<lang name="java.meetka">Meet Ka:</lang>
+	<lang name="java.defeat">Defeat:</lang>
+	<lang name="java.kadie">Any ka die...</lang>
+	<lang name="java.alldie">All of your npc die</lang>
+	<lang name="java.timeup">Time up</lang>
+	<lang name="java.intime">Within Time:</lang>
+	<lang name="java.continues">Touch screen to continue</lang>
+	
+    <lang name="java.level_prefix">Level </lang>
+    <lang name="java.rate">Like it? If so, please rate 5 stars so we can keep the free updates coming . Thank you.</lang>
+    <lang name="java.rate.url">https://play.google.com/store/apps/details?id=info.u250.digs</lang>
+    <lang name="java.quit">Are you sure you want to leave the game?</lang>
+    <lang name="java.nomorelevel">No more levels, waiting...</lang>
+    <lang name="java.ok">OK...</lang>
+    <lang name="java.level7.hint">seem to have met before</lang>
+    <lang name="java.level2.hint">By using this tool(left top),make road ! Not too high...</lang>
+    <lang name="java.level2.hint1">this is gold </lang>
+    <lang name="java.level2.hint2">this tool used to fill</lang>
+    <lang name="java.level2.hint3">Fill using with your finger</lang>
+    <lang name="java.level2.hint4">Alright, let's try it out.</lang>
+    <lang name="java.level5.hint">How to tell if your cat is plotting to kill you? Is it or is it?</lang>
+    <lang name="java.level9.hint">OK , you find me</lang>
+    <lang name="java.level8.hint">never try to kill a enemy , you cann't</lang>
+    <lang name="java.level4.hint">If you must wear your tech, try not to look like an idiot ,follow me.</lang>
+    <lang name="java.level1.hint1">Bring the gold home!</lang>
+    <lang name="java.level1.hint2">Welcome to \"Fool Dig\", \nI will guide you through some basic operation.</lang>
+    <lang name="java.level1.hint3">This is gold</lang>
+    <lang name="java.level1.hint4">You need bring the gold  home</lang>
+    <lang name="java.level1.hint5">I'll do the work</lang>
+    <lang name="java.level1.hint6">This tool used to dig</lang>
+    <lang name="java.level1.hint7">Dig using with your finger</lang>
+    <lang name="java.level1.hint8">Alright, let's try it out.</lang>
+    <lang name="java.level1.hint9">They will walk straight forward until they hit a wall or get bored.</lang>
+    <lang name="java.level1.hint10">Home!</lang>
+    <lang name="java.level3.hint">Death is not so terrible... sometimes... But wait!!</lang>
+    <lang name="java.s2_09.hint1">Who am I, why I still exist. The vague memory that accidentally triggered,still makes me feel dejected.\nDawn comes, began to repeat the exhaustion of a day. Then I was busy, and also forgot to think about these things.This is my world, this is not my world. For I am with you, and no one is going to attack and harm you.  Come to me, all you who are weary and burdened, and I will give you rest. With my robes float in the sky,i lost myself again...\n</lang>
+    <lang name="java.s2_09.hint2">The enemy looks very fierce</lang>
+    <lang name="java.s2_09.hint3">Friend always stayed with you</lang>
+    <lang name="java.s2_09.hint4">More Levels Comming Soon .........Thank You!!!</lang>
+
+
+	<lang name="lvl.name.0.0">The First Gold</lang>
+	<lang name="lvl.name.0.1">Walking In The Cloud</lang>
+	<lang name="lvl.name.0.2">First Blood</lang>
+	<lang name="lvl.name.0.3">As Time Goes By</lang>
+	<lang name="lvl.name.0.4">Embrace The Death</lang>
+	<lang name="lvl.name.0.5">Got No Place To Go</lang>
+	<lang name="lvl.name.0.6">Meet A Friend</lang>
+	<lang name="lvl.name.0.7">Enemy Rise</lang>
+	<lang name="lvl.name.0.8">Deeper And Deeper</lang>
+
+	<lang name="lvl.name.1.0">Forest Border</lang>
+	<lang name="lvl.name.1.1">From Natural Step Closer</lang>
+	<lang name="lvl.name.1.2">Ocean Scales</lang>
+	<lang name="lvl.name.1.3">Temple Outskirts</lang>
+	<lang name="lvl.name.1.4">Mirage Swamp</lang>
+	<lang name="lvl.name.1.5">The Light Of Memory</lang>
+	<lang name="lvl.name.1.6">Curse of the Time</lang>
+	<lang name="lvl.name.1.7">Stone City Cry</lang>
+	<lang name="lvl.name.1.8">The Original Memory</lang>
+	<lang name="lvl.name.1.9">The Sunseta "gic Land"</lang>
+	<lang name="lvl.name.1.10">Jungle Depths</lang>
+	<lang name="lvl.name.1.11">Do Not Tease Me</lang>
+	<lang name="lvl.name.1.12">Door of Darkness</lang>
+	<lang name="lvl.name.1.13">Abyssal Maze</lang>
+	<lang name="lvl.name.1.14">Save Me</lang>
+	<lang name="lvl.name.1.15">More Goldo "re Dangerous"</lang>
+	<lang name="lvl.name.1.16">Canopy Of Stars</lang>
+	<lang name="lvl.name.1.17">Canopy Of Tears</lang>
+	<lang name="lvl.name.1.18">Find My Way Home</lang>
+
+	<lang name="lvl.name.2.0">God So Loved The World</lang>
+	<lang name="lvl.name.2.1">City of Titans</lang>
+	<lang name="lvl.name.2.2">I Can Fly</lang>
+	<lang name="lvl.name.2.3">Ugly Basin</lang>
+	<lang name="lvl.name.2.4">Tears In Heaven</lang>
+	<lang name="lvl.name.2.5">Gold World</lang>
+	<lang name="lvl.name.2.6">Hell Chasm</lang>
+	<lang name="lvl.name.2.7">Be Quick</lang>
+	<lang name="lvl.name.2.8">Nothing Here</lang>
+</languages>

@@ -87,14 +87,14 @@ public class Tour1 extends LineLevelConfig {
 			@Override
 			public void after(final Level level) {
 				{
-					HintOnScreen hint = new HintOnScreen("Bring the gold home!","hint3",Color.BLACK,100);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level1.hint1"),"hint3",Color.BLACK,100);
 					hint.pack();
 					hint.setPosition(475, 135);
 					hint.setColor(new Color(1,1,1,0.8f));
 					level.addActor(hint);
 					}
 				
-				lblText.setText("Welcome to \"Fool Dig\", \nI will guide you through some basic operation.");
+				lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint2"));
 				lblText.setPosition(200, 330);
 				level.getGame().addActor(lblText);
 				final InnerMask mask = new InnerMask(width, height);
@@ -109,7 +109,7 @@ public class Tour1 extends LineLevelConfig {
 							finger.setPosition(500, 180);
 							upAndDown();
 							lblText.setPosition(450, 120);
-							lblText.setText("This is gold");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint3"));
 							level.getGame().addActor(lblText);
 						}else if(type == TYPE_INF_DOCK){
 							mask.setRect(new Rectangle(0,300,100,20));
@@ -118,14 +118,14 @@ public class Tour1 extends LineLevelConfig {
 							finger.setPosition(40, 250);
 							upAndDown();
 							lblText.setPosition(160, 280);
-							lblText.setText("You need bring the gold  home");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint4"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_NPC){
 							level.getGame().reallyStartLevel();
 							type = TYPE_INF_BUTTON;
 							finger.remove();
 							lblText.setPosition(100, 150);
-							lblText.setText("I'll do the work");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint5"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_BUTTON){
 							mask.setRect(new Rectangle(80,460,80,80));
@@ -134,7 +134,7 @@ public class Tour1 extends LineLevelConfig {
 							finger.setPosition(120, 400);
 							upAndDown();
 							lblText.setPosition(200, 460);
-							lblText.setText("This tool used to dig");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint6"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_PATH){
 							mask.setRect(new Rectangle(80,230,500,150));
@@ -144,7 +144,7 @@ public class Tour1 extends LineLevelConfig {
 							level.getGame().addActor(finger);
 							drawLine();
 							lblText.setPosition(150, 180);
-							lblText.setText("Dig using with your finger");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint7"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_DONE){
 							mask.remove();
@@ -152,7 +152,7 @@ public class Tour1 extends LineLevelConfig {
 							line.remove();
 							type = TYPE_INF_YOURTURN;
 							lblText.setPosition(100, 120);
-							lblText.setText("Alright, let's try it out.");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level1.hint8"));
 							level.getGame().addActor(lblText);
 							lblText.getStyle().fontColor = Color.BLUE;
 						}
@@ -203,20 +203,20 @@ public class Tour1 extends LineLevelConfig {
 				level.addActor(p);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("They will walk straight forward until they hit a wall or get bored.","hint1",Color.WHITE,300);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level1.hint9"),"hint1",Color.WHITE,300);
 					hint.pack();
 					hint.setPosition(450, 450);
 					level.addActor(hint);
 					}
 				{
-					HintOnScreen hint = new HintOnScreen("Home!","hint4",Color.BLACK,60);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level1.hint10"),"hint4",Color.BLACK,60);
 					hint.pack();
 					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(10, 0,0.2f),Actions.moveBy(-10, 0,0.2f))));
 					hint.setPosition(90, 320);
 					level.addActor(hint);
 					}
 				{
-					HintOnScreen hint = new HintOnScreen("Home!","hint5",Color.BLACK,60);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level1.hint10"),"hint5",Color.BLACK,60);
 					hint.pack();
 					hint.addAction(Actions.forever(Actions.sequence(Actions.moveBy(-10, 0,0.2f),Actions.moveBy(10, 0,0.2f))));
 					hint.setPosition(800, 320);

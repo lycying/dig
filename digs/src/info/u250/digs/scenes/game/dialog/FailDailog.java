@@ -33,7 +33,7 @@ public class FailDailog extends Group {
 		table.pack();
 		table.setPosition(200,Engine.getHeight()/2-table.getHeight()/2);
 		this.addActor(table);
-		Label lbl = new Label("Touch screen to continue", new Label.LabelStyle(font,Color.WHITE));
+		Label lbl = new Label(Engine.getLanguagesManager().getString("java.continues"), new Label.LabelStyle(font,Color.WHITE));
 		lbl.setPosition(460, 220);
 		this.addActor(lbl);
 		

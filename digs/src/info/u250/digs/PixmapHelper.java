@@ -2,7 +2,7 @@ package info.u250.digs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -221,7 +221,7 @@ public class PixmapHelper implements Disposable {
 		if (lastModification == 0)
 			return;
 
-		Gdx.gl.glBindTexture(GL10.GL_TEXTURE_2D,
+		Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D,
 				texture.getTextureObjectHandle());
 
 		int width = pixmap.getWidth();
@@ -254,7 +254,7 @@ public class PixmapHelper implements Disposable {
 
 			renderPixmap.drawPixmap(pixmap, 0, 0, x, y, dstWidth, dstHeight);
 
-			Gdx.gl.glTexSubImage2D(GL10.GL_TEXTURE_2D, 0, x, y,
+			Gdx.gl.glTexSubImage2D(GL20.GL_TEXTURE_2D, 0, x, y,
 					dstWidth,
 					dstHeight, //
 					renderPixmap.getGLFormat(), renderPixmap.getGLType(),

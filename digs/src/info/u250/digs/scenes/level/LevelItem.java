@@ -75,7 +75,7 @@ public class LevelItem extends  Group{
 				new NinePatchDrawable(patchBg), null, null, bigFont);
 		style.fontColor = Color.WHITE;
 		style.downFontColor = Color.RED;
-		menu_play = new TextButton("Play",style);
+		menu_play = new TextButton(Engine.getLanguagesManager().getString("java.play"),style);
 		menu_play.pack();
 		menu_play.setHeight(80);
 		

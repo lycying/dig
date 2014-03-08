@@ -42,7 +42,7 @@ public class CommonDialog extends Group{
 				new NinePatchDrawable(atlas.createPatch("dialog-bg")), null, font);
 		style.fontColor = Color.BLACK;
 		style.downFontColor = Color.RED;
-		final TextButton view = new TextButton("Ok...",style);
+		final TextButton view = new TextButton(Engine.getLanguagesManager().getString("java.ok"),style);
 		view.pack();
 		view.padTop(20);
 		view.padBottom(20);
@@ -91,7 +91,7 @@ public class CommonDialog extends Group{
 				new NinePatchDrawable(atlas.createPatch("dialog-bg")), null, font);
 		style.fontColor = Color.BLACK;
 		style.downFontColor = Color.RED;
-		final TextButton ok = new TextButton("Ok...",style);
+		final TextButton ok = new TextButton(Engine.getLanguagesManager().getString("java.ok"),style);
 		ok.pack();
 		ok.padTop(20);
 		ok.padBottom(20);

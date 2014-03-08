@@ -105,7 +105,7 @@ public class GameScene extends SceneStage {
 			startLevel(++this.packIndex,0);
 			IO.savePackScroll(packIndex);
 		}else if(packIndex==2 && levelIndex==LevelIdx.Level_String[2].length-1){//no more level
-			CommonDialog dlg = new CommonDialog("No more levels, waiting...");
+			CommonDialog dlg = new CommonDialog(Engine.getLanguagesManager().getString("java.nomorelevel"));
 			this.addActor(dlg);
 		}else{
 			startLevel(this.packIndex,this.levelIndex+1);

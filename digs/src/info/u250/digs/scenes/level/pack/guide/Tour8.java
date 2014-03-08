@@ -77,7 +77,7 @@ public class Tour8 extends LineLevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("never try to kill a enemy , you cann't","hint2",Color.WHITE,120);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level8.hint"),"hint2",Color.WHITE,120);
 					hint.pack();
 					hint.setPosition(400, 60);
 					level.addActor(hint);

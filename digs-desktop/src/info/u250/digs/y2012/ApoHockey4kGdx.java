@@ -39,7 +39,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -125,7 +125,7 @@ public class ApoHockey4kGdx  implements Scene{
 		paddleVec[5] = 3;
 	}
 	public void render(float delta) {
-		Gdx.gl.glEnable(GL10.GL_BLEND);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Engine.getShapeRenderer().setProjectionMatrix(Engine.getDefaultCamera().combined);
 		
 			think += delta;

@@ -69,7 +69,7 @@ public class Tour7 extends LineLevelConfig {
 				level.addGoldDock(dock);
 				
 				{
-					HintOnScreen hint = new HintOnScreen("seem to have met before","hint2",Color.WHITE,200);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level7.hint"),"hint2",Color.WHITE,200);
 					hint.pack();
 					hint.setPosition(400, 70);
 					level.addActor(hint);

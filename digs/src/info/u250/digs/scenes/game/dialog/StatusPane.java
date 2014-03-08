@@ -84,7 +84,7 @@ public class StatusPane extends Table{
 	public void show(Level level){
 		this.clear();
 		
-		this.lblTitle.setText("Level "+(level.config.idx+1)+": "+level.config.idxName);
+		this.lblTitle.setText(Engine.getLanguagesManager().getString("java.level_prefix")+(level.config.idx+1)+": "+level.config.idxName);
 		this.lblKa.setText(level.getKas().size+"");
 		this.lblNpc.setText(level.getNpcs().size+"");
 		this.lblTime.setText("00:00");

@@ -76,7 +76,7 @@ public class Tour2 extends LineLevelConfig {
 			@Override
 			public void after(final Level level) {
 				{
-					HintOnScreen hint = new HintOnScreen("By using this tool(left top),make road ! Not too high...","level-item-bg-5",Color.BLACK,300);
+					HintOnScreen hint = new HintOnScreen(Engine.getLanguagesManager().getString("java.level2.hint"),"level-item-bg-5",Color.BLACK,300);
 					Image image = new Image(Engine.resource("All",TextureAtlas.class).findRegion("btn-fill-1"));
 					image.setSize(100, 100);
 					hint.add(image);
@@ -98,7 +98,7 @@ public class Tour2 extends LineLevelConfig {
 							upAndDown();
 							type = TYPE_INF_BUTTON;
 							lblText.setPosition(600, 290);
-							lblText.setText("This is gold");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level2.hint1"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_BUTTON){
 							mask.setRect(new Rectangle(80,460,80,80));
@@ -107,7 +107,7 @@ public class Tour2 extends LineLevelConfig {
 							finger.setPosition(100, 400);
 							upAndDown();
 							lblText.setPosition(280, 460);
-							lblText.setText("This tool used to fill");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level2.hint2"));
 							level.getGame().addActor(lblText);
 							level.getGame().setFingerMode(FingerMode.Fill);//note we switch the button function here.
 						}else if(type==TYPE_INF_PATH){
@@ -118,7 +118,7 @@ public class Tour2 extends LineLevelConfig {
 							level.getGame().addActor(finger);
 							drawLine();
 							lblText.setPosition(220, 160);
-							lblText.setText("Fill using with your finger");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level2.hint3"));
 							level.getGame().addActor(lblText);
 						}else if(type==TYPE_INF_DONE){
 							mask.remove();
@@ -126,7 +126,7 @@ public class Tour2 extends LineLevelConfig {
 							line.remove();
 							type = TYPE_INF_YOURTURN;
 							lblText.setPosition(100, 120);
-							lblText.setText("Alright, let's try it out.");
+							lblText.setText(Engine.getLanguagesManager().getString("java.level2.hint4"));
 							level.getGame().addActor(lblText);
 							lblText.getStyle().fontColor = Color.BLUE;
 						}

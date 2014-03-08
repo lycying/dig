@@ -8,6 +8,7 @@ import info.u250.digs.scenes.AboutScene;
 import info.u250.digs.scenes.GameScene;
 import info.u250.digs.scenes.LevelScene;
 import info.u250.digs.scenes.StartUpScene;
+import info.u250.digs.scenes.level.LevelIdx;
 
 public class DigsEngineDrive implements EngineDrive {
 
@@ -37,6 +38,52 @@ public class DigsEngineDrive implements EngineDrive {
 	
 	@Override
 	public void onLoadedResourcesCompleted() {
+		Engine.getLanguagesManager().setLang("zh_CN");
+		Engine.getLanguagesManager().load("vx");
+
+		
+		LevelIdx.Level_String[0][0]=Engine.getLanguagesManager().getString("lvl.name.0.0");
+		LevelIdx.Level_String[0][1]=Engine.getLanguagesManager().getString("lvl.name.0.1");
+		LevelIdx.Level_String[0][2]=Engine.getLanguagesManager().getString("lvl.name.0.2");
+		LevelIdx.Level_String[0][3]=Engine.getLanguagesManager().getString("lvl.name.0.3");
+		LevelIdx.Level_String[0][4]=Engine.getLanguagesManager().getString("lvl.name.0.4");
+		LevelIdx.Level_String[0][5]=Engine.getLanguagesManager().getString("lvl.name.0.5");
+		LevelIdx.Level_String[0][6]=Engine.getLanguagesManager().getString("lvl.name.0.6");
+		LevelIdx.Level_String[0][7]=Engine.getLanguagesManager().getString("lvl.name.0.7");
+		LevelIdx.Level_String[0][8]=Engine.getLanguagesManager().getString("lvl.name.0.8");
+		
+		LevelIdx.Level_String[1][0]=Engine.getLanguagesManager().getString("lvl.name.1.0");
+		LevelIdx.Level_String[1][1]=Engine.getLanguagesManager().getString("lvl.name.1.1");
+		LevelIdx.Level_String[1][2]=Engine.getLanguagesManager().getString("lvl.name.1.2");
+		LevelIdx.Level_String[1][3]=Engine.getLanguagesManager().getString("lvl.name.1.3");
+		LevelIdx.Level_String[1][4]=Engine.getLanguagesManager().getString("lvl.name.1.4");
+		LevelIdx.Level_String[1][5]=Engine.getLanguagesManager().getString("lvl.name.1.5");
+		LevelIdx.Level_String[1][6]=Engine.getLanguagesManager().getString("lvl.name.1.6");
+		LevelIdx.Level_String[1][7]=Engine.getLanguagesManager().getString("lvl.name.1.7");
+		LevelIdx.Level_String[1][8]=Engine.getLanguagesManager().getString("lvl.name.1.8");
+		LevelIdx.Level_String[1][9]=Engine.getLanguagesManager().getString("lvl.name.1.9");
+		LevelIdx.Level_String[1][10]=Engine.getLanguagesManager().getString("lvl.name.1.10");
+		LevelIdx.Level_String[1][11]=Engine.getLanguagesManager().getString("lvl.name.1.11");
+		LevelIdx.Level_String[1][12]=Engine.getLanguagesManager().getString("lvl.name.1.12");
+		LevelIdx.Level_String[1][13]=Engine.getLanguagesManager().getString("lvl.name.1.13");
+		LevelIdx.Level_String[1][14]=Engine.getLanguagesManager().getString("lvl.name.1.14");
+		LevelIdx.Level_String[1][15]=Engine.getLanguagesManager().getString("lvl.name.1.15");
+		LevelIdx.Level_String[1][16]=Engine.getLanguagesManager().getString("lvl.name.1.16");
+		LevelIdx.Level_String[1][17]=Engine.getLanguagesManager().getString("lvl.name.1.17");
+		LevelIdx.Level_String[1][18]=Engine.getLanguagesManager().getString("lvl.name.1.18");
+
+		
+		LevelIdx.Level_String[2][0]=Engine.getLanguagesManager().getString("lvl.name.2.0");
+		LevelIdx.Level_String[2][1]=Engine.getLanguagesManager().getString("lvl.name.2.1");
+		LevelIdx.Level_String[2][2]=Engine.getLanguagesManager().getString("lvl.name.2.2");
+		LevelIdx.Level_String[2][3]=Engine.getLanguagesManager().getString("lvl.name.2.3");
+		LevelIdx.Level_String[2][4]=Engine.getLanguagesManager().getString("lvl.name.2.4");
+		LevelIdx.Level_String[2][5]=Engine.getLanguagesManager().getString("lvl.name.2.5");
+		LevelIdx.Level_String[2][6]=Engine.getLanguagesManager().getString("lvl.name.2.6");
+		LevelIdx.Level_String[2][7]=Engine.getLanguagesManager().getString("lvl.name.2.7");
+		LevelIdx.Level_String[2][8]=Engine.getLanguagesManager().getString("lvl.name.2.8");
+
+		
 		startUpScene = new StartUpScene(this);
 		gameScene = new GameScene(this);
 		levelScene = new LevelScene(this);

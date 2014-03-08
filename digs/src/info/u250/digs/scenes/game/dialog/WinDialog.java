@@ -80,13 +80,13 @@ public class WinDialog extends Group {
 		resultTable.setBackground(new NinePatchDrawable(nine));
 		resultTable.add(levelTableInfo).colspan(2).align(BaseTableLayout.CENTER);
 		resultTable.row();
-		resultTable.add(new Label("Gold:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(400);
+		resultTable.add(new Label(Engine.getLanguagesManager().getString("java.gold"), new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT).minWidth(400);
 		resultTable.add(lblCoin);
 		resultTable.row();
-		resultTable.add(new Label("BBMan:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
+		resultTable.add(new Label(Engine.getLanguagesManager().getString("java.die"), new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
 		resultTable.add(lblBBMan);
 		resultTable.row();
-		resultTable.add(new Label("Time:", new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
+		resultTable.add(new Label(Engine.getLanguagesManager().getString("java.intime"), new LabelStyle(font,Color.WHITE))).align(BaseTableLayout.LEFT);
 		resultTable.add(lblTime);
 		resultTable.pack();
 		resultTable.setPosition(Engine.getWidth()/2-resultTable.getWidth()/2, Engine.getHeight()-resultTable.getHeight());

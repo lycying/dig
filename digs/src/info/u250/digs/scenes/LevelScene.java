@@ -17,7 +17,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -38,7 +38,7 @@ public class LevelScene extends SceneStage {
 	public LevelScene(final DigsEngineDrive drive){
 		this.drive = drive;
 		final SurfaceData data2 = new SurfaceData();
-		data2.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data2.primitiveType = GL20.GL_TRIANGLE_STRIP;
 		data2.texture="Texture2";
 		data2.points = new Array<Vector2>(){{
 			add(new Vector2(-27.005554f,660f));
@@ -77,7 +77,7 @@ public class LevelScene extends SceneStage {
 		surface2  = new TriangleSurfaces(data2);
 		
 		final SurfaceData data3 = new SurfaceData();
-		data3.primitiveType = GL10.GL_TRIANGLE_STRIP;
+		data3.primitiveType = GL20.GL_TRIANGLE_STRIP;
 		data3.texture="Texture2";
 		data3.points = new Array<Vector2>(){{
 			add(new Vector2(-27.005554f,-100));

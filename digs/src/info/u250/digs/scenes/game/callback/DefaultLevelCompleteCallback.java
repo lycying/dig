@@ -82,10 +82,10 @@ public class DefaultLevelCompleteCallback extends LevelCompleteCallback {
 		
 		if(level.config.pack == 0 ){
 			if(level.config.idx == 4){//review
-				CommonDialog dlg = new CommonDialog(new String[]{"Like it? If so, please rate 5 stars so we can keep the free updates coming . Thank you."},new Runnable() {
+				CommonDialog dlg = new CommonDialog(new String[]{Engine.getLanguagesManager().getString("java.rate")},new Runnable() {
 					@Override
 					public void run() {
-						Digs.getGPSR().openUrl("https://play.google.com/store/apps/details?id=info.u250.digs");
+						Digs.getGPSR().openUrl(Engine.getLanguagesManager().getString("java.rate.url"));
 					}
 				});
 				level.getGame().addActor(dlg);
