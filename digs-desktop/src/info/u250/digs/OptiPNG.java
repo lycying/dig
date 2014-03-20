@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 public class OptiPNG {
 	public static void main(String[] args) throws Exception {
 		ExecutorService service = Executors.newFixedThreadPool(100);
-		service.submit(newJob("OptiPNG/optipng.exe  assets/data/all.png"));
-		service.submit(newJob("OptiPNG/optipng.exe  assets/data/fnt/*.png"));
-		service.submit(newJob("OptiPNG/optipng.exe  assets/qvg/*.png"));
-		service.submit(newJob("OptiPNG/optipng.exe  assets/wb/*.png"));
-		service.submit(newJob("OptiPNG/optipng.exe  assets/paint/*.png"));
+		service.submit(newJob("optipng  assets/data/all.png"));
+		service.submit(newJob("optipng  assets/data/fnt/*.png"));
+		service.submit(newJob("optipng  assets/qvg/*.png"));
+		service.submit(newJob("optipng  assets/wb/*.png"));
+		service.submit(newJob("optipng  assets/paint/*.png"));
 		service.shutdown();
 	}
 	
